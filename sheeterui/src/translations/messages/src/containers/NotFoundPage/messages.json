@@ -1,0 +1,18 @@
+[
+  {
+    "id": "app.containers.NotFoundPage.helmetNotFoundPageTitle",
+    "defaultMessage": "Sheeter - 404"
+  },
+  {
+    "id": "app.containers.NotFoundPage.notFoundPage",
+    "defaultMessage": "Page introuvable"
+  },
+  {
+    "id": "app.containers.NotFoundPage.sorryThisPageIsUnavailable",
+    "defaultMessage": "Nous sommes désolés, cette page est introuvable."
+  },
+  {
+    "id": "app.containers.NotFoundPage.sorrySubheader",
+    "defaultMessage": "Le lien cliqué est peut-être corrompu ou la page que vous avez tenté d'accéder n'est plus disponible"
+  }
+]

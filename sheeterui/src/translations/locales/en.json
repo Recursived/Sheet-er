@@ -1,0 +1,6 @@
+{
+  "app.containers.NotFoundPage.helmetNotFoundPageTitle": "Sheeter - 404",
+  "app.containers.NotFoundPage.notFoundPage": "Page introuvable",
+  "app.containers.NotFoundPage.sorrySubheader": "Le lien cliqué est peut-être corrompu ou la page que vous avez tenté d'accéder n'est plus disponible",
+  "app.containers.NotFoundPage.sorryThisPageIsUnavailable": "Nous sommes désolés, cette page est introuvable."
+}

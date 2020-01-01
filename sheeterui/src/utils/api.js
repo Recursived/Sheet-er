@@ -1,121 +1,35 @@
 // File that contains every path of api endpoint
-// const BASE_URL = 'http://127.0.0.0:8000';
-// const SHEET_PATH = '/sheet';
-// const SHEETTAG_PATH = '/sheettag';
-// const SHEETTYPE_PATH = '/sheettype';
+const BASE_URL = 'http://127.0.0.0:8000';
+const SHEET_PATH = '/sheet';
+const SHEETTAG_PATH = '/sheettag';
+const SHEETTYPE_PATH = '/sheettype';
+
+/*
+* Api endpoint that gathers every path of all the services
+*/
+export default class ApiEndpoint {
+  constructor() {
+    this.getBasePath = this.getBasePath.bind(this);
+    this.getSheetPath = this.getSheetPath.bind(this);
+    this.getSheetTagPath = this.getSheetPath.bind(this);
+    this.getSheetTypePath = this.getSheetPath.bind(this);
+  }
+
+  getBasePath() {
+    return `${BASE_URL}`;
+  }
+
+  getSheetPath() {
+    return `${BASE_URL}${SHEET_PATH}`;
+  }
+
+  getSheetTagPath() {
+    return `${BASE_URL}${SHEETAG_PATH}`;
+  }
+
+  getSheetTypePath() {
+    return `${BASE_URL}${SHEETTYPE_PATH}`;
+  }
 
 
-// export default class ApiEndpoint {
-//   constructor() {
-//     this.getBasePath = this.getBasePath.bind(this);
-//     this.getLoginPath = this.getLoginPath.bind(this);
-//     this.getRegisterPath = this.getRegisterPath.bind(this);
-//     this.getLogoutPath = this.getLogoutPath.bind(this);
-//     this.getUsersPath = this.getUsersPath.bind(this);
-//     this.getIsLoginPath = this.getIsLoginPath.bind(this);
-//     this.getIsEmailPath = this.getIsEmailPath.bind(this);
-//     this.getBillsPath = this.getBillsPath.bind(this);
-//     this.getSearchPath = this.getSearchPath.bind(this);
-//     this.getIsAccountBillPath = this.getIsAccountBillPath.bind(this);
-//     this.getIsAmountMoneyPath = this.getIsAmountMoneyPath.bind(this);
-//     this.getTransactionsPath = this.getTransactionsPath.bind(this);
-//     this.getConfirmPath = this.getConfirmPath.bind(this);
-//     this.getCreatePath = this.getCreatePath.bind(this);
-//     this.getRecipientPath = this.getRecipientPath.bind(this);
-//     this.getSenderPath = this.getSenderPath.bind(this);
-//     this.getAuthorizationKeyPath = this.getAuthorizationKeyPath.bind(this);
-//     this.getCurrencyPath = this.getCurrencyPath.bind(this);
-//     this.getNotificationsPath = this.getNotificationsPath.bind(this);
-//     this.getMessagesPath = this.getMessagesPath.bind(this);
-//     this.getIsNotificationPath = this.getIsNotificationPath.bind(this);
-//     this.getIsMessagePath = this.getIsMessagePath.bind(this);
-//   }
-
-//   getBasePath() {
-//     return `${BASE_URL}`;
-//   }
-
-//   getLoginPath() {
-//     return `${BASE_URL}${AUTH_PATH}/login`;
-//   }
-
-//   getRegisterPath() {
-//     return `${BASE_URL}${AUTH_PATH}/register`;
-//   }
-
-//   getLogoutPath() {
-//     return `${BASE_URL}${AUTH_PATH}/logout`;
-//   }
-
-//   getUsersPath() {
-//     return `${BASE_URL}${USERS_PATH}`;
-//   }
-
-//   getIsLoginPath(login) {
-//     return `${BASE_URL}${USERS_PATH}/${login}/isLogin`;
-//   }
-
-//   getIsEmailPath(email) {
-//     return `${BASE_URL}${USERS_PATH}/${email}/isEmail`;
-//   }
-
-//   getBillsPath() {
-//     return `${BASE_URL}${BILLS_PATH}`;
-//   }
-
-//   getSearchPath(accountBill) {
-//     return `${BASE_URL}${BILLS_PATH}/${accountBill}/search`;
-//   }
-
-//   getIsAccountBillPath(accountBill) {
-//     return `${BASE_URL}${BILLS_PATH}/${accountBill}/isAccountBill`;
-//   }
-
-//   getIsAmountMoneyPath(amountMoney) {
-//     return `${BASE_URL}${BILLS_PATH}/${amountMoney}/isAmountMoney`;
-//   }
-
-//   getTransactionsPath(limit = '') {
-//     return `${BASE_URL}${TRANSACTIONS_PATH}/${limit}`;
-//   }
-
-//   getConfirmPath() {
-//     return `${BASE_URL}${TRANSACTIONS_PATH}/confirm`;
-//   }
-
-//   getCreatePath() {
-//     return `${BASE_URL}${TRANSACTIONS_PATH}/create`;
-//   }
-
-//   getRecipientPath() {
-//     return `${BASE_URL}${TRANSACTIONS_PATH}/recipient`;
-//   }
-
-//   getSenderPath() {
-//     return `${BASE_URL}${TRANSACTIONS_PATH}/sender`;
-//   }
-
-//   getAuthorizationKeyPath(id) {
-//     return `${BASE_URL}${TRANSACTIONS_PATH}/${id}/key`;
-//   }
-
-//   getCurrencyPath() {
-//     return `${BASE_URL}${CURRENCY_PATH}`;
-//   }
-
-//   getNotificationsPath(offset = '') {
-//     return `${BASE_URL}${ADDITIONALS_PATH}/notifications/${offset}`;
-//   }
-
-//   getIsNotificationPath() {
-//     return `${BASE_URL}${ADDITIONALS_PATH}/notifications/isNotification`;
-//   }
-
-//   getMessagesPath(language = '') {
-//     return `${BASE_URL}${ADDITIONALS_PATH}/messages/${language}`;
-//   }
-
-//   getIsMessagePath() {
-//     return `${BASE_URL}${ADDITIONALS_PATH}/messages/isMessage`;
-//   }
-// }
+}
