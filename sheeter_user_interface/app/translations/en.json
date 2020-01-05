@@ -1,0 +1,5 @@
+{
+  "app.containers.HomePage.header": "This is the HomePage container!",
+  "app.containers.HomePage.main": "This is the main paragraph",
+  "app.containers.NotFoundPage.header": "This is the NotFoundPage container!"
+}
