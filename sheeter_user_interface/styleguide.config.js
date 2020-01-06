@@ -2,6 +2,7 @@
 const { version } = require('./package.json');
 
 module.exports = {
+  pagePerSection: true,
   title: 'Sheeter documentation',
   version,
   ignore: ['app/components/**/tests/**.js'],
@@ -22,14 +23,8 @@ module.exports = {
   },
   sections: [
     {
-      name: 'Documentation',
-      sections: [
-        {
-          name: 'Commands',
-          content: 'docs/general/commands.md',
-          description: 'Usable commands on this project'
-        },
-      ]
+      content : 'docs/README.md',
+      components : 'docs/**/*.md'
     },
     {
       name: 'UI Components',

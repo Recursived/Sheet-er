@@ -11,6 +11,9 @@ import React, { memo } from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
+/**
+ * Component that should be used as a sheet thumbnail in the feed of sheets
+ */
 function Sheet() {
   return (
     <div>
