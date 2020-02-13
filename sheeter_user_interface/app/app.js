@@ -14,6 +14,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import history from 'utils/history';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { GlobalStyles } from 'utils/globalStyles';
 import 'sanitize.css/sanitize.css';
 
 // Import root app
@@ -38,14 +40,27 @@ const initialState = {};
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
+
+// Theme (color ) provider 
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+});
+
+
+
 const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
-      <LanguageProvider messages={messages}>
-        <ConnectedRouter history={history}>
-          <App />
-        </ConnectedRouter>
-      </LanguageProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles theme={theme}/>
+        <LanguageProvider messages={messages}>
+          <ConnectedRouter history={history}>
+            <App />
+          </ConnectedRouter>
+        </LanguageProvider>
+      </ThemeProvider>
     </Provider>,
     MOUNT_NODE,
   );

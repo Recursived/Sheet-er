@@ -8,21 +8,22 @@
  */
 
 import React from 'react';
+import { useTheme } from '@material-ui/core/styles';
 import { Switch, Route } from 'react-router-dom';
 
+import AppContainer from './AppContainer'
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
-import GlobalStyle from '../../global-styles';
 
 export default function App() {
+  const theme = useTheme();
   return (
-    <div>
+    <AppContainer theme={theme}>
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route component={NotFoundPage} />
       </Switch>
-      <GlobalStyle />
-    </div>
+    </AppContainer>
   );
 }
