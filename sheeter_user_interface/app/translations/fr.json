@@ -1,5 +1,7 @@
 {
-  "app.containers.HomePage.header": "",
-  "app.containers.HomePage.main": "",
-  "app.containers.NotFoundPage.header": ""
+  "app.components.LocaleSelector.header": "Langage",
+  "app.components.LocaleSelector.tooltip": "Choisis un langage",
+  "app.containers.HomePage.header": "C'est le conteneur de la page d'accueil!",
+  "app.containers.HomePage.main": "C'est le paragraphe principal",
+  "app.containers.NotFoundPage.header": "C'est le conteneur de la page non trouvée!"
 }

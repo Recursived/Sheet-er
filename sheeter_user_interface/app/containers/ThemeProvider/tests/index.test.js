@@ -1,6 +1,6 @@
 /**
  *
- * Tests for Sheet
+ * Tests for ThemeProvider
  *
  * @see https://github.com/react-boilerplate/react-boilerplate/tree/master/docs/testing
  *
@@ -8,20 +8,15 @@
 
 import React from 'react';
 import { render } from 'react-testing-library';
-import { IntlProvider } from 'react-intl';
 // import 'jest-dom/extend-expect'; // add some helpful assertions
 
-import Sheet from '../index';
-import { DEFAULT_LOCALE } from '../../../i18n';
+import { ThemeProvider } from '../index';
 
-describe('<Sheet />', () => {
+describe('<ThemeProvider />', () => {
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
-    render(
-      <IntlProvider locale={DEFAULT_LOCALE}>
-        <Sheet />
-      </IntlProvider>,
-    );
+    const dispatch = jest.fn();
+    render(<ThemeProvider dispatch={dispatch} />);
     expect(spy).not.toHaveBeenCalled();
   });
 
@@ -37,11 +32,7 @@ describe('<Sheet />', () => {
   it.skip('Should render and match the snapshot', () => {
     const {
       container: { firstChild },
-    } = render(
-      <IntlProvider locale={DEFAULT_LOCALE}>
-        <Sheet />
-      </IntlProvider>,
-    );
+    } = render(<ThemeProvider />);
     expect(firstChild).toMatchSnapshot();
   });
 });

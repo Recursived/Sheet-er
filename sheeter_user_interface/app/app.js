@@ -11,11 +11,9 @@ import '@babel/polyfill';
 // Import all the third party stuff
 import React from 'react';
 import ReactDOM from 'react-dom';
+import history from 'utils/history';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
-import history from 'utils/history';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { GlobalStyles } from 'utils/globalStyles';
 import 'sanitize.css/sanitize.css';
 
 // Import root app
@@ -23,6 +21,7 @@ import App from 'containers/App';
 
 // Import Language Provider
 import LanguageProvider from 'containers/LanguageProvider';
+import ThemeProvider from 'containers/ThemeProvider';
 
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
@@ -35,26 +34,21 @@ import configureStore from './configureStore';
 // Import i18n messages
 import { translationMessages } from './i18n';
 
+
 // Create redux store with history
 const initialState = {};
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
 
-// Theme (color ) provider 
-const theme = createMuiTheme({
-  palette: {
-    type: 'dark',
-  },
-});
+
 
 
 
 const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles theme={theme}/>
+      <ThemeProvider>
         <LanguageProvider messages={messages}>
           <ConnectedRouter history={history}>
             <App />
