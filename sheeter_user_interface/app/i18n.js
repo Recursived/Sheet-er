@@ -13,18 +13,21 @@ const frLocaleData = require('react-intl/locale-data/fr');
 const esLocaleData = require('react-intl/locale-data/es');
 const deLocaleData = require('react-intl/locale-data/de');
 const ptLocaleData = require('react-intl/locale-data/pt');
+const itLocaleData = require('react-intl/locale-data/it');
 
 const enTranslationMessages = require('./translations/en.json');
 const frTranslationMessages = require('./translations/fr.json');
 const esTranslationMessages = require('./translations/es.json');
 const deTranslationMessages = require('./translations/de.json');
 const ptTranslationMessages = require('./translations/pt.json');
+const itTranslationMessages = require('./translations/it.json');
 
 addLocaleData(enLocaleData);
 addLocaleData(frLocaleData);
 addLocaleData(deLocaleData);
 addLocaleData(esLocaleData);
 addLocaleData(ptLocaleData);
+addLocaleData(itLocaleData);
 
 const DEFAULT_LOCALE = 'en'; // recalculated in langage provider for locale detection
 
@@ -34,6 +37,7 @@ const appLocales = [
   'fr',
   'de',
   'pt',
+  'it',
   'es'
 ];
 
@@ -58,6 +62,7 @@ const translationMessages = {
   de: formatTranslationMessages('de', deTranslationMessages),
   es: formatTranslationMessages('es', esTranslationMessages),
   pt: formatTranslationMessages('pt', ptTranslationMessages),
+  it: formatTranslationMessages('it', itTranslationMessages),
 };
 
 exports.appLocales = appLocales;
