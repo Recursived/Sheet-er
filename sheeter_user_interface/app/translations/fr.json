@@ -1,7 +1,1 @@
-{
-  "app.components.LocaleSelector.header": "Langage",
-  "app.components.LocaleSelector.tooltip": "Choisis un langage",
-  "app.containers.HomePage.header": "C'est le conteneur de la page d'accueil!",
-  "app.containers.HomePage.main": "C'est le paragraphe principal",
-  "app.containers.NotFoundPage.header": "C'est le conteneur de la page non trouvée!"
-}
+{"app.components.LocaleSelector.header":"Langue","app.components.LocaleSelector.tooltip":"Choisissez une langue","app.components.ThemeToggler.header":"Change le thème","app.containers.HomePage.header":"Ceci est le conteneur HomePage!","app.containers.HomePage.main":"Tel est le principal paragraphe","app.containers.NotFoundPage.header":"Ceci est le conteneur NotFoundPage!"}

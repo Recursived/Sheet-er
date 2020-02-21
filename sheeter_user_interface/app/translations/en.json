@@ -1,6 +1,7 @@
 {
   "app.components.LocaleSelector.header": "Language",
   "app.components.LocaleSelector.tooltip": "Choose a language",
+  "app.components.ThemeToggler.header": "Change theme",
   "app.containers.HomePage.header": "This is the HomePage container!",
   "app.containers.HomePage.main": "This is the main paragraph",
   "app.containers.NotFoundPage.header": "This is the NotFoundPage container!"
