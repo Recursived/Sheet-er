@@ -46,6 +46,13 @@ function LocaleSelector(props) {
       <MenuItem value={value}>{value}</MenuItem>
     ));
   }
+  
+  const [open, setOpen] = React.useState(false);
+
+  const autoClose = () => {
+      setOpen(true);
+      setTimeout(() => setOpen(false), 2000)
+  }
 
   return (
     <div>
@@ -53,7 +60,7 @@ function LocaleSelector(props) {
         <InputLabel id="locale-selector-label-1-id">
           <FormattedMessage {...messages.header} />
         </InputLabel>
-        <Tooltip title={<FormattedMessage {...messages.tooltip} />} arrow>
+        <Tooltip open={open} onMouseEnter={autoClose} title={<FormattedMessage {...messages.tooltip} />} placement="right" arrow>
           <Select
             labelId="locale-selector-label-1-id"
             id="locale-selector-1-id"

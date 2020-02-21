@@ -17,40 +17,7 @@ const frTranslationMessages = require('./translations/fr.json');
 addLocaleData(enLocaleData);
 addLocaleData(frLocaleData);
 
-// Function used to guessed the language used on the client computer
-const getFirstBrowserLanguage = function () {
-  var nav = window.navigator,
-  browserLanguagePropertyKeys = ['language', 'browserLanguage', 'systemLanguage', 'userLanguage'],
-  i,
-  language;
-
-  // support for HTML 5.1 "navigator.languages"
-  if (Array.isArray(nav.languages)) {
-    for (i = 0; i < nav.languages.length; i++) {
-      language = nav.languages[i];
-      if (language && language.length) {
-        var contains_dash = language.indexOf("-");
-        return  contains_dash != -1 ? language.substring(0, contains_dash) : language;
-      }
-    }
-  }
-
-  // support for other well known properties in browsers
-  for (i = 0; i < browserLanguagePropertyKeys.length; i++) {
-    language = nav[browserLanguagePropertyKeys[i]];
-    if (language && language.length) {
-      var contains_dash = language.indexOf("-");
-        return  contains_dash != -1 ? language.substring(0, contains_dash) : language;
-    }
-  }
-
-  return null;
-};
-
-
-const GUESSED_LOCALE = getFirstBrowserLanguage();
-// If couldn't guess any locale, set default english locale
-const DEFAULT_LOCALE =  GUESSED_LOCALE == null ? 'en' : GUESSED_LOCALE;
+const DEFAULT_LOCALE = 'en';
 
 // prettier-ignore
 const appLocales = [
