@@ -19,9 +19,10 @@ import 'sanitize.css/sanitize.css';
 // Import root app
 import App from 'containers/App';
 
-// Import Language Provider
+// Import main providers
 import LanguageProvider from 'containers/LanguageProvider';
 import ThemeProvider from 'containers/ThemeProvider';
+import NotifProvider from 'containers/NotifProvider'
 
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
@@ -49,11 +50,13 @@ const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
       <ThemeProvider>
-        <LanguageProvider messages={messages}>
-          <ConnectedRouter history={history}>
-            <App />
-          </ConnectedRouter>
-        </LanguageProvider>
+        <NotifProvider>
+          <LanguageProvider messages={messages}>
+            <ConnectedRouter history={history}>
+              <App />
+           </ConnectedRouter>
+         </LanguageProvider>
+        </NotifProvider>
       </ThemeProvider>
     </Provider>,
     MOUNT_NODE,

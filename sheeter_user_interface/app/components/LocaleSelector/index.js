@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createSelector } from 'reselect';
@@ -41,18 +41,21 @@ const useStyles = makeStyles(theme => ({
 function LocaleSelector(props) {
   const classes = useStyles();
   let options = [];
+  
   if (appLocales){
     options = appLocales.map(value => (
-      <MenuItem value={value}>{value}</MenuItem>
+      <MenuItem key={value} value={value}>{value}</MenuItem>
     ));
   }
   
   const [open, setOpen] = React.useState(false);
 
   const autoClose = () => {
-      setOpen(true);
-      setTimeout(() => setOpen(false), 2000)
+      if (!open) setOpen(true);
+      // Causes a warning but not a problem
+      setTimeout(() => setOpen(false), 1000);
   }
+
 
   return (
     <div>

@@ -7,6 +7,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useSnackbar } from 'notistack';
 import { createSelector } from 'reselect';
 import { createMuiTheme } from '@material-ui/core/styles';
 
@@ -30,6 +31,7 @@ import { makeSelectThemeProvider } from 'containers/ThemeProvider/selectors';
 
 function ThemeToggler(props) {
   const [ dark, setDark ] = React.useState(props.theme.palette.type == "dark");
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   
   const onClickHandler = () => {
     setDark(!dark);
@@ -39,6 +41,9 @@ function ThemeToggler(props) {
       },
     });
     props.onThemeToggle(theme)
+    enqueueSnackbar("changement de theme",{
+      variant: 'info'
+    })
   };
 
   return (

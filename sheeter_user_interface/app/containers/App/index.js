@@ -19,6 +19,7 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 export default function App() {
   const theme = useTheme();
   return (
+    
     <AppContainer theme={theme}>
       <Switch>
         <Route exact path="/" component={HomePage} />
