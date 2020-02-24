@@ -4,7 +4,7 @@ from .models import Sheet, SheetType, SheetTag
 class SheetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sheet
-        fields = [ 'content', 'title',  'subject', 'mark', 'tags', 'creation_date']
+        fields = [ 'content', 'title',  'subject', 'mark', 'tags', 'creation_date', 'plagiarism_rate']
 
 
 class SheetTypeSerializer(serializers.ModelSerializer):
