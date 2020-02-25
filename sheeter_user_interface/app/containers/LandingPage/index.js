@@ -25,6 +25,9 @@ const useStyles  = makeStyles({
   container :{
     margin : 0,
   },
+  paper : {
+    width:"100%"
+  }
 });
 
 export function LandingPage() {
@@ -38,8 +41,8 @@ export function LandingPage() {
         <meta name="description" content="Description of LandingPage" />
       </Helmet>
       <Container className={classes.container} maxWidth="xl">
-        <Grid container xs={6}>
-          <Paper elevation={20}>
+        <Grid container xs={4}>
+          <Paper elevation={20} className={classes.paper}>
             <Grid xs={6}>
               <Grid item xs={12}>
                 <TextField
