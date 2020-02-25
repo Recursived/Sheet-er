@@ -13,6 +13,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import AppContainer from './AppContainer'
 import HomePage from 'containers/HomePage/Loadable';
+import LandingPage from 'containers/LandingPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 
@@ -23,8 +24,9 @@ export default function App() {
     <AppContainer theme={theme}>
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route exact path="/login" component={LandingPage} />
         <Route component={NotFoundPage} />
-      </Switch>
+      </Switch> 
     </AppContainer>
   );
 }

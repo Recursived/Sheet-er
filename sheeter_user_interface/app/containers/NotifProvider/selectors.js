@@ -17,6 +17,7 @@ const makeSelectNotifProvider = () =>
     selectNotifProviderDomain,
     substate => substate.notifications,
 );
+console.log("prikefjoz", makeSelectNotifProvider());
 
 
 export { makeSelectNotifProvider, selectNotifProviderDomain };

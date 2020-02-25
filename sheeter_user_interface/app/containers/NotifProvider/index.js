@@ -16,6 +16,7 @@ import { SnackbarProvider } from 'notistack';
  * See how to use notifications with https://iamhosseindhv.com/notistack/demos#variants
  */
 export function NotifProvider(props) {
+  console.log(props);
   return (
     <SnackbarProvider maxSnack={3}>
       {React.Children.only(props.children)}
