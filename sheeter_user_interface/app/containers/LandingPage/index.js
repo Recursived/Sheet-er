@@ -36,19 +36,24 @@ export function LandingPage() {
   const classes = useStyles();
   return (
     <div>
-      <Helmet>
-        <title>LandingPage</title>
-        <meta name="description" content="Description of LandingPage" />
-      </Helmet>
+      <FormattedMessage id="app.containers.LandingPage.title">
+        {title => {
+          return (
+          <Helmet>
+            <title>{title}</title>
+          </Helmet>
+          )
+        }}
+      </FormattedMessage>
       <Container className={classes.container} maxWidth="xl">
-        <Grid container xs={4}>
+        <Grid container>
           <Paper elevation={20} className={classes.paper}>
-            <Grid xs={6}>
+            <Grid>
               <Grid item xs={12}>
                 <TextField
                   className={classes.root}
                   id=""
-                  label={<FormattedMessage {...messages.name}/>}
+                  label={<FormattedMessage {...messages.email}/>}
                   type="text"
                   autoComplete="current-password"
                 />

@@ -3,38 +3,49 @@
  * ThemeProvider reducer
  *
  */
-import produce from 'immer';
-import { ENQUEUE_SNACKBAR, REMOVE_SNACKBAR } from './constants';
+
+import { ENQUEUE_SNACKBAR, REMOVE_SNACKBAR, CLOSE_SNACKBAR } from './constants';
 
 export const initialState = {
   notifications : []
 };
 
 /* eslint-disable default-case, no-param-reassign */
-const notifProviderReducer = (state = initialState, action) =>
-  produce(state, draft  => {
-    switch (action.type) {
+const notifProviderReducer = (state = initialState, action) => {
+  switch (action.type) {
       case ENQUEUE_SNACKBAR:
-        draft = {
-          ...state,
-                notifications: [
-                    ...state.notifications,
-                    {
-                        ...action.notification,
-                    },
-                ],
-        }
-        break;
+          return {
+              ...state,
+              notifications: [
+                  ...state.notifications,
+                  {
+                      key: action.key,
+                      ...action.notification,
+                  },
+              ],
+          };
+
+      case CLOSE_SNACKBAR:
+          return {
+              ...state,
+              notifications: state.notifications.map(notification => (
+                  (action.dismissAll || notification.key === action.key)
+                      ? { ...notification, dismissed: true }
+                      : { ...notification }
+              )),
+          };
+
       case REMOVE_SNACKBAR:
-        draft = {
-          ...state,
-                notifications: state.notifications.filter(
-                    notification => notification.key !== action.key,
-                ),
-        }
+          return {
+              ...state,
+              notifications: state.notifications.filter(
+                  notification => notification.key !== action.key,
+              ),
+          };
+
       default:
-        break;
-    }
-  });
+          return state;
+  }
+};
 
 export default notifProviderReducer;

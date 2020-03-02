@@ -4,10 +4,10 @@
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import { IS_LOGGED_IN } from './constants';
 
-export function defaultAction() {
+export function isLogged() {
   return {
-    type: DEFAULT_ACTION,
+    type: IS_LOGGED_IN,
   };
 }
