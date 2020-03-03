@@ -9,7 +9,7 @@ import { IS_LOGGED_IN } from './constants';
 export function* handleLoggedIn(dispatch){
   const logged = false;
   if (!logged){ 
-    yield put(push('/login'));
+    // yield put(push('/login'));
     yield put(enqueueSnackbar({
       message: 'Redirection au login',
       options: {
