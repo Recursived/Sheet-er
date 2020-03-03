@@ -19,15 +19,14 @@ import makeSelectLandingPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { Grid, Button, TextField, Container, Paper } from '@material-ui/core';
+import {Container,Grid} from '@material-ui/core';
+import LandingPageForm from 'components/LandingPageForm';
 
 const useStyles  = makeStyles({
   container :{
     margin : 0,
   },
-  paper : {
-    width:"100%"
-  }
+  
 });
 
 export function LandingPage() {
@@ -41,40 +40,7 @@ export function LandingPage() {
         <meta name="description" content="Description of LandingPage" />
       </Helmet>
       <Container className={classes.container} maxWidth="xl">
-        <Grid container xs={4}>
-          <Paper elevation={20} className={classes.paper}>
-            <Grid xs={6}>
-              <Grid item xs={12}>
-                <TextField
-                  className={classes.root}
-                  id=""
-                  label={<FormattedMessage {...messages.name}/>}
-                  type="text"
-                  autoComplete="current-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id=""
-                  label={<FormattedMessage {...messages.name}/>}
-                  type="text"
-                  autoComplete="current-password"
-                />
-              </Grid>
-            </Grid>
-            <Grid item sm={10}>
-              <TextField
-                id=""
-                label={<FormattedMessage {...messages.firstname}/>}
-                type="text"
-                autoComplete="current-password"
-                fullWidth
-              />
-            </Grid>
-          </Paper>
-          
-          
-          </Grid>
+          <LandingPageForm></LandingPageForm>
       </Container>
       
     </div>

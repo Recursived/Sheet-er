@@ -1,6 +1,4 @@
 {
-  "app.components.LandingPage.buttton": "Go to",
-  "app.components.LandingPage.header": "This is the LandingPage component!",
   "app.components.LocaleSelector.header": "Language",
   "app.components.LocaleSelector.tooltip": "Choose a language",
   "app.components.ThemeToggler.header": "Change theme",
