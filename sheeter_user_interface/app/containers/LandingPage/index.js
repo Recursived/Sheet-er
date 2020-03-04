@@ -35,10 +35,15 @@ export function LandingPage() {
   const classes = useStyles();
   return (
     <div>
-      <Helmet>
-        <title>LandingPage</title>
-        <meta name="description" content="Description of LandingPage" />
-      </Helmet>
+      <FormattedMessage id="app.containers.LandingPage.title">
+        {title => {
+          return (
+          <Helmet>
+            <title>{title}</title>
+          </Helmet>
+          )
+        }}
+      </FormattedMessage>
       <Container className={classes.container} maxWidth="xl">
           <LandingPageForm></LandingPageForm>
       </Container>

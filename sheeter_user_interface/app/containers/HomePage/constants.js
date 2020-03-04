@@ -4,4 +4,4 @@
  *
  */
 
-export const DEFAULT_ACTION = 'app/HomePage/DEFAULT_ACTION';
+export const IS_LOGGED_IN = 'app/HomePage/IS_LOGGED_IN';

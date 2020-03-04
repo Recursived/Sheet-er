@@ -4,39 +4,49 @@
  *
  */
 
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { useSnackbar } from 'notistack';
-import { createSelector } from 'reselect';
-import { createMuiTheme } from '@material-ui/core/styles';
-
-import messages from './messages';
 import { Tooltip } from '@material-ui/core';
-import { FormattedMessage } from 'react-intl';
-import IconButton from '@material-ui/core/IconButton';
-import Brightness5Icon from '@material-ui/icons/Brightness5';
+import green from '@material-ui/core/colors/green';
+import Fab from '@material-ui/core/Fab';
+import { createMuiTheme } from '@material-ui/core/styles';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
-
-
-
-
+import Brightness5Icon from '@material-ui/icons/Brightness5';
 // Import actions
 import { changeTheme } from 'containers/ThemeProvider/actions';
-
 // Import Selectors
 import { makeSelectThemeProvider } from 'containers/ThemeProvider/selectors';
+import { useSnackbar } from 'notistack';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
+import messages from './messages';
+import { makeStyles } from '@material-ui/styles';
+
+
+
+const useStyles = makeStyles(theme => ({
+  fab : {
+    position: 'absolute',
+    top: theme.spacing(2),
+    right : theme.spacing(2)
+  }
+}));
+
+
 
 
 
 function ThemeToggler(props) {
   const [ dark, setDark ] = React.useState(props.theme.palette.type == "dark");
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const classes = useStyles();
   
   const onClickHandler = () => {
     setDark(!dark);
     const theme = createMuiTheme({
       palette: {
+        primary: green,
         type: dark ? 'light' : 'dark',
       },
     });
@@ -48,9 +58,9 @@ function ThemeToggler(props) {
 
   return (
     <Tooltip title={<FormattedMessage {...messages.header} />} arrow>
-      <IconButton onClick={onClickHandler}>
+      <Fab size="medium" className={classes.fab} color="primary" onClick={onClickHandler}>
         {dark ? <Brightness5Icon/> : <Brightness4Icon/>}
-      </IconButton>
+      </Fab>
     </Tooltip>
      
       

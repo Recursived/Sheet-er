@@ -13,6 +13,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import history from 'utils/history';
 import { Provider } from 'react-redux';
+import { SnackbarProvider } from 'notistack';
 import { ConnectedRouter } from 'connected-react-router';
 import 'sanitize.css/sanitize.css';
 
@@ -22,8 +23,7 @@ import App from 'containers/App';
 // Import main providers
 import LanguageProvider from 'containers/LanguageProvider';
 import ThemeProvider from 'containers/ThemeProvider';
-import NotifProvider from 'containers/NotifProvider'
-
+import NotifProvider from 'containers/NotifProvider';
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
 import '!file-loader?name=[name].[ext]!./images/favicon.ico';
@@ -50,13 +50,14 @@ const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
       <ThemeProvider>
-        <NotifProvider>
+        <SnackbarProvider maxSnack={3}>
           <LanguageProvider messages={messages}>
             <ConnectedRouter history={history}>
+              <NotifProvider/>
               <App />
            </ConnectedRouter>
          </LanguageProvider>
-        </NotifProvider>
+        </SnackbarProvider>
       </ThemeProvider>
     </Provider>,
     MOUNT_NODE,

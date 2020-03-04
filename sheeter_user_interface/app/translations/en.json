@@ -3,5 +3,10 @@
   "app.components.LocaleSelector.tooltip": "Choose a language",
   "app.components.ThemeToggler.header": "Change theme",
   "app.containers.HomePage.header": "This is the HomePage container!",
+  "app.containers.LandingPage.email": "Email",
+  "app.containers.LandingPage.firstname": "Firstname",
+  "app.containers.LandingPage.header": "This is the LandingPage container!",
+  "app.containers.LandingPage.name": "Name",
+  "app.containers.LandingPage.title": "Login into Sheeter",
   "app.containers.NotFoundPage.header": "This is the NotFoundPage container!"
 }

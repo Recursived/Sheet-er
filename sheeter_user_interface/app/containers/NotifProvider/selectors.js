@@ -5,7 +5,7 @@ import { initialState } from './reducer';
  * Direct selector to the themeProvider state domain
  */
 
-const selectNotifProviderDomain = state => state.notifications || initialState;
+const selectNotifProviderDomain = state => state.notifProvider || initialState;
 
 
 /**
@@ -17,7 +17,6 @@ const makeSelectNotifProvider = () =>
     selectNotifProviderDomain,
     substate => substate.notifications,
 );
-console.log("prikefjoz", makeSelectNotifProvider());
 
 
 export { makeSelectNotifProvider, selectNotifProviderDomain };

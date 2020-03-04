@@ -14,7 +14,19 @@ export default defineMessages({
     defaultMessage: 'This is the LandingPage container!',
   },
   title:{
-    id:`${scope}.header`,
+    id:`${scope}.title`,
     defaultMessage: 'Login - Sheeter',
+  },
+  name : {
+    id:`${scope}.name`,
+    defaultMessage: 'Name',
+  },
+  firstname : {
+    id:`${scope}.firstname`,
+    defaultMessage: 'Firstname',
+  },
+  email : {
+    id:`${scope}.email`,
+    defaultMessage : 'Email',
   }
 });
