@@ -10,13 +10,13 @@ export function* handleLoggedIn(dispatch){
   const logged = false;
   if (!logged){ 
     // yield put(push('/login'));
-    yield put(enqueueSnackbar({
-      message: 'Redirection au login',
-      options: {
-          key: new Date().getTime() + Math.random(),
-          variant: 'warning'
-      },
-  }));
+    // yield put(enqueueSnackbar({
+    //   message: 'Redirection au login',
+    //   options: {
+    //       key: new Date().getTime() + Math.random(),
+    //       variant: 'warning'
+    //   },
+    // }));
   }
   
 }

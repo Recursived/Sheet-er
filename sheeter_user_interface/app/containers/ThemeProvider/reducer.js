@@ -15,6 +15,9 @@ const getThemeFromPreference = () => {
   const theme = createMuiTheme({
       palette: {
         primary: green,
+        secondary: {
+          main: '#c8e6c9',
+        },
         type: prefersDarkMode ? 'dark' : 'light',
       },
     });

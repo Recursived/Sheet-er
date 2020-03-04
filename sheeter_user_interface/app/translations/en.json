@@ -1,4 +1,10 @@
 {
+  "app.components.LandingPageForm.email": "Email",
+  "app.components.LandingPageForm.firstname": "Firstname",
+  "app.components.LandingPageForm.header": "This is the LandingPageForm component!",
+  "app.components.LandingPageForm.name": "Name",
+  "app.components.LandingPageForm.signin": "Sign in",
+  "app.components.LandingPageForm.signup": "Sign up",
   "app.components.LocaleSelector.header": "Language",
   "app.components.LocaleSelector.tooltip": "Choose a language",
   "app.components.ThemeToggler.header": "Change theme",

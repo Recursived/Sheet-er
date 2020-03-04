@@ -29,7 +29,8 @@ const useStyles = makeStyles(theme => ({
   fab : {
     position: 'absolute',
     top: theme.spacing(2),
-    right : theme.spacing(2)
+    right : theme.spacing(2),
+    color: theme.palette.background.default
   }
 }));
 
@@ -47,6 +48,9 @@ function ThemeToggler(props) {
     const theme = createMuiTheme({
       palette: {
         primary: green,
+        secondary: {
+          main: '#c8e6c9',
+        },
         type: dark ? 'light' : 'dark',
       },
     });

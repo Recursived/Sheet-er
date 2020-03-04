@@ -24,6 +24,7 @@ import messages from './messages';
 // import components 
 import LocaleSelector from 'components/LocaleSelector';
 import ThemeToggler from 'components/ThemeToggler';
+import SpeedDialMenu from 'components/SpeedDialMenu';
 
 export function HomePage(props) {
   useInjectReducer({ key: 'homePage', reducer });
@@ -44,7 +45,8 @@ export function HomePage(props) {
       </Helmet>
       <FormattedMessage {...messages.header} />
       <LocaleSelector></LocaleSelector>
-      <ThemeToggler></ThemeToggler>
+      
+      <SpeedDialMenu></SpeedDialMenu>
       <NavLink to="/login">Login</NavLink>
     </div>
   );
