@@ -15,7 +15,7 @@ export default defineMessages({
   },
   title:{
     id:`${scope}.title`,
-    defaultMessage: 'Login into Sheeter',
+    defaultMessage: 'Login - Sheeter',
   },
   name : {
     id:`${scope}.name`,
