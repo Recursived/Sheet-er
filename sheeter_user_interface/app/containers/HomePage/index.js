@@ -4,27 +4,26 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import { NavLink } from 'react-router-dom';
-import { compose } from 'redux';
-
-import { useInjectSaga } from 'utils/injectSaga';
-import { useInjectReducer } from 'utils/injectReducer';
-import makeSelectHomePage from './selectors';
-import { isLogged } from './actions';
-import reducer from './reducer';
-import saga from './saga';
-import messages from './messages';
-
 // import components 
 import LocaleSelector from 'components/LocaleSelector';
-import ThemeToggler from 'components/ThemeToggler';
-import SpeedDialMenu from 'components/SpeedDialMenu';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import { useInjectReducer } from 'utils/injectReducer';
+import { useInjectSaga } from 'utils/injectSaga';
+import { isLogged } from './actions';
+import messages from './messages';
+import reducer from './reducer';
+import saga from './saga';
+import makeSelectHomePage from './selectors';
+
+
+
 
 export function HomePage(props) {
   useInjectReducer({ key: 'homePage', reducer });
@@ -45,8 +44,6 @@ export function HomePage(props) {
       </Helmet>
       <FormattedMessage {...messages.header} />
       <LocaleSelector></LocaleSelector>
-      
-      <SpeedDialMenu></SpeedDialMenu>
       <NavLink to="/login">Login</NavLink>
     </div>
   );

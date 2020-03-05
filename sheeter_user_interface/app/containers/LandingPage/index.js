@@ -20,7 +20,11 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import {Container,Grid} from '@material-ui/core';
+
+// Import components
 import LandingPageForm from 'components/LandingPageForm';
+import SpeedDialMenu from 'components/SpeedDialMenu';
+import { green } from '@material-ui/core/colors';
 
 const useStyles  = makeStyles({
   container :{

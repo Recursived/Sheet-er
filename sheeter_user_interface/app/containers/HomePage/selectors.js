@@ -30,5 +30,6 @@ const makeSelectIsLoggedIn = () =>
 export default makeSelectHomePage;
 export {
   selectHomePageDomain, 
-  makeSelectHomePage 
+  makeSelectHomePage,
+  makeSelectIsLoggedIn
 };

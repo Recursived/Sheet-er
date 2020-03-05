@@ -16,12 +16,16 @@ import HomePage from 'containers/HomePage/Loadable';
 import LandingPage from 'containers/LandingPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
+// Import components
+import SpeedDialMenu from 'components/SpeedDialMenu';
+
 
 export default function App() {
   const theme = useTheme();
   return (
     
     <AppContainer theme={theme}>
+      <SpeedDialMenu/>
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/login" component={LandingPage} />
