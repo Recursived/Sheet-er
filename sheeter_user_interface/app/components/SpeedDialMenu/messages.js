@@ -26,7 +26,7 @@ export default defineMessages({
   },
 
   labeloptions: {
-    id: `${scope}.labeltheme`,
+    id: `${scope}.labeloptions`,
     defaultMessage: 'Options',
   },
 });

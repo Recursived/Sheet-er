@@ -37,6 +37,10 @@ const useStyles = makeStyles(theme => ({
     top: theme.spacing(4),
     right: theme.spacing(4),
   },
+  
+  icon: {
+    color: theme.palette.background.default
+  }
 }));
 
 
@@ -110,11 +114,11 @@ function SpeedDialMenu(props) {
 
   return (
     <>
-      <Backdrop />
+     
       <SpeedDial
-        ariaLabel="SpeedDial tooltip example"
+        ariaLabel="SpeedDial tooltip"
         className={classes.speedDial}
-        icon={<SpeedDialIcon />}
+        icon={<SpeedDialIcon className={classes.icon} />}
         onClose={handleClose}
         onOpen={handleOpen}
         open={open}
