@@ -4,27 +4,25 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-
-import { useInjectSaga } from 'utils/injectSaga';
-import { useInjectReducer } from 'utils/injectReducer';
+import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import makeSelectLandingPage from './selectors';
-import reducer from './reducer';
-import saga from './saga';
-import messages from './messages';
-import {Container,Grid} from '@material-ui/core';
-
 // Import components
 import LandingPageForm from 'components/LandingPageForm';
-import SpeedDialMenu from 'components/SpeedDialMenu';
-import { green } from '@material-ui/core/colors';
+
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import { useInjectReducer } from 'utils/injectReducer';
+import { useInjectSaga } from 'utils/injectSaga';
+import reducer from './reducer';
+import saga from './saga';
+import makeSelectLandingPage from './selectors';
+
+
 
 const useStyles  = makeStyles({
   container :{

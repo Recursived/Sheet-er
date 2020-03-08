@@ -4,7 +4,6 @@
  *
  */
 
-import Backdrop from '@material-ui/core/Backdrop';
 import { green } from '@material-ui/core/colors';
 import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import Brightness6Icon from '@material-ui/icons/Brightness6';

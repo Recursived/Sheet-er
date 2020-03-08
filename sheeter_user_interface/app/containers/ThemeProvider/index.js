@@ -14,8 +14,31 @@ import { makeSelectThemeProvider } from './selectors';
 
 // We create a global style object to change aspect according to the theme
 const GlobalTheme = createGlobalStyle`
-  html  {
+
+  html,body {
+    height: 100%;
+    width: 100%;
     background : ${props => props.theme.palette.background.default}
+  }
+
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  body.fontLoaded {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+
+  #app {
+    background : ${props => props.theme.palette.background.default}
+    min-height: 100%;
+    min-width: 100%;
+  }
+
+  p,
+  label {
+    font-family: Georgia, Times, 'Times New Roman', serif;
+    line-height: 1.5em;
   }
 `
 
