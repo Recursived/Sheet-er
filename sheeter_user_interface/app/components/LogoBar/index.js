@@ -4,12 +4,12 @@
  *
  */
 
-import { Container, Tooltip } from '@material-ui/core';
+import { Container } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/styles';
 import Image from 'material-ui-image';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Logo from './SHEETER-logo-long.png'
-import { makeStyles, useTheme } from '@material-ui/styles';
+import Logo from './SHEETER-logo-long.png';
 
 
 const useStyles = makeStyles(theme => ({

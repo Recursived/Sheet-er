@@ -4,13 +4,15 @@
  *
  */
 
-import { makeStyles, Paper, Tab, Tabs, AppBar } from '@material-ui/core';
+import { makeStyles, Paper, Tab, Tabs, AppBar , TextField} from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import { FormattedMessage } from 'react-intl';
 import React from 'react';
 import TabPanel from './TabPanel';
+import messages from './messages';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles( theme => ({
   root: {
     flexGrow: 1,
     maxWidth: 500,
@@ -18,7 +20,13 @@ const useStyles = makeStyles({
     flexDirection: "column",
     justifyContent: "center"
   },
-});
+
+  tabpanel: {
+    '& .MuiTextField-root': {
+      marginBottom: theme.spacing(3),
+    },
+  }
+}));
 
 function LandingPageForm() {
   const classes = useStyles();
@@ -39,18 +47,17 @@ function LandingPageForm() {
           textColor="secondary"
           aria-label="icon label tabs example"
         >
-          <Tab icon={<ExitToAppIcon />} label="RECENTS" />
-          <Tab icon={<PersonAddIcon />} label="FAVORITES" />
+          <Tab icon={<ExitToAppIcon />} label={<FormattedMessage {...messages.signup} />} />
+        <Tab icon={<PersonAddIcon />} label={<FormattedMessage {...messages.signin} />} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
-        Item One
+      <TabPanel className={classes.tabpanel} value={value} index={0}>
+        <TextField fullWidth id="filled-basic" label="Filled" variant="filled" />
+        <TextField m={3} fullWidth id="filled-basic" label="Filled" variant="filled" />
+        <TextField fullWidth id="filled-basic" label="Filled" variant="filled" />
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
       </TabPanel>
     </Paper>
   );
