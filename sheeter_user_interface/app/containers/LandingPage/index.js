@@ -4,7 +4,7 @@
  *
  */
 
-import { Container } from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 // Import components
 import LandingPageForm from 'components/LandingPageForm';
@@ -48,7 +48,16 @@ export function LandingPage() {
         }}
       </FormattedMessage>
       <Container className={classes.container} maxWidth="xl">
-          <LandingPageForm/>
+        <Grid container>
+          <Grid item xs={12} sm={8}>
+            
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <LandingPageForm/>
+          </Grid>
+        </Grid>
+        
+          
       </Container>
       </>
       );
