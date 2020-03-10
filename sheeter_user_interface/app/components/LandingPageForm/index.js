@@ -4,9 +4,10 @@
  *
  */
 
-import { makeStyles, Paper, Tab, Tabs, AppBar , TextField} from '@material-ui/core';
+import { makeStyles, Paper, Tab, Tabs, AppBar , TextField, Button} from '@material-ui/core';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import FacebookIcon from '@material-ui/icons/Facebook';
 import { FormattedMessage } from 'react-intl';
 import React from 'react';
 import TabPanel from './TabPanel';
@@ -22,10 +23,10 @@ const useStyles = makeStyles( theme => ({
   },
 
   tabpanel: {
-    '& .MuiTextField-root': {
+    '& .MuiTextField-root , & .MuiButton-root': {
       marginBottom: theme.spacing(3),
     },
-  }
+  },
 }));
 
 function LandingPageForm() {
@@ -52,9 +53,11 @@ function LandingPageForm() {
         </Tabs>
       </AppBar>
       <TabPanel className={classes.tabpanel} value={value} index={0}>
-        <TextField fullWidth id="filled-basic" label="Filled" variant="filled" />
-        <TextField m={3} fullWidth id="filled-basic" label="Filled" variant="filled" />
-        <TextField fullWidth id="filled-basic" label="Filled" variant="filled" />
+        <TextField fullWidth id="filled-basic" label={<FormattedMessage {...messages.email} />} variant="filled" />
+        <TextField fullWidth id="filled-basic" label={<FormattedMessage {...messages.name} />} variant="filled" />
+        <TextField fullWidth id="filled-basic" label={<FormattedMessage {...messages.firstname} />} variant="filled" />
+        <Button fullWidth variant="contained"><FormattedMessage {...messages.googlesignup} /></Button>
+        <Button fullWidth variant="contained" endIcon={<FacebookIcon/>}><FormattedMessage {...messages.facebooksignup} /></Button>
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two

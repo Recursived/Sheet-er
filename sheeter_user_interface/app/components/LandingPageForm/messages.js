@@ -28,5 +28,14 @@ export default defineMessages({
   signup : {
     id:`${scope}.signup`,
     defaultMessage : 'Sign up',
-  }
+  },
+  facebooksignup : {
+    id:`${scope}.facebooksignup`,
+    defaultMessage : 'Sign up with Facebook',
+  },
+  googlesignup : {
+    id:`${scope}.googlesignup`,
+    defaultMessage : 'Sign up with google',
+  },
+
 });
