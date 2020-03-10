@@ -56,8 +56,8 @@ function LandingPageForm() {
         <TextField fullWidth id="filled-basic" label={<FormattedMessage {...messages.email} />} variant="filled" />
         <TextField fullWidth id="filled-basic" label={<FormattedMessage {...messages.name} />} variant="filled" />
         <TextField fullWidth id="filled-basic" label={<FormattedMessage {...messages.firstname} />} variant="filled" />
-        <Button fullWidth variant="contained"><FormattedMessage {...messages.googlesignup} /></Button>
-        <Button fullWidth variant="contained" endIcon={<FacebookIcon/>}><FormattedMessage {...messages.facebooksignup} /></Button>
+        <Button fullWidth variant="contained" color="secondary"><FormattedMessage {...messages.googlesignup} /></Button>
+        <Button fullWidth variant="contained" color="secondary"><FormattedMessage {...messages.facebooksignup} /></Button>
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two

@@ -47,7 +47,8 @@ function LogoBar() {
             style={{
               textAlign: 'center',
               paddingTop: 'unset',
-              height:45
+              height:45,
+              display:'inline-block'
             }}
           />
         </NavLink>

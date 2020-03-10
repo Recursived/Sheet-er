@@ -27,6 +27,7 @@ import makeSelectLandingPage from './selectors';
 const useStyles  = makeStyles({
   container :{
     margin : 0,
+    paddingTop: 'calc(5%)'
   },
   
 });
@@ -36,7 +37,7 @@ export function LandingPage() {
   useInjectSaga({ key: 'landingPage', saga });
   const classes = useStyles();
   return (
-    <div>
+    <>
       <FormattedMessage id="app.containers.LandingPage.title">
         {title => {
           return (
@@ -47,11 +48,10 @@ export function LandingPage() {
         }}
       </FormattedMessage>
       <Container className={classes.container} maxWidth="xl">
-          <LandingPageForm></LandingPageForm>
+          <LandingPageForm/>
       </Container>
-      
-    </div>
-  );
+      </>
+      );
 }
 
 LandingPage.propTypes = {
