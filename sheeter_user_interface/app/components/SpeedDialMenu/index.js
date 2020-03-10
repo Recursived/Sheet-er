@@ -35,6 +35,9 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     top: theme.spacing(4),
     right: theme.spacing(4),
+    [theme.breakpoints.down('sm')]: { // Hidden on mobile phone
+      display:'none'
+    },
   },
   
   icon: {
@@ -113,7 +116,6 @@ function SpeedDialMenu(props) {
 
   return (
     <>
-     
       <SpeedDial
         ariaLabel="SpeedDial tooltip"
         className={classes.speedDial}
