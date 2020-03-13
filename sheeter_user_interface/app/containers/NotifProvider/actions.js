@@ -6,16 +6,15 @@
 
 import { ENQUEUE_SNACKBAR, REMOVE_SNACKBAR, CLOSE_SNACKBAR } from './constants';
 
-
-export const enqueueSnackbar = (notification) => {
+export const enqueueSnackbar = notification => {
   const key = notification.options && notification.options.key;
 
   return {
-      type: ENQUEUE_SNACKBAR,
-      notification: {
-          ...notification,
-          key: key || new Date().getTime() + Math.random(),
-      },
+    type: ENQUEUE_SNACKBAR,
+    notification: {
+      ...notification,
+      key: key || new Date().getTime() + Math.random(),
+    },
   };
 };
 

@@ -4,37 +4,37 @@
  *
  */
 import produce from 'immer';
-import { CHANGE_THEME } from './constants';
 
 import { createMuiTheme } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
+import { CHANGE_THEME } from './constants';
 
 // Function to check user's theme preference
 const getThemeFromPreference = () => {
   const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
   const theme = createMuiTheme({
-      palette: {
-        primary: green,
-        secondary: {
-          main: '#c8e6c9',
-        },
-        type: prefersDarkMode ? 'dark' : 'light',
+    palette: {
+      primary: green,
+      secondary: {
+        main: '#c8e6c9',
       },
-    });
+      type: prefersDarkMode ? 'dark' : 'light',
+    },
+  });
 
   return theme;
-}
+};
 
 export const initialState = {
-  theme: getThemeFromPreference()
+  theme: getThemeFromPreference(),
 };
 
 /* eslint-disable default-case, no-param-reassign */
 const themeProviderReducer = (state = initialState, action) =>
-  produce(state,  draft => {
+  produce(state, draft => {
     switch (action.type) {
       case CHANGE_THEME:
-        draft.theme = action.theme
+        draft.theme = action.theme;
         break;
     }
   });

@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { MuiThemeProvider } from '@material-ui/core';
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 import { makeSelectThemeProvider } from './selectors';
 
 // We create a global style object to change aspect according to the theme
@@ -40,12 +40,12 @@ const GlobalTheme = createGlobalStyle`
     font-family: Georgia, Times, 'Times New Roman', serif;
     line-height: 1.5em;
   }
-`
+`;
 
 export function ThemeProvider(props) {
   return (
     <MuiThemeProvider theme={props.theme}>
-      <GlobalTheme theme={props.theme}/>
+      <GlobalTheme theme={props.theme} />
       {React.Children.only(props.children)}
     </MuiThemeProvider>
   );
@@ -59,9 +59,8 @@ ThemeProvider.propTypes = {
 
 const mapStateToProps = createSelector(
   makeSelectThemeProvider(),
-  theme => ({theme})
+  theme => ({ theme }),
 );
-
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -71,5 +70,5 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(ThemeProvider);

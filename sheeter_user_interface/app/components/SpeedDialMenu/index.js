@@ -26,42 +26,35 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import messages from './messages';
 
-
-
-
-
 const useStyles = makeStyles(theme => ({
   speedDial: {
     position: 'absolute',
     top: theme.spacing(4),
     right: theme.spacing(4),
-    [theme.breakpoints.down('sm')]: { // Hidden on mobile phone
-      display:'none'
+    [theme.breakpoints.down('sm')]: {
+      // Hidden on mobile phone
+      display: 'none',
     },
   },
-  
+
   icon: {
-    color: theme.palette.background.default
-  }
+    color: theme.palette.background.default,
+  },
 }));
-
-
-
-
 
 function SpeedDialMenu(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const {dispatch, isLogged, theme} = props;
-  const [ dark, setDark ] = React.useState(theme.palette.type == "dark");
+  const { dispatch, isLogged, theme } = props;
+  const [dark, setDark] = React.useState(theme.palette.type == 'dark');
 
   let actions = [
-    { 
+    {
       id: 'themeToggle',
-      icon: <Brightness6Icon />, 
+      icon: <Brightness6Icon />,
       name: <FormattedMessage {...messages.labeltheme} />,
       isLogged: false,
-      onClickAction : () => {
+      onClickAction: () => {
         setDark(!dark);
         const theme = createMuiTheme({
           palette: {
@@ -73,46 +66,49 @@ function SpeedDialMenu(props) {
           },
         });
         dispatch(changeTheme(theme));
-        
       },
     },
-    { 
+    {
       id: 'createSheet',
-      icon: <CreateIcon />, 
+      icon: <CreateIcon />,
       name: <FormattedMessage {...messages.labelsheet} />,
       isLogged: true,
-      onClickAction : () => {dispatch(push("/sheet"))},
-
+      onClickAction: () => {
+        dispatch(push('/sheet'));
+      },
     },
-    { 
+    {
       id: 'profilVisit',
-      icon: <PersonIcon />, 
+      icon: <PersonIcon />,
       name: <FormattedMessage {...messages.labelprofil} />,
       isLogged: true,
-      onClickAction : () => {dispatch(push("/profil"))},
+      onClickAction: () => {
+        dispatch(push('/profil'));
+      },
     },
-    { 
+    {
       id: 'optionVisit',
-      icon: <BuildIcon />, 
+      icon: <BuildIcon />,
       name: <FormattedMessage {...messages.labeloptions} />,
       isLogged: true,
-      onClickAction : () => {dispatch(push("/options"))},
+      onClickAction: () => {
+        dispatch(push('/options'));
+      },
     },
   ];
- 
-
 
   const handleOpen = () => {
     setOpen(true);
   };
-
 
   const handleClose = () => {
     setOpen(false);
   };
 
   // We filter SpeedDialActions according to loggedIn state
-  actions =  actions.filter(item => !item.isLogged || (item.isLogged && isLogged));
+  actions = actions.filter(
+    item => !item.isLogged || (item.isLogged && isLogged),
+  );
 
   return (
     <>
@@ -130,9 +126,9 @@ function SpeedDialMenu(props) {
             key={action.id}
             icon={action.icon}
             tooltipTitle={action.name}
-            onClick={() =>{
+            onClick={() => {
               setOpen(false);
-              action.onClickAction()
+              action.onClickAction();
             }}
             tooltipPlacement="bottom"
           />
@@ -145,12 +141,12 @@ function SpeedDialMenu(props) {
 SpeedDialMenu.propTypes = {
   dispatch: PropTypes.func.isRequired,
   isLogged: PropTypes.bool.isRequired,
-  theme: PropTypes.object
+  theme: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   isLogged: makeSelectIsLoggedIn(),
-  theme: makeSelectThemeProvider()
+  theme: makeSelectThemeProvider(),
 });
 
 function mapDispatchToProps(dispatch) {

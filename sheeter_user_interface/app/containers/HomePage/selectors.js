@@ -21,15 +21,11 @@ const makeSelectHomePage = () =>
     substate => substate,
   );
 
-const makeSelectIsLoggedIn = () => 
-    createSelector(
-      selectHomePageDomain,
-      state => state.loggedIn
-    )
+const makeSelectIsLoggedIn = () =>
+  createSelector(
+    selectHomePageDomain,
+    state => state.loggedIn,
+  );
 
 export default makeSelectHomePage;
-export {
-  selectHomePageDomain, 
-  makeSelectHomePage,
-  makeSelectIsLoggedIn
-};
+export { selectHomePageDomain, makeSelectHomePage, makeSelectIsLoggedIn };

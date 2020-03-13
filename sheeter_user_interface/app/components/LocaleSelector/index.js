@@ -11,9 +11,7 @@ import { createSelector } from 'reselect';
 
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
-import messages from './messages';
 import { appLocales } from 'i18n';
-
 
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -26,7 +24,7 @@ import { changeLocale } from 'containers/LanguageProvider/actions';
 
 // Import Selectors
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-
+import messages from './messages';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -41,21 +39,22 @@ const useStyles = makeStyles(theme => ({
 function LocaleSelector(props) {
   const classes = useStyles();
   let options = [];
-  
-  if (appLocales){
+
+  if (appLocales) {
     options = appLocales.map(value => (
-      <MenuItem key={value} value={value}>{value}</MenuItem>
+      <MenuItem key={value} value={value}>
+        {value}
+      </MenuItem>
     ));
   }
-  
+
   const [open, setOpen] = React.useState(false);
 
   const autoClose = () => {
-      if (!open) setOpen(true);
-      // Causes a warning but not a problem
-      setTimeout(() => setOpen(false), 1000);
-  }
-
+    if (!open) setOpen(true);
+    // Causes a warning but not a problem
+    setTimeout(() => setOpen(false), 1000);
+  };
 
   return (
     <div>
@@ -63,7 +62,13 @@ function LocaleSelector(props) {
         <InputLabel id="locale-selector-label-1-id">
           <FormattedMessage {...messages.header} />
         </InputLabel>
-        <Tooltip open={open} onMouseEnter={autoClose} title={<FormattedMessage {...messages.tooltip} />} placement="right" arrow>
+        <Tooltip
+          open={open}
+          onMouseEnter={autoClose}
+          title={<FormattedMessage {...messages.tooltip} />}
+          placement="right"
+          arrow
+        >
           <Select
             labelId="locale-selector-label-1-id"
             id="locale-selector-1-id"

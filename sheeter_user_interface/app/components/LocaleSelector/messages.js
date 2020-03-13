@@ -16,6 +16,6 @@ export default defineMessages({
 
   tooltip: {
     id: `${scope}.tooltip`,
-    defaultMessage: 'Choose a language'
-  }
+    defaultMessage: 'Choose a language',
+  },
 });

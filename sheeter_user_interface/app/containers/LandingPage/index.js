@@ -22,20 +22,18 @@ import reducer from './reducer';
 import saga from './saga';
 import makeSelectLandingPage from './selectors';
 
-
-
-const useStyles  = makeStyles(theme => ({
-  container :{
-    margin : 0,
-    paddingTop: 'calc(5%)'
+const useStyles = makeStyles(theme => ({
+  container: {
+    margin: 0,
+    paddingTop: 'calc(5%)',
   },
-  
+
   // We hide the form to force user to download mobile app
   landingform: {
     [theme.breakpoints.down('sm')]: {
-      display:'none'
+      display: 'none',
     },
-  }
+  },
 }));
 
 export function LandingPage() {
@@ -45,28 +43,22 @@ export function LandingPage() {
   return (
     <>
       <FormattedMessage id="app.containers.LandingPage.title">
-        {title => {
-          return (
+        {title => (
           <Helmet>
             <title>{title}</title>
           </Helmet>
-          )
-        }}
+        )}
       </FormattedMessage>
       <Container className={classes.container} maxWidth="xl">
         <Grid container>
-          <Grid item xs={12} sm={8}>
-
-          </Grid>
+          <Grid item xs={12} sm={8} />
           <Grid className={classes.landingform} item xs={12} sm={4}>
-            <LandingPageForm/>
+            <LandingPageForm />
           </Grid>
         </Grid>
-        
-          
       </Container>
     </>
-      );
+  );
 }
 
 LandingPage.propTypes = {

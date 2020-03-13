@@ -7,7 +7,6 @@ import { initialState } from './reducer';
 
 const selectNotifProviderDomain = state => state.notifProvider || initialState;
 
-
 /**
  * Default selector used by ThemeProvider
  */
@@ -16,7 +15,6 @@ const makeSelectNotifProvider = () =>
   createSelector(
     selectNotifProviderDomain,
     substate => substate.notifications,
-);
-
+  );
 
 export { makeSelectNotifProvider, selectNotifProviderDomain };

@@ -5,20 +5,20 @@
  */
 
 import React, { useState } from 'react';
-import reducer from './reducer';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useSnackbar } from 'notistack';
 import { createSelector } from 'reselect';
+import { useInjectReducer, useInjectSaga } from 'utils/injectReducer';
 import { removeSnackbar } from './actions';
 
 import { makeSelectNotifProvider } from './selectors';
-import { useInjectReducer, useInjectSaga } from 'utils/injectReducer';
+import reducer from './reducer';
 
 let displayed = [];
 
 /**
- * This containers enables notification functionnality 
+ * This containers enables notification functionnality
  * See how to use notifications with https://iamhosseindhv.com/notistack/demos#variants
  */
 export function NotifProvider(props) {
@@ -27,20 +27,21 @@ export function NotifProvider(props) {
   const { dispatch, notifications } = props;
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const storeDisplayed = (id) => {
+  const storeDisplayed = id => {
     displayed = [...displayed, id];
   };
 
-  const removeDisplayed = (id) => {
+  const removeDisplayed = id => {
     displayed = [...displayed.filter(key => id !== key)];
   };
 
   React.useEffect(() => {
-    notifications.forEach(({ key, message, options = {}, dismissed = false }) => {
+    notifications.forEach(
+      ({ key, message, options = {}, dismissed = false }) => {
         if (dismissed) {
-            // dismiss snackbar using notistack
-            closeSnackbar(key);
-            return;
+          // dismiss snackbar using notistack
+          closeSnackbar(key);
+          return;
         }
 
         // do nothing if snackbar is already displayed
@@ -48,23 +49,24 @@ export function NotifProvider(props) {
 
         // display snackbar using notistack
         enqueueSnackbar(message, {
-            key,
-            ...options,
-            onClose: (event, reason, myKey) => {
-                if (options.onClose) {
-                    options.onClose(event, reason, myKey);
-                }
-            },
-            onExited: (event, myKey) => {
-                // removen this snackbar from redux store
-                dispatch(removeSnackbar(myKey));
-                removeDisplayed(myKey);
-            },
+          key,
+          ...options,
+          onClose: (event, reason, myKey) => {
+            if (options.onClose) {
+              options.onClose(event, reason, myKey);
+            }
+          },
+          onExited: (event, myKey) => {
+            // removen this snackbar from redux store
+            dispatch(removeSnackbar(myKey));
+            removeDisplayed(myKey);
+          },
         });
 
         // keep track of snackbars that we've displayed
         storeDisplayed(key);
-    });
+      },
+    );
   }, [notifications, closeSnackbar, enqueueSnackbar, dispatch]);
   return null;
 }
@@ -76,9 +78,8 @@ NotifProvider.propTypes = {
 
 const mapStateToProps = createSelector(
   makeSelectNotifProvider(),
-  notifications => ({notifications})
+  notifications => ({ notifications }),
 );
-
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -88,5 +89,5 @@ function mapDispatchToProps(dispatch) {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(NotifProvider);

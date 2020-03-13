@@ -7,7 +7,6 @@ import { initialState } from './reducer';
 
 const selectThemeProviderDomain = state => state.theme || initialState;
 
-
 /**
  * Default selector used by ThemeProvider
  */
@@ -16,7 +15,6 @@ const makeSelectThemeProvider = () =>
   createSelector(
     selectThemeProviderDomain,
     substate => substate.theme,
-);
-
+  );
 
 export { makeSelectThemeProvider, selectThemeProviderDomain };

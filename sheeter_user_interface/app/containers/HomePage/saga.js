@@ -1,14 +1,17 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { push } from 'connected-react-router';
-import { enqueueSnackbar, closeSnackbar } from 'containers/NotifProvider/actions';
+import {
+  enqueueSnackbar,
+  closeSnackbar,
+} from 'containers/NotifProvider/actions';
 import { put, takeEvery } from 'redux-saga/effects';
 import { IS_LOGGED_IN } from './constants';
 
 // Handler sagas
-export function* handleLoggedIn(dispatch){
+export function* handleLoggedIn(dispatch) {
   const logged = false;
-  if (!logged){ 
+  if (!logged) {
     // yield put(push('/login'));
     // yield put(enqueueSnackbar({
     //   message: 'Redirection au login',
@@ -18,10 +21,9 @@ export function* handleLoggedIn(dispatch){
     //   },
     // }));
   }
-  
 }
 
 // Watcher sagas
 export default function* watchHomePageSaga() {
-  yield takeEvery(IS_LOGGED_IN, handleLoggedIn)
+  yield takeEvery(IS_LOGGED_IN, handleLoggedIn);
 }

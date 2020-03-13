@@ -4,7 +4,7 @@
  *
  */
 
-// import components 
+// import components
 import LocaleSelector from 'components/LocaleSelector';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -22,17 +22,14 @@ import reducer from './reducer';
 import saga from './saga';
 import makeSelectHomePage from './selectors';
 
-
-
-
 export function HomePage(props) {
   useInjectReducer({ key: 'homePage', reducer });
   useInjectSaga({ key: 'homePage', saga });
-  
-  const dispatch = props.dispatch;
+
+  const { dispatch } = props;
   const isLoggedAction = () => dispatch(isLogged());
 
-  React.useEffect(() =>{
+  React.useEffect(() => {
     isLoggedAction();
   }, []);
 
@@ -43,7 +40,7 @@ export function HomePage(props) {
         <meta name="description" content="Description of HomePage" />
       </Helmet>
       <FormattedMessage {...messages.header} />
-      <LocaleSelector></LocaleSelector>
+      <LocaleSelector />
       <NavLink to="/login">Login</NavLink>
     </div>
   );

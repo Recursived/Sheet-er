@@ -35,16 +35,10 @@ import configureStore from './configureStore';
 // Import i18n messages
 import { translationMessages } from './i18n';
 
-
 // Create redux store with history
 const initialState = {};
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
-
-
-
-
-
 
 const render = messages => {
   ReactDOM.render(
@@ -53,10 +47,10 @@ const render = messages => {
         <SnackbarProvider maxSnack={3}>
           <LanguageProvider messages={messages}>
             <ConnectedRouter history={history}>
-              <NotifProvider/>
+              <NotifProvider />
               <App />
-           </ConnectedRouter>
-         </LanguageProvider>
+            </ConnectedRouter>
+          </LanguageProvider>
         </SnackbarProvider>
       </ThemeProvider>
     </Provider>,

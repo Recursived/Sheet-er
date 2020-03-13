@@ -12,7 +12,6 @@ import { useTheme } from '@material-ui/core/styles';
 import { Switch, Route } from 'react-router-dom';
 
 // Import container
-import AppContainer from './AppContainer'
 import HomePage from 'containers/HomePage/Loadable';
 import LandingPage from 'containers/LandingPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -22,21 +21,20 @@ import LogoBar from 'components/LogoBar';
 
 import SpeedDialMenu from 'components/SpeedDialMenu';
 import { Container } from '@material-ui/core';
-
+import AppContainer from './AppContainer';
 
 export default function App() {
   const theme = useTheme();
   return (
-    
     <AppContainer theme={theme}>
-      <SpeedDialMenu/>
-      <LogoBar/>
+      <SpeedDialMenu />
+      <LogoBar />
       <Container height="100%" maxWidth="xl">
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/login" component={LandingPage} />
-        <Route component={NotFoundPage} />
-      </Switch> 
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/login" component={LandingPage} />
+          <Route component={NotFoundPage} />
+        </Switch>
       </Container>
     </AppContainer>
   );

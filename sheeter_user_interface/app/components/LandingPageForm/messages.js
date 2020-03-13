@@ -9,33 +9,32 @@ import { defineMessages } from 'react-intl';
 export const scope = 'app.components.LandingPageForm';
 
 export default defineMessages({
-  name : {
-    id:`${scope}.name`,
+  name: {
+    id: `${scope}.name`,
     defaultMessage: 'Name',
   },
-  firstname : {
-    id:`${scope}.firstname`,
+  firstname: {
+    id: `${scope}.firstname`,
     defaultMessage: 'Firstname',
   },
-  email : {
-    id:`${scope}.email`,
-    defaultMessage : 'Email',
+  email: {
+    id: `${scope}.email`,
+    defaultMessage: 'Email',
   },
-  signin : {
-    id:`${scope}.signin`,
-    defaultMessage : 'Sign in',
+  signin: {
+    id: `${scope}.signin`,
+    defaultMessage: 'Sign in',
   },
-  signup : {
-    id:`${scope}.signup`,
-    defaultMessage : 'Sign up',
+  signup: {
+    id: `${scope}.signup`,
+    defaultMessage: 'Sign up',
   },
-  facebooksignup : {
-    id:`${scope}.facebooksignup`,
-    defaultMessage : 'Sign up with Facebook',
+  facebooksignup: {
+    id: `${scope}.facebooksignup`,
+    defaultMessage: 'Sign up with Facebook',
   },
-  googlesignup : {
-    id:`${scope}.googlesignup`,
-    defaultMessage : 'Sign up with google',
+  googlesignup: {
+    id: `${scope}.googlesignup`,
+    defaultMessage: 'Sign up with google',
   },
-
 });
