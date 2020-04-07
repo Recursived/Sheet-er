@@ -87,7 +87,7 @@
     "ip": "1.1.5",
     "lodash": "^4.17.15",
     "material-ui-image": "^3.2.3",
-    "minimist": "1.2.2",
+    "minimist": "1.2.3",
     "notistack": "^0.9.7",
     "prop-types": "15.7.2",
     "react": "16.8.6",
