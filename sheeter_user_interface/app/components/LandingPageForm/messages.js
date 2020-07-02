@@ -29,12 +29,12 @@ export default defineMessages({
     id: `${scope}.signup`,
     defaultMessage: 'Sign up',
   },
-  facebooksignup: {
-    id: `${scope}.facebooksignup`,
-    defaultMessage: 'Sign up with Facebook',
+  facebooklogin: {
+    id: `${scope}.facebooklogin`,
+    defaultMessage: 'Login with Facebook',
   },
-  googlesignup: {
-    id: `${scope}.googlesignup`,
-    defaultMessage: 'Sign up with google',
+  googlelogin: {
+    id: `${scope}.googlelogin`,
+    defaultMessage: 'Login with google',
   },
 });

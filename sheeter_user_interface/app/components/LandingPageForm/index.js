@@ -6,16 +6,15 @@
 
 import {
   makeStyles,
-  Paper,
-  Tab,
-  Tabs,
-  AppBar,
-  TextField,
-  Button,
+  ListSubheader,
+  List,
+  ListItem,
 } from '@material-ui/core';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
+
 import FacebookIcon from '@material-ui/icons/Facebook';
+
+import GoogleLogin  from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
 import { FormattedMessage } from 'react-intl';
 import React from 'react';
 import TabPanel from './TabPanel';
@@ -23,19 +22,43 @@ import messages from './messages';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
-    maxWidth: 500,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
+    maxWidth: 350,
+    backgroundColor: theme.palette.background.paper,
   },
 
-  tabpanel: {
-    '& .MuiTextField-root , & .MuiButton-root': {
-      marginBottom: theme.spacing(3),
+  googlebutton : {
+    width : 'inherit',
+    padding: "calc(.34435vw + 3.38843px) calc(.34435vw + 8.38843px)!important",
+    display: 'inline-block!important',
+    '& span' : {
+      textAlign: 'center',
+      width: 'inherit',
+      color: 'black',
+      fontSize: 'calc(.27548vw + 12.71074px)',
+      fontWeight: '700',
+      textTransform: 'uppercase',
+      padding: 'unset!important'
     },
+    '& div': {
+      margin: 'unset!important',
+      padding: 'unset!important',
+
+
+    }
   },
+
+
 }));
+
+// Debug function
+const responseGoogle = (response) => {
+  console.log(response);
+}
+
+const responseFacebook = (response) => {
+  console.log(response);
+}
+// -----------------------------
 
 function LandingPageForm() {
   const classes = useStyles();
@@ -46,56 +69,42 @@ function LandingPageForm() {
   };
 
   return (
-    <Paper square className={classes.root}>
-      <AppBar position="static">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          variant="fullWidth"
-          indicatorColor="secondary"
-          textColor="secondary"
-          aria-label="icon label tabs example"
-        >
-          <Tab
-            icon={<ExitToAppIcon />}
-            label={<FormattedMessage {...messages.signup} />}
+    <List
+      className={classes.root}
+    >
+      <ListItem>
+          <GoogleLogin
+            className={classes.googlebutton}
+            clientId="293320227396-259msre4c09cbgln6gjl3nsgnc5ja01m.apps.googleusercontent.com"
+            buttonText={<FormattedMessage {...messages.googlelogin} />}
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={'single_host_origin'}
           />
-          <Tab
-            icon={<PersonAddIcon />}
-            label={<FormattedMessage {...messages.signin} />}
-          />
-        </Tabs>
-      </AppBar>
-      <TabPanel className={classes.tabpanel} value={value} index={0}>
-        <TextField
-          fullWidth
-          id="filled-email"
-          label={<FormattedMessage {...messages.email} />}
-          variant="filled"
+      </ListItem>
+      <ListItem>
+        <FacebookLogin
+          containerStyle={
+            {
+              width: 'inherit',
+              
+            }
+          }
+          buttonStyle={
+            {
+              width: 'inherit'
+            }
+          }
+          appId="1583503951799517"
+          autoLoad={false}
+          fields="name,email,picture"
+          callback={responseFacebook}
+          icon={<div><FacebookIcon/></div>}
+          text = {<FormattedMessage {...messages.facebooklogin} />}
+          size="small"
         />
-        <TextField
-          fullWidth
-          id="filled-name"
-          label={<FormattedMessage {...messages.name} />}
-          variant="filled"
-        />
-        <TextField
-          fullWidth
-          id="filled-firstname"
-          label={<FormattedMessage {...messages.firstname} />}
-          variant="filled"
-        />
-        <Button fullWidth variant="contained" color="secondary">
-          <FormattedMessage {...messages.googlesignup} />
-        </Button>
-        <Button fullWidth variant="contained" color="secondary">
-          <FormattedMessage {...messages.facebooksignup} />
-        </Button>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-    </Paper>
+      </ListItem>
+    </List>
   );
 }
 
