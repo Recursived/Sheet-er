@@ -8,6 +8,7 @@ import { Container, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 // Import components
 import LandingPageForm from 'components/LandingPageForm';
+import lpimage from './LandingPage_sheeter.png'
 
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -28,12 +29,14 @@ const useStyles = makeStyles(theme => ({
     paddingTop: 'calc(5%)',
   },
 
-  // We hide the form to force user to download mobile app
-  landingform: {
+
+  lpimagestyle: {
+    maxWidth: '95%',
+    borderRadius: '2px',
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
-  },
+  }
 }));
 
 export function LandingPage() {
@@ -50,9 +53,22 @@ export function LandingPage() {
         )}
       </FormattedMessage>
       <Container className={classes.container} maxWidth="xl">
-        <Grid container>
-          <Grid item xs={12} sm={8} />
-          <Grid className={classes.landingform} item xs={12} sm={4}>
+        <Grid container >
+          <Grid item sm={12} md={8} >
+            <img 
+              className={classes.lpimagestyle}
+              src={lpimage} 
+              alt="Landing page">
+            </img>
+          </Grid>
+          <Grid container
+           item 
+           sm={12} 
+           md={4}
+           direction="column"
+           justify="center"
+           alignItems="center"
+          >
             <LandingPageForm />
           </Grid>
         </Grid>

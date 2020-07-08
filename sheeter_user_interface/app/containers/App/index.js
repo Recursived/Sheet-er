@@ -16,8 +16,6 @@ import HomePage from 'containers/HomePage/Loadable';
 import LandingPage from 'containers/LandingPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
-// Import components
-import LogoBar from 'components/LogoBar';
 
 import SpeedDialMenu from 'components/SpeedDialMenu';
 import { Container } from '@material-ui/core';
@@ -28,7 +26,6 @@ export default function App() {
   return (
     <AppContainer theme={theme}>
       <SpeedDialMenu />
-      <LogoBar />
       <Container height="100%" maxWidth="xl">
         <Switch>
           <Route exact path="/" component={HomePage} />

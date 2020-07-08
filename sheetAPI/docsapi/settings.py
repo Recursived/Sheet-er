@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
     'api.apps.ApiConfig',
 ]
 
@@ -49,6 +50,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware'
 ]
 
 ROOT_URLCONF = 'docsapi.urls'
@@ -132,3 +135,7 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 
     'rest_framework.schemas.coreapi.AutoSchema'
 }
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+] 

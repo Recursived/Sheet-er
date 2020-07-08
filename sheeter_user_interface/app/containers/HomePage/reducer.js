@@ -4,17 +4,22 @@
  *
  */
 import produce from 'immer';
-import { DEFAULT_ACTION } from './constants';
+import { IS_LOGGED_IN, GET_SHEETS, GET_SHEETS_SUCCESS } from './constants';
 
 export const initialState = {
   loggedIn: false,
+  sheets: []
 };
 
 /* eslint-disable default-case, no-param-reassign */
 const homePageReducer = (state = initialState, action) =>
-  produce(state, (/* draft */) => {
+  produce(state, (draft) => {
     switch (action.type) {
-      case DEFAULT_ACTION:
+      case IS_LOGGED_IN:
+        draft.loggedIn = true;
+        break;
+      case GET_SHEETS_SUCCESS:
+        draft.sheets = action.sheets;
         break;
     }
   });

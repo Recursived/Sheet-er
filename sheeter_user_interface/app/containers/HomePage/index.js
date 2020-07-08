@@ -16,7 +16,7 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
-import { isLogged } from './actions';
+import { isLoggedAction, getSheetsAction } from './actions';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
@@ -27,10 +27,13 @@ export function HomePage(props) {
   useInjectSaga({ key: 'homePage', saga });
 
   const { dispatch } = props;
-  const isLoggedAction = () => dispatch(isLogged());
+  const homePageInit = () => {
+    dispatch(isLoggedAction());
+    dispatch(getSheetsAction());
+  }
 
   React.useEffect(() => {
-    isLoggedAction();
+    homePageInit();
   }, []);
 
   return (

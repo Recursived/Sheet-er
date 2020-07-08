@@ -22,14 +22,18 @@ import messages from './messages';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: 350,
+    
     backgroundColor: theme.palette.background.paper,
+    boxShadow: 'rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px',
+    border : theme.palette.background.default,
+    width: '100%'
   },
 
   googlebutton : {
     width : 'inherit',
     padding: "calc(.34435vw + 3.38843px) calc(.34435vw + 8.38843px)!important",
     display: 'inline-block!important',
+    border: "calc(.06887vw + .67769px)",
     '& span' : {
       textAlign: 'center',
       width: 'inherit',
@@ -46,6 +50,10 @@ const useStyles = makeStyles(theme => ({
 
     }
   },
+
+  listheader: {
+    textAlign: 'center'
+  }
 
 
 }));
@@ -71,6 +79,13 @@ function LandingPageForm() {
   return (
     <List
       className={classes.root}
+      subheader={
+        <ListSubheader
+          className={classes.listheader}
+        >
+          <FormattedMessage {...messages.logintitle}/>
+        </ListSubheader>
+      }
     >
       <ListItem>
           <GoogleLogin
@@ -92,7 +107,9 @@ function LandingPageForm() {
           }
           buttonStyle={
             {
-              width: 'inherit'
+              width: 'inherit',
+              borderRadius: '2px',
+              boxShadow : 'rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px'
             }
           }
           appId="1583503951799517"
