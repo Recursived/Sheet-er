@@ -17,10 +17,17 @@ services:
         command: bash -c "python3 ./sheetAPI/manage.py makemigrations && python3 ./sheetAPI/manage.py migrate && python3 ./sheetAPI/manage.py runserver 0.0.0.0:8000"
         volumes:
             - .:/code
+        links:
+            - postgredb
         depends_on:
             - postgredb
         ports:
             - 8000:8000
+        environment:
+            DATABASE_SERVICE_HOST: postgredb
+            DATABASE_NAME: sheet_db 
+            DATABASE_USER: postgres
+            DATABASE_PASSWORD: alex
       
     frontend:
         build: ./sheeter_user_interface

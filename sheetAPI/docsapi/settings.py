@@ -81,10 +81,10 @@ WSGI_APPLICATION = 'docsapi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'sheet_db',
-        'USER': 'postgres',
-        'PASSWORD': 'alex',
-        'HOST': 'postgredb',
+        'NAME': os.getenv("DATABASE_NAME"),
+        'USER': os.getenv("DATABASE_USER"),
+        'PASSWORD': os.getenv("DATABASE_PASSWORD"),
+        'HOST': os.getenv("DATABASE_SERVICE_HOST"),
         'PORT': '5432',
     }
 }
