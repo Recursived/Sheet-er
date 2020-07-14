@@ -1,0 +1,2 @@
+CREATE DATABASE sheet_db;
+GRANT ALL PRIVILEGES ON DATABASE sheet_db TO postgres;

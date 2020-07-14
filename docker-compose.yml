@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+    postgredb:
+        restart: always
+        image: postgres
+        volumes:
+            - db-data:/var/lib/postgresql/data
+            - ./SQLinit:/docker-entrypoint-initdb.d/
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: alex
+    sheetapi:
+        build: ./sheetAPI
+        command: bash -c "python3 ./sheetAPI/manage.py makemigrations && python3 ./sheetAPI/manage.py migrate && python3 ./sheetAPI/manage.py runserver 0.0.0.0:8000"
+        volumes:
+            - .:/code
+        depends_on:
+            - postgredb
+        ports:
+            - 8000:8000
+      
+    frontend:
+        build: ./sheeter_user_interface
+        command: ["npm", "run", "start"]
+        volumes:
+            - ./sheeter_user_interface:/app/
+            - node-modules:/app/node_modules
+        ports:
+            - 3000:3000
+        
+volumes:
+    db-data:
+    node-modules:

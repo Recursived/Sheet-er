@@ -25,7 +25,7 @@ SECRET_KEY = 'n_!j6f!uidks-_3&3q_bq*%lh^c%xgzsy(^1q5+_jy+66xs6o='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -84,8 +84,8 @@ DATABASES = {
         'NAME': 'sheet_db',
         'USER': 'postgres',
         'PASSWORD': 'alex',
-        'HOST': 'localhost',
-        'PORT': '',
+        'HOST': 'postgredb',
+        'PORT': '5432',
     }
 }
 
@@ -136,6 +136,8 @@ REST_FRAMEWORK = {
     'rest_framework.schemas.coreapi.AutoSchema'
 }
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-] 
+CORS_ORIGIN_ALLOW_ALL = True
+
+""" CORS_ORIGIN_WHITELIST = [
+    '*',
+]  """

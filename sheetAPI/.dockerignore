@@ -1,0 +1,11 @@
+/sheetapivenv
+TO-DO.txt
+.gitignore
+db.sqlite3
+**/__pycache__
+**/__init__.py
+/sheetapivenv
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/*.sql
