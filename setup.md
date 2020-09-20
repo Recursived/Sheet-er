@@ -1,5 +1,17 @@
 
 # Comment construire le projet
+___________
+
+## Sommaire
+
+- [Comment construire le projet](#comment-construire-le-projet)
+  - [Sommaire](#sommaire)
+  - [1. Avant-propos](#1-avant-propos)
+  - [2. Structure du projet avec Docker/Compose et fonctionnement](#2-structure-du-projet-avec-dockercompose-et-fonctionnement)
+  - [3. Construction du projet](#3-construction-du-projet)
+  - [4. Env de développement python](#4-env-de-développement-python)
+
+___________
 
 ## 1. Avant-propos
 
@@ -83,3 +95,16 @@ Pour s'assurer du bon déroulement de l'étape, vous pouvez utiliser *Dockstatio
 Ci-dessous une démonstration de l'interface *Dockstation* :
 
 ![Dockstation](https://media.giphy.com/media/kcH4m6OW3KO5KsmsOv/giphy.gif)
+____________
+
+## 4. Env de développement python
+
+Les *API REST* sont fait en python à l'aide de [Django Rest Framework](https://www.django-rest-framework.org/). Ces API utilisent une quantité importante de modules Python. Il est donc nécessaire de les installer lorsque vous êtes en train de développer l'application sur votre poste personnel. Tout d'abord, vous devez installer le langage [Python](https://www.python.org/) sous une version 3.7/3.8.
+
+Pour éviter de polluer votre poste avec une quantité inombrable de modules, il faut pouvoir créer des environnements virtuels python à l'aide de [venv](https://docs.python.org/3.7/tutorial/venv.html). 
+
+Après activation de votre environnement virtuel, il suffit d'installer les modules python à l'aide de l'une des commandes :
+- `pip install -r requirements.txt` 
+- `pip3 install -r requirements.txt`
+
+Les fichiers **requirements.txt** sont présents à la racine de chaque sous projet.
