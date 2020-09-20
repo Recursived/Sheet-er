@@ -34,3 +34,7 @@ class Sheet(models.Model):
         name="creation_date",
         auto_now=True
         )
+    nb_click = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.title

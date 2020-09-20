@@ -1,3 +1,0 @@
-Faire un script python qui génère le fichier 
-'serializer' en fonction de ce qu'il y a dans 
-le fichier 'models'

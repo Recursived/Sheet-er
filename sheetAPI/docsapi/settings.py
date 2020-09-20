@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'api.apps.ApiConfig',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -137,6 +138,11 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+GRAPH_MODELS = {
+#   'all_applications': True,
+#  'group_models': True,
+}
 
 """ CORS_ORIGIN_WHITELIST = [
     '*',
