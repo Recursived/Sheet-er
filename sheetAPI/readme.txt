@@ -1,5 +1,5 @@
 Pour utiliser l'extension graphviz, il faut installer le package 'Graphviz' sur sa machine
-puis ensuite télécharger les dépendances python.
+puis ensuite télécharger les dépendances python (Alexandre MANETA)
 
 TO-DO : 
 - Faire un script python qui génère le fichier 
