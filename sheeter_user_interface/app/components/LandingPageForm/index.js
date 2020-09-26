@@ -60,7 +60,8 @@ const useStyles = makeStyles(theme => ({
 
 // Debug function
 const responseGoogle = (response) => {
-  console.log(response);
+  let basicProfile = response.getBasicProfile();
+  console.log(basicProfile);
 }
 
 const responseFacebook = (response) => {
@@ -112,7 +113,7 @@ function LandingPageForm() {
               boxShadow : 'rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px'
             }
           }
-          appId="1583503951799517"
+          appId="309252216792222"
           autoLoad={false}
           fields="name,email,picture"
           callback={responseFacebook}
