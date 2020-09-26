@@ -4,12 +4,11 @@ ___________
 
 ## Sommaire
 
-- [Comment construire le projet](#comment-construire-le-projet)
-  - [Sommaire](#sommaire)
-  - [1. Avant-propos](#1-avant-propos)
-  - [2. Structure du projet avec Docker/Compose et fonctionnement](#2-structure-du-projet-avec-dockercompose-et-fonctionnement)
-  - [3. Construction du projet](#3-construction-du-projet)
-  - [4. Env de développement python](#4-env-de-développement-python)
+
+- [1. Avant-propos](#1-avant-propos)
+- [2. Structure du projet avec Docker/Compose et fonctionnement](#2-structure-du-projet-avec-dockercompose-et-fonctionnement)
+- [3. Construction du projet](#3-construction-du-projet)
+- [4. Env de développement python](#4-env-de-développement-python)
 
 ___________
 
