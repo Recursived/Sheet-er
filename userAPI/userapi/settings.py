@@ -25,7 +25,7 @@ SECRET_KEY = '3%ei6ssjjx_@9!yf^gbdzl7d67v1ehf7n4#2g(jn^k@=j)!x*-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
+    'api.apps.ApiConfig',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +51,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware'
 ]
 
 ROOT_URLCONF = 'userapi.urls'
@@ -77,11 +82,11 @@ WSGI_APPLICATION = 'userapi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'user_db',
-        'USER': 'postgres',
-        'PASSWORD': 'alex',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': os.getenv("DATABASE_NAME"),
+        'USER': os.getenv("DATABASE_USER"),
+        'PASSWORD': os.getenv("DATABASE_PASSWORD"),
+        'HOST': os.getenv("DATABASE_SERVICE_HOST"),
+        'PORT': '5432',
     }
 }
 
@@ -130,4 +135,11 @@ REST_FRAMEWORK = {
     'rest_framework.pagination.PageNumberPagination',
     'DEFAULT_SCHEMA_CLASS': 
     'rest_framework.schemas.coreapi.AutoSchema'
+}
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+GRAPH_MODELS = {
+#   'all_applications': True,
+#  'group_models': True,
 }
