@@ -7,6 +7,7 @@ router = DefaultRouter()
 router.register(r'sheet', SheetViewSet)
 router.register(r'sheettag', SheetTagViewSet)
 router.register(r'sheettype', SheetTypeViewSet)
+
 # The API URLs are now determined automatically by the router.
 # Additionally, we include the login URLs for the browsable API.
 urlpatterns = [

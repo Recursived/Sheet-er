@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from .models import SheetType, SheetTag, Sheet
 from .serializers import SheetSerializer, SheetTagSerializer, SheetTypeSerializer
 
-# Create your views here.
+
 class SheetViewSet(viewsets.ModelViewSet):
     """
     A simple ViewSet for viewing and editing Sheets.
