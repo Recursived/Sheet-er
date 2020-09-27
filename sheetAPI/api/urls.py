@@ -4,6 +4,11 @@ from .views import SheetTypeViewSet, SheetTagViewSet, SheetViewSet
 
 # Create a router and register our viewsets with it.
 router = DefaultRouter()
+
+# We change the name of the front page of the API
+router.get_api_root_view().cls.__name__ = "Sheet Api endpoint"
+router.get_api_root_view().cls.__doc__ = "Api endpoint for elements related to sheets (sheets, tags, type...)"
+
 router.register(r'sheet', SheetViewSet)
 router.register(r'sheettag', SheetTagViewSet)
 router.register(r'sheettype', SheetTypeViewSet)
