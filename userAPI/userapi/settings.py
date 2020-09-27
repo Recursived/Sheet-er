@@ -134,7 +134,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS':
     'rest_framework.pagination.PageNumberPagination',
     'DEFAULT_SCHEMA_CLASS': 
-    'rest_framework.schemas.coreapi.AutoSchema'
+    'rest_framework.schemas.coreapi.AutoSchema',
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
