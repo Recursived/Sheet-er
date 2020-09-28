@@ -19,6 +19,8 @@ Pour clarifier toute ambiguïté, la démonstration de l'installation se fait so
 
 Il faudra par la suite installer [Docker](https://docs.docker.com/engine/install/ubuntu/) sur votre machine. Il suffit de copier les commandes présentes sur le lien. De la même manière, [docker-compose](https://docs.docker.com/compose/install/) doit être sur votre machine.
 
+> Si vous êtes sous windows veuillez utilisez [cet installeur](https://drive.google.com/drive/folders/1sDfgliyaf-ckIKJyB9rKNKL2zplIUHrc?usp=sharing) avec WSL 2 utilisant Ubuntu.
+
 Vous pouvez également installer ces différents outils facilitant grandement l'utilisation de **Docker** et **docker-compose** :
 
 - *Visual Studio Code* : extensions Docker et docker-compose
