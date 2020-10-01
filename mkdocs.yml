@@ -1,3 +1,18 @@
-site_name: Sheeter documentation server
+site_name: Sheeter docs server
+site_description: Serveur de documentation pour le projet web Sheeter
+site_author: SHeeter Team
+
+theme:
+    name: mkdocs
+    highlightjs: true
+    hljs_languages:
+        - yaml
+        - django
+
 nav:
+    - Accueil: index.md
     - Bien commencer: setup.md
+    - UI: ui/README.md
+
+
+copyright: Copyright &copy; 2019 Sheeter Team.

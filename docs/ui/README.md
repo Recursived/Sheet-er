@@ -55,7 +55,6 @@ JavaScript, HTML and tests.
 The rest of the folders and files only exist to make your life easier, and
 should not need to be touched.
 
-_(If they do have to be changed, please [submit an issue](https://github.com/react-boilerplate/react-boilerplate/issues)!)_
 
 ### CSS
 
