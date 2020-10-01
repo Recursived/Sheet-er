@@ -1,0 +1,3 @@
+site_name: Sheeter documentation server
+nav:
+    - Bien commencer: setup.md

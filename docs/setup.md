@@ -1,14 +1,5 @@
 
 # Comment construire le projet
-___________
-
-## Sommaire
-
-
-- [1. Avant-propos](#1-avant-propos)
-- [2. Structure du projet avec Docker/Compose et fonctionnement](#2-structure-du-projet-avec-dockercompose-et-fonctionnement)
-- [3. Construction du projet](#3-construction-du-projet)
-- [4. Env de développement python](#4-env-de-développement-python)
 
 ___________
 
@@ -19,13 +10,13 @@ Pour clarifier toute ambiguïté, la démonstration de l'installation se fait so
 
 Il faudra par la suite installer [Docker](https://docs.docker.com/engine/install/ubuntu/) sur votre machine. Il suffit de copier les commandes présentes sur le lien. De la même manière, [docker-compose](https://docs.docker.com/compose/install/) doit être sur votre machine.
 
-> Si vous êtes sous windows veuillez utilisez [cet installeur](https://drive.google.com/drive/folders/1sDfgliyaf-ckIKJyB9rKNKL2zplIUHrc?usp=sharing) avec WSL 2 utilisant Ubuntu.
+> Si vous êtes sous windows veuillez utiliser [cet installeur](https://drive.google.com/drive/folders/1sDfgliyaf-ckIKJyB9rKNKL2zplIUHrc?usp=sharing) avec WSL 2 utilisant Ubuntu. Vous pouvez également utiliser une VM avec Ubuntu.
 
 Vous pouvez également installer ces différents outils facilitant grandement l'utilisation de **Docker** et **docker-compose** :
 
 - *Visual Studio Code* : extensions Docker et docker-compose
 - *Dockstation* : permet de visualiser les conteneurs présents sur votre machine
-
+___________
 ## 2. Structure du projet avec Docker/Compose et fonctionnement
 
 Ce projet s'appuie sur ces technologies afin de permettre de constuire automatiquement les environnements techniques nécéssaires au bon fonctionnement des éléments de Sheet-er.
@@ -34,6 +25,8 @@ Ce projet s'appuie sur ces technologies afin de permettre de constuire automatiq
 
 Les **Dockerfiles** sont des blocs élémentaires qui doivent se retrouver dans chaque sous projet (i.e sheetAPI, sheeter_user_interface...). Ils permettent de générer l'environnement minimum permettant au sous-projet de fonctionner.
 
+<br>
+<br>
 On dit souvent :
 > Un exemple vaut mieux que mille mots
 
@@ -51,14 +44,19 @@ RUN pip install -r requirements.txt
 EXPOSE 8000
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 ```
-_________
+
+<br>
+<br>
 Le bout de code ci-dessous permet de prendre une image minimaliste de Linux avec une installation python3.8 ([+ d'infos sur l'image](https://hub.docker.com/_/python)). La deuxième permet de mettre en place une variable d'environnement nommée *PYTHONUNBUFFERED* ayant pour valeur 1.
 
-```Dockerfile 
+```Dockerfile
 FROM python:3.8-slim
 ENV PYTHONUNBUFFERED 1
 ```
-__________
+
+<br>
+<br>
+
 La première ligne permet de définir le dossier sur lequel on souhaite travailler. Par conséquent, les commandes `RUN , CMD , ADD , COPY , ENTRYPOINT` utiliseront le dossier spécifié par la commande `WORKDIR`.
 
 La deuxième commande `COPY <src> … <dest>` copie :O le contenu du dossier dans lequel se trouve le *Dockerfile* dans le dossier du conteneur nommé */code*.
@@ -71,7 +69,9 @@ WORKDIR /code
 COPY . .
 RUN pip install -r requirements.txt
 ```
-________
+
+<br>
+<br>
 
 La première ligne permet d'exposer le port 8000 du conteneur (port que l'on utilise juste en dessous) afin que le conteneur puisse communiquer avec les autres conteneurs.
 La dernière ligne est similaire à la commande `RUN` à la seule différence que `CMD` n'est interprétée que lorsque le conteneur est construit ([voir subtilité](https://stackoverflow.com/questions/37461868/difference-between-run-and-cmd-in-a-dockerfile)).
@@ -80,7 +80,7 @@ La dernière ligne est similaire à la commande `RUN` à la seule différence qu
 EXPOSE 8000
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 ```
-
+__________
 ## 3. Construction du projet
 
 ![Tutorial visuel](https://media.giphy.com/media/LmZjeEIdMM8zEdy7Zj/giphy.gif)
@@ -89,7 +89,7 @@ Il est possible d'utiliser [les outils](#1-avant-propos) Visual Studio Code pour
 
 Il y a des chances que vous rencontriez une erreur concernant un port bloqué. Dans ce cas là, il faut fermer le processus/service qui utilise ce port et relancer la commande.
 
-Si vous n'êtes pas sous VS code, la commande permettant de construire le projet est la suivante : `docker-compose  up -d --build` (:warning: Elle doit être lancée à la racine du projet :warning:).
+Si vous n'êtes pas sous VS code, la commande permettant de construire le projet est la suivante : `docker-compose  up -d --build` (**Elle doit être lancée à la racine du projet**).
 
 Pour s'assurer du bon déroulement de l'étape, vous pouvez utiliser *Dockstation* ou *l'extension Docker*.
 
@@ -105,7 +105,8 @@ Les *API REST* sont fait en python à l'aide de [Django Rest Framework](https://
 Pour éviter de polluer votre poste avec une quantité inombrable de modules, il faut pouvoir créer des environnements virtuels python à l'aide de [venv](https://docs.python.org/3.7/tutorial/venv.html). 
 
 Après activation de votre environnement virtuel, il suffit d'installer les modules python à l'aide de l'une des commandes :
+
 - `pip install -r requirements.txt` 
 - `pip3 install -r requirements.txt`
 
-Les fichiers **requirements.txt** sont présents à la racine de chaque sous projet.
+Les fichiers **requirements.txt** sont présents à la racine de chaque sous projet utilisant Python.
