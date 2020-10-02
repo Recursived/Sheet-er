@@ -13,6 +13,7 @@ nav:
     - Accueil: index.md
     - Bien commencer: setup.md
     - UI: ui/README.md
+    - Backend : backend/index.md
 
 
 copyright: Copyright &copy; 2019 Sheeter Team.
