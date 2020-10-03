@@ -6,7 +6,7 @@ from .models import SheeterUser
 from .serializers import SheeterUserSerializer
 
 
-class CreateSheeterUserTest(APITestCase):
+class SheeterUserTest(APITestCase):
     def setUp(self):
         self.post_data = {
             'user_id': '12312341',
