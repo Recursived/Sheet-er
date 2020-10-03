@@ -8,6 +8,14 @@ from .serializers import SheeterUserSerializer
 
 class CreateSheeterUserTest(APITestCase):
     def setUp(self):
+        self.post_data = {
+            'user_id': '12312341',
+            'name': 'Alexandre MANETA',
+            'email': 'test1@email.com',
+            'profile_pic': 'https://github.com/',
+            'account_type': 'Fb'
+        }
+
         self.data = {
             'user_id': '12312321',
             'name': 'Kevin Tran',
@@ -21,7 +29,7 @@ class CreateSheeterUserTest(APITestCase):
         self.json_data.update({"name": "Alexandre MANETA"})
 
     def test_can_create_user(self):
-        response = self.client.post(reverse('sheeteruser-list'), self.data)
+        response = self.client.post(reverse('sheeteruser-list'), self.post_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_can_read_user_list(self):
