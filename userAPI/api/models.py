@@ -7,6 +7,10 @@ ACCOUNT_TYPE_CHOICES = (
 
 
 class SheeterUser(models.Model):
+
+    class Meta:
+        ordering = ['-name']
+
     user_id = models.CharField(max_length=200, verbose_name='Id_ user', primary_key=True)
     name = models.CharField(max_length=200, verbose_name='Nom')
     account_type = models.CharField(max_length=200, 
