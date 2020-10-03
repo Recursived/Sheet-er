@@ -23,7 +23,7 @@ ________
 Décrivons un fichier test pour comprendre comment fonctionne les tests unitaires --> **userAPI/api/test.py**.
 
 ```python
-class CreateSheeterUserTest(APITestCase):
+class SheeterUserTest(APITestCase):
     def setUp(self):
         self.data = {
             'user_id': '12312321',
@@ -38,8 +38,7 @@ class CreateSheeterUserTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 ```
 
-On remarque que le nom de la classe de test est assez particulier. Il est composé en premier lieu de l'action que l'on veut effectuer (ici *Create*).
-On accole ensuite le nom du modèle/table sur lequel/laquelle on agit, c'est à dire *SheeterUser*. En dernier lieu, on ajoute tout le temps le mot *Test* pour indiquer qu'il s'agit d'une classe de test.
+On remarque que le nom de la classe de test est assez particulier. En premier lieu, on met le nom du modèle/table sur lequel/laquelle on agit, c'est à dire *SheeterUser*. Enfin, on ajoute tout le temps le mot *Test* pour indiquer qu'il s'agit d'une classe de test.
 
 On passe ensuite à la classe parent que l'on retrouve dans les parenthèses. Il en existe plusieurs mais ici, on utilise la classe *APITestCase* (voir [autres types](https://makina-corpus.com/blog/metier/2016/django-rest-framework-les-tests-partie-8)).
 <br>
