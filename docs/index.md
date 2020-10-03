@@ -7,7 +7,7 @@ _____________
 
 ## Structure de la documentation
 
-Dans le but de faciliter la lecture de la documentation, une structure a été mise en place. Les documents sont arrangés par type d'application, c'est à dire que le menu est découpé en type d'applications (ici api rest, frontend). Ensuite, les documents sont groupés par sous-projet (sheetAPI, userAPI, react UI...). Enfin, il convient de grouper les documents par thème comme par exemple **Testing**, **CSS**, etc...
+Dans le but de faciliter la lecture de la documentation, une structure a été mise en place. Les documents sont arrangés par type d'application, c'est à dire que le menu est découpé en type d'applications (ici backend, frontend). Ensuite, les documents sont groupés par sous-projet (sheetAPI, userAPI, react UI...). Enfin, il convient de grouper les documents par thème comme par exemple **Testing**, **CSS**, etc...
 
 ## Comment documenter ?
 
@@ -21,4 +21,6 @@ On dénombre deux commandes importantes concernant la documentation:
 
 - `mkdocs serve` qui permet de tester le site de documentation
 - `mkdocs build` qui permet de générer le site statique de documentation
+
+> **/!\\** Il est fortement conseillé de corriger les éventuelles fautes et erreurs que vous retrouvez dans les fichiers de documentation **/!\\**
 
