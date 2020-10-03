@@ -29,7 +29,8 @@ class SheeterUserTest(APITestCase):
         self.json_data.update({"name": "Alexandre MANETA"})
 
     def test_can_create_user(self):
-        response = self.client.post(reverse('sheeteruser-list'), self.post_data)
+        response = self.client.post(
+            reverse('sheeteruser-list'), self.post_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_can_read_user_list(self):
@@ -50,6 +51,3 @@ class SheeterUserTest(APITestCase):
         response = self.client.delete(
             reverse('sheeteruser-detail', args=[self.user.user_id]))
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-
-
-
