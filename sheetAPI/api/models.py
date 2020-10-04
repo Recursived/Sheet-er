@@ -1,6 +1,11 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
+LOCALES = (
+    ('fr-FR', 'Français'),
+    ('en-EN', 'English')
+)
+
 
 class SheetTag(models.Model):
     class Meta:
@@ -43,6 +48,9 @@ class Sheet(models.Model):
         verbose_name="Date de creation",
         name="creation_date",
         auto_now=True
+    )
+    locale = models.CharField(
+        max_length=50, choices=LOCALES, verbose_name="Locale"
     )
     nb_click = models.IntegerField(default=0)
 
