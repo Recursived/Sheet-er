@@ -28,6 +28,7 @@ services:
             DATABASE_NAME: sheet_db 
             DATABASE_USER: postgres
             DATABASE_PASSWORD: alex
+            DEBUG: "True"
     userapi:
         build: ./userAPI
         command: bash -c "python3 ./userAPI/manage.py makemigrations && python3 ./userAPI/manage.py migrate && python3 ./userAPI/manage.py runserver 0.0.0.0:8001"
@@ -43,7 +44,8 @@ services:
             DATABASE_SERVICE_HOST: postgredb
             DATABASE_NAME: user_db 
             DATABASE_USER: postgres
-            DATABASE_PASSWORD: alex       
+            DATABASE_PASSWORD: alex
+            DEBUG: "True"
     frontend:
         build: ./sheeter_user_interface
         command: ["npm", "run", "start"]
