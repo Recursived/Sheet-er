@@ -50,7 +50,8 @@ class Sheet(models.Model):
         auto_now=True
     )
     locale = models.CharField(
-        max_length=50, choices=LOCALES, verbose_name="Locale"
+        max_length=50, choices=LOCALES,
+        verbose_name="Locale", default="en-EN"
     )
     nb_click = models.IntegerField(default=0)
 

@@ -7,7 +7,7 @@ class SheetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sheet
         fields = ['id', 'content', 'title',  'subject', 'mark',
-                  'tags', 'creation_date', 'plagiarism_rate']
+                  'tags', 'creation_date', 'plagiarism_rate', 'locale']
 
 
 class SheetTypeSerializer(serializers.ModelSerializer):
