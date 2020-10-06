@@ -39,17 +39,18 @@ INSTALLED_APPS = [
     'corsheaders',
     'api.apps.ApiConfig',
     'django_extensions',
+    'oauth2_provider',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware'
 ]
 
@@ -131,14 +132,17 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DEFAULT_PAGINATION_CLASS':
     'rest_framework.pagination.PageNumberPagination',
-    'DEFAULT_SCHEMA_CLASS': 
+    'DEFAULT_SCHEMA_CLASS':
     'rest_framework.schemas.coreapi.AutoSchema',
-    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    )
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
 
 GRAPH_MODELS = {
-#   'all_applications': True,
-#  'group_models': True,
+    #   'all_applications': True,
+    #  'group_models': True,
 }
