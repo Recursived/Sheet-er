@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'^schema/$', schema_view),
     url(r'^docs/', include_docs_urls(title=API_TITLE, description=API_DESCRIPTION)),
     path('admin/', admin.site.urls),
+    url(r'^auth/', include('rest_framework_social_oauth2.urls'))
 ]
 
