@@ -1,15 +1,21 @@
-from oauth2_provider.contrib.rest_framework import (TokenHasReadWriteScope,
-                                                    TokenHasScope)
-from rest_framework import viewsets, permissions
+from rest_framework.generics import RetrieveAPIView
+from rest_framework.response import Response
+from social_django.models import UserSocialAuth
 
-from .models import SheeterUser
-from .serializers import SheeterUserSerializer
+from .mixins import MultipleFieldLookupMixin
+from .serializers import UserSocialAuthSerializer
 
 
-class SheeterUserViewSet(viewsets.ModelViewSet):
+class UserView(MultipleFieldLookupMixin, RetrieveAPIView):
     """
-    A simple ViewSet for viewing and editing Users.
+    A endpoint to get information to get information on a user according to his uid
     """
-    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
-    queryset = SheeterUser.objects.all()
-    serializer_class = SheeterUserSerializer
+    queryset = UserSocialAuth.objects.all()
+    serializer_class = UserSocialAuthSerializer
+    lookup_fields = ("uid", "provider")
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+

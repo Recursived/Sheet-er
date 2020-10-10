@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^schema/$', schema_view),
     url(r'^docs/', include_docs_urls(title=API_TITLE, description=API_DESCRIPTION)),
     path('admin/', admin.site.urls),
-    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    url(r'^auth/', include('rest_framework_social_oauth2.urls')),
+    path("o/", include('oauth2_provider.urls', namespace='oauth2_provider')),
 ]
 
