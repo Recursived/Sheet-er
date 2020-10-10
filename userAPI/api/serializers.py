@@ -1,7 +1,19 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import SheeterUser
+from social_django.models import UserSocialAuth
 
-class SheeterUserSerializer(serializers.ModelSerializer):
+
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SheeterUser
-        fields = [ 'user_id', 'name', 'account_type', 'email', 'profile_pic']
+        model = User
+        fields = ['username', 'first_name',
+                  'last_name', 'email', 'date_joined']
+
+
+class UserSocialAuthSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = UserSocialAuth
+        fields = ['uid', 'user', 'provider',
+                  'created', 'modified', "extra_data"]
