@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'api.apps.ApiConfig',
     'django_extensions',
+    'oauth2_provider',
 ]
 
 MIDDLEWARE = [
@@ -133,16 +134,30 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DEFAULT_PAGINATION_CLASS':
     'rest_framework.pagination.PageNumberPagination',
-    'DEFAULT_SCHEMA_CLASS': 
+    'DEFAULT_SCHEMA_CLASS':
     'rest_framework.schemas.coreapi.AutoSchema',
-    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+    ),
+    
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
+
+OAUTH2_PROVIDER = {
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope'},
+    'RESOURCE_SERVER_INTROSPECTION_URL': 'http://userapi:8001/o/introspect/',
+    'RESOURCE_SERVER_INTROSPECTION_CREDENTIALS': ('lzReHYeSNElBpBtGd5U6xxSC8jN4svuzOKss1VSb','LVl3NSFebI61PDrhwcEUqQThK0NdNTdKkgcrQwLgLCzJOZXbrszjrDFeBXKpcUGU0704T0XRC2Qzun3ECeNPGFThSNgQWW15yewo3m8HKJ3LXEZVsVfivUufZm0nOkc1'),
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+# Pour django-extensions --> création de graphes
 GRAPH_MODELS = {
-#   'all_applications': True,
-#  'group_models': True,
+    #   'all_applications': True,
+    #  'group_models': True,
 }
 
 """ CORS_ORIGIN_WHITELIST = [

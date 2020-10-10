@@ -1,11 +1,8 @@
 from rest_framework import viewsets
-from .models import SheeterUser
-from .serializers import SheeterUserSerializer
+from django.contrib.auth.models
+from social-app
+# from .models import SheeterUser
+# from .serializers import SheeterUserSerializer
 
 
-class SheeterUserViewSet(viewsets.ModelViewSet):
-    """
-    A simple ViewSet for viewing and editing Users.
-    """
-    queryset = SheeterUser.objects.all()
-    serializer_class = SheeterUserSerializer
+# TO-DO : token view pour voir si un token exite, socialuser/user view

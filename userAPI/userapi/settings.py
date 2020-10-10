@@ -146,6 +146,19 @@ REST_FRAMEWORK = {
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',  # django-oauth-toolkit >= 1.0.0
         'rest_framework_social_oauth2.authentication.SocialAuthentication',
     ),
+
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # )
+}
+
+OAUTH2_PROVIDER = {
+    'SCOPES': {
+        'read': 'Read scope', 
+        'write': 'Write scope', 
+        'introspection': 'Introspect token'
+        },
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 86400, # Un jour
 }
 
 AUTHENTICATION_BACKENDS = (
@@ -163,8 +176,10 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'id, name, email'
 }
 
+
 CORS_ORIGIN_ALLOW_ALL = True
 
+# Pour django-extensions --> création de graphes
 GRAPH_MODELS = {
 #   'all_applications': True,
 #  'group_models': True,
