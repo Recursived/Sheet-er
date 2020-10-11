@@ -26,13 +26,11 @@ export default function App() {
   return (
     <AppContainer theme={theme}>
       <SpeedDialMenu />
-      <Container height="100%" maxWidth="xl">
         <Switch>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/login" component={LandingPage} />
           <Route component={NotFoundPage} />
         </Switch>
-      </Container>
     </AppContainer>
   );
 }

@@ -60,8 +60,9 @@ const useStyles = makeStyles(theme => ({
 
 // Debug function
 const responseGoogle = (response) => {
+  console.log(response);
   let basicProfile = response.getBasicProfile();
-  console.log(basicProfile);
+  // console.log(basicProfile);
 }
 
 const responseFacebook = (response) => {

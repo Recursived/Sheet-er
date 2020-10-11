@@ -6,9 +6,10 @@
 
 import { Container, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+
 // Import components
 import LandingPageForm from 'components/LandingPageForm';
-import lpimage from './LandingPage_sheeter.png'
+import CarouselLanding from 'components/CarouselLanding';
 
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -23,10 +24,12 @@ import reducer from './reducer';
 import saga from './saga';
 import makeSelectLandingPage from './selectors';
 
+
+
 const useStyles = makeStyles(theme => ({
-  container: {
+  containercarousel: {
     margin: 0,
-    paddingTop: 'calc(5%)',
+    padding: 0,
   },
 
 
@@ -44,7 +47,7 @@ export function LandingPage() {
   useInjectSaga({ key: 'landingPage', saga });
   const classes = useStyles();
   return (
-    <>
+    <Container className={classes.containercarousel} maxWidth="xl">
       <FormattedMessage id="app.containers.LandingPage.title">
         {title => (
           <Helmet>
@@ -52,28 +55,9 @@ export function LandingPage() {
           </Helmet>
         )}
       </FormattedMessage>
-      <Container className={classes.container} maxWidth="xl">
-        <Grid container >
-          <Grid item sm={12} md={8} >
-            <img 
-              className={classes.lpimagestyle}
-              src={lpimage} 
-              alt="Landing page">
-            </img>
-          </Grid>
-          <Grid container
-           item 
-           sm={12} 
-           md={4}
-           direction="column"
-           justify="center"
-           alignItems="center"
-          >
-            <LandingPageForm />
-          </Grid>
-        </Grid>
-      </Container>
-    </>
+      
+      <CarouselLanding></CarouselLanding>
+    </Container>
   );
 }
 
