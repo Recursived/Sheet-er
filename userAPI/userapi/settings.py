@@ -163,6 +163,7 @@ OAUTH2_PROVIDER = {
 
 AUTHENTICATION_BACKENDS = (
    'social_core.backends.facebook.FacebookAppOAuth2',
+   'social_core.backends.google.GoogleOAuth2',
    'social_core.backends.facebook.FacebookOAuth2',
    'rest_framework_social_oauth2.backends.DjangoOAuth2',
    'django.contrib.auth.backends.ModelBackend',
@@ -175,6 +176,15 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
     'fields': 'id, name, email'
 }
+
+# Google configuration
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "268109374622-j6ie5g11je0hojelqksqtpo32o1st84s.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "J9Zg7Li15PvfOH1EiCVXvOgR"
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile',
+]
 
 
 CORS_ORIGIN_ALLOW_ALL = True
