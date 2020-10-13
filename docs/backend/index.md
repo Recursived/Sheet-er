@@ -4,7 +4,8 @@
 ________
 ## Sommaire
 
-[Tests unitaires API](test/testing_api.md)
+- [Authentification API](api/authen_api.md)
+- [Tests unitaires API](test/testing_api.md)
 
 __________
 ### Tester avec DRF
