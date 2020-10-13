@@ -94,7 +94,7 @@ function CarouselLanding(props) {
       className={classes.carousel}
       autoPlay={true}
       indicators={true}
-      animation="fade"
+      animation="slide"
       navButtonsAlwaysInvisible={true}
     >
       {
