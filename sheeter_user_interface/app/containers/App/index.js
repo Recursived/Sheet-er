@@ -16,6 +16,8 @@ import HomePage from 'containers/HomePage/Loadable';
 import LandingPage from 'containers/LandingPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
+// Import components
+import SheeterNav from 'components/SheeterNav/Loadable';
 
 import SpeedDialMenu from 'components/SpeedDialMenu';
 import { Container } from '@material-ui/core';
@@ -25,6 +27,7 @@ export default function App() {
   const theme = useTheme();
   return (
     <AppContainer theme={theme}>
+      <SheeterNav/>
       <SpeedDialMenu />
         <Switch>
           <Route exact path="/" component={HomePage} />
