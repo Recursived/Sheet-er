@@ -11,6 +11,6 @@ export const scope = 'app.components.SheeterNav';
 export default defineMessages({
   researchinput: {
     id: `${scope}.researchinput`,
-    defaultMessage: 'Search on Sheeter',
+    defaultMessage: 'Search...',
   },
 });
