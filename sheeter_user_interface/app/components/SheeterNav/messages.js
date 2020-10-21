@@ -13,4 +13,24 @@ export default defineMessages({
     id: `${scope}.researchinput`,
     defaultMessage: 'Search...',
   },
+
+  tabhome: {
+    id: `${scope}.tabhome`,
+    defaultMessage: 'Home',
+  },
+
+  tabhome: {
+    id: `${scope}.tabhome`,
+    defaultMessage: 'Home',
+  },
+
+  tabcreate: {
+    id: `${scope}.tabcreate`,
+    defaultMessage: 'Create',
+  },
+
+  tabprofile: {
+    id: `${scope}.tabprofile`,
+    defaultMessage: 'Profile',
+  },
 });
