@@ -5,30 +5,45 @@
  */
 
 import React, { memo } from 'react';
+import PropTypes from 'prop-types';
 
-
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import TextField from '@material-ui/core/TextField';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-
+// Importing icons
 import MenuIcon from '@material-ui/icons/Menu';
 import CreateIcon from '@material-ui/icons/Create';
 import SearchIcon from '@material-ui/icons/Search';
 import ArrowDropDownSharpIcon from '@material-ui/icons/ArrowDropDownSharp';
 import ArrowDropUpSharpIcon from '@material-ui/icons/ArrowDropUpSharp';
+import SettingsIcon from '@material-ui/icons/Settings';
+import TranslateIcon from '@material-ui/icons/Translate';
+import Brightness6Icon from '@material-ui/icons/Brightness6';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import HomeIcon from '@material-ui/icons/Home';
 
-import { Divider, Grid, Hidden, Tooltip } from '@material-ui/core';
-// import PropTypes from 'prop-types';
+// Import material core elems
+import { Divider, Grid, Hidden, Tooltip,
+          AppBar, Toolbar, IconButton,
+          TextField, Tabs, Tab, Button,
+          MenuList, MenuItem, Paper,
+          ClickAwayListener, Grow, Popper,
+          ListItemIcon, Typography
+        } from '@material-ui/core';
+import LocaleSelector from '../LocaleSelector';      
 
+
+// Importing actions and selectors
+import { changeTheme } from 'containers/ThemeProvider/actions';
+import { makeSelectThemeProvider } from 'containers/ThemeProvider/selectors';
+import { makeSelectIsLoggedIn } from 'containers/HomePage/selectors';
+import { push } from 'connected-react-router';
+
+// Misc imports
 import { FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
+import { green } from '@material-ui/core/colors';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
 import messages from './messages';
 import AppBarLogo from './logo_appbar.png';
 
@@ -57,12 +72,55 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor : theme.palette.action.hover
     }
-  }
+  },
+
+  largeButton : {
+    width: '200px',
+  },
+
+  buttonTextSpan: {
+    marginTop: '5px'
+  },
 }));
 
 
-function SheeterNav() {
+function SheeterNav(props) {
   const classes = useStyles();
+  const { dispatch, isLogged, theme } = props;
+
+  const [open, setOpen] = React.useState(false);
+  const [dark, setDark] = React.useState(theme.palette.type == 'dark');
+
+  const anchorRef = React.useRef(null);
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  function handleListKeyDown(event) {
+    console.log(event.key);
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      setOpen(false);
+    }
+  }
+
+  const prevOpen = React.useRef(open);
+  React.useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current.focus();
+    }
+
+    prevOpen.current = open;
+  }, [open]);
 
   return (
     <div className={classes.root}>
@@ -80,71 +138,189 @@ function SheeterNav() {
                 spacing="2"
                 alignItems="center"
               >
-                <Hidden mdUp>
-                  <Grid item>
-                    <IconButton
-                      edge="start"
-                      color="primary"
-                      className={classes.menuButton}
-                    >
-                      <MenuIcon />
-                    </IconButton>
-                  </Grid>
-                </Hidden>
+                {isLogged ? (
+                  <Hidden mdUp>
+                    <Grid item>
+                      <IconButton
+                        edge="start"
+                        color="primary"
+                        className={classes.menuButton}
+                      >
+                        <MenuIcon />
+                      </IconButton>
+                    </Grid>
+                  </Hidden>
+                ) : (
+                  <></>
+                )}
                 <Grid item>
                   <img
                     className={classes.img}
                     src={AppBarLogo}
                   />  
                 </Grid>
-                <Hidden smDown>
-                  <Grid item>
-                    <Tabs
-                      centered
-                    >
-                      <Divider flexItem  orientation="vertical"/>
-                      <Tooltip title={<FormattedMessage {...messages.tabhome} />} arrow>
-                        <Tab className={classes.tabAppBar} icon={<HomeIcon/>}/>
-                      </Tooltip>
-                      <Divider flexItem  orientation="vertical"/>
-                      <Tooltip title={<FormattedMessage {...messages.tabcreate} />} arrow>
-                        <Tab className={classes.tabAppBar} icon={<CreateIcon/>}/>
-                      </Tooltip>
-                      <Divider flexItem  orientation="vertical"/>
-                      <Tooltip title={<FormattedMessage {...messages.tabprofile} />} arrow>
-                        <Tab className={classes.tabAppBar} icon={<AccountCircleIcon/>}  />
-                      </Tooltip>
-                      <Divider flexItem  orientation="vertical"/>
-                    </Tabs>
-                  </Grid>
-                </Hidden>
+                {isLogged ? (
+                  <Hidden smDown>
+                    <Grid item>
+                      <Tabs
+                        centered
+                      >
+                        <Divider flexItem  orientation="vertical"/>
+                        <Tooltip title={<FormattedMessage {...messages.tabhome} />} arrow>
+                          <Tab className={classes.tabAppBar} icon={<HomeIcon/>}/>
+                        </Tooltip>
+                        <Divider flexItem  orientation="vertical"/>
+                        <Tooltip title={<FormattedMessage {...messages.tabcreate} />} arrow>
+                          <Tab className={classes.tabAppBar} icon={<CreateIcon/>}/>
+                        </Tooltip>
+                        <Divider flexItem  orientation="vertical"/>
+                        <Tooltip title={<FormattedMessage {...messages.tabprofile} />} arrow>
+                          <Tab className={classes.tabAppBar} icon={<AccountCircleIcon/>}  />
+                        </Tooltip>
+                        <Divider flexItem  orientation="vertical"/>
+                      </Tabs>
+                    </Grid>
+                  </Hidden>
+                ) : (
+                  <></>
+                )}
+                
               </Grid>
             </Grid>
             <Grid item>
-              <TextField 
-                size="small" 
-                variant="filled"
-                color="primary"
-                className={classes.textField}
-                label={<FormattedMessage {...messages.researchinput} />}
-              />
+                {isLogged ? (
+                  <TextField 
+                    size="small" 
+                    variant="filled"
+                    color="primary"
+                    className={classes.textField}
+                    label={<FormattedMessage {...messages.researchinput} />}
+                  />
+                ) : (
+                  <></>
+                )}
             </Grid>
             <Grid item>
-              <IconButton
-                edge="start"
-                color="primary"
-                className={classes.menuButton}
-              >
-                <ArrowDropDownSharpIcon />
-              </IconButton>
+                {isLogged ? (
+                  <IconButton
+                    edge="start"
+                    color="primary"
+                    className={classes.menuButton}
+                    ref={anchorRef}
+                    aria-controls={open ? 'menu-list-grow' : undefined}
+                    aria-haspopup="true"
+                    onClick={handleToggle}
+                  >
+                    <ArrowDropDownSharpIcon />
+                  </IconButton>
+                ) : (
+                  <Button 
+                    size="large"
+                    variant="contained" 
+                    color="primary"
+                    endIcon={<VpnKeyIcon/>}
+                    onClick={
+                      () => {
+                        dispatch(push('/login'));
+                      }
+                    }
+                  >
+                    <span className={classes.buttonTextSpan}><FormattedMessage {...messages.loginbutton} /></span>
+                  </Button>
+                )}
+              
             </Grid>
           </Grid>
-        </Toolbar>
+        </Toolbar>                 
+        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+          {({ TransitionProps, placement }) => (
+            <Grow
+              {...TransitionProps}
+              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+            >
+              <Paper variant="outlined" square>
+                <ClickAwayListener onClickAway={handleClose}>
+                  <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                    <MenuItem onClick={handleClose}>
+                      My profile
+                    </MenuItem>
+                    <Divider variant="middle"/>
+                    <MenuItem onClick={
+                      () => {
+                        setDark(!dark);
+                        const theme = createMuiTheme({
+                          palette: {
+                            primary: {
+                              main: '#69b488'
+                            },
+                            secondary: {
+                              main: '#c8e6c9',
+                            },
+                            type: dark ? 'light' : 'dark',
+                          },
+                        });
+                        dispatch(changeTheme(theme));
+                        
+                        if (anchorRef.current && anchorRef.current.contains(event.target)) {
+                          return;
+                        }
+                    
+                        setOpen(false);
+                      }
+                    }>
+                      <ListItemIcon>
+                        <Brightness6Icon/>
+                      </ListItemIcon>
+                      <Typography variant="inherit"><FormattedMessage {...messages.changethemebutton} /></Typography>
+                    </MenuItem>
+                    <MenuItem onClick={() => {
+                        dispatch(push('/settings'));
+                        if (anchorRef.current && anchorRef.current.contains(event.target)) {
+                          return;
+                        }
+                        setOpen(false);
+                      }}>
+                      <ListItemIcon>
+                        <SettingsIcon/>
+                      </ListItemIcon>
+                      <Typography variant="inherit"><FormattedMessage {...messages.settingsbutton} /></Typography>
+                    </MenuItem>
+                    <Divider variant="middle"/>
+                    <MenuItem onClick={handleClose}>
+                      <ListItemIcon>
+                        <ExitToAppIcon/>
+                      </ListItemIcon>
+                      <Typography variant="inherit"><FormattedMessage {...messages.logoutbutton} /></Typography>
+                    </MenuItem>
+                  </MenuList>
+                </ClickAwayListener>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
       </AppBar>
     </div>
     );
 }
 
-SheeterNav.propTypes = {};
+SheeterNav.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  isLogged: PropTypes.bool.isRequired,
+  theme: PropTypes.object,
+};
 
-export default memo(SheeterNav);
+const mapStateToProps = createStructuredSelector({
+  isLogged: makeSelectIsLoggedIn(),
+  theme: makeSelectThemeProvider(),
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+export default memo(connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SheeterNav));

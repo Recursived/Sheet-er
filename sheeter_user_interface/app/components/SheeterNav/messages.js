@@ -33,4 +33,24 @@ export default defineMessages({
     id: `${scope}.tabprofile`,
     defaultMessage: 'Profile',
   },
+
+  loginbutton: {
+    id: `${scope}.loginbutton`,
+    defaultMessage: 'Log into Sheeter',
+  },
+
+  logoutbutton: {
+    id: `${scope}.logoutbutton`,
+    defaultMessage: 'Log out',
+  },
+
+  changethemebutton: {
+    id: `${scope}.changethemebutton`,
+    defaultMessage: 'Change theme',
+  },
+
+  settingsbutton: {
+    id: `${scope}.settingsbutton`,
+    defaultMessage: 'Access settings',
+  }
 });
