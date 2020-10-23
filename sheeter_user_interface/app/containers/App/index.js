@@ -8,6 +8,7 @@
  */
 
 import React from 'react';
+import { Container } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import { Switch, Route } from 'react-router-dom';
 
@@ -19,8 +20,6 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 // Import components
 import SheeterNav from 'components/SheeterNav/Loadable';
 
-import SpeedDialMenu from 'components/SpeedDialMenu';
-import { Container } from '@material-ui/core';
 import AppContainer from './AppContainer';
 
 export default function App() {
@@ -28,10 +27,9 @@ export default function App() {
   return (
     <AppContainer theme={theme}>
       <SheeterNav/>
-      <SpeedDialMenu />
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/login" component={LandingPage} />
+          <Route exact path="/landing" component={LandingPage} />
           <Route component={NotFoundPage} />
         </Switch>
     </AppContainer>

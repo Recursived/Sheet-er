@@ -43,8 +43,6 @@ export function HomePage(props) {
         <meta name="description" content="Description of HomePage" />
       </Helmet>
       <FormattedMessage {...messages.header} />
-      <LocaleSelector />
-      <NavLink to="/login">Login</NavLink>
     </div>
   );
 }
