@@ -14,7 +14,9 @@ const getThemeFromPreference = () => {
   const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
   const theme = createMuiTheme({
     palette: {
-      primary: green,
+      primary: {
+        main: '#69b488'
+      },
       secondary: {
         main: '#c8e6c9',
       },
