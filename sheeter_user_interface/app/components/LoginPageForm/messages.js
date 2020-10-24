@@ -11,14 +11,26 @@ export const scope = 'app.components.LandingPageForm';
 export default defineMessages({
   logintitle: {
     id: `${scope}.logintitle`,
-    defaultMessage: 'Log in',
+    defaultMessage: 'Sign in with',
   },
+  
   facebooklogin: {
     id: `${scope}.facebooklogin`,
-    defaultMessage: 'Login with edgrzsth',
+    defaultMessage: 'Facebook',
   },
+
+  facebooktooltip: {
+    id: `${scope}.facebooktooltip`,
+    defaultMessage: 'Sign in with Facebook',
+  },
+
   googlelogin: {
     id: `${scope}.googlelogin`,
-    defaultMessage: 'Log in with google',
+    defaultMessage: 'Google',
+  },
+
+  googletooltip: {
+    id: `${scope}.googletooltip`,
+    defaultMessage: 'Sign in with Google',
   },
 });
