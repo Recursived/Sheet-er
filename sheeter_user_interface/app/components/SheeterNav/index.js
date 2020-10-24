@@ -41,11 +41,10 @@ import { push } from 'connected-react-router';
 // Misc imports
 import { FormattedMessage } from 'react-intl';
 import { makeStyles, createMuiTheme } from '@material-ui/core/styles';
-import { green } from '@material-ui/core/colors';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import messages from './messages';
-import AppBarLogo from './logo_appbar.png';
+import AppBarLogo from 'images/logo_appbar.png';
 
 
 
@@ -135,7 +134,7 @@ function SheeterNav(props) {
             <Grid item>
               <Grid
                 container
-                spacing="2"
+                spacing={2}
                 alignItems="center"
               >
                 {isLogged ? (
