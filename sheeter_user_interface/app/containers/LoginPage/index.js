@@ -10,7 +10,12 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
+import { makeStyles } from '@material-ui/core/styles';
 import { compose } from 'redux';
+
+// Import components
+import LoginPageForm from 'components/LoginPageForm';
+import LocaleSelector from 'components/LocaleSelector';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -18,19 +23,40 @@ import makeSelectLoginPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { Container, Grid } from '@material-ui/core';
 
+const useStyles = makeStyles(theme => ({
+  container : {
+    marginTop: '30vh'
+  }
+}));
 export function LoginPage() {
   useInjectReducer({ key: 'loginPage', reducer });
   useInjectSaga({ key: 'loginPage', saga });
 
+  const classes = useStyles();
   return (
-    <div>
+    <Container maxWidth="xs" className={classes.container} >
       <Helmet>
-        <title>LoginPage</title>
+        <title>Log into Sheeter</title>
         <meta name="description" content="Description of LoginPage" />
       </Helmet>
-      <FormattedMessage {...messages.header} />
-    </div>
+      <Grid 
+        container
+        direction="column"
+        justify="space-evenly"
+        alignItems="stretch"
+        spacing={2}
+      >
+        <Grid item>
+          <LoginPageForm/>
+        </Grid>
+        <Grid item>
+          <LocaleSelector></LocaleSelector>
+        </Grid>
+      </Grid>
+      
+    </Container>
   );
 }
 

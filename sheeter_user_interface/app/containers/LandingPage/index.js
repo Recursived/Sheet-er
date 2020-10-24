@@ -9,7 +9,6 @@ import { LoremIpsum, Avatar } from "react-lorem-ipsum";
 import { makeStyles } from '@material-ui/core/styles';
 
 // Import components
-import LandingPageForm from 'components/LandingPageForm';
 import CarouselLanding from 'components/CarouselLanding';
 
 import PropTypes from 'prop-types';
@@ -191,8 +190,6 @@ export function LandingPage() {
             alignItems="center"
             className={classes.container}
           >
-            <LandingPageForm/>
-
           </Grid>
         </Container>
       </Hidden>
