@@ -23,31 +23,11 @@ class SheetTagTest(APITestCase):
         self.json_data = SheetTagSerializer(self.sheettag).data
         self.json_data.update({"label": "primitives"})
 
-    def test_can_create_sheettag(self):
-        response = self.client.post(
-            reverse('sheettag-list'),
-            self.post_data
-        )
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-    def test_can_read_sheettag_list(self):
+    def test_get_401_without_key(self):
         response = self.client.get(reverse('sheettag-list'))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-    def test_can_read_sheettag_detail(self):
-        response = self.client.get(
-            reverse('sheettag-detail', args=[self.data["id"]]))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_can_update_sheettag(self):
-        response = self.client.put(
-            reverse('sheettag-detail', args=[self.data["id"]]), self.json_data)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    def test_can_delete_sheettag(self):
-        response = self.client.delete(
-            reverse('sheettag-detail', args=[self.data["id"]]))
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
 
 class SheetTypeTest(APITestCase):
@@ -66,32 +46,10 @@ class SheetTypeTest(APITestCase):
         self.json_data = SheetTypeSerializer(self.sheettype).data
         self.json_data.update({"label": "primitives"})
 
-    def test_can_create_sheettype(self):
-        response = self.client.post(
-            reverse('sheettype-list'),
-            self.post_data
-        )
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-    def test_can_read_sheettype_list(self):
+    def test_get_401_without_key(self):
         response = self.client.get(reverse('sheettype-list'))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-    def test_can_read_sheettype_detail(self):
-
-        response = self.client.get(
-            reverse('sheettype-detail', args=[self.data["id"]]))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    def test_can_update_sheettype(self):
-        response = self.client.put(
-            reverse('sheettype-detail', args=[self.data["id"]]), self.json_data)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    def test_can_delete_sheettype(self):
-        response = self.client.delete(
-            reverse('sheettype-detail', args=[self.data["id"]]))
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
 
 class SheetTest(APITestCase):
@@ -125,29 +83,6 @@ class SheetTest(APITestCase):
         self.json_data = SheetSerializer(self.sheet).data
         self.json_data.update({"title": "Titre changé"})
 
-    def test_can_create_sheet(self):
-        response = self.client.post(
-            reverse('sheet-list'),
-            self.post_data
-        )
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-    def test_can_read_sheet_list(self):
+    def test_get_401_without_key(self):
         response = self.client.get(reverse('sheet-list'))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    def test_can_read_sheet_detail(self):
-
-        response = self.client.get(
-            reverse('sheet-detail', args=[self.data["id"]]))
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    def test_can_update_sheet(self):
-        response = self.client.put(
-            reverse('sheet-detail', args=[self.data["id"]]), self.json_data)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    def test_can_delete_sheet(self):
-        response = self.client.delete(
-            reverse('sheet-detail', args=[self.data["id"]]))
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)

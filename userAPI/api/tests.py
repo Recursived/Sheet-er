@@ -21,3 +21,9 @@ class SheeterUserTest(APITestCase):
             f"/user/{self.social_user.uid}/{self.social_user.provider}"
             )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_user_doesnt_exist(self):
+        response = self.client.get(
+            f"/user/{3779421658752031}/{self.social_user.provider}"
+            )
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
