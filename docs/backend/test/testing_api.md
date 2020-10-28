@@ -20,7 +20,7 @@ Vos tests se trouveront dans chaque sous projets dans un fichier nommé *test.py
 ________
 ## Un exemple
 
-Décrivons un fichier test pour comprendre comment fonctionne les tests unitaires --> **userAPI/api/test.py**.
+Décrivons un fichier test pour comprendre comment fonctionne les tests unitaires
 
 ```python
 class SheeterUserTest(APITestCase):
