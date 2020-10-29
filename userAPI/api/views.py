@@ -8,7 +8,7 @@ from .serializers import UserSocialAuthSerializer
 
 class UserView(MultipleFieldLookupMixin, RetrieveAPIView):
     """
-    A endpoint to get information to get information on a user according to his uid
+    A endpoint to get information on a user according to his uid
     """
     queryset = UserSocialAuth.objects.all()
     serializer_class = UserSocialAuthSerializer
