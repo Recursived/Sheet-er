@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'django_extensions',
     'oauth2_provider',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [

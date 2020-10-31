@@ -20,6 +20,9 @@ import FacebookLogin from 'react-facebook-login';
 import { FormattedMessage } from 'react-intl';
 import React from 'react';
 
+import { RETRIEVE_USERAPI } from 'utils/api';
+import getAPI from 'utils/api';
+
 import AppBarLogo from 'images/logo_appbar.png';
 import messages from './messages';
 
@@ -61,6 +64,8 @@ const responseFacebook = (response) => {
 
 function LoginPageForm() {
   const classes = useStyles();
+  const api = getAPI(RETRIEVE_USERAPI);
+  console.log(api);
   
 
   return (

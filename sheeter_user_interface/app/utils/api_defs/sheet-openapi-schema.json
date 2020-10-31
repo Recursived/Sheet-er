@@ -1,0 +1,330 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "sheet API",
+        "description": "API for all things related to sheet"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000"
+        }
+    ],
+    "paths": {
+        "/sheet/": {
+            "get": {
+                "operationId": "sheet_list",
+                "description": "A simple ViewSet for viewing and editing Sheets.",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "title": "Page",
+                            "description": "A page number within the paginated result set."
+                        }
+                    }
+                ],
+                "tags": [
+                    "sheet"
+                ]
+            },
+            "post": {
+                "operationId": "sheet_create",
+                "description": "A simple ViewSet for viewing and editing Sheets.",
+                "tags": [
+                    "sheet"
+                ]
+            }
+        },
+        "/sheet/{id}/": {
+            "get": {
+                "operationId": "sheet_read",
+                "description": "A simple ViewSet for viewing and editing Sheets.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "ID",
+                            "description": "A unique integer value identifying this sheet."
+                        }
+                    }
+                ],
+                "tags": [
+                    "sheet"
+                ]
+            },
+            "put": {
+                "operationId": "sheet_update",
+                "description": "A simple ViewSet for viewing and editing Sheets.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "ID",
+                            "description": "A unique integer value identifying this sheet."
+                        }
+                    }
+                ],
+                "tags": [
+                    "sheet"
+                ]
+            },
+            "patch": {
+                "operationId": "sheet_partial_update",
+                "description": "A simple ViewSet for viewing and editing Sheets.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "ID",
+                            "description": "A unique integer value identifying this sheet."
+                        }
+                    }
+                ],
+                "tags": [
+                    "sheet"
+                ]
+            },
+            "delete": {
+                "operationId": "sheet_delete",
+                "description": "A simple ViewSet for viewing and editing Sheets.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "ID",
+                            "description": "A unique integer value identifying this sheet."
+                        }
+                    }
+                ],
+                "tags": [
+                    "sheet"
+                ]
+            }
+        },
+        "/sheettag/": {
+            "get": {
+                "operationId": "sheettag_list",
+                "description": "A simple ViewSet for viewing and editing SheetTag.",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "title": "Page",
+                            "description": "A page number within the paginated result set."
+                        }
+                    }
+                ],
+                "tags": [
+                    "sheettag"
+                ]
+            },
+            "post": {
+                "operationId": "sheettag_create",
+                "description": "A simple ViewSet for viewing and editing SheetTag.",
+                "tags": [
+                    "sheettag"
+                ]
+            }
+        },
+        "/sheettag/{id}/": {
+            "get": {
+                "operationId": "sheettag_read",
+                "description": "A simple ViewSet for viewing and editing SheetTag.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "ID",
+                            "description": "A unique integer value identifying this sheet tag."
+                        }
+                    }
+                ],
+                "tags": [
+                    "sheettag"
+                ]
+            },
+            "put": {
+                "operationId": "sheettag_update",
+                "description": "A simple ViewSet for viewing and editing SheetTag.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "ID",
+                            "description": "A unique integer value identifying this sheet tag."
+                        }
+                    }
+                ],
+                "tags": [
+                    "sheettag"
+                ]
+            },
+            "patch": {
+                "operationId": "sheettag_partial_update",
+                "description": "A simple ViewSet for viewing and editing SheetTag.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "ID",
+                            "description": "A unique integer value identifying this sheet tag."
+                        }
+                    }
+                ],
+                "tags": [
+                    "sheettag"
+                ]
+            },
+            "delete": {
+                "operationId": "sheettag_delete",
+                "description": "A simple ViewSet for viewing and editing SheetTag.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "ID",
+                            "description": "A unique integer value identifying this sheet tag."
+                        }
+                    }
+                ],
+                "tags": [
+                    "sheettag"
+                ]
+            }
+        },
+        "/sheettype/": {
+            "get": {
+                "operationId": "sheettype_list",
+                "description": "A simple ViewSet for viewing and editing SheetType.",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "title": "Page",
+                            "description": "A page number within the paginated result set."
+                        }
+                    }
+                ],
+                "tags": [
+                    "sheettype"
+                ]
+            },
+            "post": {
+                "operationId": "sheettype_create",
+                "description": "A simple ViewSet for viewing and editing SheetType.",
+                "tags": [
+                    "sheettype"
+                ]
+            }
+        },
+        "/sheettype/{id}/": {
+            "get": {
+                "operationId": "sheettype_read",
+                "description": "A simple ViewSet for viewing and editing SheetType.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "ID",
+                            "description": "A unique integer value identifying this sheet type."
+                        }
+                    }
+                ],
+                "tags": [
+                    "sheettype"
+                ]
+            },
+            "put": {
+                "operationId": "sheettype_update",
+                "description": "A simple ViewSet for viewing and editing SheetType.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "ID",
+                            "description": "A unique integer value identifying this sheet type."
+                        }
+                    }
+                ],
+                "tags": [
+                    "sheettype"
+                ]
+            },
+            "patch": {
+                "operationId": "sheettype_partial_update",
+                "description": "A simple ViewSet for viewing and editing SheetType.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "ID",
+                            "description": "A unique integer value identifying this sheet type."
+                        }
+                    }
+                ],
+                "tags": [
+                    "sheettype"
+                ]
+            },
+            "delete": {
+                "operationId": "sheettype_delete",
+                "description": "A simple ViewSet for viewing and editing SheetType.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "title": "ID",
+                            "description": "A unique integer value identifying this sheet type."
+                        }
+                    }
+                ],
+                "tags": [
+                    "sheettype"
+                ]
+            }
+        }
+    }
+}
