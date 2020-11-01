@@ -19,7 +19,7 @@ import LocaleSelector from 'components/LocaleSelector';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import makeSelectLoginPage from './selectors';
+import { makeSelectLoginPage } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';

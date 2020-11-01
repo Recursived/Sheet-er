@@ -35,6 +35,7 @@ import LocaleSelector from '../LocaleSelector';
 // Importing actions and selectors
 import { changeTheme } from 'containers/ThemeProvider/actions';
 import { makeSelectThemeProvider } from 'containers/ThemeProvider/selectors';
+import { makeSelectPathname } from 'containers/LoginPage/selectors';
 import { makeSelectIsLoggedIn } from 'containers/HomePage/selectors';
 import { push } from 'connected-react-router';
 
@@ -85,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SheeterNav(props) {
   const classes = useStyles();
-  const { dispatch, isLogged, theme } = props;
+  const { dispatch, isLogged, theme, pathname } = props;
 
   const [open, setOpen] = React.useState(false);
   const [dark, setDark] = React.useState(theme.palette.type == 'dark');
@@ -105,7 +106,6 @@ function SheeterNav(props) {
   };
 
   function handleListKeyDown(event) {
-    console.log(event.key);
     if (event.key === 'Escape') {
       event.preventDefault();
       setOpen(false);
@@ -218,6 +218,7 @@ function SheeterNav(props) {
                     variant="contained" 
                     color="primary"
                     endIcon={<VpnKeyIcon/>}
+                    disabled={pathname == "/login" ? true : false}
                     onClick={
                       () => {
                         dispatch(push('/login'));
@@ -311,6 +312,7 @@ SheeterNav.propTypes = {
 const mapStateToProps = createStructuredSelector({
   isLogged: makeSelectIsLoggedIn(),
   theme: makeSelectThemeProvider(),
+  pathname: makeSelectPathname()
 });
 
 function mapDispatchToProps(dispatch) {

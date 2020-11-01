@@ -6,10 +6,12 @@ import { initialState } from './reducer';
  */
 
 const selectLoginPageDomain = state => state.loginPage || initialState;
+const selectRouterPageDomain = state => state.router || initialState;
 
 /**
  * Other specific selectors
  */
+
 
 /**
  * Default selector used by LoginPage
@@ -21,5 +23,19 @@ const makeSelectLoginPage = () =>
     substate => substate,
   );
 
-export default makeSelectLoginPage;
-export { selectLoginPageDomain };
+/**
+ * Selector used to retrieve the pathname
+ */
+const makeSelectPathname = () =>
+    createSelector(
+      selectRouterPageDomain,
+      substate => substate.location.pathname
+    )
+
+
+export { 
+  selectLoginPageDomain, 
+  selectRouterPageDomain,
+  makeSelectLoginPage,
+  makeSelectPathname
+};
