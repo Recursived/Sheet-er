@@ -41,39 +41,45 @@ Dans cette partie, nous allons voir le **le processus de connexion utilisateur**
 Cette réponse contient plusieurs informations intéressantes :
 ![Login obj](return_login_obj.png)
 
-Les deux éléments à retenir sur cet objet JS sont **l'acces token** ainsi que **l'id**.
+Les deux éléments à retenir sur cet objet JS sont **l'access token** ainsi que **l'id**.
 
 Dans un premier temps, nous allons utiliser le champ **id** en faisant appel à l'url suivante pour vérifier que l'utilisateur existe :<br>
 `http://<url_serveur_authent>/user/<id>/<provider> --> http://localhost:8001/user/************2048/facebook` 
 
-L'appel à cette URL nous donne deux résultats possibles :
+Les choix disponibles pour `<provider>` sont : 
+
+- facebook
+- google-oauth2
+
+
+
+L'appel à cette URL nous donne deux réponses possibles :
 
 - Un JSON indiquant que rien n'a été trouvé
 - Un JSON avec des informations concernant l'utilisateur déjà existant sur l'api d'authentification
 
-Pour la réponse deux, le champ **extra_data** est très important car il permet d'obtenir **l'acces token** qui est utile pour faire des requêtes sur les API dites de *ressources* (nous verrons comment l'utiliser dans les futures parties).
+Voici une image qui montre à quoi ressemble une réponse correcte (avec des annotations pour les champs importants) :
+![convert token](login_test_response.png)
 <br>
 <br>
-
 S'il s'avère que l'utilisateur n'existe pas sur l'api d'authentification, il vous faudra convertir l'access token qui vous est fourni par Facebook/Google en token propre à notre API.
 
 Pour ce faire voici l'appel que vous devez effectuer (les éléments importants sont en rouge):
 
 ![convert token](convert_token.png)
 
-Le champ *token* correspond au champ *access token* de l'objet renvoyé par les boutons de login. Il y a deux valeurs possibles pour le backend : facebook ou google-oauth2
-
+Le champ *token* correspond au champ *access token* de l'objet renvoyé par les boutons de login. Il y a deux valeurs possibles pour le backend (voir liste plus haut).
 Enfin pour le champ *client_id*, il est possible de l'obtenir via le panel admin de l'api (ou alors demander à M. MANETA).
 
 Si la requête est fructueuse, vous obtiendrez un **access token** ainsi qu'un **refresh token** (qui permet de rafraîchir l'access token en cas d'expiration) que vous devez garder soigneusement pour faire des requêtes sur les API *ressources*.
 
-Pour récapituler, vous devez d'abord vérifier l'existence de l'utilisateur via la première URL qui est fournie dans cette section. Si l'utilisateur n'existe pas, il faut donc convertir le token fourni par Facebook/Google via la seconde URL.
+Pour récapituler, vous devez d'abord vérifier l'existence de l'utilisateur via la première URL qui est fournie dans cette section. Si l'utilisateur n'existe pas, il faut donc convertir le token d'accès fourni par Facebook/Google via la seconde URL. Vous obtenez ensuite un token d'accès propre à notre api qui découle de celui de facebook ou google. Le token de notre API à une date d'expiration. SI cette date est atteinte, le token d'accès n'est plus valide. Il vous faut donc le rafraîchir (voir la section '[Testing the Setup](https://github.com/RealmTeam/django-rest-framework-social-oauth2)').
 
 ## Token d'accès : comment l'utiliser ?
 
 Une fois le token d'accès en main, vous pouvez accéder à n'importe quelle donnée sur les API de ressources. Pour ce faire, il faut ajouter le token dans l'en-tête de la requête : 
 <br>
 <br>
-`curl --location --request GET 'http://localhost:8000/sheettag/' --header 'Authorization: Bearer lOyZ9G6Wf1Jd18YzfMTqQFIjhTxFJN'`
+`curl --location --request GET 'http://localhost:8000/sheettag/' --header 'Authorization: Bearer <access_token_de_notre_api>'`
 
 L'ajout de ce token permet d'accéder aux données. Sans ce token, un JSON d'erreur vous sera renvoyé.
