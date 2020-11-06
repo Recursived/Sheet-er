@@ -44,14 +44,14 @@ const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
       <ThemeProvider>
-        <SnackbarProvider maxSnack={3}>
-          <LanguageProvider messages={messages}>
+        <LanguageProvider messages={messages}>
+          <SnackbarProvider maxSnack={3}>
             <ConnectedRouter history={history}>
               <NotifProvider />
               <App />
             </ConnectedRouter>
-          </LanguageProvider>
-        </SnackbarProvider>
+          </SnackbarProvider>
+        </LanguageProvider>
       </ThemeProvider>
     </Provider>,
     MOUNT_NODE,
