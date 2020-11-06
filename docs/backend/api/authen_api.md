@@ -44,7 +44,9 @@ Cette réponse contient plusieurs informations intéressantes :
 Les deux éléments à retenir sur cet objet JS sont **l'access token** ainsi que **l'id**.
 
 Dans un premier temps, nous allons utiliser le champ **id** en faisant appel à l'url suivante pour vérifier que l'utilisateur existe :<br>
-`http://<url_serveur_authent>/user/<id>/<provider> --> http://localhost:8001/user/************2048/facebook` 
+`http://<url_serveur_authent>/user/<id>/<provider> --> http://localhost:8001/user/************2048/facebook`
+
+NB : pour facebook le userID est un un nombre et pour google il s'agit du mail du compte que vous tentez de vérifier.
 
 Les choix disponibles pour `<provider>` sont : 
 
