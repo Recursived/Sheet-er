@@ -13,4 +13,10 @@ export default defineMessages({
     id: `${scope}.header`,
     defaultMessage: 'This is the HomePage container!',
   },
+
+  hasToLogin: {
+    id: `${scope}.hasToLogin`,
+    defaultMessage: 'To access this page, you have to log in !',
+  },
+
 });

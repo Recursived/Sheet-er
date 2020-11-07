@@ -11,10 +11,7 @@ const selectHomePageDomain = state => state.homePage || initialState;
  * Other specific selectors
  */
 
-/**
- * Default selector used by HomePage
- */
-
+ 
 const makeSelectHomePage = () =>
   createSelector(
     selectHomePageDomain,

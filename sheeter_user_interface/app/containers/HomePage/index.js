@@ -27,14 +27,7 @@ export function HomePage(props) {
   useInjectSaga({ key: 'homePage', saga });
 
   const { dispatch } = props;
-  const homePageInit = () => {
-    dispatch(isLoggedAction());
-    dispatch(getSheetsAction());
-  }
 
-  React.useEffect(() => {
-    homePageInit();
-  }, []);
 
   return (
     <div>

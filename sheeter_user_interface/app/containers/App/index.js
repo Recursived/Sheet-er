@@ -11,6 +11,9 @@ import React from 'react';
 import { Container } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import { Switch, Route } from 'react-router-dom';
+import { useInjectReducer } from 'utils/injectReducer';
+import { useInjectSaga } from 'utils/injectSaga';
+
 
 // Import container
 import HomePage from 'containers/HomePage/Loadable';
@@ -21,9 +24,14 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 // Import components
 import SheeterNav from 'components/SheeterNav/Loadable';
 
+// Misc imports
 import AppContainer from './AppContainer';
+import reducer from './reducer';
+import saga from './saga';
 
 export default function App() {
+  useInjectReducer({ key: 'global', reducer });
+  useInjectSaga({ key: 'global', saga });
   const theme = useTheme();
   return (
     <AppContainer theme={theme}>
