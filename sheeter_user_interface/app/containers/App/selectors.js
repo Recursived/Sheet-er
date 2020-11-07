@@ -1,22 +1,33 @@
 import { createSelector } from 'reselect';
+import { initialState } from './reducer'
 
-const selectGlobal = state => state.global;
+const selectGlobal = state => state.global || initialState;
+const selectRouterPageDomain = state => state.router || initialState;
 
 const makeSelectGlobal = () =>
   createSelector(
     selectGlobal,
-    (globalState) => globalState,
+    substate => substate,
   );
 
 
 
-const makeSelectLocation = () =>
+const makeSelectPathname = () =>
+  createSelector(
+    selectRouterPageDomain,
+    substate => substate.location.pathname,
+  );
+
+const makeSelectLoggedIn = () =>
   createSelector(
     selectGlobal,
-    (globalState) => globalState.location,
+    substate => substate.loggedIn,
   );
+
+
 
 export {
   makeSelectGlobal,
-  makeSelectLocation
+  makeSelectPathname,
+  makeSelectLoggedIn
  };

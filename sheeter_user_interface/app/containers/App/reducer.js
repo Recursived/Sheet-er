@@ -8,8 +8,7 @@ import {  IS_LOGGED_IN_SUCCESS, IS_LOGGED_OUT_SUCCESS } from './constants';
 
 export const initialState = {
   loggedIn: false,
-  user : null,
-  sheets: []
+  user : null
 };
 
 /* eslint-disable default-case, no-param-reassign */

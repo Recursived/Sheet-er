@@ -11,7 +11,7 @@ export const scope = 'app.containers.App';
 export default defineMessages({
   hasToLogin: {
     id: `${scope}.hasToLogin`,
-    defaultMessage: 'To access this page, you have to log in !',
+    defaultMessage: 'To access the home page, you have to log in !',
   },
 
 });

@@ -8,10 +8,6 @@ import { initialState } from './reducer';
 const selectLoginPageDomain = state => state.loginPage || initialState;
 const selectRouterPageDomain = state => state.router || initialState;
 
-/**
- * Other specific selectors
- */
-
 
 /**
  * Default selector used by LoginPage
