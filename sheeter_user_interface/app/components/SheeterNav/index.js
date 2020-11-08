@@ -305,7 +305,7 @@ function SheeterNav(props) {
 
 SheeterNav.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  // isLogged: PropTypes.bool.isRequired,
+  isLogged: PropTypes.bool.isRequired,
   theme: PropTypes.object,
 };
 

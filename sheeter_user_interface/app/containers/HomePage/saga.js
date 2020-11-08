@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import { push } from 'connected-react-router';
-import axios from 'axios';
 import {
   enqueueSnackbar,
   closeSnackbar,

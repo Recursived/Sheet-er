@@ -25,6 +25,7 @@ import getAPI from 'utils/api';
 
 import AppBarLogo from 'images/logo_appbar.png';
 import messages from './messages';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
   img: {
@@ -64,8 +65,8 @@ const responseFacebook = (response) => {
 
 function LoginPageForm() {
   const classes = useStyles();
-  const api = getAPI(RETRIEVE_USERAPI);
-  console.log(api);
+  const dispatch = useDispatch();
+
   
 
   return (
