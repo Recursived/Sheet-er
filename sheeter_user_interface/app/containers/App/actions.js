@@ -4,8 +4,28 @@
  *
  */
 
-import { IS_LOGGED_OUT_SUCCESS, IS_LOGGED_IN_SUCCESS } from './constants';
+import { 
+  IS_LOGGED_OUT_SUCCESS, 
+  IS_LOGGED_IN_SUCCESS,
+  REQUEST_LOG_IN
+} from './constants';
 
+/**
+ * Action to request a login. You should provide the uid and the backend.
+ * @param {int|email} uid 
+ * @param {string} backend 
+ */
+export function isRequestLoginAction(uid, backend){
+  return {
+    type : REQUEST_LOG_IN,
+    uid : uid,
+    backend : backend
+  }
+}
+
+/**
+ * Action when the logout is successful
+ */
 export function isLoggedOutSuccessAction() {
   return {
     type: IS_LOGGED_OUT_SUCCESS,

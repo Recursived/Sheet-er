@@ -4,6 +4,10 @@ import { initialState } from './reducer'
 const selectGlobal = state => state.global || initialState;
 const selectRouterPageDomain = state => state.router || initialState;
 
+
+/**
+ * Global selector for the App substate
+ */
 const makeSelectGlobal = () =>
   createSelector(
     selectGlobal,
@@ -11,7 +15,9 @@ const makeSelectGlobal = () =>
   );
 
 
-
+/**
+ * Specific selectors
+ */
 const makeSelectPathname = () =>
   createSelector(
     selectRouterPageDomain,
@@ -24,10 +30,16 @@ const makeSelectLoggedIn = () =>
     substate => substate.loggedIn,
   );
 
+const makeSelectConnInfo = () =>
+  createSelector(
+    selectGlobal,
+    substate => substate.conn_info
+  )
 
 
 export {
   makeSelectGlobal,
   makeSelectPathname,
-  makeSelectLoggedIn
+  makeSelectLoggedIn,
+  makeSelectConnInfo
  };

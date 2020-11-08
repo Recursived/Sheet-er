@@ -4,9 +4,13 @@
  *
  */
 import produce from 'immer';
-import {  IS_LOGGED_IN_SUCCESS, IS_LOGGED_OUT_SUCCESS } from './constants';
+import {  IS_LOGGED_IN_SUCCESS, IS_LOGGED_OUT_SUCCESS, REQUEST_LOG_IN } from './constants';
 
 export const initialState = {
+  conn_info : {
+    backend : null,
+    uid : null,
+  },
   loggedIn: false,
   user : null
 };
@@ -15,6 +19,10 @@ export const initialState = {
 const globalReducer = (state = initialState, action) =>
   produce(state, (draft) => {
     switch (action.type) {
+      case REQUEST_LOG_IN: 
+        draft.conn_info.uid = action.uid;
+        draft.conn_info.backend = action.backend
+        break;
       case IS_LOGGED_IN_SUCCESS:
         draft.user = action.user;
         draft.loggedIn = true;
