@@ -6,8 +6,15 @@ import OpenAPIClientAxios from 'openapi-client-axios';
 export const RETRIEVE_SHEETAPI = "sheet";
 export const RETRIEVE_USERAPI = "user";
 
-const userAPI = new OpenAPIClientAxios({ definition : "http://localhost:8001/swagger.json", validate: false});
-const sheetAPI =  new OpenAPIClientAxios({ definition : "http://localhost:8000/swagger.json", validate: false});
+const userAPI = new OpenAPIClientAxios({ 
+    definition : "http://localhost:8001/swagger.json", 
+    validate: false,
+    withServer: { url: 'http://localhost:8001', description: 'Auth server' }
+});
+const sheetAPI =  new OpenAPIClientAxios({ 
+    definition : "http://localhost:8000/swagger.json", 
+    validate: false,
+});
 
 
 /**

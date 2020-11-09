@@ -12,7 +12,7 @@ export const initialState = {
     uid : null,
   },
   loggedIn: false,
-  user : null
+  user_info : null
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -24,11 +24,11 @@ const globalReducer = (state = initialState, action) =>
         draft.conn_info.backend = action.backend
         break;
       case IS_LOGGED_IN_SUCCESS:
-        draft.user = action.user;
+        draft.user_info = action.user;
         draft.loggedIn = true;
         break;
       case IS_LOGGED_OUT_SUCCESS:
-        draft.user = action.user;
+        draft.user_info = action.user;
         draft.loggedIn = true;
     }
   });

@@ -33,4 +33,14 @@ export default defineMessages({
     id: `${scope}.googletooltip`,
     defaultMessage: 'Sign in with Google',
   },
+
+  errorgoogle : {
+    id: `${scope}.errorgoogle`,
+    defaultMessage: 'An error occured when trying to connect with Google',
+  },
+
+  errorfacebook : {
+    id: `${scope}.errorfacebook`,
+    defaultMessage: 'An error occured when trying to connect with Facebook',
+  },
 });

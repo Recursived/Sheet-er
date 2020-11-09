@@ -16,20 +16,24 @@ import { makeSelectConnInfo } from './selectors';
 import messages from './messages';
 
 import getApi from 'utils/api';
-import { userAPI } from 'utils/api';
+import { RETRIEVE_USERAPI } from 'utils/api';
 
 /**
  * Handler saga
  */
 export function* handleRequestLogIn() {
-  // We check for the existence of the user
-  const api = getApi(userAPI);
+
+  const api = getApi(RETRIEVE_USERAPI);
+  yield api.init()
   try {
+    // checking for the existence of a user
     const conn_info = yield select(makeSelectConnInfo());
-    console.log(conn_info);
-    console.log(api);
+    const client = yield api.getClient();
+    const response = yield client.paths["/user/{uid}/{provider}"].get({uid: conn_info.uid, provider: conn_info.backend});
+    yield put(isLoggedSuccessAction(response.data));
+    yield put(push("/"))
   } catch (error){
-    // enqueueSnackbar here to send info on the error.
+    // if user doesn't exist we create it
   }
 
 
@@ -48,5 +52,5 @@ export function* handleRequestLogOut() {
  */
 export default function* globalSaga() {
   yield takeLatest(REQUEST_LOG_IN, handleRequestLogIn);
-  yield takeLatest(REQUEST_LOG_OUT)
+  // yield takeLatest(REQUEST_LOG_OUT)
 }

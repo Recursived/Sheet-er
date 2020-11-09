@@ -12,20 +12,26 @@ import {
   Tooltip,
   Typography
 } from '@material-ui/core';
-
+import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 import FacebookIcon from '@material-ui/icons/Facebook';
-
 import GoogleLogin  from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 import { FormattedMessage } from 'react-intl';
 import React from 'react';
 
+// Misc import
 import { RETRIEVE_USERAPI } from 'utils/api';
 import getAPI from 'utils/api';
-
 import AppBarLogo from 'images/logo_appbar.png';
 import messages from './messages';
-import { useDispatch } from 'react-redux';
+import { isRequestLoginAction } from 'containers/App/actions';
+import {
+  enqueueSnackbar,
+  closeSnackbar,
+} from 'containers/NotifProvider/actions';
+
 
 const useStyles = makeStyles(theme => ({
   img: {
@@ -51,21 +57,44 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-// Debug function
-const responseGoogle = (response) => {
-  console.log(response);
-  let basicProfile = response.getBasicProfile();
-  // console.log(basicProfile);
-}
 
-const responseFacebook = (response) => {
-  console.log(response);
-}
-// -----------------------------
 
-function LoginPageForm() {
+function LoginPageForm(props) {
   const classes = useStyles();
-  const dispatch = useDispatch();
+  const { dispatch } = props;
+
+  const responseGoogle = (response) => {
+    let profile = response.getBasicProfile();
+    dispatch(isRequestLoginAction(profile.getEmail(), "google-oauth2"));
+  };
+  
+  const responseFacebook = (response) => {
+    dispatch(isRequestLoginAction(response.userID, "facebook"));
+  };
+
+  const onFailureGoogle = () => {
+    dispatch(enqueueSnackbar({
+      message: <FormattedMessage {...messages.errorgoogle} />,
+      options: {
+          key: new Date().getTime() + Math.random(),
+          variant: 'error',
+          preventDuplicate: true,
+      },
+    }));
+  };
+
+  const onFailureFacebook = () => {
+    dispatch(enqueueSnackbar({
+      message: <FormattedMessage {...messages.errorfacebook} />,
+      options: {
+          key: new Date().getTime() + Math.random(),
+          variant: 'error',
+          preventDuplicate: true,
+      },
+    }));
+  }
+
+  
 
   
 
@@ -100,7 +129,7 @@ function LoginPageForm() {
                 }
                 className={classes.googleButton}
                 onSuccess={responseGoogle}
-                onFailure={responseGoogle}
+                onFailure={onFailureGoogle}
                 cookiePolicy={'single_host_origin'}
               />
           </Grid>
@@ -117,6 +146,7 @@ function LoginPageForm() {
                 height: '46.5px',
                 boxShadow: 'rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px'
               }}
+              onFailure={onFailureFacebook}
               textButton = {
                 <Typography variant="button" gutterBottom>
                   <FormattedMessage {...messages.facebooklogin} />
@@ -130,8 +160,20 @@ function LoginPageForm() {
   );
 }
 
-LoginPageForm.propTypes = {};
+LoginPageForm.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+};
 
-export default LoginPageForm;
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+const withConnect = connect(
+  mapDispatchToProps,
+);
+
+export default compose(withConnect)(LoginPageForm);
 
 
