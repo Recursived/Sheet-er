@@ -14,12 +14,14 @@ import {
  * Action to request a login. You should provide the uid and the backend.
  * @param {int|email} uid 
  * @param {string} backend 
+ * @param {string} social_token token given by the social network 
  */
-export function isRequestLoginAction(uid, backend){
+export function isRequestLoginAction(uid, backend, access_token){
   return {
     type : REQUEST_LOG_IN,
     uid : uid,
-    backend : backend
+    backend : backend,
+    social_token : access_token
   }
 }
 

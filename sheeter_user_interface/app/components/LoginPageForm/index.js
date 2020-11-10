@@ -5,10 +5,12 @@
  */
 
 import {
+  CircularProgress,
   Divider,
   Grid,
   makeStyles,
   Paper,
+  Fade,
   Tooltip,
   Typography
 } from '@material-ui/core';
@@ -62,17 +64,30 @@ const useStyles = makeStyles(theme => ({
 function LoginPageForm(props) {
   const classes = useStyles();
   const { dispatch } = props;
+  const [ isLoading, setIsLoading ] = React.useState(false);
+  
 
   const responseGoogle = (response) => {
+    setIsLoading(true);
     let profile = response.getBasicProfile();
-    dispatch(isRequestLoginAction(profile.getEmail(), "google-oauth2"));
+    dispatch(isRequestLoginAction(
+      profile.getEmail(), 
+      "google-oauth2",
+      response.accessToken
+    ));
   };
   
   const responseFacebook = (response) => {
-    dispatch(isRequestLoginAction(response.userID, "facebook"));
+    setIsLoading(true);
+    dispatch(isRequestLoginAction(
+      response.userID, 
+      "facebook", 
+      response.accessToken
+    ));
   };
 
   const onFailureGoogle = () => {
+    setIsLoading(false);
     dispatch(enqueueSnackbar({
       message: <FormattedMessage {...messages.errorgoogle} />,
       options: {
@@ -84,6 +99,7 @@ function LoginPageForm(props) {
   };
 
   const onFailureFacebook = () => {
+    setIsLoading(false);
     dispatch(enqueueSnackbar({
       message: <FormattedMessage {...messages.errorfacebook} />,
       options: {
@@ -106,7 +122,6 @@ function LoginPageForm(props) {
         justify="center"
         alignItems="center"
         spacing={3}
-
         >
           <Grid item>
             <img
@@ -119,42 +134,48 @@ function LoginPageForm(props) {
             <Divider variant="middle" />
           </Grid>
           
-          <Grid item>
-              <GoogleLogin
-                clientId="293320227396-259msre4c09cbgln6gjl3nsgnc5ja01m.apps.googleusercontent.com"
-                buttonText={
-                  <Typography variant="button" gutterBottom>
-                    <FormattedMessage {...messages.googlelogin} />
-                  </Typography>
-                }
-                className={classes.googleButton}
-                onSuccess={responseGoogle}
-                onFailure={onFailureGoogle}
-                cookiePolicy={'single_host_origin'}
-              />
-          </Grid>
-          <Grid item>
-            <FacebookLogin
-              appId="309252216792222"
-              autoLoad={false}
-              fields="name,email,picture"
-              callback={responseFacebook}
-              icon={<FacebookIcon className={classes.fbIcon}/>}
-              buttonStyle={{
-                width: '250px',
-                borderRadius: '2px',
-                height: '46.5px',
-                boxShadow: 'rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px'
-              }}
-              onFailure={onFailureFacebook}
-              textButton = {
-                <Typography variant="button" gutterBottom>
-                  <FormattedMessage {...messages.facebooklogin} />
-                </Typography>
-              }
-              size="small"
-            />
-          </Grid>
+          {isLoading ? (
+              <Grid item><CircularProgress/></Grid>
+          ) :(
+            <>
+              <Grid item >
+                    <GoogleLogin
+                      clientId="293320227396-259msre4c09cbgln6gjl3nsgnc5ja01m.apps.googleusercontent.com"
+                      buttonText={
+                        <Typography variant="button" gutterBottom>
+                          <FormattedMessage {...messages.googlelogin} />
+                        </Typography>
+                      }
+                      className={classes.googleButton}
+                      onSuccess={responseGoogle}
+                      onFailure={onFailureGoogle}
+                      cookiePolicy={'single_host_origin'}
+                    />
+                </Grid>
+                <Grid item>
+                  <FacebookLogin
+                    appId="309252216792222"
+                    autoLoad={false}
+                    fields="name,email,picture"
+                    callback={responseFacebook}
+                    icon={<FacebookIcon className={classes.fbIcon}/>}
+                    buttonStyle={{
+                      width: '250px',
+                      borderRadius: '2px',
+                      height: '46.5px',
+                      boxShadow: 'rgba(0, 0, 0, 0.24) 0px 2px 2px 0px, rgba(0, 0, 0, 0.24) 0px 0px 1px 0px'
+                    }}
+                    onFailure={onFailureFacebook}
+                    textButton = {
+                      <Typography variant="button" gutterBottom>
+                        <FormattedMessage {...messages.facebooklogin} />
+                      </Typography>
+                    }
+                    size="small"
+                  />
+                </Grid>
+            </>
+          )}
         </Grid>
     </Paper>
   );

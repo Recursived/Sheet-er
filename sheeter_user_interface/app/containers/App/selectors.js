@@ -36,10 +36,17 @@ const makeSelectConnInfo = () =>
     substate => substate.conn_info
   )
 
+const makeSelectUserInfo = () =>
+    createSelector(
+      selectGlobal,
+      substate => substate.user_info
+    )
+
 
 export {
   makeSelectGlobal,
   makeSelectPathname,
   makeSelectLoggedIn,
-  makeSelectConnInfo
+  makeSelectConnInfo,
+  makeSelectUserInfo
  };

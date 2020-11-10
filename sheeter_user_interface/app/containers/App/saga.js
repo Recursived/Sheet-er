@@ -16,7 +16,7 @@ import { makeSelectConnInfo } from './selectors';
 import messages from './messages';
 
 import getApi from 'utils/api';
-import { RETRIEVE_USERAPI } from 'utils/api';
+import { RETRIEVE_USERAPI, CLIENT_ID } from 'utils/api';
 
 /**
  * Handler saga
@@ -25,16 +25,37 @@ export function* handleRequestLogIn() {
 
   const api = getApi(RETRIEVE_USERAPI);
   yield api.init()
+
+  
+  let hasToCreate = false;
+  const conn_info = yield select(makeSelectConnInfo());
+  const client = yield api.getClient();
   try {
-    // checking for the existence of a user
-    const conn_info = yield select(makeSelectConnInfo());
-    const client = yield api.getClient();
+    // checking for the existence of a user  
     const response = yield client.paths["/user/{uid}/{provider}"].get({uid: conn_info.uid, provider: conn_info.backend});
     yield put(isLoggedSuccessAction(response.data));
-    yield put(push("/"))
+    yield put(push("/"));
   } catch (error){
-    // if user doesn't exist we create it
+    // if user doesn't exist, we set a flag to indicate that we have to create it
+    hasToCreate = true;
   }
+  console.log('hasToCreate', hasToCreate);
+  if (hasToCreate){
+    try {
+      yield client.paths["/auth/convert-token/"].post({
+        grant_type : 'convert_token',
+        client_id : CLIENT_ID,
+        backend: conn_info.backend,
+        token: conn_info.social_token
+      });
+      const response = yield client.paths["/user/{uid}/{provider}"].get({uid: conn_info.uid, provider: conn_info.backend});
+      yield put(isLoggedSuccessAction(response.data));
+      yield put(push("/"));
+    } catch {
+      
+    }
+  }
+  
 
 
   // If he doesn't exist we create it

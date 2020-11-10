@@ -37,7 +37,7 @@ import LocaleSelector from '../LocaleSelector';
 import { changeTheme } from 'containers/ThemeProvider/actions';
 import { makeSelectThemeProvider } from 'containers/ThemeProvider/selectors';
 import { makeSelectPathname } from 'containers/LoginPage/selectors';
-import { makeSelectLoggedIn } from 'containers/App/selectors';
+import { makeSelectLoggedIn, makeSelectUserInfo } from 'containers/App/selectors';
 import { push } from 'connected-react-router';
 
 // Misc imports
@@ -89,11 +89,16 @@ const useStyles = makeStyles((theme) => ({
 
 function SheeterNav(props) {
   const classes = useStyles();
-  const { dispatch, isLogged, theme, pathname } = props;
+  const { 
+    dispatch, 
+    isLogged, 
+    theme, 
+    pathname, 
+    user_info 
+  } = props;
 
   const [open, setOpen] = React.useState(false);
   const [dark, setDark] = React.useState(theme.palette.type == 'dark');
-  const [logged, setLogged] = React.useState(isLogged);
 
   const anchorRef = React.useRef(null);
 
@@ -159,7 +164,7 @@ function SheeterNav(props) {
                 )}
                 <Grid item>
                   <Link
-                    to={isLogged ? "/" : "landing"}
+                    to={isLogged ? "/" : "/landing"}
                   >
                     <img
                       className={classes.img}
@@ -251,7 +256,12 @@ function SheeterNav(props) {
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
                     <MenuItem onClick={handleClose}>
-                      My profile
+                      <ListItemIcon>
+                        <AccountCircleIcon/>
+                      </ListItemIcon>
+                      <Typography variant="body2" gutterBottom>
+                        {user_info.user.first_name +  " " + user_info.user.last_name}
+                      </Typography>
                     </MenuItem>
                     <Divider variant="middle"/>
                     <MenuItem onClick={
@@ -321,7 +331,8 @@ SheeterNav.propTypes = {
 const mapStateToProps = createStructuredSelector({
   isLogged: makeSelectLoggedIn(),
   theme: makeSelectThemeProvider(),
-  pathname: makeSelectPathname()
+  pathname: makeSelectPathname(),
+  user_info: makeSelectUserInfo()
 });
 
 function mapDispatchToProps(dispatch) {
