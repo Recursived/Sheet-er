@@ -47,7 +47,7 @@ export function App(props) {
   useInjectSaga({ key: 'global', saga });
   const theme = useTheme();
   const {loggedIn, path, dispatch} = props;
-  console.log(props);
+  
   if (!loggedIn && path == "/"){
     dispatch(push('/login'));
     dispatch(enqueueSnackbar({
@@ -60,7 +60,7 @@ export function App(props) {
   }
 
   return (
-    <AppContainer theme={theme}>
+    <AppContainer  theme={theme}>
       <SheeterNav/>
         <Switch>
           <Route exact path="/" component={HomePage} />

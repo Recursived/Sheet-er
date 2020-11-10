@@ -6,6 +6,7 @@
 
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 
 // Importing icons
 import MenuIcon from '@material-ui/icons/Menu';
@@ -36,7 +37,7 @@ import LocaleSelector from '../LocaleSelector';
 import { changeTheme } from 'containers/ThemeProvider/actions';
 import { makeSelectThemeProvider } from 'containers/ThemeProvider/selectors';
 import { makeSelectPathname } from 'containers/LoginPage/selectors';
-import { makeSelectIsLoggedIn } from 'containers/HomePage/selectors';
+import { makeSelectLoggedIn } from 'containers/App/selectors';
 import { push } from 'connected-react-router';
 
 // Misc imports
@@ -46,6 +47,8 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import messages from './messages';
 import AppBarLogo from 'images/logo_appbar.png';
+import { isRequestLoginAction } from '../../containers/App/actions';
+import { Link } from 'react-router-dom';
 
 
 
@@ -90,6 +93,7 @@ function SheeterNav(props) {
 
   const [open, setOpen] = React.useState(false);
   const [dark, setDark] = React.useState(theme.palette.type == 'dark');
+  const [logged, setLogged] = React.useState(isLogged);
 
   const anchorRef = React.useRef(null);
 
@@ -120,6 +124,7 @@ function SheeterNav(props) {
 
     prevOpen.current = open;
   }, [open]);
+
 
   return (
     <div className={classes.root}>
@@ -153,10 +158,14 @@ function SheeterNav(props) {
                   <></>
                 )}
                 <Grid item>
-                  <img
-                    className={classes.img}
-                    src={AppBarLogo}
-                  />  
+                  <Link
+                    to={isLogged ? "/" : "landing"}
+                  >
+                    <img
+                      className={classes.img}
+                      src={AppBarLogo}
+                    />  
+                  </Link>
                 </Grid>
                 {isLogged ? (
                   <Hidden smDown>
@@ -310,7 +319,7 @@ SheeterNav.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  isLogged: makeSelectIsLoggedIn(),
+  isLogged: makeSelectLoggedIn(),
   theme: makeSelectThemeProvider(),
   pathname: makeSelectPathname()
 });
@@ -321,7 +330,9 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default memo(connect(
+const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(SheeterNav));
+);
+
+export default compose(withConnect)(SheeterNav);

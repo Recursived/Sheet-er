@@ -26,10 +26,11 @@ const globalReducer = (state = initialState, action) =>
       case IS_LOGGED_IN_SUCCESS:
         draft.user_info = action.user;
         draft.loggedIn = true;
-        break;
+        return draft;
       case IS_LOGGED_OUT_SUCCESS:
-        draft.user_info = action.user;
-        draft.loggedIn = true;
+        draft.user_info = {};
+        draft.loggedIn = false;
+        return draft;
     }
   });
 
