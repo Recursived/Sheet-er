@@ -12,23 +12,16 @@ import { CHANGE_THEME } from './constants';
 // Function to check user's theme preference
 const getThemeFromPreference = () => {
   const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
-  const theme = createMuiTheme({
-    palette: {
-      primary: {
-        main: '#69b488'
-      },
-      secondary: {
-        main: '#c8e6c9',
-      },
-      type: prefersDarkMode ? 'dark' : 'light',
-    },
-  });
+  if (prefersDarkMode !== null & prefersDarkMode !== null){
+    return prefersDarkMode.matches ? "dark" : "light";
+  }
 
-  return theme;
+  return "dark";
 };
 
+
 export const initialState = {
-  theme: getThemeFromPreference(),
+  themeColor: getThemeFromPreference(),
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -36,7 +29,7 @@ const themeProviderReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case CHANGE_THEME:
-        draft.theme = action.theme;
+        draft.themeColor = action.themeColor;
         break;
     }
   });

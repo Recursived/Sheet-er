@@ -14,7 +14,7 @@ const selectThemeProviderDomain = state => state.theme || initialState;
 const makeSelectThemeProvider = () =>
   createSelector(
     selectThemeProviderDomain,
-    substate => substate.theme,
+    substate => substate,
   );
 
 export { makeSelectThemeProvider, selectThemeProviderDomain };

@@ -97,8 +97,9 @@ function SheeterNav(props) {
     user_info 
   } = props;
 
+
   const [open, setOpen] = React.useState(false);
-  const [dark, setDark] = React.useState(theme.palette.type == 'dark');
+  const [dark, setDark] = React.useState(theme.themeColor == 'dark');
   const [tabValue, setTabValue] = React.useState(0);
 
   const tabPanelRoutes = {
@@ -283,18 +284,7 @@ function SheeterNav(props) {
                     <MenuItem onClick={
                       () => {
                         setDark(!dark);
-                        const theme = createMuiTheme({
-                          palette: {
-                            primary: {
-                              main: '#69b488'
-                            },
-                            secondary: {
-                              main: '#c8e6c9',
-                            },
-                            type: dark ? 'light' : 'dark',
-                          },
-                        });
-                        dispatch(changeTheme(theme));
+                        dispatch(changeTheme(dark ? 'light' : 'dark'));
                         
                         if (anchorRef.current && anchorRef.current.contains(event.target)) {
                           return;

@@ -39,7 +39,7 @@ export function* handleRequestLogIn() {
     // if user doesn't exist, we set a flag to indicate that we have to create it
     hasToCreate = true;
   }
-  console.log('hasToCreate', hasToCreate);
+
   if (hasToCreate){
     try {
       yield client.paths["/auth/convert-token/"].post({
@@ -55,10 +55,7 @@ export function* handleRequestLogIn() {
       
     }
   }
-  
 
-
-  // If he doesn't exist we create it
 
 }
 

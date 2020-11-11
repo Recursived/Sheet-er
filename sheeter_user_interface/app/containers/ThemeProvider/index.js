@@ -8,13 +8,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { MuiThemeProvider } from '@material-ui/core';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 import { createGlobalStyle } from 'styled-components';
 import { makeSelectThemeProvider } from './selectors';
 
 // We create a global style object to change aspect according to the theme
 const GlobalTheme = createGlobalStyle`
-
   html,body {
     height: 100%;
     width: 100%;
@@ -43,9 +42,21 @@ const GlobalTheme = createGlobalStyle`
 `;
 
 export function ThemeProvider(props) {
+  const theme = createMuiTheme({
+    palette: {
+      primary: {
+        main: '#69b488'
+      },
+      secondary: {
+        main: '#c8e6c9',
+      },
+      type: props.themeColor,
+    },
+  });
+
   return (
-    <MuiThemeProvider theme={props.theme}>
-      <GlobalTheme theme={props.theme} />
+    <MuiThemeProvider theme={theme}>
+      <GlobalTheme theme={theme} />
       {React.Children.only(props.children)}
     </MuiThemeProvider>
   );
@@ -53,14 +64,11 @@ export function ThemeProvider(props) {
 
 ThemeProvider.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  theme: PropTypes.object.isRequired,
+  themeColor: PropTypes.string.isRequired,
   children: PropTypes.element.isRequired,
 };
 
-const mapStateToProps = createSelector(
-  makeSelectThemeProvider(),
-  theme => ({ theme }),
-);
+const mapStateToProps = makeSelectThemeProvider();
 
 function mapDispatchToProps(dispatch) {
   return {
