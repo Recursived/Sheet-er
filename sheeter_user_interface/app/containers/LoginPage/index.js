@@ -24,15 +24,22 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { Container, Grid } from '@material-ui/core';
+import { makeSelectLoggedIn } from 'containers/App/selectors';
+import { push } from 'connected-react-router';
 
 const useStyles = makeStyles(theme => ({
   container : {
     marginTop: '30vh'
   }
 }));
-export function LoginPage() {
+export function LoginPage(props) {
   useInjectReducer({ key: 'loginPage', reducer });
   useInjectSaga({ key: 'loginPage', saga });
+
+  if (props.loggedIn){
+    props.dispatch(push("/"));
+  }
+
 
   const classes = useStyles();
   return (
@@ -65,7 +72,8 @@ LoginPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  loginPage: makeSelectLoginPage(),
+  // loginPage: makeSelectLoginPage(),
+  loggedIn: makeSelectLoggedIn()
 });
 
 function mapDispatchToProps(dispatch) {
