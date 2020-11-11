@@ -189,6 +189,7 @@ function SheeterNav(props) {
                           setTabValue(newValue);
                           dispatch(push(tabPanelRoutes[newValue]));
                         }}
+                        indicatorColor="primary"
                       >
                         
                         <Tooltip title={<FormattedMessage {...messages.tabhome} />} arrow>
