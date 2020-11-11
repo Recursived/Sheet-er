@@ -99,6 +99,13 @@ function SheeterNav(props) {
 
   const [open, setOpen] = React.useState(false);
   const [dark, setDark] = React.useState(theme.palette.type == 'dark');
+  const [tabValue, setTabValue] = React.useState(0);
+
+  const tabPanelRoutes = {
+    0 : '/',
+    1 : '/editing',
+    2 : '/profile',
+  }
 
   const anchorRef = React.useRef(null);
 
@@ -177,20 +184,22 @@ function SheeterNav(props) {
                     <Grid item>
                       <Tabs
                         centered
+                        value={tabValue}
+                        onChange={(event, newValue) => {
+                          setTabValue(newValue);
+                          dispatch(push(tabPanelRoutes[newValue]));
+                        }}
                       >
-                        <Divider flexItem  orientation="vertical"/>
+                        
                         <Tooltip title={<FormattedMessage {...messages.tabhome} />} arrow>
-                          <Tab className={classes.tabAppBar} icon={<HomeIcon/>}/>
+                          <Tab className={classes.tabAppBar} icon={<HomeIcon/>} value={0}/>
                         </Tooltip>
-                        <Divider flexItem  orientation="vertical"/>
                         <Tooltip title={<FormattedMessage {...messages.tabcreate} />} arrow>
-                          <Tab className={classes.tabAppBar} icon={<CreateIcon/>}/>
+                          <Tab className={classes.tabAppBar} icon={<CreateIcon/>} value={1}/>
                         </Tooltip>
-                        <Divider flexItem  orientation="vertical"/>
                         <Tooltip title={<FormattedMessage {...messages.tabprofile} />} arrow>
-                          <Tab className={classes.tabAppBar} icon={<AccountCircleIcon/>}  />
+                          <Tab className={classes.tabAppBar} icon={<AccountCircleIcon/>} value={2}/>
                         </Tooltip>
-                        <Divider flexItem  orientation="vertical"/>
                       </Tabs>
                     </Grid>
                   </Hidden>
@@ -255,11 +264,17 @@ function SheeterNav(props) {
               <Paper variant="outlined" square>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                    <MenuItem onClick={handleClose}>
+                    <MenuItem onClick={() => {
+                        dispatch(push('/profile'));
+                        if (anchorRef.current && anchorRef.current.contains(event.target)) {
+                          return;
+                        }
+                        setOpen(false);
+                      }}>
                       <ListItemIcon>
                         <AccountCircleIcon/>
                       </ListItemIcon>
-                      <Typography variant="body2" gutterBottom>
+                      <Typography variant="inherit">
                         {user_info.user.first_name +  " " + user_info.user.last_name}
                       </Typography>
                     </MenuItem>
