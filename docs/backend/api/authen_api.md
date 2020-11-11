@@ -75,7 +75,7 @@ Enfin pour le champ *client_id*, il est possible de l'obtenir via le panel admin
 
 Si la requête est fructueuse, vous obtiendrez un **access token** ainsi qu'un **refresh token** (qui permet de rafraîchir l'access token en cas d'expiration) que vous devez garder soigneusement pour faire des requêtes sur les API *ressources*.
 
-Pour récapituler, vous devez d'abord vérifier l'existence de l'utilisateur via la première URL qui est fournie dans cette section. Si l'utilisateur n'existe pas, il faut donc convertir le token d'accès fourni par Facebook/Google via la seconde URL. Vous obtenez ensuite un token d'accès propre à notre api qui découle de celui de facebook ou google. Le token de notre API à une date d'expiration. SI cette date est atteinte, le token d'accès n'est plus valide. Il vous faut donc le rafraîchir (voir la section '[Testing the Setup](https://github.com/RealmTeam/django-rest-framework-social-oauth2)').
+Pour récapituler, vous devez d'abord vérifier l'existence de l'utilisateur via la première URL qui est fournie dans cette section. Si l'utilisateur n'existe pas, il faut donc convertir le token d'accès fourni par Facebook/Google via la seconde URL. Ensuite, vous devez refaire la requête d'existence d'utilisateur (voir plus haut). Si l'utilisateur a bien été créé après le 'convert-token', vous obtiendrez toutes les informations le concernant. Le token de notre API à une date d'expiration. Si cette date est atteinte, le token d'accès n'est plus valide. Il vous faut donc le rafraîchir (voir la section '[Testing the Setup](https://github.com/RealmTeam/django-rest-framework-social-oauth2)').
 
 ## Token d'accès : comment l'utiliser ?
 
