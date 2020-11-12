@@ -43,11 +43,11 @@ import saga from './saga';
 
 
 export function App(props) {
-  useInjectReducer({ key: 'global', reducer });
   useInjectSaga({ key: 'global', saga });
   const theme = useTheme();
   const {loggedIn, path, dispatch} = props;
   
+  console.log(loggedIn);
   if (!loggedIn && path == "/"){
     dispatch(push('/login'));
     dispatch(enqueueSnackbar({
