@@ -44,7 +44,6 @@ const initialState = loadState();
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
-console.log(store);
 
 // Load and Save redux store to localStorage
 store.subscribe(
