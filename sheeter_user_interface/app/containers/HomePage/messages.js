@@ -19,4 +19,9 @@ export default defineMessages({
     defaultMessage: 'To access this page, you have to log in !',
   },
 
+  routeHomepage: {
+    id: `${scope}.routeHomepage`,
+    defaultMessage: 'Sheeter - Homepage',
+  }
+
 });

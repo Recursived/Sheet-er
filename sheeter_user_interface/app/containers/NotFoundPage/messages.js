@@ -12,4 +12,9 @@ export default defineMessages({
     id: `${scope}.header`,
     defaultMessage: 'This is the NotFoundPage container!',
   },
+
+  routeNotfoundpage: {
+    id: `${scope}.routeNotfoundpage`,
+    defaultMessage: 'Oops - 404',
+  }
 });

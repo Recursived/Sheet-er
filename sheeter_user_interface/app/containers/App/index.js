@@ -19,6 +19,7 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
+import  routes  from 'utils/routes';
 
 
 // Import container
@@ -29,6 +30,8 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 // Import components
 import SheeterNav from 'components/SheeterNav/Loadable';
+import PrivateRoute from 'components/Route/PrivateRoute';
+import PublicRoute from 'components/Route/PublicRoute';
 
 // Misc imports
 import {
@@ -45,28 +48,31 @@ import saga from './saga';
 export function App(props) {
   useInjectSaga({ key: 'global', saga });
   const theme = useTheme();
-  const {loggedIn, path, dispatch} = props;
+  // const {loggedIn, path, dispatch} = props;
   
-  console.log(loggedIn);
-  if (!loggedIn && path == "/"){
-    dispatch(push('/login'));
-    dispatch(enqueueSnackbar({
-      message: <FormattedMessage {...messages.hasToLogin} />,
-      options: {
-          key: new Date().getTime() + Math.random(),
-          variant: 'warning'
-      },
-    }));
-  }
-
   return (
     <AppContainer  theme={theme}>
       <SheeterNav/>
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/landing" component={LandingPage} />
-          <Route exact path="/login" component={LoginPage} />
-          <Route component={NotFoundPage} />
+          <PrivateRoute
+            exact 
+            path={routes.homepage.path} 
+            component={HomePage} 
+          />
+          <PublicRoute 
+            exact 
+            path={routes.landingpage.path}
+            component={LandingPage} 
+          />
+          <PublicRoute
+            restricted
+            path={routes.loginpage.path}
+            component={LoginPage}
+          />
+          <PublicRoute
+            path={routes.notfoundpage.path}
+            component={NotFoundPage}
+          />
         </Switch>
     </AppContainer>
   );
@@ -76,10 +82,10 @@ App.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = createStructuredSelector({
-  loggedIn : makeSelectLoggedIn(),
-  path : makeSelectPathname()
-});
+// const mapStateToProps = createStructuredSelector({
+//   loggedIn : makeSelectLoggedIn(),
+//   path : makeSelectPathname()
+// });
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -88,7 +94,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 const withConnect = connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps,
 );
 

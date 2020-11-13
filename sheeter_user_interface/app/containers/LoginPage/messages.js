@@ -13,4 +13,9 @@ export default defineMessages({
     id: `${scope}.header`,
     defaultMessage: 'Log into Sheeter',
   },
+
+  routeLoginpage: {
+    id: `${scope}.routeLoginpage`,
+    defaultMessage: 'Log into Sheeter'
+  }
 });
