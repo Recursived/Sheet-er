@@ -1,10 +1,14 @@
-from rest_framework.generics import RetrieveAPIView
+from django.contrib.auth.models import User
+from oauth2_provider.models import RefreshToken
+from rest_framework import mixins, viewsets
+from rest_framework.generics import (RetrieveAPIView,
+                                     RetrieveUpdateDestroyAPIView)
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from social_django.models import UserSocialAuth
-from oauth2_provider.models import RefreshToken
 
 from .mixins import MultipleFieldLookupMixin
-from .serializers import RefreshTokenSerializer
+from .serializers import RefreshTokenSerializer, UserSerializer
 
 
 class UserView(MultipleFieldLookupMixin, RetrieveAPIView):
@@ -21,3 +25,14 @@ class UserView(MultipleFieldLookupMixin, RetrieveAPIView):
         serializer = self.get_serializer(rf_instance)
         return Response(serializer.data)
 
+
+
+class UserViewSet(
+    viewsets.ViewSet,
+    RetrieveUpdateDestroyAPIView):
+    """
+    A simple ViewSet for viewing and editing Sheeter users
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
