@@ -7,7 +7,8 @@
 import { 
   IS_LOGGED_OUT_SUCCESS, 
   IS_LOGGED_IN_SUCCESS,
-  REQUEST_LOG_IN
+  REQUEST_LOG_IN,
+  REQUEST_LOG_OUT
 } from './constants';
 
 /**
@@ -22,6 +23,13 @@ export function isRequestLoginAction(uid, backend, access_token){
     uid : uid,
     backend : backend,
     social_token : access_token
+  }
+}
+
+
+export function isRequestLogOutAction(){
+  return {
+    type: REQUEST_LOG_OUT
   }
 }
 

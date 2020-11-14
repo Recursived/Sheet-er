@@ -47,7 +47,7 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import messages from './messages';
 import AppBarLogo from 'images/logo_appbar.png';
-import { isRequestLoginAction } from '../../containers/App/actions';
+import { isRequestLoginAction, isRequestLogOutAction } from '../../containers/App/actions';
 import { Link } from 'react-router-dom';
 
 
@@ -132,7 +132,8 @@ function SheeterNav(props) {
   const prevOpen = React.useRef(open);
   React.useEffect(() => {
     if (prevOpen.current === true && open === false) {
-      anchorRef.current.focus();
+      if (anchorRef.current != null) { anchorRef.current.focus();}
+      
     }
 
     prevOpen.current = open;
@@ -277,7 +278,10 @@ function SheeterNav(props) {
                         <AccountCircleIcon/>
                       </ListItemIcon>
                       <Typography variant="inherit">
-                        {user_info.user.first_name +  " " + user_info.user.last_name}
+                        {user_info != null ? 
+                          user_info.user.first_name +  " " + user_info.user.last_name :
+                          "Mon profil"
+                        }
                       </Typography>
                     </MenuItem>
                     <Divider variant="middle"/>
@@ -311,7 +315,13 @@ function SheeterNav(props) {
                       <Typography variant="inherit"><FormattedMessage {...messages.settingsbutton} /></Typography>
                     </MenuItem>
                     <Divider variant="middle"/>
-                    <MenuItem onClick={handleClose}>
+                    <MenuItem onClick={() => {
+                        if (anchorRef.current && anchorRef.current.contains(event.target)) {
+                          return;
+                        }
+                        setOpen(false);
+                        dispatch(isRequestLogOutAction());
+                      }}>
                       <ListItemIcon>
                         <ExitToAppIcon/>
                       </ListItemIcon>

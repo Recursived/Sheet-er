@@ -14,4 +14,9 @@ export default defineMessages({
     defaultMessage: 'To access the home page, you have to log in !',
   },
 
+  logoutSuccess: {
+    id: `${scope}.logoutSuccess`,
+    defaultMessage: 'You\'ve been successfully logged out !',
+  }
+
 });
