@@ -31,5 +31,10 @@ export default {
     loginpage: {
         path: '/login',
         name: <FormattedMessage {...loginpageMessages.routeLoginpage} />,
+    },
+
+    contactus: {
+        path: '/contact',
+        name: 'TO DO : remplacer'
     }
 }
