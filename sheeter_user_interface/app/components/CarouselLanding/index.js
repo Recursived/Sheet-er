@@ -19,12 +19,13 @@ import Typography from '@material-ui/core/Typography';
 // import styled from 'styled-components';
 
 const useStyles = makeStyles(theme => ({
-  carousel: {
-    padding: 0,
+
+  media: { // Height of media image
+    height:700
   },
 
-  media: {
-    height:500
+  carousel: {
+    width : '100vw'
   }
 }));
 
@@ -37,23 +38,26 @@ function Item(props){
   const classes = useStyles();
 
   return (
-    <Card>
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image="https://www.sciencesetavenir.fr/assets/img/2019/04/10/cover-r4x3w1000-5cadebdd93968-trou-noir-galaxie.jpg"
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {props.item.name}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {props.item.description}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+    <div className={classes.carousel}>
+      <Card>
+        <CardActionArea>
+          <CardMedia
+            className={classes.media}
+            image="https://www.sciencesetavenir.fr/assets/img/2019/04/10/cover-r4x3w1000-5cadebdd93968-trou-noir-galaxie.jpg"
+            title="Contemplative Reptile"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {props.item.name}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {props.item.description}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </div>
+    
   )
 }
 
