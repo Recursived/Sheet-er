@@ -8,7 +8,7 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { makeStyles } from '@material-ui/core/styles';
 import { compose } from 'redux';
@@ -28,32 +28,27 @@ import { makeSelectLoggedIn } from 'containers/App/selectors';
 import { push } from 'connected-react-router';
 
 const useStyles = makeStyles(theme => ({
-  container : {
-    marginTop: '30vh'
-  }
+
 }));
 export function LoginPage(props) {
   useInjectReducer({ key: 'loginPage', reducer });
   useInjectSaga({ key: 'loginPage', saga });
 
-  if (props.loggedIn){
-    props.dispatch(push("/"));
-  }
-
-
+  const intl = props.intl;
   const classes = useStyles();
+  
   return (
-    <Container maxWidth="xs" className={classes.container} >
+    <Container maxWidth="xs" >
       <Helmet>
-        <title>Log into Sheeter</title>
-        <meta name="description" content="Description of LoginPage" />
+        <title>{intl.formatMessage(messages.header)}</title>
       </Helmet>
       <Grid 
         container
         direction="column"
-        justify="space-evenly"
+        justify="center"
         alignItems="stretch"
         spacing={2}
+        style={{ minHeight: '100vh' }}
       >
         <Grid item>
           <LoginPageForm/>
@@ -68,26 +63,11 @@ export function LoginPage(props) {
 }
 
 LoginPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  
 };
 
-const mapStateToProps = createStructuredSelector({
-  // loginPage: makeSelectLoginPage(),
-  loggedIn: makeSelectLoggedIn()
-});
-
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
 
 export default compose(
-  withConnect,
   memo,
+  injectIntl
 )(LoginPage);
