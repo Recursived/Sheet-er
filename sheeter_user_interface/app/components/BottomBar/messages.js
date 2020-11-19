@@ -9,8 +9,14 @@ import { defineMessages } from 'react-intl';
 export const scope = 'app.components.BottomBar';
 
 export default defineMessages({
-  header: {
-    id: `${scope}.header`,
-    defaultMessage: 'This is the BottomBar component!',
+  sheeterinc: {
+    id: `${scope}.sheeterinc`,
+    defaultMessage: '© 2020, Sheeter inc',
   },
+
+  contactus: {
+    id: `${scope}.contactus`,
+    defaultMessage: 'Contact us',
+  },
+
 });
