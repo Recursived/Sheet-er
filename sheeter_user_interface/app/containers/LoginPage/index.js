@@ -16,6 +16,7 @@ import { compose } from 'redux';
 // Import components
 import LoginPageForm from 'components/LoginPageForm';
 import LocaleSelector from 'components/LocaleSelector';
+import BottomBar from 'components/BottomBar/Loadable';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -38,27 +39,42 @@ export function LoginPage(props) {
   const classes = useStyles();
   
   return (
-    <Container maxWidth="xs" >
-      <Helmet>
-        <title>{intl.formatMessage(messages.header)}</title>
-      </Helmet>
-      <Grid 
-        container
-        direction="column"
-        justify="center"
-        alignItems="stretch"
-        spacing={2}
-        style={{ minHeight: '100vh' }}
-      >
-        <Grid item>
-          <LoginPageForm/>
-        </Grid>
-        <Grid item>
-          <LocaleSelector></LocaleSelector>
-        </Grid>
-      </Grid>
+    <div>
       
-    </Container>
+        <Helmet>
+          <title>{intl.formatMessage(messages.header)}</title>
+        </Helmet>
+        <Grid 
+          container
+          direction="column"
+          justify="space-between"
+          alignItems="stretch"
+          style={{ minHeight: '100vh' }}
+        >
+          <Grid item/>
+          <Container maxWidth="xs" >
+            <Grid 
+              container
+              spacing={2}
+              direction="column"
+              justify="center"
+              alignItems="stretch"
+            >
+              <Grid item>
+                <LoginPageForm/>
+              </Grid>
+              <Grid item>
+                <LocaleSelector/>
+              </Grid>
+            </Grid>
+          </Container>
+          <Grid item>
+            <BottomBar/>
+          </Grid>
+        </Grid>
+        
+      
+    </div>
   );
 }
 
