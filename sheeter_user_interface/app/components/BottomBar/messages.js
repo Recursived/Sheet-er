@@ -14,9 +14,4 @@ export default defineMessages({
     defaultMessage: '© 2020, Sheeter inc',
   },
 
-  contactus: {
-    id: `${scope}.contactus`,
-    defaultMessage: 'Contact us',
-  },
-
 });

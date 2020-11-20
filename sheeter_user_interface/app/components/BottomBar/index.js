@@ -33,11 +33,11 @@ const useStyles = makeStyles(theme => ({
   },
 
   leftItem: {
-    paddingLeft : "10px"
+    paddingLeft : "20px"
   },
 
   rightItem: {
-    paddingRight: "10px"
+    paddingRight: "20px"
   },
 }));
 
@@ -55,11 +55,7 @@ function BottomBar() {
           <Grid className={classes.leftItem} item>
             <FormattedMessage {...messages.sheeterinc} />
           </Grid>
-          <Grid item>
-            <Link to={routes.contactus.path}>
-              <FormattedMessage {...messages.contactus} />
-            </Link>
-          </Grid>
+          <Grid item/>
           <Grid className={classes.rightItem} item>
             <FontAwesomeIcon icon={faCoffee} />
           </Grid>
