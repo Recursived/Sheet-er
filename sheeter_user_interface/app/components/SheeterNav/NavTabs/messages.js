@@ -9,8 +9,18 @@ import { defineMessages } from 'react-intl';
 export const scope = 'app.components.NavTabs';
 
 export default defineMessages({
-  header: {
-    id: `${scope}.header`,
-    defaultMessage: 'This is the NavTabs component!',
+  tabhome: {
+    id: `${scope}.tabhome`,
+    defaultMessage: 'Home',
+  },
+
+  tabcreate: {
+    id: `${scope}.tabcreate`,
+    defaultMessage: 'Create',
+  },
+
+  tabprofile: {
+    id: `${scope}.tabprofile`,
+    defaultMessage: 'Profile',
   },
 });

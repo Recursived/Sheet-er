@@ -12,8 +12,7 @@ import { compose } from 'redux';
 import MenuIcon from '@material-ui/icons/Menu';
 import CreateIcon from '@material-ui/icons/Create';
 import SearchIcon from '@material-ui/icons/Search';
-import ArrowDropDownSharpIcon from '@material-ui/icons/ArrowDropDownSharp';
-import ArrowDropUpSharpIcon from '@material-ui/icons/ArrowDropUpSharp';
+
 import SettingsIcon from '@material-ui/icons/Settings';
 import TranslateIcon from '@material-ui/icons/Translate';
 import Brightness6Icon from '@material-ui/icons/Brightness6';
@@ -30,7 +29,12 @@ import { Divider, Grid, Hidden, Tooltip,
           ClickAwayListener, Grow, Popper,
           ListItemIcon, Typography
         } from '@material-ui/core';
-import LocaleSelector from '../LocaleSelector';      
+
+// Importing components
+import NavSearchBar from './NavSearchBar/Loadable';
+import NavTabs from './NavTabs/Loadable';
+import NavButtonLogin from './NavButtonLogin/Loadable';
+import HamburgerMenu from './HamburgerMenu/Loadable';
 
 
 // Importing actions and selectors
@@ -57,17 +61,7 @@ const useStyles = makeStyles((theme) => ({
     height: "45px",
   },
 
-  menuButton: {
-   border: `1px solid ${theme.palette.text.secondary}`,
   
-  },
-
-  textField: {
-    width: '35vw',
-    [theme.breakpoints.up('md')]: {
-      marginLeft: '-120px'
-    }
-  },
 
   tabAppBar: {
     width: '50px',
@@ -81,9 +75,7 @@ const useStyles = makeStyles((theme) => ({
     width: '200px',
   },
 
-  buttonTextSpan: {
-    marginTop: '5px'
-  },
+  
 }));
 
 
@@ -93,20 +85,13 @@ function SheeterNav(props) {
     dispatch, 
     isLogged, 
     theme, 
-    pathname, 
     user_info 
   } = props;
 
 
   const [open, setOpen] = React.useState(false);
   const [dark, setDark] = React.useState(theme.themeColor == 'dark');
-  const [tabValue, setTabValue] = React.useState(0);
 
-  const tabPanelRoutes = {
-    0 : '/',
-    1 : '/editing',
-    2 : '/profile',
-  }
 
   const anchorRef = React.useRef(null);
 
@@ -141,7 +126,7 @@ function SheeterNav(props) {
 
 
   return (
-    <div className={classes.root}>
+    <div>
       <AppBar position="fixed" color="inherit">
         <Toolbar>
           <Grid
@@ -157,17 +142,7 @@ function SheeterNav(props) {
                 alignItems="center"
               >
                 {isLogged ? (
-                  <Hidden mdUp>
-                    <Grid item>
-                      <IconButton
-                        edge="start"
-                        color="primary"
-                        className={classes.menuButton}
-                      >
-                        <MenuIcon />
-                      </IconButton>
-                    </Grid>
-                  </Hidden>
+                  <HamburgerMenu/>
                 ) : (
                   <></>
                 )}
@@ -184,26 +159,7 @@ function SheeterNav(props) {
                 {isLogged ? (
                   <Hidden smDown>
                     <Grid item>
-                      <Tabs
-                        centered
-                        value={tabValue}
-                        onChange={(event, newValue) => {
-                          setTabValue(newValue);
-                          dispatch(push(tabPanelRoutes[newValue]));
-                        }}
-                        indicatorColor="primary"
-                      >
-                        
-                        <Tooltip title={<FormattedMessage {...messages.tabhome} />} arrow>
-                          <Tab className={classes.tabAppBar} icon={<HomeIcon/>} value={0}/>
-                        </Tooltip>
-                        <Tooltip title={<FormattedMessage {...messages.tabcreate} />} arrow>
-                          <Tab className={classes.tabAppBar} icon={<CreateIcon/>} value={1}/>
-                        </Tooltip>
-                        <Tooltip title={<FormattedMessage {...messages.tabprofile} />} arrow>
-                          <Tab className={classes.tabAppBar} icon={<AccountCircleIcon/>} value={2}/>
-                        </Tooltip>
-                      </Tabs>
+                      <NavTabs/>
                     </Grid>
                   </Hidden>
                 ) : (
@@ -213,17 +169,7 @@ function SheeterNav(props) {
               </Grid>
             </Grid>
             <Grid item>
-                {isLogged ? (
-                  <TextField 
-                    size="small" 
-                    variant="filled"
-                    color="primary"
-                    className={classes.textField}
-                    label={<FormattedMessage {...messages.researchinput} />}
-                  />
-                ) : (
-                  <></>
-                )}
+                <NavSearchBar/>
             </Grid>
             <Grid item>
                 {isLogged ? (
@@ -239,20 +185,7 @@ function SheeterNav(props) {
                     <ArrowDropDownSharpIcon />
                   </IconButton>
                 ) : (
-                  <Button 
-                    size="large"
-                    variant="contained" 
-                    color="primary"
-                    endIcon={<VpnKeyIcon/>}
-                    disabled={pathname == "/login" ? true : false}
-                    onClick={
-                      () => {
-                        dispatch(push('/login'));
-                      }
-                    }
-                  >
-                    <span className={classes.buttonTextSpan}><FormattedMessage {...messages.loginbutton} /></span>
-                  </Button>
+                  <NavButtonLogin/>
                 )}
               
             </Grid>

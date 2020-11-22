@@ -4,18 +4,38 @@
  *
  */
 
+import { Grid, Hidden, IconButton } from '@material-ui/core';
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-
 import { FormattedMessage } from 'react-intl';
+
+
+// Importing icons
+import MenuIcon from '@material-ui/icons/Menu';
+import { makeStyles } from '@material-ui/core/styles';
+
 import messages from './messages';
 
+const useStyles = makeStyles((theme) => ({
+  menuButton: {
+    border: `1px solid ${theme.palette.text.secondary}`,
+   },
+}));
+
 function HamburgerMenu() {
+  const classes = useStyles();
+
   return (
-    <div>
-      <FormattedMessage {...messages.header} />
-    </div>
+    <Hidden mdUp>
+      <Grid item>
+        <IconButton
+          edge="start"
+          color="primary"
+          className={classes.menuButton}
+        >
+          <MenuIcon/>
+        </IconButton>
+      </Grid>
+    </Hidden>
   );
 }
 

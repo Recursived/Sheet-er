@@ -9,8 +9,8 @@ import { defineMessages } from 'react-intl';
 export const scope = 'app.components.NavSearchBar';
 
 export default defineMessages({
-  header: {
-    id: `${scope}.header`,
-    defaultMessage: 'This is the NavSearchBar component!',
+  researchinput: {
+    id: `${scope}.researchinput`,
+    defaultMessage: 'Search...',
   },
 });
