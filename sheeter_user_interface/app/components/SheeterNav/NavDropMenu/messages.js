@@ -9,8 +9,18 @@ import { defineMessages } from 'react-intl';
 export const scope = 'app.components.NavDropMenu';
 
 export default defineMessages({
-  header: {
-    id: `${scope}.header`,
-    defaultMessage: 'This is the NavDropMenu component!',
+  logoutbutton: {
+    id: `${scope}.logoutbutton`,
+    defaultMessage: 'Log out',
   },
+
+  changethemebutton: {
+    id: `${scope}.changethemebutton`,
+    defaultMessage: 'Change theme',
+  },
+
+  settingsbutton: {
+    id: `${scope}.settingsbutton`,
+    defaultMessage: 'Access settings',
+  }
 });
