@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
-from .models import Category, Message
-from .serializers import CategorySerializer, MessageSerializer
+from .models import Category, Message, Response
+from .serializers import CategorySerializer, MessageSerializer, Response
 
 
 # Create your views here.
@@ -19,3 +19,11 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
+class ResponseViewSet(viewsets.ModelViewSet):
+    """
+    A simple ViewSet for viewing, editing and deleting Responses
+    """
+    queryset = Response.objects.all()
+    serializer_class = Response
