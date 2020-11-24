@@ -30,6 +30,7 @@ import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
+import routes from 'utils/routes';
 import messages from './messages';
 
 import AppBarLogo from 'images/logo_appbar.png';
@@ -73,7 +74,10 @@ function SheeterNav(props) {
                   )}
                 <Grid item>
                   <Link
-                    to={isLogged ? "/" : "/landing"}
+                    to={isLogged ? 
+                      routes.homepage.path :
+                      routes.landingpage.path 
+                    }
                   >
                     <img
                       className={classes.img}
