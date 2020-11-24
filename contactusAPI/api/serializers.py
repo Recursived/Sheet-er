@@ -19,4 +19,5 @@ class MessageSerializer(serializers.ModelSerializer):
 class ResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Response
-        fields = ['message', 'content', 'date', 'parent']
+        fields = ['id', 'message', 'content',
+                  'date', 'parent']
