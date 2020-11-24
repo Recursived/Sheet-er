@@ -22,5 +22,10 @@ export default defineMessages({
   settingsbutton: {
     id: `${scope}.settingsbutton`,
     defaultMessage: 'Access settings',
-  }
+  },
+
+  contactus: {
+    id: `${scope}.contactus`,
+    defaultMessage: 'Contact us',
+  },
 });

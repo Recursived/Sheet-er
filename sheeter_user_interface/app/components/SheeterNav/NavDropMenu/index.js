@@ -7,6 +7,9 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
+import { FormattedMessage } from 'react-intl';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
 
 // Import material core elems
 import { 
@@ -14,6 +17,7 @@ import {
   ClickAwayListener, Grow, Popper,
   ListItemIcon, Typography, Divider, makeStyles    
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 // Importing icons
 import ArrowDropDownSharpIcon from '@material-ui/icons/ArrowDropDownSharp';
@@ -26,18 +30,25 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { changeTheme } from 'containers/ThemeProvider/actions';
 import { makeSelectThemeProvider } from 'containers/ThemeProvider/selectors';
 import { makeSelectUserInfo } from 'containers/App/selectors';
-// Misc imports
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import { connect } from 'react-redux';
-import messages from './messages';
+import  { isRequestLogOutAction }  from 'containers/App/actions';
 
+// Misc imports
+import routes from 'utils/routes';
+import messages from './messages';
+import {ClickableItem} from './ClickableItem';
 
 
 const useStyle = makeStyles((theme) => ({
   menuButton: {
     border: `1px solid ${theme.palette.text.secondary}`,
-   },
+  },
+
+  menuItemNoHover: {
+    paddingLeft: '16px',
+    paddingRight: '16px',
+    paddingBottom: '6px',
+    paddingTop: '6px',
+  }
 }));
 
 function NavDropMenu(props) {
@@ -164,6 +175,28 @@ function NavDropMenu(props) {
                       </ListItemIcon>
                       <Typography variant="inherit"><FormattedMessage {...messages.logoutbutton} /></Typography>
                     </MenuItem>
+                    <Divider variant="middle"/>
+                    <div className={classes.menuItemNoHover}>
+                      <Typography variant="caption" display="block">
+                        <ClickableItem>
+                          <FormattedMessage {...messages.contactus} />
+                        </ClickableItem>
+                        &nbsp; · &nbsp;
+                        <ClickableItem>
+                          Test 2
+                        </ClickableItem>
+                        &nbsp; · &nbsp;
+                        <ClickableItem>
+                          Test 3
+                        </ClickableItem>
+                      </Typography>
+                      <Typography variant="caption" display="block">
+                        <ClickableItem>
+                          Test 4
+                        </ClickableItem>
+                      </Typography>
+                      
+                    </div>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
