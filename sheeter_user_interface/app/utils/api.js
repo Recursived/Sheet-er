@@ -23,7 +23,7 @@ const sheetAPI =  new OpenAPIClientAxios({
 const contactusAPI =  new OpenAPIClientAxios({ 
     definition : "http://localhost:8002/swagger.json", 
     validate: false,
-    withServer: { url: 'http://localhost:8000', description: 'Contact server' }
+    withServer: { url: 'http://localhost:8002', description: 'Contact server' }
 });
 
 
