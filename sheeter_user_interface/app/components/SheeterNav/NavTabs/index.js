@@ -48,9 +48,13 @@ function NavTabs(props) {
     '/profile' : 2,
   };
   const { pathname, dispatch } = props;
-  // console.log("pathname", pathname);
 
   const [tabValue, setTabValue] = React.useState(routesToValue[pathname]);
+
+  React.useEffect(() => {
+    setTabValue(routesToValue[pathname]);
+  }, [pathname]);
+
 
   return (
     <Tabs

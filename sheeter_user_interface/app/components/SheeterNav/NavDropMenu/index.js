@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
+import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 
 // Import material core elems
