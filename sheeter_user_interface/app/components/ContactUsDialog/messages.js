@@ -9,8 +9,13 @@ import { defineMessages } from 'react-intl';
 export const scope = 'app.components.ContactUsDialog';
 
 export default defineMessages({
-  header: {
-    id: `${scope}.header`,
-    defaultMessage: 'This is the ContactUsDialog component!',
+  titledialog: {
+    id: `${scope}.titledialog`,
+    defaultMessage: 'Contact Sheeter',
+  },
+
+  sendbutton: {
+    id: `${scope}.sendbutton`,
+    defaultMessage: 'Send',
   },
 });

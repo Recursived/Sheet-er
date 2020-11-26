@@ -4,7 +4,7 @@
  *
  */
 import produce from 'immer';
-import {  IS_LOGGED_IN_SUCCESS, IS_LOGGED_OUT_SUCCESS, REQUEST_LOG_IN } from './constants';
+import {  CLOSE_DIALOG_CONTACT, IS_LOGGED_IN_SUCCESS, IS_LOGGED_OUT_SUCCESS, OPEN_DIALOG_CONTACT, REQUEST_LOG_IN } from './constants';
 
 export const initialState = {
   conn_info : {
@@ -12,8 +12,9 @@ export const initialState = {
     uid : null,
     social_token: null
   },
-  loggedIn: false,
   user_info : null,
+  loggedIn: false,
+  contactDialog: false,
   
 };
 
@@ -39,7 +40,14 @@ const globalReducer = (state = initialState, action) =>
         },
         draft.loggedIn = false;
         break;
+      case OPEN_DIALOG_CONTACT:
+        draft.contactDialog = true;
+        break;
+      case CLOSE_DIALOG_CONTACT:
+        draft.contactDialog = false;
+        break;
     }
   });
 
 export default globalReducer;
+

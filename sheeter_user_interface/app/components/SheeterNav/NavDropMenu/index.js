@@ -32,11 +32,13 @@ import { changeTheme } from 'containers/ThemeProvider/actions';
 import { makeSelectThemeProvider } from 'containers/ThemeProvider/selectors';
 import { makeSelectUserInfo } from 'containers/App/selectors';
 import  { isRequestLogOutAction }  from 'containers/App/actions';
+import { openContactDialogAction } from 'containers/App/actions';
 
 // Misc imports
 import routes from 'utils/routes';
 import messages from './messages';
-import {ClickableItem} from './ClickableItem';
+import { ClickableItem } from './ClickableItem';
+import ContactUsDialog  from 'components/ContactUsDialog/Loadable';
 
 
 const useStyle = makeStyles((theme) => ({
@@ -179,7 +181,13 @@ function NavDropMenu(props) {
                     <Divider variant="middle"/>
                     <div className={classes.menuItemNoHover}>
                       <Typography variant="caption" display="block">
-                        <ClickableItem>
+                        <ClickableItem onClick={() => {
+                          if (anchorRef.current && anchorRef.current.contains(event.target)) {
+                            return;
+                          }
+                          setOpen(false);
+                          dispatch(openContactDialogAction());
+                        }}>
                           <FormattedMessage {...messages.contactus} />
                         </ClickableItem>
                         &nbsp; · &nbsp;
@@ -204,6 +212,7 @@ function NavDropMenu(props) {
             </Grow>
           )}
         </Popper>
+        <ContactUsDialog/>
     </Fragment> 
   );
 }

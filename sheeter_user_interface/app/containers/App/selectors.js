@@ -34,19 +34,25 @@ const makeSelectConnInfo = () =>
   createSelector(
     selectGlobal,
     substate => substate.conn_info
-  )
+  );
 
 const makeSelectUserInfo = () =>
-    createSelector(
-      selectGlobal,
-      substate => substate.user_info
-    )
+  createSelector(
+    selectGlobal,
+    substate => substate.user_info
+  );
 
+const makeSelectContactDialog = () =>
+  createSelector(
+    selectGlobal,
+    substate => substate.contactDialog
+  )
 
 export {
   makeSelectGlobal,
   makeSelectPathname,
   makeSelectLoggedIn,
   makeSelectConnInfo,
-  makeSelectUserInfo
+  makeSelectUserInfo,
+  makeSelectContactDialog
  };

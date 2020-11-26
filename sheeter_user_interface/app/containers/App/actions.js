@@ -8,7 +8,9 @@ import {
   IS_LOGGED_OUT_SUCCESS, 
   IS_LOGGED_IN_SUCCESS,
   REQUEST_LOG_IN,
-  REQUEST_LOG_OUT
+  REQUEST_LOG_OUT,
+  CLOSE_DIALOG_CONTACT,
+  OPEN_DIALOG_CONTACT
 } from './constants';
 
 /**
@@ -53,3 +55,15 @@ export function isLoggedSuccessAction(json_user){
   }
 }
 
+
+export function openContactDialogAction(){
+    return {
+      type : OPEN_DIALOG_CONTACT
+    }
+}
+
+export function closeContactDialogAction(){
+  return {
+    type : CLOSE_DIALOG_CONTACT
+  }
+}
