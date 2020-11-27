@@ -4,7 +4,7 @@
  *
  */
 
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, makeStyles, Typography, useMediaQuery, useTheme } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Grid, IconButton, InputLabel, ListSubheader, makeStyles, MenuItem, Select, Slide, TextField, Typography, useMediaQuery, useTheme } from '@material-ui/core';
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -25,7 +25,7 @@ import {
 
 // Misc imports
 import messages from './messages';
-
+import CategorySelector from './CategorySelector';
 
 
 
@@ -36,59 +36,80 @@ const useStyle = makeStyles((theme) => ({
     top: theme.spacing(1),
   },
 
+  textfield: {
+    width: '100%'
+  },
+
+  contentdialog: {
+    overflowY: 'unset'
+  },
+
+  select: {
+    width: '100%'
+  }
 }));
 
 function ContactUsDialog(props) {
   const classes = useStyle();
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const [ isFinal, setFinal] = React.useState(false);
   const { contactDialog, dispatch } = props;
 
   return (
     <Dialog
-      aria-labelledby="form-dialog-title"
-      open={contactDialog}
-      fullScreen={fullScreen}
-      className={classes.dialog}
-      maxWidth="sm"
       fullWidth
+      open={contactDialog} 
+      aria-labelledby="form-dialog-title"
+      maxWidth="sm"
+      className={classes.contentdialog}
+      classes={{
+        paper: classes.contentdialog
+      }}
     >
-      <DialogTitle>
-        <Grid
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="center"
-        
+        <DialogTitle id="form-dialog-title">
+          <FormattedMessage {...messages.titledialog}/>
+        </DialogTitle>
+        <DialogContent
+          classes={{
+            root: classes.contentdialog
+          }}
         >
-          <Grid item>
-            <FormattedMessage {...messages.titledialog} /> 
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="stretch"
+            spacing={2}
+          >
+            <Grid item>
+              <CategorySelector/>
+            </Grid>
+            <Grid item>
+              <TextField
+                multiline
+                rowsMax={5}
+                variant="outlined"
+                label={<FormattedMessage {...messages.labeltextfield}/>}
+                className={classes.textfield}
+              />
+            </Grid>
+            
           </Grid>
-          <Grid item>
-            <IconButton
-              aria-label="close"
-              className={classes.closeButton}
-              onClick={() => dispatch(closeContactDialogAction())}
-            >
-              <CloseIcon/>
-            </IconButton>
-          </Grid>
-        </Grid>
-        
-        
-      </DialogTitle>
-      <DialogContent dividers>
-        
-      </DialogContent>
-      <DialogActions>
-        <Button
-          color="primary"
-          autoFocus
-        >
-          <FormattedMessage {...messages.sendbutton} />
-        </Button>
-      </DialogActions>
-    </Dialog>
+            
+            
+
+          
+        </DialogContent>
+        <DialogActions>
+          <Button onClose={() => dispatch(closeContactDialogAction())} color="primary">
+            <FormattedMessage {...messages.cancelbutton}/>
+          </Button>
+          <Button color="primary">
+            <FormattedMessage {...messages.sendbutton}/>
+          </Button>
+        </DialogActions>
+      </Dialog>
   );
 }
 
