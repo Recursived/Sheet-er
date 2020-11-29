@@ -6,7 +6,7 @@ from .models import Category, Message, Response
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['id', 'title', 'parent']
+        fields = ['id', 'title', 'parent', 'code']
 
 
 class MessageSerializer(serializers.ModelSerializer):
