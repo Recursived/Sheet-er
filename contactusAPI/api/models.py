@@ -22,7 +22,11 @@ class Category(models.Model):
         on_delete=models.DO_NOTHING
     )
 
-    code = models.CharField(max_length="50", verbose_name="Code de la categorie")
+    code = models.CharField(
+        max_length="50", 
+        verbose_name="Code de la categorie",
+        default=None
+    )
 
     def __str__(self):
         return f"{self.title} --> code : {self.code}"
