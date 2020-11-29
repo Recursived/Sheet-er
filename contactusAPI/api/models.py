@@ -23,8 +23,9 @@ class Category(models.Model):
     )
 
     code = models.CharField(
-        max_length="50", 
+        max_length=50, 
         verbose_name="Code de la categorie",
+        null=True,
         default=None
     )
 
