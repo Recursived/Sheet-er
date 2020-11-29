@@ -43,7 +43,7 @@ class Message(models.Model):
     author = models.PositiveIntegerField(verbose_name="PK de l'auteur")
     date = models.DateTimeField(
         auto_now_add=True, verbose_name="Date creation")
-    category = models.OneToOneField(
+    category = models.ForeignKey(
         Category,
         on_delete=models.DO_NOTHING
     )
