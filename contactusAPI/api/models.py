@@ -18,6 +18,7 @@ class Category(models.Model):
     parent = models.ForeignKey(
         'self',
         null=True,
+        default=None,
         related_name='children',
         on_delete=models.DO_NOTHING
     )
