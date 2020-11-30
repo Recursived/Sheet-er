@@ -21,8 +21,8 @@ class UserView(MultipleFieldLookupMixin, RetrieveAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         social_user_instance = self.get_object()
-        rf_instance = RefreshToken.objects.get(user=social_user_instance.user)
-        serializer = self.get_serializer(rf_instance)
+        rf_instance = RefreshToken.objects.filter(user=social_user_instance.user).filter(revoked__isnull=True)
+        serializer = self.get_serializer(rf_instance[0]) # On prend l'unique occurence
         return Response(serializer.data)
 
 
