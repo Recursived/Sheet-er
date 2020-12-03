@@ -60,7 +60,7 @@ const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
       <ThemeProvider>
-        <LanguageProvider messages={messages}>
+        <LanguageProvider messages={messages} preventDuplicate>
           <SnackbarProvider maxSnack={3}>
             <ConnectedRouter history={history}>
               <NotifProvider />
