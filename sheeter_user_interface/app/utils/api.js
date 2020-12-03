@@ -1,7 +1,7 @@
 import OpenAPIClientAxios from 'openapi-client-axios';
 
 // Def of the cliend_id for the web app
-export const CLIENT_ID = "GksdhKpX9wvGPiRc6TQv2KdV95Gy5kTL1bICpiME";
+export const CLIENT_ID = "OycBPP64x1gPEIGXTFtfD0aRwSsqMVm2ggrTwy6H";
 
 // Definition of the const to retrieve the corresponding API
 export const RETRIEVE_SHEETAPI = "sheet";
