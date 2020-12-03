@@ -1,0 +1,101 @@
+[
+{
+    "model": "api.category",
+    "pk": 1,
+    "fields": {
+        "title": "Erreur textuelle",
+        "parent": null,
+        "code": "PB_TEXT"
+    }
+},
+{
+    "model": "api.category",
+    "pk": 2,
+    "fields": {
+        "title": "Probl\u00e8me sur fiche",
+        "parent": null,
+        "code": "PB_SH"
+    }
+},
+{
+    "model": "api.category",
+    "pk": 3,
+    "fields": {
+        "title": "Probl\u00e8me de compte",
+        "parent": null,
+        "code": "PB_ACC"
+    }
+},
+{
+    "model": "api.category",
+    "pk": 4,
+    "fields": {
+        "title": "Probl\u00e8me acc\u00e8s \u00e0 une fonctionnalit\u00e9",
+        "parent": null,
+        "code": "PB_FUNC"
+    }
+},
+{
+    "model": "api.category",
+    "pk": 5,
+    "fields": {
+        "title": "Suggestion",
+        "parent": null,
+        "code": "PB_SUGG"
+    }
+},
+{
+    "model": "api.category",
+    "pk": 6,
+    "fields": {
+        "title": "Probl\u00e8me compte premium",
+        "parent": 3,
+        "code": null
+    }
+},
+{
+    "model": "api.category",
+    "pk": 7,
+    "fields": {
+        "title": "Probl\u00e8me connexion",
+        "parent": 3,
+        "code": null
+    }
+},
+{
+    "model": "api.category",
+    "pk": 8,
+    "fields": {
+        "title": "Probl\u00e8me affichage",
+        "parent": 4,
+        "code": null
+    }
+},
+{
+    "model": "api.category",
+    "pk": 9,
+    "fields": {
+        "title": "Suggestion fonctionnalit\u00e9",
+        "parent": 5,
+        "code": null
+    }
+},
+{
+    "model": "api.category",
+    "pk": 10,
+    "fields": {
+        "title": "Erreur de traduction",
+        "parent": 1,
+        "code": null
+    }
+},
+{
+    "model": "api.category",
+    "pk": 11,
+    "fields": {
+        "title": "Grammaire / Orthographe",
+        "parent": 1,
+        "code": null
+    }
+}
+]
