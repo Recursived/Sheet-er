@@ -17,6 +17,11 @@ export default defineMessages({
   logoutSuccess: {
     id: `${scope}.logoutSuccess`,
     defaultMessage: 'You\'ve been successfully logged out !',
-  }
+  },
+
+  problemRefreshToken: {
+    id: `${scope}.problemRefreshToken`,
+    defaultMessage: 'We\'ve encoutered a problem with your account, you may not be able to use some functionalities !',
+  },
 
 });

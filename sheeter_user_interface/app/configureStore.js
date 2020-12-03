@@ -5,7 +5,13 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
+import { REFRESH_TOKEN } from 'containers/App/constants';
+import { FormattedMessage } from 'react-intl';
+import { enqueueSnackbar, closeSnackbar } from 'containers/NotifProvider/actions';
+import { isRefreshAction } from 'containers/App/actions';
+import messages from 'containers/App/messages';
 import createReducer from './reducers';
+import { CLIENT_ID } from 'utils/api';
 
 export default function configureStore(initialState = {}, history) {
   let composeEnhancers = compose;
@@ -29,10 +35,58 @@ export default function configureStore(initialState = {}, history) {
 
   const sagaMiddleware = createSagaMiddleware(reduxSagaMonitorOptions);
 
+  const checkTokenExpirationMiddleware = store => next => action => {
+    const user_info = store.getState().global.user_info;
+    const dispatch = store.dispatch;
+    if (user_info != null){
+      const expiry_date = new Date(user_info.access_token.expires);
+      const today = new Date();
+     
+      
+
+      if (today > expiry_date){
+        const axios = require('axios');
+        const qs = require('qs');
+        let data = qs.stringify({
+          grant_type : 'refresh_token',
+          client_id : CLIENT_ID,
+          refresh_token: user_info.token,
+        });
+        let config = { 
+          method: 'post',
+          url: 'http://localhost:8001/auth/token',
+          headers: { 
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          data : data
+        };
+        axios(config)
+        .then(res => dispatch(isRefreshAction(res)))
+        .catch(error => (
+          dispatch((enqueueSnackbar({
+            message: <FormattedMessage {...messages.problemRefreshToken} />,
+            options: {
+                key: new Date().getTime() + Math.random(),
+                variant: 'error'
+            },
+            action: (key) => {
+                dispatch(closeSnackbar(key));
+            }
+          })))
+        ));
+      }
+    }
+    next(action);
+  };
+
   // Create the store with two middlewares
   // 1. sagaMiddleware: Makes redux-sagas work
   // 2. routerMiddleware: Syncs the location/URL path to the state
-  const middlewares = [sagaMiddleware, routerMiddleware(history)];
+  const middlewares = [
+    checkTokenExpirationMiddleware,
+    sagaMiddleware, 
+    routerMiddleware(history)
+  ];
 
   const enhancers = [applyMiddleware(...middlewares)];
 

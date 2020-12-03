@@ -10,7 +10,8 @@ import {
   REQUEST_LOG_IN,
   REQUEST_LOG_OUT,
   CLOSE_DIALOG_CONTACT,
-  OPEN_DIALOG_CONTACT
+  OPEN_DIALOG_CONTACT,
+  REFRESH_TOKEN
 } from './constants';
 
 /**
@@ -52,6 +53,17 @@ export function isLoggedSuccessAction(json_user){
   return {
     type: IS_LOGGED_IN_SUCCESS,
     user : json_user
+  }
+}
+
+/**
+ * Action used to refresh an object whenever the access token is expired
+ * @param {object} refresh_data 
+ */
+export function isRefreshAction(refresh_data){
+  return {
+    type: REFRESH_TOKEN,
+    refresh_data : refresh_data
   }
 }
 
