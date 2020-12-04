@@ -18,6 +18,7 @@ class UserView(MultipleFieldLookupMixin, RetrieveAPIView):
     queryset = UserSocialAuth.objects.all()
     serializer_class = RefreshTokenSerializer
     lookup_fields = ("uid", "provider")
+    permission_classes = [IsAuthenticated]
 
     def retrieve(self, request, *args, **kwargs):
         social_user_instance = self.get_object()

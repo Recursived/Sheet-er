@@ -28,33 +28,33 @@ export function* handleRequestLogIn() {
   yield api.init()
 
   
-  let hasToCreate = false;
+
   const conn_info = yield select(makeSelectConnInfo());
   const client = yield api.getClient();
-  try {
-    // checking for the existence of a user  
-    const response = yield client.paths["/user/{uid}/{provider}"].get({uid: conn_info.uid, provider: conn_info.backend});
-    yield put(isLoggedSuccessAction(response.data));
-    yield put(push("/"));
-  } catch (error){
-    // if user doesn't exist, we set a flag to indicate that we have to create it
-    hasToCreate = true;
-  }
 
-  if (hasToCreate){
-    try {
-      yield client.paths["/auth/convert-token/"].post({
-        grant_type : 'convert_token',
-        client_id : CLIENT_ID,
-        backend: conn_info.backend,
-        token: conn_info.social_token
-      });
-      const response = yield client.paths["/user/{uid}/{provider}"].get({uid: conn_info.uid, provider: conn_info.backend});
-      yield put(isLoggedSuccessAction(response.data));
-      yield put(push(routes.homepage.path));
-    } catch {
-      
-    }
+  try {
+    const retour = yield client.paths["/auth/convert-token/"].post({
+      grant_type : 'convert_token',
+      client_id : CLIENT_ID,
+      backend: conn_info.backend,
+      token: conn_info.social_token
+    });
+    console.log(retour);
+    const response = yield client.paths["/user/{uid}/{provider}"].get(
+      {uid: conn_info.uid, provider: conn_info.backend},
+      null,
+      { headers: { 'Authorization': `Bearer ${retour.data.access_token}` }}
+    );
+    yield put(isLoggedSuccessAction(response.data));
+    yield put(push(routes.homepage.path));
+  } catch {
+    yield put(enqueueSnackbar({
+      message: <FormattedMessage {...messages.loginError} />,
+      options: {
+          key: new Date().getTime() + Math.random(),
+          variant: 'error'
+      },
+    }));
   }
 
 
