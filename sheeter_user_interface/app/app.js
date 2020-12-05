@@ -15,7 +15,7 @@ import history from 'utils/history';
 import { Provider } from 'react-redux';
 import { SnackbarProvider } from 'notistack';
 import { ConnectedRouter } from 'connected-react-router';
-import { throttle } from 'lodash';
+import { omit, throttle } from 'lodash';
 
 import 'sanitize.css/sanitize.css';
 
@@ -50,7 +50,9 @@ store.subscribe(
   throttle(() => {
     saveState({
       language: store.getState().language,
-      global: store.getState().global,
+      global: omit(store.getState().global,[
+        'contactDialog'
+      ]),
       theme: store.getState().theme
     });
   }, 1000),
