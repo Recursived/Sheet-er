@@ -41,41 +41,45 @@ Dans cette partie, nous allons voir le **le processus de connexion utilisateur**
 Cette réponse contient plusieurs informations intéressantes :
 ![Login obj](return_login_obj.png)
 
-Les deux éléments à retenir sur cet objet JS sont **l'access token** ainsi que **l'id**.
+L'élément à retenir est **l'access token**. Le champ *client_id* est visible dans le panel admin de l'api. Voici un exemple de requête sur l'url de conversion de token
 
-Dans un premier temps, nous allons utiliser le champ **id** en faisant appel à l'url suivante pour vérifier que l'utilisateur existe :<br>
-`http://<url_serveur_authent>/user/<id>/<provider> --> http://localhost:8001/user/************2048/facebook`
+![Convert token](convert_token.png)
 
-NB : pour facebook le userID est un un nombre et pour google il s'agit du mail du compte que vous tentez de vérifier.
 
-Les choix disponibles pour `<provider>` sont : 
+
+Les choix disponibles pour `<backend>` sont : 
 
 - facebook
 - google-oauth2
 
 
 
-L'appel à cette URL nous donne deux réponses possibles :
+L'appel à cette URL permet de créer un **access_token** et son **refresh_token** associé. Il n'y as pas de besoin d'ajouter d'information dans les *headers* pour faire appel à cette URL. Si la requête est valide, vous obtiendrez les deux éléments cités ci-dessus avec d'autres informations en plus (date d'expiration...).
+<br>
+<br>
+Une fois cette étape faite, vous devez obtenir des informations complémentaires sur l'utilisateur. Pour ce faire, vous devez passer par l'URL suivante :
 
-- Un JSON indiquant que rien n'a été trouvé
-- Un JSON avec des informations concernant l'utilisateur déjà existant sur l'api d'authentification
+`http://<url_serveur_authent>/user/<id_provider>/<provider>`  
+`http://localhost:8001/user/************2048/facebook`
+
+NB : pour facebook le userID est un un **nombre** et pour google il s'agit du **mail** du compte que vous tentez de vérifier.
+
+Les choix disponibles pour `<provider>` sont : 
+
+- facebook
+- google-oauth2
 
 Voici une image qui montre à quoi ressemble une réponse correcte (avec des annotations pour les champs importants) :
 ![convert token](login_test_response.png)
+
+
+
+
+Pour récapituler, il suffit d'effectuer un convert-token à chaque connexion de l'utilisateur. Si l'utilisateur n'existe pas, un compte et des tokens sont créés. Ensuite, il faut obtenir plus d'informations sur l'utilisateur en appelant l'URL prévu à cet effet. Il est important de noter que pour accéder à cette URL, il faut ajouter **l'access token** de notre api dans les headers de la requête (voir dernière section). Le token de notre API à une date d'expiration. Si cette date est atteinte, le token d'accès n'est plus valide. Il vous faut donc le rafraîchir (voir la section '[Testing the Setup](https://github.com/RealmTeam/django-rest-framework-social-oauth2)'). Sous React, le raffraîchissement se fait via un middleware. Sous Flutter, il est possible d'implémenter un *interceptor* qui vérifiera la date d'expiration du token d'accès.
 <br>
 <br>
-S'il s'avère que l'utilisateur n'existe pas sur l'api d'authentification, il vous faudra convertir l'access token qui vous est fourni par Facebook/Google en token propre à notre API.
-
-Pour ce faire voici l'appel que vous devez effectuer (les éléments importants sont en rouge):
-
-![convert token](convert_token.png)
-
-Le champ *token* correspond au champ *access token* de l'objet renvoyé par les boutons de login. Il y a deux valeurs possibles pour le backend (voir liste plus haut).
-Enfin pour le champ *client_id*, il est possible de l'obtenir via le panel admin de l'api (ou alors demander à M. MANETA).
-
-Si la requête est fructueuse, vous obtiendrez un **access token** ainsi qu'un **refresh token** (qui permet de rafraîchir l'access token en cas d'expiration) que vous devez garder soigneusement pour faire des requêtes sur les API *ressources*.
-
-Pour récapituler, vous devez d'abord vérifier l'existence de l'utilisateur via la première URL qui est fournie dans cette section. Si l'utilisateur n'existe pas, il faut donc convertir le token d'accès fourni par Facebook/Google via la seconde URL. Ensuite, vous devez refaire la requête d'existence d'utilisateur (voir plus haut). Si l'utilisateur a bien été créé après le 'convert-token', vous obtiendrez toutes les informations le concernant. Le token de notre API à une date d'expiration. Si cette date est atteinte, le token d'accès n'est plus valide. Il vous faut donc le rafraîchir (voir la section '[Testing the Setup](https://github.com/RealmTeam/django-rest-framework-social-oauth2)').
+Voici un exemple où l'on raffraîchit un token:
+![refresh token](refresh_token_example.png)
 
 ## Token d'accès : comment l'utiliser ?
 
