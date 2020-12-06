@@ -40,7 +40,6 @@ class Message(models.Model):
     class Meta:
         ordering = ['-id']
 
-    title = models.CharField(max_length=150, verbose_name="Titre")
     content = models.TextField(verbose_name="Contenu")
     author = models.PositiveIntegerField(verbose_name="PK de l'auteur")
     date = models.DateTimeField(
