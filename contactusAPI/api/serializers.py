@@ -12,7 +12,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
-        fields = ['id', 'title', 'content', 'author',
+        fields = ['id', 'content', 'author',
                   'date', 'category', 'state']
 
 
