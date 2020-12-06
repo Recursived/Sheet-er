@@ -2,6 +2,7 @@
  * Create the store with dynamic reducers
  */
 
+import React, { memo } from 'react';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
@@ -69,9 +70,6 @@ export default function configureStore(initialState = {}, history) {
                 key: new Date().getTime() + Math.random(),
                 variant: 'error'
             },
-            action: (key) => {
-                dispatch(closeSnackbar(key));
-            }
           })))
         ));
       }
