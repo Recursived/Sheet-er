@@ -29,4 +29,20 @@ export default defineMessages({
     defaultMessage: 'We\'ve encoutered a problem with your account, you may not be able to use some functionalities !',
   },
 
+  categoriesError: {
+    id: `${scope}.categoriesError`,
+    defaultMessage: 'Oops ! We could not retrieve the categories...',
+  },
+
+  messageError: {
+    id: `${scope}.messageError`,
+    defaultMessage: 'Oops ! We could not send the message...',
+  },
+
+  messageSuccess: {
+    id: `${scope}.messageSuccess`,
+    defaultMessage: 'We\'ve delivered your message to the Sheeter team',
+  },
+  
+
 });

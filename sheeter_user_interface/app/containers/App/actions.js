@@ -11,7 +11,12 @@ import {
   REQUEST_LOG_OUT,
   CLOSE_DIALOG_CONTACT,
   OPEN_DIALOG_CONTACT,
-  REFRESH_TOKEN
+  REFRESH_TOKEN,
+  GET_CATEGORIES_SUCCESS,
+  REQUEST_CATEGORIES,
+  SEND_RESPONSE_REQUEST,
+  SEND_RESPONSE_SUCCESS,
+  REQUEST_SEND_RESPONSE
 } from './constants';
 
 /**
@@ -67,15 +72,61 @@ export function isRefreshAction(refresh_data){
   }
 }
 
-
+/**
+ * Open the contact us dialog
+ */
 export function openContactDialogAction(){
     return {
       type : OPEN_DIALOG_CONTACT
     }
 }
 
+/**
+ * Close the contact us dialog
+ */
 export function closeContactDialogAction(){
   return {
     type : CLOSE_DIALOG_CONTACT
   }
 }
+
+/**
+ * Action used to request a list of categories
+ */
+export function isRequestCategoriesAction(){
+  return {
+    type : REQUEST_CATEGORIES
+  }
+}
+
+/**
+ * Action used to set the categories after a successful call to the api
+ * @param {Array} categories 
+ */
+export function isCategoriesSuccessAction(categories){
+  return {
+    type: GET_CATEGORIES_SUCCESS,
+    categories: categories
+  }
+}
+
+/**
+ * Action used to make request to send a message
+ * @param {object} message 
+ */
+export function isSendResponseRequestAction(message){
+  return {
+    type: REQUEST_SEND_RESPONSE,
+    message: message
+  }
+}
+
+/**
+ * Action used to validate the success of the response
+ */
+export function isSendResponseSuccessAction(){
+  return {
+    type: SEND_RESPONSE_SUCCESS,
+  }
+}
+

@@ -19,19 +19,14 @@ export default defineMessages({
     defaultMessage: 'Send',
   },
 
-  cancelbutton: {
-    id: `${scope}.cancelbutton`,
-    defaultMessage: 'Cancel',
-  },
-
   labeltextfield: {
     id: `${scope}.labeltextfield`,
-    defaultMessage: 'Describe your problem',
+    defaultMessage: 'Describe your problem ({char}/1000)',
   },
 
   labelselector: {
     id: `${scope}.labelselector`,
-    defaultMessage: 'Type of problem',
+    defaultMessage: 'Category',
   }
   
 });

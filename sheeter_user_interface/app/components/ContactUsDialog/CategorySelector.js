@@ -4,7 +4,15 @@
  *
  */
 
-import { FormControl, InputLabel, makeStyles, MenuItem, Select } from '@material-ui/core';
+import { 
+  Divider,
+  FormControl, 
+  InputLabel, 
+  ListSubheader, 
+  makeStyles, 
+  MenuItem, 
+  Select
+} from '@material-ui/core';
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -17,10 +25,9 @@ import { createStructuredSelector } from 'reselect';
 import CloseIcon from '@material-ui/icons/Close';
 
 // Importing actions and selectors
-import { makeSelectContactDialog } from 'containers/App/selectors';
-import { 
-  closeContactDialogAction,
-  openContactDialogAction
+import { makeSelectCategories } from 'containers/App/selectors';
+import {
+  isRequestCategoriesAction
 } from 'containers/App/actions';
 
 // Misc imports
@@ -32,39 +39,74 @@ import messages from './messages';
 const useStyle = makeStyles((theme) => ({
   select: {
     width: '100%'
-  }
+  },
+
+
 }));
 
 function CategorySelector(props) {
   const classes = useStyle();
+  const { 
+    value,
+    categories, 
+    handler,
+    dispatch,
+   } = props;
 
+  React.useEffect(() => {
+    dispatch(isRequestCategoriesAction());
+  }, []);
+
+
+  const subheader = categories
+    .filter(item => item.parent === null);
+  
+  const group = [];
+  for (let i = 0; i < subheader.length; i++){
+    group.push(
+      <ListSubheader key={subheader[i].id}>
+          {subheader[i].title}
+      </ListSubheader>
+    );
+    
+    const list_items = categories.filter(item => item.parent === subheader[i].id);
+    for (let j = 0; j < list_items.length; j++){
+      group.push(
+        <MenuItem 
+          key={list_items[j].id}
+          value={list_items[j].id}
+        >
+          {list_items[j].title}
+        </MenuItem>
+      );
+    }
+    group.push(<Divider component="li" />)
+  }
+  // We remove last divider
+  group.pop();
 
   return (
     <FormControl variant="outlined" className={classes.select}>
-    <InputLabel id="demo-simple-select-outlined-label"> <FormattedMessage {...messages.labelselector}/> </InputLabel>
-    <Select
-        labelId="demo-simple-select-outlined-label"
-        id="demo-simple-select-outlined"
-        value=""
-        label={<FormattedMessage {...messages.labelselector}/>}
-    >
-        <MenuItem value="">
-        <em>None</em>
-        </MenuItem>
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
-    </Select>
+      <InputLabel id="simple-select-outlined-label"> <FormattedMessage {...messages.labelselector} /> </InputLabel>
+      <Select
+        labelId="simple-select-outlined-label"
+        id="simple-select-outlined"
+        value={value}
+        onChange={handler}
+        label={<FormattedMessage {...messages.labelselector} />}
+      >
+        {group}
+      </Select>
     </FormControl>
   );
 }
 
 CategorySelector.propTypes = {
-  
+  categories: PropTypes.array.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
-  contactDialog: makeSelectContactDialog(),
+  categories: makeSelectCategories()
 });
 
 function mapDispatchToProps(dispatch) {

@@ -10,7 +10,10 @@ import {
   IS_LOGGED_OUT_SUCCESS, 
   OPEN_DIALOG_CONTACT, 
   REQUEST_LOG_IN,
-  REFRESH_TOKEN
+  REFRESH_TOKEN, 
+  GET_CATEGORIES_SUCCESS,
+  REQUEST_SEND_RESPONSE,
+  SEND_RESPONSE_SUCCESS
 } from './constants';
 
 export const initialState = {
@@ -22,6 +25,8 @@ export const initialState = {
   user_info : null,
   loggedIn: false,
   contactDialog: false,
+  contactMessage: null,
+  categories : null
   
 };
 
@@ -60,6 +65,15 @@ const globalReducer = (state = initialState, action) =>
           let date =  new Date(Date.now() + action.refresh_data.expires_in * 1000);
           draft.user_info.access_token.expires = date;
         }
+        break;
+      case GET_CATEGORIES_SUCCESS:
+        draft.categories = action.categories;
+        break;
+      case REQUEST_SEND_RESPONSE:
+        draft.contactMessage = action.message;
+        break;
+      case SEND_RESPONSE_SUCCESS: 
+        draft.contactMessage = null;
         break;
 
     }
