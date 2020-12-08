@@ -75,7 +75,7 @@ export function* handleRequestLogOut() {
     message: <FormattedMessage {...messages.logoutSuccess} />,
     options: {
       key: new Date().getTime() + Math.random(),
-      variant: 'warning'
+      variant: 'info'
     },
   }));
   yield put(push(routes.loginpage.path));
