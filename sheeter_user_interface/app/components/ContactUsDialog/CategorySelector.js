@@ -54,7 +54,9 @@ function CategorySelector(props) {
    } = props;
 
   React.useEffect(() => {
-    dispatch(isRequestCategoriesAction());
+    if (categories === null || categories.length == 0){
+      dispatch(isRequestCategoriesAction());
+    }
   }, []);
 
 
