@@ -95,7 +95,7 @@ function ContactUsDialog(props) {
   return (
     <Dialog
       fullWidth
-      open={contactDialog}
+      open={contactDialog === undefined ? false : contactDialog}
       aria-labelledby="form-dialog-title"
       maxWidth="sm"
       className={classes.contentdialog}
@@ -163,8 +163,8 @@ function ContactUsDialog(props) {
 }
 
 ContactUsDialog.propTypes = {
-  contactDialog: PropTypes.bool.isRequired,
-  userInfo: PropTypes.object.isRequired
+  userInfo: PropTypes.object.isRequired,
+  contactDialog: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
