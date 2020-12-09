@@ -56,32 +56,29 @@ export default function configureStore(initialState = {}, history) {
       if (today > expiry_date) {
         try {
           const api = getApi(RETRIEVE_USERAPI);
-          await api.init();
-
-          const client = await api.getClient();
-          const retour = await client.paths["/auth/convert-token/"].post({
-            grant_type: 'convert_token',
-            client_id: CLIENT_ID,
-            backend: conn_info.backend,
-            token: conn_info.social_token
-          });
-
-          const response = await client.paths["/user/{uid}/{provider}"].get(
-            { uid: conn_info.uid, provider: conn_info.backend },
-            null,
-            { headers: { 'Authorization': `Bearer ${retour.data.access_token}` } }
-          );
-
-          // We inform the global store about the update
-          dispatch(isLoggedSuccessAction(response.data));
+          api.init()
+            .then(client => {
+              return client.paths["/auth/convert-token/"].post({
+                grant_type: 'convert_token',
+                client_id: CLIENT_ID,
+                backend: conn_info.backend,
+                token: conn_info.social_token
+              });
+            })
+            .then(retour => {
+              api.init()
+              .then(client => {
+                return client.paths["/user/{uid}/{provider}"].get(
+                  { uid: conn_info.uid, provider: conn_info.backend },
+                  null,
+                  { headers: { 'Authorization': `Bearer ${retour.data.access_token}` } }
+                );      
+              })
+              .then( response =>
+                dispatch(isLoggedSuccessAction(response.data)))
+            });
         } catch (error) {
-          dispatch((enqueueSnackbar({
-            message: <FormattedMessage {...messages.problemRefreshToken} />,
-            options: {
-              key: new Date().getTime() + Math.random(),
-              variant: 'error'
-            }
-          })));
+          // We should never have an error !
         }
       }
     }
