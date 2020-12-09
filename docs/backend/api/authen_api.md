@@ -89,3 +89,16 @@ Une fois le token d'accès en main, vous pouvez accéder à n'importe quelle don
 `curl --location --request GET 'http://localhost:8000/sheettag/' --header 'Authorization: Bearer <access_token_de_notre_api>'`
 
 L'ajout de ce token permet d'accéder aux données. Sans ce token, un JSON d'erreur vous sera renvoyé.
+
+## Rafraîchir le token d'accès, comment faire ?
+
+Les tokens d'accès fourni par l'API d'authentification Sheeter ont une durée **d'une journée**. Il est donc nécessaire de les rafraîchir afin que les utilisateurs puissent utiliser les services Sheeter sans coupure. Comme mentionné un peu plus haut, il existe deux techniques (une pour chaque plateforme) pour raffraîchir les tokens. Sous l'environnement web, il faut implémenter un **middleware** qui vérifiera après chaque appel auprès du store global de l'application que le token d'accès est toujours valide. En ce qui concerne l'environnement mobile, il faut mettre en place un **interceptor** qui, comme son nom l'indique, intercepte la requête avant qu'elle ne soit envoyée aux API et effectue le traitement de raffraîchissement si nécessaire.
+
+Prenons pour exemple le middleware de l'application web Sheeter et décrivons le fonctionnement ligne par ligne : 
+
+![middleware refresh](refresh_middleware.png)
+
+Avant de vérifier la date d'expiration, il est obligatoire de vérifier si l'utilisateur est bien connecté à l'application. Ensuite, il faut convertir la *string* de la date d'expiration en un *objet date*. Il suffit alors de comparer la date du jour et la date d'expiration. Si la date du jour est plus récente, il faut donc raffraîchir le token. Dans notre cas, nous faisons appel à l'API s'occupant de cette tâche là (localhost:8001). Le flôt de communication entre l'application et l'API est le même que celui de connexion. Il faut convertir le token du provider (Google, FB) en renseignant les informations imporantes : CLIENT_ID, backend, token du provider et enfin le grant_type.
+<br>
+<br>
+Il suffit ensuite d'aller chercher des informations complémentaires sur l'utilisateur. Pour ce faire, on fait appel à la deuxième URL que l'on voit dans le bout de code (toujours le même serveur). Il est important de noter que l'on rajoute une information dans les headers. Il s'agit du **Bearer token** qui permet d'authentifier la requête. Si cet élément n'est pas présent dans l'en-tête de la requête alors cette dernière ne fonctionnera pas.
