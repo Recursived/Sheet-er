@@ -70,10 +70,10 @@ export function App(props) {
             component={LoginPage}
           />
           <PublicRoute
+            exact
             path={routes.notfoundpage.path}
             component={NotFoundPage}
           />
-          <Redirect to={routes.notfoundpage.path} />
         </Switch>
     </AppContainer>
   );
