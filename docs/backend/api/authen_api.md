@@ -2,7 +2,7 @@
 
 _________
 ## A quoi ça sert ?
-La mise en place d'authetification et de permissions permet de sécuriser l'accès aux API. Cela permet donc d'éviter les abus tel que le vol de données. Pour mettre en place ce système, les API s'appuie sur le protocoloe **OAuth**.
+La mise en place d'authentification et de permissions permet de sécuriser l'accès aux API. Cela permet donc d'éviter les abus tel que le vol de données. Pour mettre en place ce système, les API s'appuie sur le protocoloe **OAuth**.
 
 ___________
 ## Architecture : comment sont organisées les API ?
