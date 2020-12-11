@@ -35,6 +35,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    height: '70vh',
   },
   ToolBar: {
     width: '30%',
