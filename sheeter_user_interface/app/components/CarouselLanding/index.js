@@ -21,7 +21,7 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles(theme => ({
 
   media: { // Height of media image
-    height:700
+    height:600
   },
 
   carousel: {
