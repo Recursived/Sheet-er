@@ -27,6 +27,7 @@ import HomePage from 'containers/HomePage/Loadable';
 import LandingPage from 'containers/LandingPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import SheetEditingPage from 'containers/SheetEditingPage/Loadable';
 
 // Import components
 import SheeterNav from 'components/SheeterNav/Loadable';
@@ -58,6 +59,11 @@ export function App(props) {
             exact 
             path={routes.homepage.path} 
             component={HomePage} 
+          />
+          <PublicRoute 
+            exact 
+            path='/editing'
+            component={SheetEditingPage} 
           />
           <PublicRoute 
             exact 
