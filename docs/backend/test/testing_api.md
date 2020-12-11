@@ -68,6 +68,6 @@ Dans un premier, il convient de lancer le conteneur de l'API que vous souhaitez 
 _________
 ## DRF : le couteau suisse
 
-Django Rest Framework met à disposition plusieurs outils permettant de tester ou de visualiser l'API. L'un des outils est une documentation automatique permettant de tester le bon fonctionnement des différentes méthodes **HTTP** mis en place. Pour atteindre cette interface, il vous suffit d'ajouter `/docs` à l'url racine de votre API (exemple : localhost:8000/docs)
+Django Rest Framework met à disposition plusieurs outils permettant de tester ou de visualiser l'API. L'un des outils est une documentation automatique permettant de tester le bon fonctionnement des différentes méthodes **HTTP** mis en place. Pour atteindre cette interface, il vous suffit d'ajouter `/redoc` ou `/swagger` à l'url racine de votre API (exemple : localhost:8000/docs)
 
-Vous pouvez aussi accéder à la description **OPEN API** de ce que vous avez mis en place via l'url `/schema` (exemple : localhost:8000/schema)
+Vous pouvez aussi accéder à la description **OPEN API** de ce que vous avez mis en place via l'url `/swagger.{json|yaml}` (exemple : localhost:8000/schema). Vous avez donc la possibilité d'obtenir les spécifications de l'API au format *JSON* et *YAML*.

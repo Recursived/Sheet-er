@@ -24,7 +24,7 @@ function PrivateRoute({component: Component, ...rest}) {
     <Route
       {...rest}
       render={(props) => 
-        isLogged ? <Component {...props} /> : <Redirect to={routes.loginpage.path} />
+        isLogged ? <Component {...props} /> : <Redirect to={routes.landingpage.path} />
       }
     />
   );

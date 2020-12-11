@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { Container } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import { connect } from 'react-redux';
@@ -70,6 +70,7 @@ export function App(props) {
             component={LoginPage}
           />
           <PublicRoute
+            exact
             path={routes.notfoundpage.path}
             component={NotFoundPage}
           />

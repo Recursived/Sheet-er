@@ -19,6 +19,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    paginator = None
 
 
 class ResponseViewSet(viewsets.ModelViewSet):

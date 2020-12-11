@@ -48,11 +48,25 @@ const makeSelectContactDialog = () =>
     substate => substate.contactDialog
   )
 
+const makeSelectCategories = () =>
+  createSelector(
+    selectGlobal,
+    substate => substate.categories
+  )
+
+const makeSelectMessageDialog = () =>
+  createSelector(
+    selectGlobal,
+    substate => substate.contactMessage
+  )
+
 export {
   makeSelectGlobal,
   makeSelectPathname,
   makeSelectLoggedIn,
   makeSelectConnInfo,
   makeSelectUserInfo,
-  makeSelectContactDialog
+  makeSelectContactDialog,
+  makeSelectCategories,
+  makeSelectMessageDialog
  };

@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from oauth2_provider.models import RefreshToken
+from oauth2_provider.models import AccessToken, RefreshToken
 from rest_framework import mixins, viewsets
 from rest_framework.generics import (RetrieveAPIView,
                                      RetrieveUpdateDestroyAPIView)
@@ -11,25 +11,36 @@ from .mixins import MultipleFieldLookupMixin
 from .serializers import RefreshTokenSerializer, UserSerializer
 
 
-class UserView(MultipleFieldLookupMixin, RetrieveAPIView):
+class UserView(
+        MultipleFieldLookupMixin,
+        RetrieveAPIView):
     """
     A endpoint to get information on a user according to his uid
     """
     queryset = UserSocialAuth.objects.all()
     serializer_class = RefreshTokenSerializer
     lookup_fields = ("uid", "provider")
+    permission_classes = [IsAuthenticated]
 
     def retrieve(self, request, *args, **kwargs):
         social_user_instance = self.get_object()
-        rf_instance = RefreshToken.objects.get(user=social_user_instance.user)
-        serializer = self.get_serializer(rf_instance)
+        rf_instance = RefreshToken.objects.filter(
+            user=social_user_instance.user).filter(revoked__isnull=True)[0]
+        # On supprime les autres access_token et leur refresh_token
+        AccessToken.objects.exclude(id=rf_instance.access_token.id).filter(
+            user=social_user_instance.user).delete()
+        RefreshToken.objects.exclude(id=rf_instance.id).filter(
+            user=social_user_instance.user).delete()
+        # On serialize le refresh token
+        serializer = self.get_serializer(
+            rf_instance)
+
         return Response(serializer.data)
 
 
-
 class UserViewSet(
-    viewsets.ViewSet,
-    RetrieveUpdateDestroyAPIView):
+        viewsets.ViewSet,
+        RetrieveUpdateDestroyAPIView):
     """
     A simple ViewSet for viewing and editing Sheeter users
     """

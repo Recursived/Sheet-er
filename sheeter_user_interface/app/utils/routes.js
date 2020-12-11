@@ -24,7 +24,7 @@ export default {
     },
     
     notfoundpage: {
-        path: '/404',
+        path: '*',
         name: <FormattedMessage {...notfoundpageMessages.routeNotfoundpage} />,
     },
 

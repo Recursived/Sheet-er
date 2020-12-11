@@ -18,6 +18,7 @@ class Category(models.Model):
     parent = models.ForeignKey(
         'self',
         null=True,
+        blank=True,
         default=None,
         related_name='children',
         on_delete=models.DO_NOTHING
@@ -27,6 +28,7 @@ class Category(models.Model):
         max_length=50, 
         verbose_name="Code de la categorie",
         null=True,
+        blank=True,
         default=None
     )
 
@@ -38,7 +40,6 @@ class Message(models.Model):
     class Meta:
         ordering = ['-id']
 
-    title = models.CharField(max_length=150, verbose_name="Titre")
     content = models.TextField(verbose_name="Contenu")
     author = models.PositiveIntegerField(verbose_name="PK de l'auteur")
     date = models.DateTimeField(
