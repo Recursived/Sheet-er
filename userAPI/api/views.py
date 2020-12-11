@@ -23,17 +23,17 @@ class UserView(
     permission_classes = [IsAuthenticated]
 
     def retrieve(self, request, *args, **kwargs):
+        token_val = request.META.get('HTTP_AUTHORIZATION').split(" ")[1]
+        token_instance = AccessToken.objects.get(token=token_val)
+        rf_instance = RefreshToken.objects.get(access_token=token_instance)
         social_user_instance = self.get_object()
-        rf_instance = RefreshToken.objects.filter(
-            user=social_user_instance.user).filter(revoked__isnull=True)[0]
-        # On supprime les autres access_token et leur refresh_token
+        # On supprime les instances inutiles
         AccessToken.objects.exclude(id=rf_instance.access_token.id).filter(
             user=social_user_instance.user).delete()
         RefreshToken.objects.exclude(id=rf_instance.id).filter(
             user=social_user_instance.user).delete()
         # On serialize le refresh token
-        serializer = self.get_serializer(
-            rf_instance)
+        serializer = self.get_serializer(rf_instance)
 
         return Response(serializer.data)
 
