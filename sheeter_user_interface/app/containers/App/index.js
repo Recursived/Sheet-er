@@ -19,7 +19,7 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import  routes  from 'utils/routes';
+import routes from 'utils/routes';
 
 
 // Import container
@@ -27,6 +27,7 @@ import HomePage from 'containers/HomePage/Loadable';
 import LandingPage from 'containers/LandingPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import EditingPage from 'containers/EditingPage/Loadable';
 
 // Import components
 import SheeterNav from 'components/SheeterNav/Loadable';
@@ -39,7 +40,7 @@ import {
   closeSnackbar,
 } from 'containers/NotifProvider/actions';
 import AppContainer from './AppContainer';
-import { makeSelectLoggedIn, makeSelectPathname} from './selectors'
+import { makeSelectLoggedIn, makeSelectPathname } from './selectors'
 import reducer from './reducer';
 import messages from './messages';
 import saga from './saga';
@@ -49,32 +50,37 @@ export function App(props) {
   useInjectSaga({ key: 'global', saga });
   const theme = useTheme();
   // const {loggedIn, path, dispatch} = props;
-  
+
   return (
-    <AppContainer  theme={theme}>
-      <SheeterNav/>
-        <Switch>
-          <PrivateRoute
-            exact 
-            path={routes.homepage.path} 
-            component={HomePage} 
-          />
-          <PublicRoute 
-            exact 
-            path={routes.landingpage.path}
-            component={LandingPage} 
-          />
-          <PublicRoute
-            restricted
-            path={routes.loginpage.path}
-            component={LoginPage}
-          />
-          <PublicRoute
-            exact
-            path={routes.notfoundpage.path}
-            component={NotFoundPage}
-          />
-        </Switch>
+    <AppContainer theme={theme}>
+      <SheeterNav />
+      <Switch>
+        <PrivateRoute
+          exact
+          path={routes.homepage.path}
+          component={HomePage}
+        />
+        <PrivateRoute
+          exact
+          path={routes.editingpage.path}
+          component={EditingPage}
+        />
+        <PublicRoute
+          exact
+          path={routes.landingpage.path}
+          component={LandingPage}
+        />
+        <PublicRoute
+          restricted
+          path={routes.loginpage.path}
+          component={LoginPage}
+        />
+        <PublicRoute
+          exact
+          path={routes.notfoundpage.path}
+          component={NotFoundPage}
+        />
+      </Switch>
     </AppContainer>
   );
 }

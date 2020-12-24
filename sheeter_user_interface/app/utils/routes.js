@@ -10,6 +10,8 @@ import homepageMessages from 'containers/HomePage/messages';
 import landingpageMessages from 'containers/LandingPage/messages';
 import notfoundpageMessages from 'containers/NotFoundPage/messages';
 import loginpageMessages from 'containers/LoginPage/messages';
+import editingpageMessages from 'containers/EditingPage/messages';
+
 
 
 export default {
@@ -33,8 +35,8 @@ export default {
         name: <FormattedMessage {...loginpageMessages.routeLoginpage} />,
     },
 
-    contactus: {
-        path: '/contact',
-        name: 'TO DO : remplacer'
+    editingpage: {
+        path: '/editing',
+        name: <FormattedMessage {...editingpageMessages.routeLoginpage} />,
     }
 }
