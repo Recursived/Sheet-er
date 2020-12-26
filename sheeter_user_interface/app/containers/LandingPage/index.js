@@ -24,36 +24,19 @@ import { useInjectSaga } from 'utils/injectSaga';
 import reducer from './reducer';
 import saga from './saga';
 import makeSelectLandingPage from './selectors';
+import messages from './messages';
 
 
 
 const useStyles = makeStyles(theme => ({
-  containercarousel: {
-    margin: 0,
-    padding: 0,
-    width: "100vw"
+  container: {
+    marginTop: "5vh"
   },
 
-  container : {
-    paddingTop: '80px',
-
-  },
-
-  containerBottomBar : {
-    marginTop: 100,
-    height: 80,
+  jumbotron: {
     textAlign: 'center',
-    padding : theme.spacing(2),
-  },
-
-  itemAppli : {
-    padding : theme.spacing(2),
-    height : 500
-  },
-
-  image : {
-    width: '100%',
-    height: 'auto',
+    
+    boxShadow: `${theme.shadows[10]}`
   }
 }));
 
@@ -62,8 +45,29 @@ export function LandingPage() {
   useInjectSaga({ key: 'landingPage', saga });
   const classes = useStyles();
   return (
-    <CarouselLanding></CarouselLanding>
-    
+    <React.Fragment>
+      <Hidden xsDown>
+        <CarouselLanding></CarouselLanding>
+        <Container className={classes.container}>
+          <Grid container spacing={2}>
+            <Grid item xl={12}>
+              <Paper className={classes.jumbotron}>
+                <Typography variant="h2">
+                  <FormattedMessage {...messages.jumbotron} />
+                </Typography>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              TEST 1 2
+            </Grid>
+          </Grid>
+        </Container>
+      </Hidden>
+      <Hidden smUp>
+        <p>Ici on met une image qui demande aux users de dl l'appli mobile sheeter</p>
+      </Hidden>
+    </React.Fragment>
+
   );
 }
 

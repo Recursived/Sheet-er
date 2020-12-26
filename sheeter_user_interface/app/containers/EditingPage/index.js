@@ -5,12 +5,16 @@
  */
 
 import React from 'react';
+import { Container, Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { useTheme } from "@material-ui/styles";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -19,18 +23,31 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
+// Importing components
+import SheeterEditor from 'components/SheeterEditor/Loadable';
+
+const useStyles = makeStyles(theme => ({
+  container: {
+    marginTop: "200px"
+  }
+}));
 export function EditingPage() {
+  const classes = useStyles();
+  const theme = useTheme();
+  console.log(theme);
   useInjectReducer({ key: 'editingPage', reducer });
   useInjectSaga({ key: 'editingPage', saga });
 
   return (
-    <div>
+    <Container className={classes.container}>
       <Helmet>
         <title>EditingPage</title>
         <meta name="description" content="Description of EditingPage" />
       </Helmet>
-      <FormattedMessage {...messages.header} />
-    </div>
+      <SheeterEditor />
+    </Container>
+
+
   );
 }
 
