@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 export function EditingPage() {
   const classes = useStyles();
   const theme = useTheme();
-  console.log(theme);
+  
   useInjectReducer({ key: 'editingPage', reducer });
   useInjectSaga({ key: 'editingPage', saga });
 

@@ -5,28 +5,46 @@
  */
 
 import React, { memo } from 'react';
-import { Editor, EditorState, RichUtils } from 'draft-js';
+import { EditorState } from 'draft-js';
+import Editor from 'draft-js-plugins-editor';
 import 'draft-js/dist/Draft.css';
 // import PropTypes from 'prop-types';
+
+// Importing plugins for editor
+import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
 
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
+
+const plugins = [createMarkdownShortcutsPlugin()];
+
+// class SheeterEditor extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       editorState: EditorState.createEmpty(),
+//     };
+//   }
+
+//   onChange = editorState => {
+//     this.setState({
+//       editorState,
+//     });
+//   };
+
+//   render() {
+//     return <Editor editorState={this.state.editorState} onChange={this.onChange} plugins={plugins} />;
+//   }
+// }
+
+
+
 function SheeterEditor() {
   const [editorState, setEditorState] = React.useState(
-    () => EditorState.createEmpty(),
+    EditorState.createEmpty()
   );
 
-  const handleKeyCommand = (command) => {
-    const newState = RichUtils.handleKeyCommand(editorState, command);
-
-    if (newState) {
-      setEditorState(newState);
-      return 'handled';
-    }
-
-    return 'not-handled';
-  }
 
   return (
     <div
@@ -34,8 +52,8 @@ function SheeterEditor() {
     >
       <Editor
         editorState={editorState}
-        handleKeyCommand={handleKeyCommand}
-        onChange={setEditorState}
+        onChange={(newState) => setEditorState(newState)}
+        plugins={plugins}
       />
     </div>
 
