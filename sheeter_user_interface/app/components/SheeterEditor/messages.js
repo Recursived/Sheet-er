@@ -9,8 +9,10 @@ import { defineMessages } from 'react-intl';
 export const scope = 'app.components.SheeterEditor';
 
 export default defineMessages({
-  header: {
-    id: `${scope}.header`,
-    defaultMessage: 'This is the SheeterEditor component!',
+  word: {
+    id: `${scope}.word`,
+    defaultMessage:   "{counter, plural, =0 {no words} =1 {# word} other {# words}}",
   },
+
+
 });
