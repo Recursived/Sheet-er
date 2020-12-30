@@ -14,5 +14,10 @@ export default defineMessages({
     defaultMessage:   "{counter, plural, =0 {no words} =1 {# word} other {# words}}",
   },
 
+  toomanywords:{
+    id: `${scope}.toomanywords`,
+    defaultMessage:   "You've gone pass the '500 words' threshold, try be more concise to improve readability !",
+  }
+
 
 });
