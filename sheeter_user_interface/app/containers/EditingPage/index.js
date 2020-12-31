@@ -5,9 +5,8 @@
  */
 
 import React from 'react';
-import { Container, Grid } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useTheme } from "@material-ui/styles";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -25,27 +24,55 @@ import messages from './messages';
 
 // Importing components
 import SheeterEditor from 'components/SheeterEditor/Loadable';
+import EditorMenu from 'components/EditorMenu/Loadable';
 
 const useStyles = makeStyles(theme => ({
-  container: {
-    marginTop: "200px"
-  }
+  boxcontainer: {
+    marginRight: theme.spacing(5),
+    marginLeft: theme.spacing(5),
+
+    [theme.breakpoints.down('xs')]: {
+      marginRight: theme.spacing(2),
+      marginLeft: theme.spacing(2)
+    }
+  },
+
+  
+
 }));
 export function EditingPage() {
   const classes = useStyles();
-  const theme = useTheme();
-  
+
+
   useInjectReducer({ key: 'editingPage', reducer });
   useInjectSaga({ key: 'editingPage', saga });
 
   return (
-    <Container className={classes.container}>
+    <Box className={classes.boxcontainer}>
       <Helmet>
         <title>EditingPage</title>
         <meta name="description" content="Description of EditingPage" />
       </Helmet>
-      <SheeterEditor />
-    </Container>
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        style={{ minHeight: '100vh' }}
+      >
+        <Grid container spacing={3}>
+          <Grid xs={12} sm={9} item>
+            <SheeterEditor />
+          </Grid>
+       
+        <Grid xs={12} sm={3} item>
+          <EditorMenu/>
+        </Grid>
+        </Grid>
+
+      </Grid>
+    </Box>
 
 
   );
