@@ -9,8 +9,13 @@ import { defineMessages } from 'react-intl';
 export const scope = 'app.components.EditorMenu';
 
 export default defineMessages({
-  header: {
-    id: `${scope}.header`,
-    defaultMessage: 'This is the EditorMenu component!',
+  titlesheet: {
+    id: `${scope}.titlesheet`,
+    defaultMessage: 'Title',
   },
+
+  localesheet: {
+    id: `${scope}.localesheet`,
+    defaultMessage: 'Sheet language',
+  }
 });

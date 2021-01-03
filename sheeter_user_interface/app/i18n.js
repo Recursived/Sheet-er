@@ -28,6 +28,12 @@ const appLocales = [
   'fr',
 ];
 
+
+const localeLabels = {
+  'en': 'English',
+  'fr': 'Français'
+}
+
 const formatTranslationMessages = (locale, messages) => {
   const defaultFormattedMessages =
     locale !== DEFAULT_LOCALE
@@ -43,12 +49,29 @@ const formatTranslationMessages = (locale, messages) => {
   return Object.keys(messages).reduce(flattenFormattedMessages, {});
 };
 
+const countryToFlag = (isoCode) => {
+  // Pour les drapeaux et leur code https://material-ui.com/components/autocomplete/ 
+  // --> Country select component
+  const codeConverter = {
+    'en': 'gb',
+    'fr': 'fr'
+  };
+  isoCode = codeConverter[isoCode];
+  return typeof String.fromCodePoint !== 'undefined'
+    ? isoCode
+        .toUpperCase()
+        .replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
+    : isoCode
+}
+
 const translationMessages = {
   en: formatTranslationMessages('en', enTranslationMessages),
   fr: formatTranslationMessages('fr', frTranslationMessages),
 
 };
 
+exports.localeLabels = localeLabels;
+exports.countryToFlag = countryToFlag;
 exports.appLocales = appLocales;
 exports.formatTranslationMessages = formatTranslationMessages;
 exports.translationMessages = translationMessages;
