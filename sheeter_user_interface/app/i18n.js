@@ -51,7 +51,7 @@ const formatTranslationMessages = (locale, messages) => {
 
 const countryToFlag = (isoCode) => {
   // Pour les drapeaux et leur code https://material-ui.com/components/autocomplete/ 
-  // --> Country select component
+  // Country select component
   const codeConverter = {
     'en': 'gb',
     'fr': 'fr'
