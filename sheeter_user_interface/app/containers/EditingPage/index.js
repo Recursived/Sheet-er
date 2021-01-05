@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, intlShape } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('xs')]: {
       marginRight: theme.spacing(2),
       marginLeft: theme.spacing(2),
-      
+
     }
   },
 
@@ -46,12 +46,12 @@ const useStyles = makeStyles(theme => ({
     }
   }
 
-  
+
 
 }));
-export function EditingPage() {
+export function EditingPage(props) {
   const classes = useStyles();
-
+  const intl = props.intl;
 
   useInjectReducer({ key: 'editingPage', reducer });
   useInjectSaga({ key: 'editingPage', saga });
@@ -59,8 +59,7 @@ export function EditingPage() {
   return (
     <Box className={classes.boxcontainer}>
       <Helmet>
-        <title>EditingPage</title>
-        <meta name="description" content="Description of EditingPage" />
+        <title>{intl.formatMessage(messages.editingroute)}</title>
       </Helmet>
       <Grid
         container
@@ -74,10 +73,10 @@ export function EditingPage() {
           <Grid xs={12} sm={9} item>
             <SheeterEditor />
           </Grid>
-       
-        <Grid xs={12} sm={3} item>
-          <EditorMenu/>
-        </Grid>
+
+          <Grid xs={12} sm={3} item>
+            <EditorMenu />
+          </Grid>
         </Grid>
 
       </Grid>
@@ -89,6 +88,7 @@ export function EditingPage() {
 
 EditingPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  intl: intlShape.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -106,4 +106,7 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-export default compose(withConnect)(EditingPage);
+export default compose(
+  withConnect,
+  injectIntl
+)(EditingPage);

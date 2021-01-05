@@ -9,10 +9,6 @@ import { defineMessages } from 'react-intl';
 export const scope = 'app.containers.EditingPage';
 
 export default defineMessages({
-  header: {
-    id: `${scope}.header`,
-    defaultMessage: 'This is the EditingPage container!',
-  },
 
   editingroute: {
     id: `${scope}.editingroute`,

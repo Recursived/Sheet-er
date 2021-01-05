@@ -15,7 +15,7 @@ import BottomBar from 'components/BottomBar/Loadable';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -40,12 +40,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export function LandingPage() {
+export function LandingPage(props) {
   useInjectReducer({ key: 'landingPage', reducer });
   useInjectSaga({ key: 'landingPage', saga });
   const classes = useStyles();
+  const { dispatch, intl} = props;
   return (
     <React.Fragment>
+      <Helmet>
+        <title>{intl.formatMessage(messages.routeLandingpage)}</title>
+      </Helmet>
       <Hidden xsDown>
         <CarouselLanding></CarouselLanding>
         <Container className={classes.container}>
@@ -73,6 +77,7 @@ export function LandingPage() {
 
 LandingPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  intl: intlShape.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -90,4 +95,7 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-export default compose(withConnect)(LandingPage);
+export default compose(
+  withConnect,
+  injectIntl
+)(LandingPage);

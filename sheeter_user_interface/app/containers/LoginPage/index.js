@@ -6,11 +6,8 @@
 
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage, injectIntl } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import { makeStyles } from '@material-ui/core/styles';
+import { injectIntl, intlShape } from 'react-intl';
 import { compose } from 'redux';
 
 // Import components
@@ -20,13 +17,10 @@ import BottomBar from 'components/BottomBar/Loadable';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import { makeSelectLoginPage } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { Container, Grid } from '@material-ui/core';
-import { makeSelectLoggedIn } from 'containers/App/selectors';
-import { push } from 'connected-react-router';
 
 
 export function LoginPage(props) {
@@ -39,7 +33,7 @@ export function LoginPage(props) {
     <div>
       
         <Helmet>
-          <title>{intl.formatMessage(messages.header)}</title>
+          <title>{intl.formatMessage(messages.routeLoginpage)}</title>
         </Helmet>
         <Grid 
           container
@@ -76,7 +70,7 @@ export function LoginPage(props) {
 }
 
 LoginPage.propTypes = {
-  
+  intl: intlShape.isRequired
 };
 
 
