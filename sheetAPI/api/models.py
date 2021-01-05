@@ -55,6 +55,14 @@ class Sheet(models.Model):
         verbose_name="Locale", default="en-EN"
     )
     nb_click = models.IntegerField(default=0)
+    next_sheet = models.ForeignKey(
+        'self',
+        null=True,
+        blank=True,
+        default=None,
+        related_name='children',
+        on_delete=models.DO_NOTHING
+    )
 
     def __str__(self):
-        return self.title
+        return f"{self.id} : {self.titlee}"
