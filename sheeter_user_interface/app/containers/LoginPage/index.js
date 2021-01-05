@@ -28,15 +28,12 @@ import { Container, Grid } from '@material-ui/core';
 import { makeSelectLoggedIn } from 'containers/App/selectors';
 import { push } from 'connected-react-router';
 
-const useStyles = makeStyles(theme => ({
 
-}));
 export function LoginPage(props) {
   useInjectReducer({ key: 'loginPage', reducer });
   useInjectSaga({ key: 'loginPage', saga });
-
   const intl = props.intl;
-  const classes = useStyles();
+
   
   return (
     <div>
