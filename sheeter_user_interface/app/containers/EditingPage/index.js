@@ -33,9 +33,18 @@ const useStyles = makeStyles(theme => ({
 
     [theme.breakpoints.down('xs')]: {
       marginRight: theme.spacing(2),
-      marginLeft: theme.spacing(2)
+      marginLeft: theme.spacing(2),
+      
     }
   },
+
+  gridcontainer: {
+    minHeight: '100vh',
+
+    [theme.breakpoints.down('xs')]: {
+      marginTop: theme.spacing(10)
+    }
+  }
 
   
 
@@ -59,7 +68,7 @@ export function EditingPage() {
         direction="column"
         alignItems="center"
         justify="center"
-        style={{ minHeight: '100vh' }}
+        className={classes.gridcontainer}
       >
         <Grid container spacing={3}>
           <Grid xs={12} sm={9} item>
