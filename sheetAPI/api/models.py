@@ -10,21 +10,22 @@ LOCALES = (
 class SheetTag(models.Model):
     class Meta:
         ordering = ['-id']
-
+     
+    id = models.PositiveIntegerField(primary_key=True)
     label = models.CharField(max_length=50, verbose_name='Label')
 
     def __str__(self):
-        return self.label
+        return f"({self.id}) {self.label}"
 
 
 class SheetType(models.Model):
     class Meta:
         ordering = ['-id']
-
+    id = models.PositiveIntegerField(primary_key=True)
     label = models.CharField(max_length=200, verbose_name='Label')
 
     def __str__(self):
-        return self.label
+        return  f"({self.id}) {self.label}"
 
 
 class Sheet(models.Model):

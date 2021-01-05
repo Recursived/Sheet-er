@@ -13,6 +13,7 @@ class Category(models.Model):
     class Meta:
         ordering = ["-id"]
 
+    id = models.PositiveIntegerField(primary_key=True)
     title = models.CharField(max_length=150, verbose_name="Titre")
     # If parent exist, it is a sub category
     parent = models.ForeignKey(
@@ -33,12 +34,12 @@ class Category(models.Model):
     )
 
     def __str__(self):
-        return f"{self.title} --> code : {self.code}"
+        return f"({self.id}) {self.title} --> code : {self.code}"
 
 
 class Message(models.Model):
     class Meta:
-        ordering = ['-id']
+        ordering = ['-date']
 
     content = models.TextField(verbose_name="Contenu")
     author = models.PositiveIntegerField(verbose_name="PK de l'auteur")
@@ -54,12 +55,12 @@ class Message(models.Model):
     )
 
     def __str__(self):
-        return f"{self.title} : {self.author}"
+        return f"({self.state}) pk : {self.id} --> id autor : {self.author}"
 
 
 class Response(models.Model):
     class Meta:
-        ordering = ['-id']
+        ordering = ['-date']
 
     message = models.PositiveIntegerField(
         verbose_name="PK message",
