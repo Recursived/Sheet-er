@@ -70,11 +70,11 @@ export function EditingPage(props) {
         className={classes.gridcontainer}
       >
         <Grid container spacing={3}>
-          <Grid xs={12} sm={9} item>
+          <Grid xs={12} sm={8} item>
             <SheeterEditor />
           </Grid>
 
-          <Grid xs={12} sm={3} item>
+          <Grid xs={12} sm={4} item>
             <EditorMenu />
           </Grid>
         </Grid>
