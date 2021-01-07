@@ -16,6 +16,6 @@ export default defineMessages({
 
   localesheet: {
     id: `${scope}.localesheet`,
-    defaultMessage: 'Sheet language',
+    defaultMessage: 'Locale',
   }
 });
