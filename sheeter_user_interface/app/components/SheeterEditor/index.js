@@ -17,15 +17,20 @@ import WarningIcon from '@material-ui/icons/Warning';
 
 // Importing plugins for editor
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
+import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin';
+import 'draft-js-inline-toolbar-plugin/lib/plugin.css';
 
 // Misc import
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import { WrapperEditor } from './WrapperEditor'
 
+const inlineToolbarPlugin = createInlineToolbarPlugin();
+const { InlineToolbar } = inlineToolbarPlugin
 
 const plugins = [
   createMarkdownShortcutsPlugin(),
+  inlineToolbarPlugin
 ];
 
 const useStyles = makeStyles(theme => ({
@@ -83,6 +88,7 @@ function SheeterEditor() {
             plugins={plugins}
           />
         </WrapperEditor>
+        <InlineToolbar/>
       </Grid>
       <Grid item>
         {getWordCount(editorState) < 500 ? (
