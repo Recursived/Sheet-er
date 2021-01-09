@@ -44,6 +44,10 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('xs')]: {
       marginTop: theme.spacing(10)
     }
+  },
+
+  gridMargin: {
+    marginTop: '70px'
   }
 
 
@@ -69,7 +73,7 @@ export function EditingPage(props) {
         justify="center"
         className={classes.gridcontainer}
       >
-        <Grid container spacing={3}>
+        <Grid className={classes.gridMargin} container spacing={3}>
           <Grid xs={12} sm={8} item>
             <SheeterEditor />
           </Grid>
