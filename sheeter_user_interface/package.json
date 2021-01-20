@@ -78,6 +78,8 @@
     "connected-react-router": "6.4.0",
     "cross-env": "5.2.0",
     "draft-js": "^0.11.7",
+    "draft-js-anchor-plugin": "^2.0.3",
+    "draft-js-buttons": "^2.0.2",
     "draft-js-inline-toolbar-plugin": "^3.0.1",
     "draft-js-markdown-shortcuts-plugin": "^0.6.1",
     "draft-js-plugins-editor": "^3.0.0",
