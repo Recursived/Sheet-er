@@ -24,15 +24,14 @@ import messages from './messages';
 
 // Importing components
 import SheeterEditor from 'components/SheeterEditor/Loadable';
-import EditorMenu from 'components/EditorMenu/Loadable';
+
 
 const useStyles = makeStyles(theme => ({
   boxcontainer: {
     marginRight: theme.spacing(5),
     marginLeft: theme.spacing(5),
 
-    [theme.breakpoints.down('xs')]: {
-      marginRight: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
       marginLeft: theme.spacing(2),
 
     }
@@ -41,13 +40,20 @@ const useStyles = makeStyles(theme => ({
   gridcontainer: {
     minHeight: '100vh',
 
-    [theme.breakpoints.down('xs')]: {
-      marginTop: theme.spacing(10)
+    [theme.breakpoints.down('sm')]: {
+      marginTop: theme.spacing(-1)
     }
   },
 
   gridMargin: {
     marginTop: '70px'
+  },
+
+  totalWidth: {
+    width: '100%',
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: '0px!important'
+    }
   }
 
 
@@ -67,22 +73,16 @@ export function EditingPage(props) {
       </Helmet>
       <Grid
         container
-        spacing={0}
         direction="column"
         alignItems="center"
         justify="center"
         className={classes.gridcontainer}
       >
         <Grid className={classes.gridMargin} container spacing={3}>
-          <Grid xs={12} sm={8} item>
+          <Grid className={classes.totalWidth} item>
             <SheeterEditor />
           </Grid>
-
-          <Grid xs={12} sm={4} item>
-            <EditorMenu />
-          </Grid>
         </Grid>
-
       </Grid>
     </Box>
 

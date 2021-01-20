@@ -5,7 +5,7 @@
  */
 
 import React, { memo } from 'react';
-import { EditorState } from 'draft-js';
+import { EditorState, RichUtils, getDefaultKeyBinding } from 'draft-js';
 import Editor from 'draft-js-plugins-editor';
 import { useTheme } from "@material-ui/styles";
 import { Chip, Tooltip, makeStyles, Grid } from '@material-ui/core';
@@ -19,14 +19,20 @@ import WarningIcon from '@material-ui/icons/Warning';
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
 import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin';
 import 'draft-js-inline-toolbar-plugin/lib/plugin.css';
+import SheeterInlineToolbar from './EditorPlugins/InlinePlugin/SheeterInlineToolbar';
 
 // Misc import
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 import { WrapperEditor } from './WrapperEditor'
+import EditorMenu from 'components/EditorMenu/Loadable';
+
+
+
 
 const inlineToolbarPlugin = createInlineToolbarPlugin();
 const { InlineToolbar } = inlineToolbarPlugin
+
 
 const plugins = [
   createMarkdownShortcutsPlugin(),
@@ -48,13 +54,28 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.type == "dark" ?
       theme.palette.getContrastText(theme.palette.warning.dark) :
       theme.palette.getContrastText(theme.palette.warning.dark),
+  },
+
+  container: {
+    margin: 0
+  },
+
+  gridEditor: {
+    [theme.breakpoints.down('sm')]: {
+      width: '100%'
+    }
   }
+
 }));
+
+
+// Problème lorsque l'on réduit l'écran --> scrollbar horizontale
 
 
 function SheeterEditor() {
   const classes = useStyles();
   const theme = useTheme();
+  let editor = null;
 
   const [hasFocus, setHasFocus] = React.useState(false);
   const [editorState, setEditorState] = React.useState(
@@ -73,42 +94,57 @@ function SheeterEditor() {
   return (
     <Grid
       container
-      direction="column"
-      justify="center"
+      direction="row"
+      justify="flex-start"
       alignItems="stretch"
-      spacing={2}
+      className={classes.container}
+      spacing={5}
     >
-      <Grid item>
-        <WrapperEditor theme={theme} focus={hasFocus}>
-          <Editor
-            editorState={editorState}
-            onFocus={() => setHasFocus(true)}
-            onBlur={() => setHasFocus(false)}
-            onChange={(newState) => setEditorState(newState)}
-            plugins={plugins}
-          />
-        </WrapperEditor>
-        <InlineToolbar/>
-      </Grid>
-      <Grid item>
-        {getWordCount(editorState) < 500 ? (
-          <Chip
-            icon={<CheckIcon className={classes.chipicon} />}
-            color="primary"
-            label={
-              <FormattedMessage
-                {...messages.word}
-                values={{
-                  counter: getWordCount(editorState),
+      <Grid className={classes.gridEditor} sm={12} md={8} item>
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="stretch"
+          spacing={2}
+        >
+          <Grid item>
+            <WrapperEditor theme={theme} focus={hasFocus}>
+              <Editor
+                editorState={editorState}
+                ref={(elem) => {
+                  editor = elem;
                 }}
+                onFocus={() => {
+                  setHasFocus(true);
+                  editor.focus();
+                }}
+                onBlur={() => setHasFocus(false)}
+                onChange={(newState) => setEditorState(newState)}
+                handleKeyCommand={(command, editorState) => {
+                  const newState = RichUtils.handleKeyCommand(editorState, command);
+
+                  if (newState) {
+                    setEditorState(newState);
+                    return 'handled';
+                  }
+
+                  return 'not-handled';
+                }}
+                keyBindingFn={(e) => {
+                  return getDefaultKeyBinding(e)
+                }}
+                plugins={plugins}
               />
-            }
-          />
-        ) : (
-            <Tooltip title={<FormattedMessage {...messages.toomanywords} />}>
+            </WrapperEditor>
+            <SheeterInlineToolbar toolbar={InlineToolbar} />
+
+          </Grid>
+          <Grid item>
+            {getWordCount(editorState) < 500 ? (
               <Chip
-                icon={<WarningIcon className={classes.chipicon} />}
-                className={classes.warningchip}
+                icon={<CheckIcon className={classes.chipicon} />}
+                color="primary"
                 label={
                   <FormattedMessage
                     {...messages.word}
@@ -118,10 +154,31 @@ function SheeterEditor() {
                   />
                 }
               />
-            </Tooltip>
-          )}
+            ) : (
+                <Tooltip title={<FormattedMessage {...messages.toomanywords} />}>
+                  <Chip
+                    icon={<WarningIcon className={classes.chipicon} />}
+                    className={classes.warningchip}
+                    label={
+                      <FormattedMessage
+                        {...messages.word}
+                        values={{
+                          counter: getWordCount(editorState),
+                        }}
+                      />
+                    }
+                  />
+                </Tooltip>
+              )}
+          </Grid>
+        </Grid>
+      </Grid>
+
+      <Grid className={classes.gridEditor} sm={12} md={4} item>
+        <EditorMenu />
       </Grid>
     </Grid>
+
 
 
   );
