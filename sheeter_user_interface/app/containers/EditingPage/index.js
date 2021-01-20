@@ -59,6 +59,7 @@ const useStyles = makeStyles(theme => ({
 
 
 }));
+
 export function EditingPage(props) {
   const classes = useStyles();
   const intl = props.intl;
