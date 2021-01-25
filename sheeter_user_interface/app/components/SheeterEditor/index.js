@@ -6,10 +6,15 @@
 
 import React, { memo } from 'react';
 import { EditorState, RichUtils, getDefaultKeyBinding } from 'draft-js';
-import Editor from 'draft-js-plugins-editor';
+import Editor, { composeDecorators } from '@draft-js-plugins/editor';
 import { useTheme } from "@material-ui/styles";
 import { Chip, Tooltip, makeStyles, Grid } from '@material-ui/core';
+
+// Import css
 import 'draft-js/dist/Draft.css';
+import '@draft-js-plugins/inline-toolbar/lib/plugin.css';
+import '@draft-js-plugins/linkify/lib/plugin.css';
+import '@draft-js-plugins/divider/lib/plugin.css';
 
 // Importing icons
 import CheckIcon from '@material-ui/icons/Check';
@@ -17,8 +22,13 @@ import WarningIcon from '@material-ui/icons/Warning';
 
 // Importing plugins for editor
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
-import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin';
-import 'draft-js-inline-toolbar-plugin/lib/plugin.css';
+import createInlineToolbarPlugin from '@draft-js-plugins/inline-toolbar';
+import createLinkifyPlugin from '@draft-js-plugins/linkify';
+import createFocusPlugin from '@draft-js-plugins/focus';
+import createDividerPlugin from '@draft-js-plugins/divider';
+ 
+
+
 import SheeterInlineToolbar from './EditorPlugins/InlinePlugin/SheeterInlineToolbar';
 
 // Misc import
@@ -28,15 +38,24 @@ import { WrapperEditor } from './WrapperEditor'
 import EditorMenu from 'components/EditorMenu/Loadable';
 
 
+// Init plugins for editor
 
 
 const inlineToolbarPlugin = createInlineToolbarPlugin();
-const { InlineToolbar } = inlineToolbarPlugin
+const focusPlugin = createFocusPlugin();
 
+const decorator = composeDecorators(focusPlugin.decorator);
+
+const { InlineToolbar } = inlineToolbarPlugin
+const dividerPlugin = createDividerPlugin({ decorator });
+const { DividerButton } = dividerPlugin;
 
 const plugins = [
+  createLinkifyPlugin(),
   createMarkdownShortcutsPlugin(),
-  inlineToolbarPlugin
+  inlineToolbarPlugin,
+  focusPlugin,
+  dividerPlugin
 ];
 
 const useStyles = makeStyles(theme => ({

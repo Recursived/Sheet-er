@@ -15,8 +15,8 @@ import {
   AlignBlockLeftButton,
   AlignBlockDefaultButton,
   AlignBlockRightButton
-} from 'draft-js-buttons';
-import { Separator } from 'draft-js-inline-toolbar-plugin';
+} from '@draft-js-plugins/buttons';
+import { Separator } from '@draft-js-plugins/inline-toolbar';
 
 
 class HeadlinesPicker extends Component {
