@@ -15,6 +15,8 @@ import 'draft-js/dist/Draft.css';
 import '@draft-js-plugins/inline-toolbar/lib/plugin.css';
 import '@draft-js-plugins/linkify/lib/plugin.css';
 import '@draft-js-plugins/divider/lib/plugin.css';
+import linkStyles from './linkStyles.module.css';
+
 
 // Importing icons
 import CheckIcon from '@material-ui/icons/Check';
@@ -26,6 +28,7 @@ import createInlineToolbarPlugin from '@draft-js-plugins/inline-toolbar';
 import createLinkifyPlugin from '@draft-js-plugins/linkify';
 import createFocusPlugin from '@draft-js-plugins/focus';
 import createDividerPlugin from '@draft-js-plugins/divider';
+import createLinkPlugin from '@draft-js-plugins/anchor';
  
 
 
@@ -43,6 +46,12 @@ import EditorMenu from 'components/EditorMenu/Loadable';
 
 const inlineToolbarPlugin = createInlineToolbarPlugin();
 const focusPlugin = createFocusPlugin();
+const linkPlugin = createLinkPlugin({
+  placeholder: 'http://…',
+  theme: linkStyles
+});
+
+
 
 const decorator = composeDecorators(focusPlugin.decorator);
 
@@ -50,13 +59,23 @@ const { InlineToolbar } = inlineToolbarPlugin
 const dividerPlugin = createDividerPlugin({ decorator });
 const { DividerButton } = dividerPlugin;
 
+// We defined the additional buttons for the SheeterInlineToolbar
+const buttons = {
+  "link_button" : linkPlugin.LinkButton
+};
+
+
+// Order of plugin matters
 const plugins = [
   createLinkifyPlugin(),
+  linkPlugin,
   createMarkdownShortcutsPlugin(),
   inlineToolbarPlugin,
   focusPlugin,
-  dividerPlugin
+  dividerPlugin,
+  
 ];
+
 
 const useStyles = makeStyles(theme => ({
 
@@ -156,7 +175,7 @@ function SheeterEditor() {
                 plugins={plugins}
               />
             </WrapperEditor>
-            <SheeterInlineToolbar toolbar={InlineToolbar} />
+            <SheeterInlineToolbar toolbar={InlineToolbar} buttons={buttons} />
 
           </Grid>
           <Grid item>

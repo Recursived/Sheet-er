@@ -138,19 +138,21 @@ class SheeterInlineToolbar extends Component {
 
   render() {
     const InlineToolbar = this.props.toolbar;
+    const imported_buttons = this.props.buttons;
+    
 
     const buttons = [
       BoldButton,
       ItalicButton,
       UnderlineButton,
       CodeButton,
+      imported_buttons["link_button"],
       Separator,
       UnorderedListButton,
       OrderedListButton,
       BlockquoteButton,
       CodeBlockButton,
-      HeadlinesButton,
-      AlignmentButton
+      // HeadlinesButton,
     ]
     return (
       <InlineToolbar>
