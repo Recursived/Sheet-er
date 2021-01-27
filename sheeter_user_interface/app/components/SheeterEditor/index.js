@@ -29,7 +29,7 @@ import createLinkifyPlugin from '@draft-js-plugins/linkify';
 import createFocusPlugin from '@draft-js-plugins/focus';
 import createDividerPlugin from '@draft-js-plugins/divider';
 import createLinkPlugin from '@draft-js-plugins/anchor';
- 
+import createUndoPlugin from '@draft-js-plugins/undo';
 
 
 import SheeterInlineToolbar from './EditorPlugins/InlinePlugin/SheeterInlineToolbar';
@@ -58,11 +58,9 @@ const decorator = composeDecorators(focusPlugin.decorator);
 const { InlineToolbar } = inlineToolbarPlugin
 const dividerPlugin = createDividerPlugin({ decorator });
 const { DividerButton } = dividerPlugin;
+const undoPlugin = createUndoPlugin();
+const { UndoButton, RedoButton } = undoPlugin;
 
-// We defined the additional buttons for the SheeterInlineToolbar
-const buttons = {
-  "link_button" : linkPlugin.LinkButton
-};
 
 
 // Order of plugin matters
@@ -73,7 +71,8 @@ const plugins = [
   inlineToolbarPlugin,
   focusPlugin,
   dividerPlugin,
-  
+  undoPlugin
+
 ];
 
 
@@ -175,7 +174,12 @@ function SheeterEditor() {
                 plugins={plugins}
               />
             </WrapperEditor>
-            <SheeterInlineToolbar toolbar={InlineToolbar} buttons={buttons} />
+            <SheeterInlineToolbar
+              toolbar={InlineToolbar}
+              buttons={{
+                "link_button": linkPlugin.LinkButton
+              }}
+            />
 
           </Grid>
           <Grid item>
