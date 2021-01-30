@@ -10,6 +10,8 @@ import {
   Box,
   Divider,
   TextField,
+  IconButton,
+  Tooltip,
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import React, { memo } from 'react';
@@ -23,6 +25,9 @@ import {
   countryToFlag,
   localeLabels
 } from 'i18n';
+
+// Importing icons
+import SaveIcon from '@material-ui/icons/Save';
 
 // Importing actions and selectors
 import {
@@ -72,7 +77,7 @@ function EditorMenu(props) {
         <Grid item>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField fullWidth type="search" label={<FormattedMessage {...messages.titlesheet} />} />
+              <TextField fullWidth label={<FormattedMessage {...messages.titlesheet} />} />
             </Grid>
             <Grid item xs={12} sm={6}>
               <Autocomplete
@@ -118,6 +123,15 @@ function EditorMenu(props) {
                   />
                 )}
               />
+            </Grid>
+            <Grid item xs={10} sm={10}>
+            </Grid>
+            <Grid item xs={2} sm={2}>
+              <Tooltip title={<FormattedMessage {...messages.tooltipsave} />}>
+                <IconButton color="primary">
+                  <SaveIcon/>
+                </IconButton>
+              </Tooltip>
             </Grid>
 
           </Grid>

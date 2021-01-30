@@ -24,4 +24,10 @@ export default defineMessages({
     defaultMessage: 'Subject',
   },
 
+  tooltipsave: {
+    id: `${scope}.tooltipsave`,
+    defaultMessage: 'Save',
+  },
+
+
 });
