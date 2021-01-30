@@ -21,5 +21,14 @@ const makeSelectEditingPage = () =>
     substate => substate,
   );
 
+const makeSelectSheetTypes = () =>
+  createSelector(
+    selectEditingPageDomain,
+    substate => substate.sheet_types
+  )
+
 export default makeSelectEditingPage;
-export { selectEditingPageDomain };
+export { 
+  selectEditingPageDomain,
+  makeSelectSheetTypes
+};

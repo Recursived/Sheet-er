@@ -4,15 +4,20 @@
  *
  */
 import produce from 'immer';
-import { DEFAULT_ACTION } from './constants';
+import { 
+  SUCCESS_SHEET_TYPE
+ } from './constants';
 
-export const initialState = {};
+export const initialState = {
+  sheet_types : []
+};
 
 /* eslint-disable default-case, no-param-reassign */
 const editingPageReducer = (state = initialState, action) =>
-  produce(state, (/* draft */) => {
+  produce(state, (draft) => {
     switch (action.type) {
-      case DEFAULT_ACTION:
+      case SUCCESS_SHEET_TYPE:
+        draft.sheet_types = action.sheet_types;
         break;
     }
   });

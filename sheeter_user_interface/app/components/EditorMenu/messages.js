@@ -17,5 +17,11 @@ export default defineMessages({
   localesheet: {
     id: `${scope}.localesheet`,
     defaultMessage: 'Locale',
-  }
+  },
+
+  labelsheettype: {
+    id: `${scope}.labelsheettype`,
+    defaultMessage: 'Subject',
+  },
+
 });

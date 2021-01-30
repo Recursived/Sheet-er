@@ -14,4 +14,9 @@ export default defineMessages({
     id: `${scope}.editingroute`,
     defaultMessage: 'Edit your sheet',
   },
+
+  errorsheettypes: {
+    id: `${scope}.errorsheettypes`,
+    defaultMessage: 'Ouch... We could not retrieve the sheet types',
+  }
 });

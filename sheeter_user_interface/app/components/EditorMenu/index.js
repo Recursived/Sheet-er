@@ -14,12 +14,25 @@ import {
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
 import {
   appLocales,
   countryToFlag,
   localeLabels
 } from 'i18n';
+
+// Importing actions and selectors
+import {
+  makeSelectSheetTypes
+} from 'containers/EditingPage/selectors';
+
+import {
+  requestSheetTypeAction,
+  successSheetTypeAction
+} from 'containers/EditingPage/actions';
 
 // Misc imports
 import messages from './messages';
@@ -39,8 +52,13 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-function EditorMenu() {
+function EditorMenu(props) {
   const classes = useStyles();
+  const { sheet_types, dispatch } = props;
+
+  React.useEffect(() => {
+    dispatch(requestSheetTypeAction());
+  }, []);
 
   return (
     <Box className={classes.containermenu}>
@@ -54,7 +72,7 @@ function EditorMenu() {
         <Grid item>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField fullWidth label={<FormattedMessage {...messages.titlesheet} />} />
+              <TextField fullWidth type="search" label={<FormattedMessage {...messages.titlesheet} />} />
             </Grid>
             <Grid item xs={12} sm={6}>
               <Autocomplete
@@ -63,7 +81,7 @@ function EditorMenu() {
                 getOptionLabel={(option) => localeLabels[option]}
                 renderOption={(option) => (
                   <React.Fragment>
-                    <span>{countryToFlag(option)}&nbsp;</span> 
+                    <span>{countryToFlag(option)}&nbsp;</span>
                     {localeLabels[option]} ({option})
                   </React.Fragment>
                 )}
@@ -71,7 +89,7 @@ function EditorMenu() {
                   <TextField
                     {...params}
                     fullWidth
-                    label={<FormattedMessage {...messages.localesheet}/>}
+                    label={<FormattedMessage {...messages.localesheet} />}
                     inputProps={{
                       ...params.inputProps,
                       autoComplete: 'new-password', // disable autocomplete and autofill
@@ -81,9 +99,25 @@ function EditorMenu() {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              {/* <Autocomplete
-
-              /> */}
+              <Autocomplete
+                options={sheet_types}
+                autoHighlight
+                getOptionLabel={(type) => type.label}
+                renderOption={(type) => (
+                  <span>{type.label}</span>
+                )}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    fullWidth
+                    label={<FormattedMessage {...messages.labelsheettype} />}
+                    inputProps={{
+                      ...params.inputProps,
+                      autoComplete: 'new-password', // disable autocomplete and autofill
+                    }}
+                  />
+                )}
+              />
             </Grid>
 
           </Grid>
@@ -101,6 +135,26 @@ function EditorMenu() {
   );
 }
 
-EditorMenu.propTypes = {};
+EditorMenu.propTypes = {
+  sheet_types: PropTypes.array.isRequired
+};
 
-export default memo(EditorMenu);
+const mapStateToProps = createStructuredSelector({
+  sheet_types: makeSelectSheetTypes()
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(
+  withConnect,
+  memo
+)(EditorMenu);

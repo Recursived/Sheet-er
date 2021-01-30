@@ -4,10 +4,20 @@
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import { 
+  REQUEST_SHEET_TYPE,
+  SUCCESS_SHEET_TYPE
+ } from './constants';
 
-export function defaultAction() {
+export function requestSheetTypeAction() {
   return {
-    type: DEFAULT_ACTION,
+    type: REQUEST_SHEET_TYPE,
+  };
+}
+
+export function successSheetTypeAction(sheet_types) {
+  return {
+    type: SUCCESS_SHEET_TYPE,
+    sheet_types: sheet_types
   };
 }
