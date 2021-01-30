@@ -24,3 +24,4 @@ class SheetTypeViewSet(viewsets.ModelViewSet):
     """
     queryset = SheetType.objects.all()
     serializer_class = SheetTypeSerializer
+    paginator = None
