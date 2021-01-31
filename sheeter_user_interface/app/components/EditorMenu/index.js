@@ -41,6 +41,7 @@ import {
 
 // Misc imports
 import messages from './messages';
+import LocaleCombo from './LocaleCombo';
 
 const useStyles = makeStyles(theme => ({
 
@@ -80,34 +81,14 @@ function EditorMenu(props) {
               <TextField fullWidth label={<FormattedMessage {...messages.titlesheet} />} />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Autocomplete
-                options={appLocales}
-                autoHighlight
-                getOptionLabel={(option) => localeLabels[option]}
-                renderOption={(option) => (
-                  <React.Fragment>
-                    <span>{countryToFlag(option)}&nbsp;</span>
-                    {localeLabels[option]} ({option})
-                  </React.Fragment>
-                )}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    fullWidth
-                    label={<FormattedMessage {...messages.localesheet} />}
-                    inputProps={{
-                      ...params.inputProps,
-                      autoComplete: 'new-password', // disable autocomplete and autofill
-                    }}
-                  />
-                )}
-              />
+              <LocaleCombo />
             </Grid>
             <Grid item xs={12} sm={6}>
               <Autocomplete
                 options={sheet_types}
                 autoHighlight
                 getOptionLabel={(type) => type.label}
+                noOptionsText={<FormattedMessage {...messages.nooptionslabel} />}
                 renderOption={(type) => (
                   <span>{type.label}</span>
                 )}
@@ -129,11 +110,10 @@ function EditorMenu(props) {
             <Grid item xs={2} sm={2}>
               <Tooltip title={<FormattedMessage {...messages.tooltipsave} />}>
                 <IconButton color="primary">
-                  <SaveIcon/>
+                  <SaveIcon />
                 </IconButton>
               </Tooltip>
             </Grid>
-
           </Grid>
         </Grid>
         <Divider />
