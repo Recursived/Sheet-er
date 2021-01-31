@@ -29,5 +29,9 @@ export default defineMessages({
     defaultMessage: 'Save',
   },
 
+  nooptionslabel: {
+    id: `${scope}.nooptionslabel`,
+    defaultMessage: 'No options',
+  }
 
 });
