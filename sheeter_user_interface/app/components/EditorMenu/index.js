@@ -20,28 +20,16 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
-import {
-  appLocales,
-  countryToFlag,
-  localeLabels
-} from 'i18n';
+
 
 // Importing icons
 import SaveIcon from '@material-ui/icons/Save';
 
-// Importing actions and selectors
-import {
-  makeSelectSheetTypes
-} from 'containers/EditingPage/selectors';
-
-import {
-  requestSheetTypeAction,
-  successSheetTypeAction
-} from 'containers/EditingPage/actions';
 
 // Misc imports
 import messages from './messages';
 import LocaleCombo from './LocaleCombo';
+import SheetTypeCombo from './SheetTypeCombo';
 
 const useStyles = makeStyles(theme => ({
 
@@ -60,11 +48,7 @@ const useStyles = makeStyles(theme => ({
 
 function EditorMenu(props) {
   const classes = useStyles();
-  const { sheet_types, dispatch } = props;
 
-  React.useEffect(() => {
-    dispatch(requestSheetTypeAction());
-  }, []);
 
   return (
     <Box className={classes.containermenu}>
@@ -84,26 +68,7 @@ function EditorMenu(props) {
               <LocaleCombo />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Autocomplete
-                options={sheet_types}
-                autoHighlight
-                getOptionLabel={(type) => type.label}
-                noOptionsText={<FormattedMessage {...messages.nooptionslabel} />}
-                renderOption={(type) => (
-                  <span>{type.label}</span>
-                )}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    fullWidth
-                    label={<FormattedMessage {...messages.labelsheettype} />}
-                    inputProps={{
-                      ...params.inputProps,
-                      autoComplete: 'new-password', // disable autocomplete and autofill
-                    }}
-                  />
-                )}
-              />
+              <SheetTypeCombo />
             </Grid>
             <Grid item xs={10} sm={10}>
             </Grid>
@@ -129,12 +94,9 @@ function EditorMenu(props) {
   );
 }
 
-EditorMenu.propTypes = {
-  sheet_types: PropTypes.array.isRequired
-};
+EditorMenu.propTypes = {};
 
 const mapStateToProps = createStructuredSelector({
-  sheet_types: makeSelectSheetTypes()
 });
 
 function mapDispatchToProps(dispatch) {
