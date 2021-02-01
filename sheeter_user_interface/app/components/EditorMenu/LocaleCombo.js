@@ -17,6 +17,9 @@ export default function LocaleCombo(props) {
         <Autocomplete
             options={appLocales}
             autoHighlight
+            selectOnFocus
+            clearOnBlur
+            handleHomeEndKeys
             getOptionLabel={(option) => localeLabels[option]}
             noOptionsText={<FormattedMessage {...messages.nooptionslabel} />}
             renderOption={(option) => (

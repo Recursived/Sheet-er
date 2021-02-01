@@ -38,10 +38,13 @@ function SheetTypeCombo(props) {
             }}
             onClose={() => setOpen(false)}
             open={open}
-            onChange={(event, value) => console.log(value)} 
+            onChange={(event, value) => console.log(value)}
             loading={loading}
             options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
             autoHighlight
+            selectOnFocus
+            clearOnBlur
+            handleHomeEndKeys
             groupBy={(option) => option.firstLetter}
             getOptionLabel={(option) => option.label}
             noOptionsText={<FormattedMessage {...messages.nooptionslabel} />}
