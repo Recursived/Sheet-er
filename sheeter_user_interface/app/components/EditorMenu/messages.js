@@ -32,6 +32,10 @@ export default defineMessages({
   nooptionslabel: {
     id: `${scope}.nooptionslabel`,
     defaultMessage: 'No options',
-  }
+  },
 
+  loadinglabel: {
+    id: `${scope}.loadinglabel`,
+    defaultMessage: 'Loading...',
+  },
 });
