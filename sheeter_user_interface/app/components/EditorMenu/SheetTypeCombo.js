@@ -27,7 +27,6 @@ function SheetTypeCombo(props) {
         };
     });
     const [open, setOpen] = React.useState(false);
-    const [value, setValue] = React.useState("");
     const loading = open && sheet_types.length === 0;
 
     return (
@@ -51,6 +50,7 @@ function SheetTypeCombo(props) {
             renderOption={(option) => (
                 <span>{option.label}</span>
             )}
+            loadingText={<FormattedMessage {...messages.loadinglabel}/>}
             renderInput={(params) => (
                 <TextField
                     {...params}
