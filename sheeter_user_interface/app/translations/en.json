@@ -5,6 +5,7 @@
   "app.components.ContactUsDialog.sendbutton": "Send",
   "app.components.ContactUsDialog.titledialog": "Contact Sheeter",
   "app.components.EditorMenu.labelsheettype": "Subject",
+  "app.components.EditorMenu.loadinglabel": "Loading...",
   "app.components.EditorMenu.localesheet": "Locale",
   "app.components.EditorMenu.nooptionslabel": "No options",
   "app.components.EditorMenu.titlesheet": "Title",
