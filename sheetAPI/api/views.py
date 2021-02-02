@@ -1,6 +1,8 @@
-from rest_framework import viewsets
-from .models import SheetType, SheetTag, Sheet
-from .serializers import SheetSerializer, SheetTagSerializer, SheetTypeSerializer
+from rest_framework import filters, viewsets
+
+from .models import Sheet, SheetTag, SheetType
+from .serializers import (SheetSerializer, SheetTagSerializer,
+                          SheetTypeSerializer)
 
 
 class SheetViewSet(viewsets.ModelViewSet):
@@ -10,13 +12,18 @@ class SheetViewSet(viewsets.ModelViewSet):
     queryset = Sheet.objects.all()
     serializer_class = SheetSerializer
 
+
 class SheetTagViewSet(viewsets.ModelViewSet):
     """
     A simple ViewSet for viewing and editing SheetTag.
     """
     queryset = SheetTag.objects.all()
     serializer_class = SheetTagSerializer
-    
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['label']
+    ordering_fields = ['label']
+    ordering = ['label']
+
 
 class SheetTypeViewSet(viewsets.ModelViewSet):
     """
@@ -24,4 +31,8 @@ class SheetTypeViewSet(viewsets.ModelViewSet):
     """
     queryset = SheetType.objects.all()
     serializer_class = SheetTypeSerializer
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['label']
+    ordering_fields = ['label']
+    ordering = ['label']
     paginator = None
