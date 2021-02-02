@@ -30,6 +30,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import messages from './messages';
 import LocaleCombo from './LocaleCombo';
 import SheetTypeCombo from './SheetTypeCombo';
+import SheetTagCombo from './SheetTagCombo';
 
 const useStyles = makeStyles(theme => ({
 
@@ -71,6 +72,7 @@ function EditorMenu(props) {
               <SheetTypeCombo />
             </Grid>
             <Grid item xs={10} sm={10}>
+              <SheetTagCombo />
             </Grid>
             <Grid item xs={2} sm={2}>
               <Tooltip title={<FormattedMessage {...messages.tooltipsave} />}>

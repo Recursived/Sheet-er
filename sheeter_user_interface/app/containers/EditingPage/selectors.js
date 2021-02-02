@@ -25,10 +25,33 @@ const makeSelectSheetTypes = () =>
   createSelector(
     selectEditingPageDomain,
     substate => substate.sheet_types
-  )
+  );
+
+const makeSelectSheetTags = () =>
+  createSelector(
+    selectEditingPageDomain,
+    substate => substate.sheet_tags
+  );
+
+
+const makeSelectFilterTag = () =>
+  createSelector(
+    selectEditingPageDomain,
+    substate => substate.filter_tag
+  );
+
+const makeSelectAddTag = () =>
+  createSelector(
+    selectEditingPageDomain,
+    substate => substate.add_tag
+  );
+
 
 export default makeSelectEditingPage;
-export { 
+export {
   selectEditingPageDomain,
-  makeSelectSheetTypes
+  makeSelectSheetTypes,
+  makeSelectSheetTags,
+  makeSelectFilterTag,
+  makeSelectAddTag
 };
