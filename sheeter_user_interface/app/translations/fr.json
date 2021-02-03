@@ -8,6 +8,8 @@
   "app.components.EditorMenu.loadinglabel": "Chargement...",
   "app.components.EditorMenu.localesheet": "Langue",
   "app.components.EditorMenu.nooptionslabel": "Aucune option",
+  "app.components.EditorMenu.taglabel": "Tags",
+  "app.components.EditorMenu.tagplaceholder": "Choisis des tags ou crée le tien",
   "app.components.EditorMenu.titlesheet": "Titre",
   "app.components.EditorMenu.tooltipsave": "Sauvegarder",
   "app.components.HamburgerMenu.header": "Il s'agit du composant hamburger",

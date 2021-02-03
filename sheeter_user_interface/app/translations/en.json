@@ -8,6 +8,8 @@
   "app.components.EditorMenu.loadinglabel": "Loading...",
   "app.components.EditorMenu.localesheet": "Locale",
   "app.components.EditorMenu.nooptionslabel": "No options",
+  "app.components.EditorMenu.taglabel": "Tags",
+  "app.components.EditorMenu.tagplaceholder": "Choose tags or create your own...",
   "app.components.EditorMenu.titlesheet": "Title",
   "app.components.EditorMenu.tooltipsave": "Save",
   "app.components.HamburgerMenu.header": "This is the HamburgerMenu component!",

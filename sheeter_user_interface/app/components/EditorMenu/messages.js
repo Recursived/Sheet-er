@@ -38,4 +38,14 @@ export default defineMessages({
     id: `${scope}.loadinglabel`,
     defaultMessage: 'Loading...',
   },
+
+  tagplaceholder: {
+    id: `${scope}.tagplaceholder`,
+    defaultMessage: 'Choose tags or create your own...',
+  },
+
+  taglabel: {
+    id: `${scope}.taglabel`,
+    defaultMessage: 'Tags',
+  }
 });
