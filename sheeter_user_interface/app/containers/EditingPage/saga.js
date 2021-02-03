@@ -4,7 +4,6 @@ import {
   takeLatest, 
   select, 
   put, 
-  debounce 
 } from 'redux-saga/effects';
 
 
@@ -14,7 +13,7 @@ import {
 } from 'containers/App/selectors';
 
 import { 
-  makeSelectFilterTag 
+  makeSelectFilterTag ,
 } from 'containers/EditingPage/selectors';
 
 // Misc import
@@ -24,7 +23,8 @@ import {
 } from './constants';
 
 import { 
-  successSheetTypeAction 
+  successSheetTypeAction ,
+  successSheetTagAction
 } from './actions';
 
 import messages from './messages';
@@ -61,7 +61,6 @@ export function* handleRequestSheetTag() {
   const api = getApi(RETRIEVE_SHEETAPI);
   yield api.init();
   const client = yield api.getClient();
-  console.log("ici");
   try {
     const user_info = yield select(makeSelectUserInfo());
     const filter_tag = yield select(makeSelectFilterTag());
@@ -70,16 +69,15 @@ export function* handleRequestSheetTag() {
       null,
       { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
     );
-    console.log(sheet_tags);
-    // yield put(successSheetTypeAction(sheet_types.data));
+    yield put(successSheetTagAction(sheet_types.data.results));
   } catch (error) {
-    yield put(enqueueSnackbar({
-      message: "bite",
-      options: {
-        key: new Date().getTime() + Math.random(),
-        variant: 'error'
-      },
-    }));
+    // yield put(enqueueSnackbar({
+    //   message: "bite",
+    //   options: {
+    //     key: new Date().getTime() + Math.random(),
+    //     variant: 'error'
+    //   },
+    // }));
   }
 }
 
@@ -89,5 +87,5 @@ export function* handleRequestSheetTag() {
 export default function* handlerSaga() {
   yield takeLatest(REQUEST_SHEET_TYPE, handleRequestSheetType);
   // yield takeLatest(REQUEST_ADD_SHEETTAG, handleRequestSheetType);
-  yield debounce( 1000, REQUEST_SHEET_TAG, handleRequestSheetTag);
+  yield takeLatest(REQUEST_SHEET_TAG, handleRequestSheetTag);
 }

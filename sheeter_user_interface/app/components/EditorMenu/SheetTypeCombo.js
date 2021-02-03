@@ -37,7 +37,7 @@ function SheetTypeCombo(props) {
             }}
             onClose={() => setOpen(false)}
             open={open}
-            onChange={(event, value) => console.log(value)}
+            onChange={(_, value) => console.log(value)}
             loading={loading}
             options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
             autoHighlight

@@ -4,32 +4,37 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { TextField } from '@material-ui/core';
+import { debounce } from 'lodash'
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 // Importing icons
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Importing actions and selectors
 import { requestSheetTagAction } from 'containers/EditingPage/actions';
-import { makeSelectSheetTag } from 'containers/EditingPage/selectors';
+import { makeSelectSheetTags } from 'containers/EditingPage/selectors';
 
 
 // Misc imports
 import messages from './messages';
 
 
+
 const filter = createFilterOptions();
 
 function SheetTagCombo(props) {
     const [value, setValue] = React.useState(null);
-    const { dispatch } = props;
+    const handlerChange = 
+        debounce((newValue) => dispatch(requestSheetTagAction(newValue)), 1000)
+
+    const { intl, dispatch } = props;
+
     return (
         <Autocomplete
             value={value}
-            onInputChange={(_, newValue) => dispatch(requestSheetTagAction(newValue))}
+            onInputChange={(_, newValue) => handlerChange(newValue)}
             onChange={(_, newValue) => {
-                console.log(newValue);
                 if (typeof newValue === 'string') {
                     setValue({
                         title: newValue,
@@ -79,7 +84,8 @@ function SheetTagCombo(props) {
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label="Free solo with text demo"
+                    label={<FormattedMessage {...messages.taglabel} />}
+                    placeholder={intl.formatMessage(messages.tagplaceholder)}
                     variant="standard"
                 />
             )}
@@ -87,9 +93,12 @@ function SheetTagCombo(props) {
     );
 }
 
-SheetTagCombo.propTypes = {};
+SheetTagCombo.propTypes = {
+    tags: PropTypes.array.isRequired
+};
 
 const mapStateToProps = createStructuredSelector({
+    tags: makeSelectSheetTags()
 });
 
 function mapDispatchToProps(dispatch) {
@@ -105,5 +114,6 @@ const withConnect = connect(
 
 export default compose(
     withConnect,
-    memo
+    memo,
+    injectIntl
 )(SheetTagCombo);
