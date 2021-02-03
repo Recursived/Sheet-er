@@ -18,5 +18,12 @@ export default defineMessages({
   errorsheettypes: {
     id: `${scope}.errorsheettypes`,
     defaultMessage: 'Ouch... We could not retrieve the sheet types',
-  }
+  },
+
+  errorsheettag: {
+    id: `${scope}.errorsheettag`,
+    defaultMessage: 'Oh no... We could not retrieve the tags',
+  },
+
+
 });

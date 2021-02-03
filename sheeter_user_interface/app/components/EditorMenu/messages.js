@@ -47,5 +47,10 @@ export default defineMessages({
   taglabel: {
     id: `${scope}.taglabel`,
     defaultMessage: 'Tags',
-  }
+  },
+
+  addtaglabel: {
+    id: `${scope}.addtaglabel`,
+    defaultMessage: 'Add \'{tag}\'',
+  },
 });
