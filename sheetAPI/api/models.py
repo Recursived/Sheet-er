@@ -11,7 +11,7 @@ class SheetTag(models.Model):
     class Meta:
         ordering = ['-id']
      
-    id = models.PositiveIntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     label = models.CharField(max_length=50, verbose_name='Label')
 
     def __str__(self):
