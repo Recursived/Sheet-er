@@ -12,8 +12,12 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Importing actions and selectors
-import { requestSheetTagAction } from 'containers/EditingPage/actions';
-import { makeSelectSheetTags } from 'containers/EditingPage/selectors';
+import {
+    requestSheetTagAction,
+    requestAddSheetTagAction,
+    resetAddSheetTagAction
+} from 'containers/EditingPage/actions';
+import makeSelectEditingPage from 'containers/EditingPage/selectors';
 
 
 // Misc imports
@@ -24,48 +28,64 @@ import messages from './messages';
 const filter = createFilterOptions();
 
 function SheetTagCombo(props) {
-    const [value, setValue] = React.useState(null);
-    const handlerChange = 
-        debounce((newValue) => dispatch(requestSheetTagAction(newValue)), 1000)
+    const [toRemove, setToRemove] = React.useState(0);
+    const [value, setValue] = React.useState([]);
+    const { editing, intl, dispatch } = props;
+    const handlerChange =
+        debounce((newValue) => dispatch(requestSheetTagAction(newValue)), 500);
 
-    const { intl, dispatch } = props;
+
+    React.useEffect(() => {
+        if (editing.response_add_tag !== null) {
+            console.log(value);
+            const newVal = [...value];
+            newVal.push(editing.response_add_tag);
+            setValue(newVal);
+            console.log(value);
+            dispatch(resetAddSheetTagAction())
+        }
+    }, [editing.response_add_tag])
 
     return (
         <Autocomplete
-            value={value}
-            onInputChange={(_, newValue) => handlerChange(newValue)}
-            onChange={(_, newValue) => {
-                if (typeof newValue === 'string') {
-                    setValue({
-                        title: newValue,
-                    });
-                } else if (newValue && newValue.inputValue) {
-                    // Create a new value from the user input
-                    setValue({
-                        title: newValue.inputValue,
-                    });
-                } else {
-                    setValue(newValue);
+            defaultValue={value}
+            onKeyUp={(e) => {
+                if (e.target.value !== "") {
+                    handlerChange(e.target.value)
+                }
+            }}
+            onChange={(_, arr) => {
+                console.log("onChange", arr);
+                for (let i = arr.length - 1; i >= 0; i--) {
+                    if (arr[i].inputValue) {
+                        setValue([...value, arr[i]])
+                        setToRemove(i);
+                        dispatch(requestAddSheetTagAction(arr[i].inputValue));
+                    }
                 }
             }}
             filterOptions={(options, params) => {
                 const filtered = filter(options, params);
 
                 // Suggest the creation of a new value
-                if (params.inputValue !== '') {
+                if (filtered.length == 0 && params.inputValue !== '') {
                     filtered.push({
                         inputValue: params.inputValue,
-                        title: `Add "${params.inputValue}"`,
+                        label: intl.formatMessage(messages.addtaglabel, {
+                            tag: params.inputValue
+                        }),
                     });
                 }
-
                 return filtered;
             }}
-            freeSolo
+
             selectOnFocus
             clearOnBlur
+            multiple
+            autoComplete
             handleHomeEndKeys
-            options={[]}
+            limitTags={2}
+            options={editing.sheet_tags}
             getOptionLabel={(option) => {
                 // Value selected with enter, right from the input
                 if (typeof option === 'string') {
@@ -76,10 +96,9 @@ function SheetTagCombo(props) {
                     return option.inputValue;
                 }
                 // Regular option
-                return option.title;
+                return option.label;
             }}
-            renderOption={(option) => option.title}
-            style={{ width: 300 }}
+            renderOption={(option) => option.label}
 
             renderInput={(params) => (
                 <TextField
@@ -94,11 +113,11 @@ function SheetTagCombo(props) {
 }
 
 SheetTagCombo.propTypes = {
-    tags: PropTypes.array.isRequired
+    editing: PropTypes.object.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
-    tags: makeSelectSheetTags()
+    editing: makeSelectEditingPage()
 });
 
 function mapDispatchToProps(dispatch) {

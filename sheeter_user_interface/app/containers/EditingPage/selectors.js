@@ -46,6 +46,12 @@ const makeSelectAddTag = () =>
     substate => substate.add_tag
   );
 
+const makeSelectResponseAddTag = () =>
+  createSelector(
+    selectEditingPageDomain,
+    substate => substate.response_add_tag
+  );
+
 
 export default makeSelectEditingPage;
 export {
@@ -53,5 +59,6 @@ export {
   makeSelectSheetTypes,
   makeSelectSheetTags,
   makeSelectFilterTag,
-  makeSelectAddTag
+  makeSelectAddTag,
+  makeSelectResponseAddTag
 };

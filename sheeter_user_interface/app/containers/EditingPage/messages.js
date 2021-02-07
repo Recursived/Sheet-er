@@ -25,5 +25,10 @@ export default defineMessages({
     defaultMessage: 'Oh no... We could not retrieve the tags',
   },
 
+  erroraddsheettag: {
+    id: `${scope}.erroraddsheettag`,
+    defaultMessage: 'We faced a problem trying to add your tag',
+  },
+
 
 });

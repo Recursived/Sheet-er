@@ -10,7 +10,8 @@ import {
   REQUEST_SHEET_TAG,
   SUCCESS_SHEET_TAG,
   REQUEST_ADD_SHEETTAG,
-  SUCCESS_ADD_SHEETTAG
+  SUCCESS_ADD_SHEETTAG,
+  RESET_ADD_SHEETTAG
  } from './constants';
 
 export function requestSheetTypeAction() {
@@ -33,9 +34,10 @@ export function requestSheetTagAction(filter) {
   };
 }
 
-export function successSheetTagAction() {
+export function successSheetTagAction(tags) {
   return {
     type: SUCCESS_SHEET_TAG,
+    tags : tags
   };
 }
 
@@ -46,8 +48,15 @@ export function requestAddSheetTagAction(add_tag) {
   };
 }
 
-export function successAddSheetTagAction() {
+export function successAddSheetTagAction(response) {
   return {
     type: SUCCESS_ADD_SHEETTAG,
+    response: response
   };
+}
+
+export function resetAddSheetTagAction(){
+  return {
+    type: RESET_ADD_SHEETTAG
+  }
 }
