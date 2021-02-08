@@ -1,21 +1,35 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import { FormattedMessage } from 'react-intl';
+
 import {
     TextField
 } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+
+
+// Selector imports
+import {makeSelectLocale} from 'containers/LanguageProvider/selectors';
+
+// Misc imports
+import messages from './messages';
 import {
     appLocales,
     countryToFlag,
     localeLabels
 } from 'i18n';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
 
-export default function LocaleCombo() {
+function LocaleCombo(props) {
+    const {defaultLocale, dispatch} = props;
+    console.log(props)
     
     return (
         <Autocomplete
             options={appLocales}
+            defaultValue={defaultLocale}
             autoHighlight
             selectOnFocus
             clearOnBlur
@@ -42,3 +56,26 @@ export default function LocaleCombo() {
         />
     )
 }
+
+LocaleCombo.propTypes = {
+    defaultLocale: PropTypes.string.isRequired
+};
+
+const mapStateToProps = createStructuredSelector({
+    defaultLocale: makeSelectLocale()
+});
+
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatch,
+    };
+}
+
+const withConnect = connect(
+    mapStateToProps,
+    mapDispatchToProps,
+);
+
+export default compose(
+    withConnect,
+)(LocaleCombo);
