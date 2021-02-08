@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -14,8 +15,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 // Importing actions and selectors
 import {
     requestSheetTagAction,
-    requestAddSheetTagAction,
-    resetAddSheetTagAction
+    requestAddSheetTagAction
 } from 'containers/EditingPage/actions';
 import makeSelectEditingPage from 'containers/EditingPage/selectors';
 
@@ -28,7 +28,7 @@ import messages from './messages';
 const filter = createFilterOptions();
 
 function SheetTagCombo(props) {
-    const [toRemove, setToRemove] = React.useState(0);
+    const [toReplace, setToReplace] = React.useState(0);
     const [value, setValue] = React.useState([]);
     const { editing, intl, dispatch } = props;
     const handlerChange =
@@ -37,17 +37,13 @@ function SheetTagCombo(props) {
 
     React.useEffect(() => {
         if (editing.response_add_tag !== null) {
-            console.log(value);
-            const newVal = [...value];
-            newVal.push(editing.response_add_tag);
-            setValue(newVal);
-            console.log(value);
-            dispatch(resetAddSheetTagAction())
+            value[toReplace] = editing.response_add_tag;
         }
     }, [editing.response_add_tag])
 
     return (
         <Autocomplete
+            value={value}
             defaultValue={value}
             onKeyUp={(e) => {
                 if (e.target.value !== "") {
@@ -55,12 +51,11 @@ function SheetTagCombo(props) {
                 }
             }}
             onChange={(_, arr) => {
-                console.log("onChange", arr);
+                setValue([...arr]);
                 for (let i = arr.length - 1; i >= 0; i--) {
                     if (arr[i].inputValue) {
-                        setValue([...value, arr[i]])
-                        setToRemove(i);
                         dispatch(requestAddSheetTagAction(arr[i].inputValue));
+                        setToReplace(i);
                     }
                 }
             }}
@@ -83,14 +78,13 @@ function SheetTagCombo(props) {
             clearOnBlur
             multiple
             autoComplete
+            getOptionSelected={(option, value) => {
+                return isEqual(option, value);
+            }}
             handleHomeEndKeys
             limitTags={2}
             options={editing.sheet_tags}
             getOptionLabel={(option) => {
-                // Value selected with enter, right from the input
-                if (typeof option === 'string') {
-                    return option;
-                }
                 // Add "xxx" option created dynamically
                 if (option.inputValue) {
                     return option.inputValue;
@@ -99,12 +93,11 @@ function SheetTagCombo(props) {
                 return option.label;
             }}
             renderOption={(option) => option.label}
-
             renderInput={(params) => (
                 <TextField
                     {...params}
                     label={<FormattedMessage {...messages.taglabel} />}
-                    placeholder={intl.formatMessage(messages.tagplaceholder)}
+                    placeholder={value.length == 0 ? intl.formatMessage(messages.tagplaceholder) : ""}
                     variant="standard"
                 />
             )}

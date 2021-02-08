@@ -10,7 +10,6 @@ import {
   SUCCESS_SHEET_TAG,
   REQUEST_ADD_SHEETTAG,
   SUCCESS_ADD_SHEETTAG,
-  RESET_ADD_SHEETTAG
  } from './constants';
 
 export const initialState = {
@@ -40,9 +39,6 @@ const editingPageReducer = (state = initialState, action) =>
       case SUCCESS_ADD_SHEETTAG:
         draft.response_add_tag = action.response;
         break;
-      case RESET_ADD_SHEETTAG:
-        draft.add_tag = null;
-        draft.response_add_tag = null;
     }
   });
 
