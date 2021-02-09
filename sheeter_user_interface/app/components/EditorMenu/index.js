@@ -31,6 +31,7 @@ import messages from './messages';
 import LocaleCombo from './LocaleCombo';
 import SheetTypeCombo from './SheetTypeCombo';
 import SheetTagCombo from './SheetTagCombo';
+import TabEditor from './TabEditor';
 
 const useStyles = makeStyles(theme => ({
 
@@ -58,9 +59,9 @@ function EditorMenu(props) {
         direction="column"
         justify="center"
         alignItems="stretch"
-        spacing={2}
+        spacing={5}
       >
-        <Grid item>
+        <Grid xs={12} item>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField fullWidth label={<FormattedMessage {...messages.titlesheet} />} />
@@ -84,12 +85,16 @@ function EditorMenu(props) {
           </Grid>
         </Grid>
         <Divider />
-        <Grid item>
-          efmlzjfze
+        <Grid xs={12} item>
+          <Grid container>
+            <Grid item xs={12}>
+              <TabEditor />
+            </Grid>
+          </Grid>
         </Grid>
         <Divider />
         <Grid item>
-          ochcazohoaz
+          En cours d'élaboration
         </Grid>
       </Grid>
     </Box>
