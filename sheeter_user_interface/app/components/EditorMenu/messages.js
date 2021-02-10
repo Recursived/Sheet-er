@@ -53,4 +53,10 @@ export default defineMessages({
     id: `${scope}.addtaglabel`,
     defaultMessage: 'Add \'{tag}\'',
   },
+
+  classictabbuttons: {
+    id: `${scope}.classictabbuttons`,
+    defaultMessage: 'Classic',
+  },
+
 });
