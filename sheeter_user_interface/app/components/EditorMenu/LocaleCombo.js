@@ -24,7 +24,6 @@ import {
 
 function LocaleCombo(props) {
     const {defaultLocale, dispatch} = props;
-    console.log(props)
     
     return (
         <Autocomplete
