@@ -1,11 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import { FormattedMessage } from 'react-intl'
+
+// Importing material ui components
+import {
+  makeStyles,
+  AppBar,
+  Box,
+  Tabs,
+  Tab,
+  Typography,
+  Tooltip,
+  Grid,
+} from '@material-ui/core';
+
+// Misc imports
+import messages from './messages';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,17 +59,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ScrollableTabsButtonAuto() {
+function TabEditor(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const { buttons, dispatch } = props;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <div 
-    className={classes.root}>
+    <div
+      className={classes.root}>
       <AppBar position="static" color="default">
         <Tabs
           value={value}
@@ -65,38 +79,47 @@ export default function ScrollableTabsButtonAuto() {
           textColor="primary"
           variant="scrollable"
           scrollButtons="auto"
-          aria-label="scrollable auto tabs example"
+          aria-label="Tools for editor"
         >
-          <Tab label="Item One" {...a11yProps(0)} />
+          <Tab label={<FormattedMessage {...messages.classictabbuttons}/>} {...a11yProps(0)} />
           <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
-          <Tab label="Item Four" {...a11yProps(3)} />
-          <Tab label="Item Five" {...a11yProps(4)} />
-          <Tab label="Item Six" {...a11yProps(5)} />
-          <Tab label="Item Seven" {...a11yProps(6)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        Item One
+        <Grid container spacing={2}>
+          {buttons.classic_buttons.map((Button, i) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Grid xs={2}><Button key={i} /></Grid>
+          ))}
+        </Grid>
+
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two
       </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        Item Four
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        Item Five
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        Item Six
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        Item Seven
-      </TabPanel>
     </div>
   );
 }
+
+
+TabEditor.propTypes = {
+  buttons: PropTypes.object.isRequired
+};
+
+const mapStateToProps = createStructuredSelector({
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(
+  withConnect
+)(TabEditor);

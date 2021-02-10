@@ -50,7 +50,7 @@ const useStyles = makeStyles(theme => ({
 
 function EditorMenu(props) {
   const classes = useStyles();
-
+  const { buttons, dispatch } = props;
 
   return (
     <Box className={classes.containermenu}>
@@ -88,7 +88,7 @@ function EditorMenu(props) {
         <Grid xs={12} item>
           <Grid container>
             <Grid item xs={12}>
-              <TabEditor />
+              <TabEditor buttons={buttons}/>
             </Grid>
           </Grid>
         </Grid>
@@ -101,7 +101,9 @@ function EditorMenu(props) {
   );
 }
 
-EditorMenu.propTypes = {};
+EditorMenu.propTypes = {
+  buttons: PropTypes.object.isRequired
+};
 
 const mapStateToProps = createStructuredSelector({
 });

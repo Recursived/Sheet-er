@@ -14,7 +14,6 @@ import { Chip, Tooltip, makeStyles, Grid } from '@material-ui/core';
 import 'draft-js/dist/Draft.css';
 import '@draft-js-plugins/inline-toolbar/lib/plugin.css';
 import '@draft-js-plugins/linkify/lib/plugin.css';
-import '@draft-js-plugins/divider/lib/plugin.css';
 import linkStyles from './linkStyles.module.css';
 
 
@@ -27,7 +26,6 @@ import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
 import createInlineToolbarPlugin from '@draft-js-plugins/inline-toolbar';
 import createLinkifyPlugin from '@draft-js-plugins/linkify';
 import createFocusPlugin from '@draft-js-plugins/focus';
-import createDividerPlugin from '@draft-js-plugins/divider';
 import createLinkPlugin from '@draft-js-plugins/anchor';
 import createUndoPlugin from '@draft-js-plugins/undo';
 
@@ -56,10 +54,7 @@ const linkPlugin = createLinkPlugin({
 const decorator = composeDecorators(focusPlugin.decorator);
 
 const { InlineToolbar } = inlineToolbarPlugin
-const dividerPlugin = createDividerPlugin({ decorator });
-const { DividerButton } = dividerPlugin;
 const undoPlugin = createUndoPlugin();
-const { UndoButton, RedoButton } = undoPlugin;
 
 
 
@@ -70,9 +65,7 @@ const plugins = [
   createMarkdownShortcutsPlugin(),
   inlineToolbarPlugin,
   focusPlugin,
-  dividerPlugin,
   undoPlugin
-
 ];
 
 
@@ -217,7 +210,12 @@ function SheeterEditor() {
       </Grid>
 
       <Grid className={classes.gridEditor} sm={12} md={4} item>
-        <EditorMenu />
+        <EditorMenu buttons={{
+          "classic_buttons" : [
+            undoPlugin.UndoButton,
+            undoPlugin.RedoButton,
+          ],
+        }}/>
       </Grid>
     </Grid>
 
