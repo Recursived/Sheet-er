@@ -28,6 +28,11 @@ import createLinkifyPlugin from '@draft-js-plugins/linkify';
 import createFocusPlugin from '@draft-js-plugins/focus';
 import createLinkPlugin from '@draft-js-plugins/anchor';
 import createUndoPlugin from '@draft-js-plugins/undo';
+import createKaTeXPlugin from 'draft-js-katex-plugin';
+
+import katex from 'katex'
+
+
 
 
 import SheeterInlineToolbar from './EditorPlugins/InlinePlugin/SheeterInlineToolbar';
@@ -43,12 +48,12 @@ import EditorMenu from 'components/EditorMenu/Loadable';
 
 
 const inlineToolbarPlugin = createInlineToolbarPlugin();
+const kaTeXPlugin = createKaTeXPlugin({katex});
 const focusPlugin = createFocusPlugin();
 const linkPlugin = createLinkPlugin({
   placeholder: 'http://…',
   theme: linkStyles
 });
-
 
 
 const decorator = composeDecorators(focusPlugin.decorator);
@@ -65,7 +70,8 @@ const plugins = [
   createMarkdownShortcutsPlugin(),
   inlineToolbarPlugin,
   focusPlugin,
-  undoPlugin
+  undoPlugin,
+  kaTeXPlugin
 ];
 
 
@@ -170,7 +176,7 @@ function SheeterEditor() {
             <SheeterInlineToolbar
               toolbar={InlineToolbar}
               buttons={{
-                "link_button": linkPlugin.LinkButton
+                "link_button": linkPlugin.LinkButton,
               }}
             />
 
@@ -215,6 +221,10 @@ function SheeterEditor() {
             undoPlugin.UndoButton,
             undoPlugin.RedoButton,
           ],
+
+          "science_buttons": [
+            kaTeXPlugin.InsertButton
+          ]
         }}/>
       </Grid>
     </Grid>

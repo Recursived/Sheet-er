@@ -59,4 +59,9 @@ export default defineMessages({
     defaultMessage: 'Classic',
   },
 
+  sciencetabbuttons: {
+    id: `${scope}.sciencetabbuttons`,
+    defaultMessage: 'Science',
+  },
+
 });

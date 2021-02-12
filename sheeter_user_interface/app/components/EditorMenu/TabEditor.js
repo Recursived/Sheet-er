@@ -67,6 +67,7 @@ function TabEditor(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  console.log(buttons);
 
   return (
     <div
@@ -81,8 +82,8 @@ function TabEditor(props) {
           scrollButtons="auto"
           aria-label="Tools for editor"
         >
-          <Tab label={<FormattedMessage {...messages.classictabbuttons}/>} {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
+          <Tab label={<FormattedMessage {...messages.classictabbuttons} />} {...a11yProps(0)} />
+          <Tab label={<FormattedMessage {...messages.sciencetabbuttons} />} {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
@@ -95,7 +96,10 @@ function TabEditor(props) {
 
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        {buttons.science_buttons.map((Button, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <Grid xs={2}><Button key={i} /></Grid>
+        ))}
       </TabPanel>
     </div>
   );
