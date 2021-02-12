@@ -152,7 +152,7 @@ class SheeterInlineToolbar extends Component {
       OrderedListButton,
       BlockquoteButton,
       CodeBlockButton,
-      // HeadlinesButton,
+      HeadlinesButton,
     ]
     return (
       <InlineToolbar>
