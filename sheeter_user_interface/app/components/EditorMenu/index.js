@@ -13,7 +13,6 @@ import {
   IconButton,
   Tooltip,
 } from '@material-ui/core';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

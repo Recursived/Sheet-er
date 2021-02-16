@@ -5,10 +5,16 @@
  */
 
 import React, { memo } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import katex from 'katex'
+import asciimath2latex from 'asciimath-to-latex';
+import { createStructuredSelector } from 'reselect';
 import { EditorState, RichUtils, getDefaultKeyBinding } from 'draft-js';
 import Editor, { composeDecorators } from '@draft-js-plugins/editor';
 import { useTheme } from "@material-ui/styles";
 import { Chip, Tooltip, makeStyles, Grid } from '@material-ui/core';
+
 
 // Import css
 import 'draft-js/dist/Draft.css';
@@ -30,7 +36,8 @@ import createLinkPlugin from '@draft-js-plugins/anchor';
 import createUndoPlugin from '@draft-js-plugins/undo';
 import createKaTeXPlugin from 'draft-js-katex-plugin';
 
-import katex from 'katex'
+
+
 
 
 
@@ -38,17 +45,14 @@ import katex from 'katex'
 import SheeterInlineToolbar from './EditorPlugins/InlinePlugin/SheeterInlineToolbar';
 
 // Misc import
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl} from 'react-intl';
 import messages from './messages';
 import { WrapperEditor } from './WrapperEditor'
 import EditorMenu from 'components/EditorMenu/Loadable';
 
 
 // Init plugins for editor
-
-
 const inlineToolbarPlugin = createInlineToolbarPlugin();
-const kaTeXPlugin = createKaTeXPlugin({katex});
 const focusPlugin = createFocusPlugin();
 const linkPlugin = createLinkPlugin({
   placeholder: 'http://…',
@@ -56,14 +60,31 @@ const linkPlugin = createLinkPlugin({
 });
 
 
+
 const decorator = composeDecorators(focusPlugin.decorator);
 
 const { InlineToolbar } = inlineToolbarPlugin
 const undoPlugin = createUndoPlugin();
+const kaTeXPlugin = createKaTeXPlugin({
+  katex, // the katex object or a wrapper defining render() and __parse().
 
+  doneContent: {
+    valid: 'Done',
+    invalid: 'Invalid TeX',
+  },
 
+  MathInput: null, // Sett to the MathInput element to use MathInput
+  removeContent: 'Remove',
+  theme: {
+    // CSS classes, either you define them or they come from the plugin.css import
+    saveButton: '',
+    removeButton: '',
+    invalidButton: '',
+    buttons: '',
+  },
+  translator: asciimath2latex,
+});
 
-// Order of plugin matters
 const plugins = [
   createLinkifyPlugin(),
   linkPlugin,
@@ -73,6 +94,9 @@ const plugins = [
   undoPlugin,
   kaTeXPlugin
 ];
+
+
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -108,16 +132,15 @@ const useStyles = makeStyles(theme => ({
 // Problème lorsque l'on réduit l'écran --> scrollbar horizontale
 
 
-function SheeterEditor() {
+function SheeterEditor(props) {
   const classes = useStyles();
   const theme = useTheme();
-  let editor = null;
+  const { intl, dispatch } = props;
 
   const [hasFocus, setHasFocus] = React.useState(false);
-  const [editorState, setEditorState] = React.useState(
-    EditorState.createEmpty()
-  );
+  const [editorState, setEditorState] = React.useState(EditorState.createEmpty());
 
+  
   const getWordCount = (editorState) => {
     const plainText = editorState.getCurrentContent().getPlainText('');
     const regex = /(?:\r\n|\r|\n)/g;  // new line, carriage return, line feed
@@ -148,9 +171,6 @@ function SheeterEditor() {
             <WrapperEditor theme={theme} focus={hasFocus}>
               <Editor
                 editorState={editorState}
-                ref={(elem) => {
-                  editor = elem;
-                }}
                 onFocus={() => {
                   setHasFocus(true);
                   editor.focus();
@@ -217,7 +237,7 @@ function SheeterEditor() {
 
       <Grid className={classes.gridEditor} sm={12} md={4} item>
         <EditorMenu buttons={{
-          "classic_buttons" : [
+          "classic_buttons": [
             undoPlugin.UndoButton,
             undoPlugin.RedoButton,
           ],
@@ -225,7 +245,7 @@ function SheeterEditor() {
           "science_buttons": [
             kaTeXPlugin.InsertButton
           ]
-        }}/>
+        }} />
       </Grid>
     </Grid>
 
@@ -236,4 +256,22 @@ function SheeterEditor() {
 
 SheeterEditor.propTypes = {};
 
-export default memo(SheeterEditor);
+
+const mapStateToProps = createStructuredSelector({
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(
+  withConnect,
+  injectIntl
+)(SheeterEditor);

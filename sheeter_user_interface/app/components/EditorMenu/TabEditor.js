@@ -33,7 +33,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          {children}
         </Box>
       )}
     </div>
@@ -64,10 +64,9 @@ function TabEditor(props) {
   const [value, setValue] = React.useState(0);
   const { buttons, dispatch } = props;
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (_, newValue) => {
     setValue(newValue);
   };
-  console.log(buttons);
 
   return (
     <div
