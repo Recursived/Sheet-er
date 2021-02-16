@@ -14,10 +14,27 @@ export default defineMessages({
     defaultMessage:   "{counter, plural, =0 {no words} =1 {# word} other {# words}}",
   },
 
-  toomanywords:{
+  toomanywords: {
     id: `${scope}.toomanywords`,
     defaultMessage:   "You've gone pass the '500 words' threshold, try be more concise to improve readability !",
-  }
+  },
+
+  removecontent: {
+    id: `${scope}.removeContent`,
+    defaultMessage: "Remove",
+  },
+
+  donecontentvalid: {
+    id: `${scope}.donecontentvalid`,
+    defaultMessage: "Done",
+  },
+
+  donecontentinvalid: {
+    id: `${scope}.donecontentinvalid`,
+    defaultMessage: "Invalid TeX",
+  },
+
+
 
 
 });
