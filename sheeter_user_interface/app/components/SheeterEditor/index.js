@@ -8,9 +8,10 @@ import React, { memo } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import katex from 'katex'
+import { FormattedMessage, injectIntl } from 'react-intl';
 import asciimath2latex from 'asciimath-to-latex';
 import { createStructuredSelector } from 'reselect';
-import { EditorState, RichUtils, getDefaultKeyBinding } from 'draft-js';
+import { EditorState, RichUtils, getDefaultKeyBinding, convertToRaw } from 'draft-js';
 import Editor, { composeDecorators } from '@draft-js-plugins/editor';
 import { useTheme } from "@material-ui/styles";
 import { Chip, Tooltip, makeStyles, Grid } from '@material-ui/core';
@@ -39,16 +40,21 @@ import createKaTeXPlugin from 'draft-js-katex-plugin';
 
 
 
+// Importing actions and selectors
+import {
+  requestSetEditorContent
+} from 'containers/EditingPage/actions';
+import makeSelectEditingPage from 'containers/EditingPage/selectors';
 
 
 
-import SheeterInlineToolbar from './EditorPlugins/InlinePlugin/SheeterInlineToolbar';
 
 // Misc import
-import { FormattedMessage, injectIntl} from 'react-intl';
 import messages from './messages';
 import { WrapperEditor } from './WrapperEditor'
 import EditorMenu from 'components/EditorMenu/Loadable';
+import SheeterInlineToolbar from './EditorPlugins/InlinePlugin/SheeterInlineToolbar';
+import { debounce } from 'lodash';
 
 
 // Init plugins for editor
@@ -96,9 +102,6 @@ const plugins = [
 ];
 
 
-
-
-
 const useStyles = makeStyles(theme => ({
 
   warningchip: {
@@ -140,7 +143,6 @@ function SheeterEditor(props) {
   const [hasFocus, setHasFocus] = React.useState(false);
   const [editorState, setEditorState] = React.useState(EditorState.createEmpty());
 
-  
   const getWordCount = (editorState) => {
     const plainText = editorState.getCurrentContent().getPlainText('');
     const regex = /(?:\r\n|\r|\n)/g;  // new line, carriage return, line feed
@@ -149,6 +151,10 @@ function SheeterEditor(props) {
     return wordArray ? wordArray.length : 0;
   }
 
+  const saveContentEditor = React.useCallback(
+    debounce((content) => dispatch(requestSetEditorContent(content)), 1000),
+    []
+  );
 
   return (
     <Grid
@@ -173,10 +179,14 @@ function SheeterEditor(props) {
                 editorState={editorState}
                 onFocus={() => {
                   setHasFocus(true);
-                  editor.focus();
                 }}
                 onBlur={() => setHasFocus(false)}
-                onChange={(newState) => setEditorState(newState)}
+                onChange={(newState) => {
+                  if (editorState.getCurrentContent() !== newState.getCurrentContent()){
+                    saveContentEditor(convertToRaw(newState.getCurrentContent()))
+                  }
+                  setEditorState(newState);
+                }}
                 handleKeyCommand={(command, editorState) => {
                   const newState = RichUtils.handleKeyCommand(editorState, command);
 

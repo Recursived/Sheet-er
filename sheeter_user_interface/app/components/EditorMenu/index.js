@@ -12,6 +12,8 @@ import {
   TextField,
   IconButton,
   Tooltip,
+  ButtonGroup,
+  Button,
 } from '@material-ui/core';
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
@@ -31,6 +33,9 @@ import LocaleCombo from './LocaleCombo';
 import SheetTypeCombo from './SheetTypeCombo';
 import SheetTagCombo from './SheetTagCombo';
 import TabEditor from './TabEditor';
+
+// Importing actions 
+import { requestSetTitleSheet } from 'containers/EditingPage/actions';
 
 const useStyles = makeStyles(theme => ({
 
@@ -63,7 +68,11 @@ function EditorMenu(props) {
         <Grid xs={12} item>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField fullWidth label={<FormattedMessage {...messages.titlesheet} />} />
+              <TextField
+                fullWidth
+                label={<FormattedMessage {...messages.titlesheet} />}
+                onChange={(event) => dispatch(requestSetTitleSheet(event.target.value))}
+              />
             </Grid>
             <Grid item xs={12} sm={6}>
               <LocaleCombo />
@@ -71,15 +80,21 @@ function EditorMenu(props) {
             <Grid item xs={12} sm={6}>
               <SheetTypeCombo />
             </Grid>
-            <Grid item xs={10} sm={10}>
+            <Grid item xs={12} sm={12}>
               <SheetTagCombo />
             </Grid>
-            <Grid item xs={2} sm={2}>
-              <Tooltip title={<FormattedMessage {...messages.tooltipsave} />}>
-                <IconButton color="primary">
-                  <SaveIcon />
-                </IconButton>
-              </Tooltip>
+            <Grid item xs={8} sm={8}>
+              <ButtonGroup>
+                <Tooltip arrow title={<FormattedMessage {...messages.tooltipdeletesheetbutton} />}>
+                  <Button><FormattedMessage {...messages.deletesheetbutton} /></Button>
+                </Tooltip>
+                <Tooltip arrow title={<FormattedMessage {...messages.tooltiplinksheetbutton} />}>
+                  <Button><FormattedMessage {...messages.linksheetbutton} /></Button>
+                </Tooltip>
+                <Tooltip arrow title={<FormattedMessage {...messages.tooltipsheethistorybutton} />}>
+                  <Button><FormattedMessage {...messages.sheethistorybutton} /></Button>
+                </Tooltip>
+              </ButtonGroup>
             </Grid>
           </Grid>
         </Grid>
@@ -87,7 +102,7 @@ function EditorMenu(props) {
         <Grid xs={12} item>
           <Grid container>
             <Grid item xs={12}>
-              <TabEditor buttons={buttons}/>
+              <TabEditor buttons={buttons} />
             </Grid>
           </Grid>
         </Grid>

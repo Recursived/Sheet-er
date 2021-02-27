@@ -12,7 +12,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 // Importing actions and selectors
 import { makeSelectSheetTypes } from 'containers/EditingPage/selectors';
-import { requestSheetTypeAction } from 'containers/EditingPage/actions';
+import { 
+    requestSetTypeSheet,
+    requestSheetTypeAction
+} from 'containers/EditingPage/actions';
 
 // Misc imports
 import messages from './messages';
@@ -37,7 +40,7 @@ function SheetTypeCombo(props) {
             }}
             onClose={() => setOpen(false)}
             open={open}
-            onChange={(_, value) => console.log(value)}
+            onInputChange={(_, value) => dispatch(requestSetTypeSheet(value))}
             loading={loading}
             options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
             autoHighlight

@@ -11,6 +11,12 @@ import {
   SUCCESS_SHEET_TAG,
   REQUEST_ADD_SHEETTAG,
   SUCCESS_ADD_SHEETTAG,
+  REQUEST_SET_EDITORCONTENT,
+  REQUEST_SET_LOCALESHEET,
+  REQUEST_SET_TITLESHEET,
+  REQUEST_SET_IDSHEET,
+  REQUEST_SET_TYPESHEET,
+  REQUEST_SET_TAGSHEET
  } from './constants';
 
 export function requestSheetTypeAction() {
@@ -53,3 +59,49 @@ export function successAddSheetTagAction(response) {
     response: response
   };
 }
+
+/**
+ * Actions to set values for the editor and the associated content
+ */
+export function requestSetEditorContent(content){
+  return {
+    type: REQUEST_SET_EDITORCONTENT,
+    content: content
+  }
+}
+
+export function requestSetTitleSheet(title){
+  return {
+    type: REQUEST_SET_TITLESHEET,
+    title: title
+  }
+}
+
+export function requestSetLocaleSheet(locale){
+  return {
+    type: REQUEST_SET_LOCALESHEET,
+    locale: locale
+  }
+}
+
+export function requestSetTypeSheet(sheet_type){
+  return {
+    type: REQUEST_SET_TYPESHEET,
+    sheet_type: sheet_type
+  }
+}
+
+export function requestSetTagSheet(tags){
+  return {
+    type: REQUEST_SET_TAGSHEET,
+    tags: tags
+  }
+}
+
+export function requestSetIdSheet(id_sheet){
+  return {
+    type: REQUEST_SET_IDSHEET,
+    id_sheet: id_sheet
+  }
+}
+

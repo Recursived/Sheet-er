@@ -15,7 +15,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 // Importing actions and selectors
 import {
     requestSheetTagAction,
-    requestAddSheetTagAction
+    requestAddSheetTagAction,
+    requestSetTagSheet
 } from 'containers/EditingPage/actions';
 import makeSelectEditingPage from 'containers/EditingPage/selectors';
 
@@ -31,15 +32,20 @@ function SheetTagCombo(props) {
     const [toReplace, setToReplace] = React.useState(0);
     const [value, setValue] = React.useState([]);
     const { editing, intl, dispatch } = props;
-    const handlerChange =
-        debounce((newValue) => dispatch(requestSheetTagAction(newValue)), 500);
+    const handlerChange = React.useCallback(
+        debounce((newValue) => dispatch(requestSheetTagAction(newValue)), 500),
+        []
+    );
+        
 
 
     React.useEffect(() => {
         if (editing.response_add_tag !== null) {
             value[toReplace] = editing.response_add_tag;
+
         }
-    }, [editing.response_add_tag])
+        dispatch(requestSetTagSheet(value));
+    }, [editing.response_add_tag, value])
 
     return (
         <Autocomplete

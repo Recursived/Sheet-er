@@ -11,8 +11,9 @@ import {
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
 
-// Selector imports
+// Selector & actions imports
 import {makeSelectLocale} from 'containers/LanguageProvider/selectors';
+import { requestSetLocaleSheet } from 'containers/EditingPage/actions'; 
 
 // Misc imports
 import messages from './messages';
@@ -24,6 +25,11 @@ import {
 
 function LocaleCombo(props) {
     const {defaultLocale, dispatch} = props;
+    const [localeValue, setLocaleValue] = React.useState(defaultLocale);
+
+    React.useEffect(() => {
+        dispatch(requestSetLocaleSheet(localeValue));
+    }, [localeValue])
     
     return (
         <Autocomplete
@@ -33,6 +39,7 @@ function LocaleCombo(props) {
             selectOnFocus
             clearOnBlur
             handleHomeEndKeys
+            onInputChange={(_, value) => setLocaleValue(value)}
             getOptionLabel={(option) => localeLabels[option]}
             noOptionsText={<FormattedMessage {...messages.nooptionslabel} />}
             renderOption={(option) => (
