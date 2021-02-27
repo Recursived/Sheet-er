@@ -64,4 +64,35 @@ export default defineMessages({
     defaultMessage: 'Science',
   },
 
+  deletesheetbutton: {
+    id: `${scope}.deletesheetbutton`,
+    defaultMessage: 'Delete',
+  },
+
+  tooltipdeletesheetbutton: {
+    id: `${scope}.tooltipdeletesheetbutton`,
+    defaultMessage: 'Delete current Sheet',
+  },
+
+  linksheetbutton: {
+    id: `${scope}.linksheetbutton`,
+    defaultMessage: 'Link',
+  },
+
+  tooltiplinksheetbutton: {
+    id: `${scope}.tooltiplinksheetbutton`,
+    defaultMessage: 'Link this Sheet to another one',
+  },
+
+  sheethistorybutton: {
+    id: `${scope}.sheethistorybutton`,
+    defaultMessage: 'Sheet history',
+  },
+
+  tooltipsheethistorybutton: {
+    id: `${scope}.tooltipsheethistorybutton`,
+    defaultMessage: 'Edit a previously created Sheet',
+  },
+  
+
 });
