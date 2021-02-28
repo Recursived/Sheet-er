@@ -28,10 +28,14 @@ const appLocales = [
   'fr',
 ];
 
-
 const localeLabels = {
   'en': 'English',
   'fr': 'Français'
+}
+
+const localeToCode = {
+  'en': 'en-EN',
+  'fr': 'fr-FR'
 }
 
 const formatTranslationMessages = (locale, messages) => {
@@ -71,6 +75,7 @@ const translationMessages = {
 };
 
 exports.localeLabels = localeLabels;
+exports.localeToCode = localeToCode;
 exports.countryToFlag = countryToFlag;
 exports.appLocales = appLocales;
 exports.formatTranslationMessages = formatTranslationMessages;
