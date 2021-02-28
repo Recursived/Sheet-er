@@ -29,7 +29,7 @@ function LocaleCombo(props) {
 
     React.useEffect(() => {
         dispatch(requestSetLocaleSheet(localeValue));
-    }, [localeValue])
+    }, [])
     
     return (
         <Autocomplete
