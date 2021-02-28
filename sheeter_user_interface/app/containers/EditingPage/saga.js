@@ -21,7 +21,8 @@ import {
 import {
   REQUEST_SHEET_TYPE,
   REQUEST_SHEET_TAG,
-  REQUEST_ADD_SHEETTAG
+  REQUEST_ADD_SHEETTAG,
+  REQUEST_ADD_SHEET
 } from './constants';
 
 import { 
@@ -33,9 +34,12 @@ import {
 import messages from './messages';
 import getApi from 'utils/api';
 import { RETRIEVE_SHEETAPI } from 'utils/api';
+import makeSelectEditingPage from './selectors';
+import {
+  localeToCode
+} from 'i18n';
 
 
-// Individual exports for testing
 export function* handleRequestSheetType() {
   const api = getApi(RETRIEVE_SHEETAPI);
   yield api.init();
@@ -110,6 +114,51 @@ export function* handleRequestAddSheetTag() {
   }
 }
 
+export function* handleRequestAddSheet() {
+  const api = getApi(RETRIEVE_SHEETAPI);
+  yield api.init();
+  const client = yield api.getClient();
+  try {
+    const user_info = yield select(makeSelectUserInfo());
+    const sheet_info = yield select(makeSelectEditingPage());
+
+    // If sheet not yet created
+    if (sheet_info.id_sheet === null){
+      const res = yield client.sheet_create(
+        null,
+        {
+          content: JSON.stringify(sheet_info.editor_content_sheet),
+          title: sheet_info.title_sheet,
+          locale: localeToCode[sheet_info.locale_sheet],
+          type: sheet_info.type_sheet,
+          plagiarism_rate: 0, // to-do : faire une api qui permet de calculer cela
+          tags: sheet_info.tags_sheet.map(tag => tag.id)
+        },
+        { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
+      );
+
+    } else { // If sheet created, we update
+      
+    }
+
+    console.log(client);
+    
+   
+    // yield put(successAddSheetTagAction(res.data));
+
+  } catch (error) {
+    console.log(error);
+    yield put(enqueueSnackbar({
+      message: <FormattedMessage {...messages.erroraddsheettag} />,
+      options: {
+        key: new Date().getTime() + Math.random(),
+        variant: 'error'
+      },
+    }));
+  }
+}
+
+
 /**
  * Watcher saga
  */
@@ -117,4 +166,5 @@ export default function* handlerSaga() {
   yield takeLatest(REQUEST_SHEET_TYPE, handleRequestSheetType);
   yield takeLatest(REQUEST_ADD_SHEETTAG, handleRequestAddSheetTag);
   yield takeLatest(REQUEST_SHEET_TAG, handleRequestSheetTag);
+  yield takeLatest(REQUEST_ADD_SHEET, handleRequestAddSheet);
 }

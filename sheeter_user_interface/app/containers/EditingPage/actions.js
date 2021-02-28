@@ -4,7 +4,7 @@
  *
  */
 
-import { 
+import {
   REQUEST_SHEET_TYPE,
   SUCCESS_SHEET_TYPE,
   REQUEST_SHEET_TAG,
@@ -16,8 +16,11 @@ import {
   REQUEST_SET_TITLESHEET,
   REQUEST_SET_IDSHEET,
   REQUEST_SET_TYPESHEET,
-  REQUEST_SET_TAGSHEET
- } from './constants';
+  REQUEST_SET_TAGSHEET,
+  REQUEST_ADD_SHEET,
+  SUCCESS_ADD_SHEET,
+  SUCCESS_DELETE_SHEET
+} from './constants';
 
 export function requestSheetTypeAction() {
   return {
@@ -42,7 +45,7 @@ export function requestSheetTagAction(filter) {
 export function successSheetTagAction(tags) {
   return {
     type: SUCCESS_SHEET_TAG,
-    tags : tags
+    tags: tags
   };
 }
 
@@ -63,45 +66,74 @@ export function successAddSheetTagAction(response) {
 /**
  * Actions to set values for the editor and the associated content
  */
-export function requestSetEditorContent(content){
+export function requestSetEditorContent(content) {
   return {
     type: REQUEST_SET_EDITORCONTENT,
     content: content
   }
 }
 
-export function requestSetTitleSheet(title){
+export function requestSetTitleSheet(title) {
   return {
     type: REQUEST_SET_TITLESHEET,
     title: title
   }
 }
 
-export function requestSetLocaleSheet(locale){
+export function requestSetLocaleSheet(locale) {
   return {
     type: REQUEST_SET_LOCALESHEET,
     locale: locale
   }
 }
 
-export function requestSetTypeSheet(sheet_type){
+export function requestSetTypeSheet(sheet_type) {
   return {
     type: REQUEST_SET_TYPESHEET,
     sheet_type: sheet_type
   }
 }
 
-export function requestSetTagSheet(tags){
+export function requestSetTagSheet(tags) {
   return {
     type: REQUEST_SET_TAGSHEET,
     tags: tags
   }
 }
 
-export function requestSetIdSheet(id_sheet){
+export function requestSetIdSheet(id_sheet) {
   return {
     type: REQUEST_SET_IDSHEET,
     id_sheet: id_sheet
   }
 }
 
+/**
+ * Actions used to create, modify or delete a sheet
+ */
+
+export function requestAddSheet() {
+  return {
+    type: REQUEST_ADD_SHEET
+  }
+}
+
+export function successAddSheet(id_sheet) {
+  return {
+    type: SUCCESS_ADD_SHEET,
+    id_sheet: id_sheet
+  }
+}
+
+export function requestDeleteSheet() {
+  return {
+    type: REQUEST_DELETE_SHEET,
+  }
+}
+
+
+export function successDeleteSheet() {
+  return {
+    type: SUCCESS_DELETE_SHEET,
+  }
+}

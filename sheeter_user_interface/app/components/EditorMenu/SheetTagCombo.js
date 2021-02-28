@@ -36,7 +36,7 @@ function SheetTagCombo(props) {
         debounce((newValue) => dispatch(requestSheetTagAction(newValue)), 500),
         []
     );
-        
+
 
 
     React.useEffect(() => {
@@ -51,6 +51,7 @@ function SheetTagCombo(props) {
         <Autocomplete
             value={value}
             defaultValue={value}
+            noOptionsText={<FormattedMessage {...messages.nooptionslabel} />}
             onKeyUp={(e) => {
                 if (e.target.value !== "") {
                     handlerChange(e.target.value)

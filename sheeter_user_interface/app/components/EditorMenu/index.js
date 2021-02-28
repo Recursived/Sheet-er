@@ -9,11 +9,7 @@ import {
   Grid,
   Box,
   Divider,
-  TextField,
-  IconButton,
-  Tooltip,
-  ButtonGroup,
-  Button,
+  TextField
 } from '@material-ui/core';
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
@@ -23,19 +19,18 @@ import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
 
 
-// Importing icons
-import SaveIcon from '@material-ui/icons/Save';
-
-
 // Misc imports
 import messages from './messages';
 import LocaleCombo from './LocaleCombo';
 import SheetTypeCombo from './SheetTypeCombo';
 import SheetTagCombo from './SheetTagCombo';
 import TabEditor from './TabEditor';
+import GroupButtonEditor from './GroupButtonEditor';
 
 // Importing actions 
-import { requestSetTitleSheet } from 'containers/EditingPage/actions';
+import { requestSetTitleSheet, requestAddSheet } from 'containers/EditingPage/actions';
+import makeSelectEditingPage from 'containers/EditingPage/selectors';
+
 
 const useStyles = makeStyles(theme => ({
 
@@ -54,7 +49,19 @@ const useStyles = makeStyles(theme => ({
 
 function EditorMenu(props) {
   const classes = useStyles();
-  const { buttons, dispatch } = props;
+  const { buttons, dispatch, editing } = props;
+
+  React.useEffect(() => {
+    if (editing.editor_content_sheet !== null &&
+      editing.title_sheet !== null &&
+      editing.locale_sheet !== null &&
+      editing.type_sheet !== null &&
+      (editing.tags_sheet !== null && editing.tags_sheet.length > 0)
+    ) {
+      // When every fields are complete
+      dispatch(requestAddSheet());
+    }
+  }, [editing]);
 
   return (
     <Box className={classes.containermenu}>
@@ -83,18 +90,11 @@ function EditorMenu(props) {
             <Grid item xs={12} sm={12}>
               <SheetTagCombo />
             </Grid>
-            <Grid item xs={8} sm={8}>
-              <ButtonGroup>
-                <Tooltip arrow title={<FormattedMessage {...messages.tooltipdeletesheetbutton} />}>
-                  <Button><FormattedMessage {...messages.deletesheetbutton} /></Button>
-                </Tooltip>
-                <Tooltip arrow title={<FormattedMessage {...messages.tooltiplinksheetbutton} />}>
-                  <Button><FormattedMessage {...messages.linksheetbutton} /></Button>
-                </Tooltip>
-                <Tooltip arrow title={<FormattedMessage {...messages.tooltipsheethistorybutton} />}>
-                  <Button><FormattedMessage {...messages.sheethistorybutton} /></Button>
-                </Tooltip>
-              </ButtonGroup>
+            <Grid item sm={12} lg={8}>
+              <GroupButtonEditor />
+            </Grid>
+            <Grid item sm={12} lg={4}>
+
             </Grid>
           </Grid>
         </Grid>
@@ -116,10 +116,12 @@ function EditorMenu(props) {
 }
 
 EditorMenu.propTypes = {
-  buttons: PropTypes.object.isRequired
+  buttons: PropTypes.object.isRequired,
+  editing: PropTypes.object.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
+  editing: makeSelectEditingPage()
 });
 
 function mapDispatchToProps(dispatch) {

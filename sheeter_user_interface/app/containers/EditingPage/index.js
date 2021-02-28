@@ -63,6 +63,7 @@ const useStyles = makeStyles(theme => ({
 export function EditingPage(props) {
   const classes = useStyles();
   const intl = props.intl;
+  const editing = props.editing
 
   useInjectReducer({ key: 'editingPage', reducer });
   useInjectSaga({ key: 'editingPage', saga });
@@ -93,11 +94,12 @@ export function EditingPage(props) {
 
 EditingPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
+  editing: PropTypes.object.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
-  editingPage: makeSelectEditingPage(),
+  editing: makeSelectEditingPage(),
 });
 
 function mapDispatchToProps(dispatch) {

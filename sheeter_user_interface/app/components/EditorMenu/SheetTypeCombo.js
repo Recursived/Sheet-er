@@ -40,7 +40,7 @@ function SheetTypeCombo(props) {
             }}
             onClose={() => setOpen(false)}
             open={open}
-            onInputChange={(_, value) => dispatch(requestSetTypeSheet(value))}
+            onChange={(_, value) => dispatch(requestSetTypeSheet(value.id))}
             loading={loading}
             options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}
             autoHighlight
@@ -50,9 +50,7 @@ function SheetTypeCombo(props) {
             groupBy={(option) => option.firstLetter}
             getOptionLabel={(option) => option.label}
             noOptionsText={<FormattedMessage {...messages.nooptionslabel} />}
-            renderOption={(option) => (
-                <span>{option.label}</span>
-            )}
+
             loadingText={<FormattedMessage {...messages.loadinglabel}/>}
             renderInput={(params) => (
                 <TextField

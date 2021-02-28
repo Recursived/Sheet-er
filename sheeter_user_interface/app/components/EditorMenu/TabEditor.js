@@ -81,11 +81,11 @@ function TabEditor(props) {
           scrollButtons="auto"
           aria-label="Tools for editor"
         >
-          <Tab label={<FormattedMessage {...messages.classictabbuttons} />} {...a11yProps(0)} />
-          <Tab label={<FormattedMessage {...messages.sciencetabbuttons} />} {...a11yProps(1)} />
+          <Tab key={1} label={<FormattedMessage {...messages.classictabbuttons} />} {...a11yProps(0)} />
+          <Tab key={2} label={<FormattedMessage {...messages.sciencetabbuttons} />} {...a11yProps(1)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
+      <TabPanel key={1} value={value} index={0}>
         <Grid container spacing={2}>
           {buttons.classic_buttons.map((Button, i) => (
             // eslint-disable-next-line react/no-array-index-key
@@ -94,7 +94,7 @@ function TabEditor(props) {
         </Grid>
 
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      <TabPanel key={2} value={value} index={1}>
         {buttons.science_buttons.map((Button, i) => (
           // eslint-disable-next-line react/no-array-index-key
           <Grid xs={2}><Button key={i} /></Grid>

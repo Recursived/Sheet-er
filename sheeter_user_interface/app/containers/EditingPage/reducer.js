@@ -16,6 +16,8 @@ import {
   REQUEST_SET_IDSHEET,
   REQUEST_SET_TYPESHEET,
   REQUEST_SET_TAGSHEET,
+  SUCCESS_ADD_SHEET,
+  SUCCESS_DELETE_SHEET
  } from './constants';
 
 export const initialState = {
@@ -75,6 +77,10 @@ const editingPageReducer = (state = initialState, action) =>
       case REQUEST_SET_TAGSHEET:
         draft.tags_sheet = action.tags;
         break;
+      case SUCCESS_ADD_SHEET:
+        draft.id_sheet = action.id_sheet;
+      case SUCCESS_DELETE_SHEET:
+        draft.id_sheet = null;
     }
   });
 
