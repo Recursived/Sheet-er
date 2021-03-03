@@ -1,10 +1,8 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import { push } from 'connected-react-router';
-import axios from 'axios';
 import { enqueueSnackbar } from 'containers/NotifProvider/actions';
 
-import { makeSelectLocation } from './selectors';
+
 import { FormattedMessage } from 'react-intl';
 import { put, takeLatest, select } from 'redux-saga/effects';
 import {

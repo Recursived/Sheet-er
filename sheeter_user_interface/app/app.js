@@ -50,8 +50,9 @@ store.subscribe(
   throttle(() => {
     saveState({
       language: store.getState().language,
-      global: omit(store.getState().global,[
-        'contactDialog'
+      global: omit(store.getState().global, [
+        'contactDialog',
+        'contactMessage'
       ]),
       theme: store.getState().theme
     });

@@ -125,7 +125,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -156,7 +156,7 @@ OAUTH2_PROVIDER = {
         'write': 'Write scope', 
         'introspection': 'Introspect token'
         },
-    'ACCESS_TOKEN_EXPIRE_SECONDS': 86400, # Un jour
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 3600, # Un jour
 }
 
 AUTHENTICATION_BACKENDS = (

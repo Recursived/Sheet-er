@@ -26,7 +26,7 @@ export const initialState = {
   loggedIn: false,
   contactDialog: false,
   contactMessage: null,
-  categories : null
+  categories : []
   
 };
 

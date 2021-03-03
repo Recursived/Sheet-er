@@ -10,21 +10,22 @@ LOCALES = (
 class SheetTag(models.Model):
     class Meta:
         ordering = ['-id']
-
+     
+    id = models.AutoField(primary_key=True)
     label = models.CharField(max_length=50, verbose_name='Label')
 
     def __str__(self):
-        return self.label
+        return f"({self.id}) {self.label}"
 
 
 class SheetType(models.Model):
     class Meta:
         ordering = ['-id']
-
+    id = models.PositiveIntegerField(primary_key=True)
     label = models.CharField(max_length=200, verbose_name='Label')
 
     def __str__(self):
-        return self.label
+        return  f"({self.id}) {self.label}"
 
 
 class Sheet(models.Model):
@@ -54,6 +55,14 @@ class Sheet(models.Model):
         verbose_name="Locale", default="en-EN"
     )
     nb_click = models.IntegerField(default=0)
+    next_sheet = models.ForeignKey(
+        'self',
+        null=True,
+        blank=True,
+        default=None,
+        related_name='children',
+        on_delete=models.DO_NOTHING
+    )
 
     def __str__(self):
-        return self.title
+        return f"{self.id} : {self.title}"

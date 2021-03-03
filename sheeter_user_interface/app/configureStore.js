@@ -10,6 +10,7 @@ import { REFRESH_TOKEN } from 'containers/App/constants';
 import { FormattedMessage } from 'react-intl';
 import { enqueueSnackbar, closeSnackbar } from 'containers/NotifProvider/actions';
 import { isRefreshAction } from 'containers/App/actions';
+import { IS_LOGGED_IN_SUCCESS, IS_LOGGED_OUT_SUCCESS } from 'containers/App/constants';
 import messages from 'containers/App/messages';
 
 // Misc import
@@ -27,7 +28,7 @@ export default function configureStore(initialState = {}, history) {
   if (process.env.NODE_ENV !== 'production' && typeof window === 'object') {
     /* eslint-disable no-underscore-dangle */
     if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__)
-      composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({});
+      composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: true, traceLimit: 25 }); // SUPPRIMER LES PARAMS
 
     // NOTE: Uncomment the code below to restore support for Redux Saga
     // Dev Tools once it supports redux-saga version 1.x.x
@@ -49,33 +50,34 @@ export default function configureStore(initialState = {}, history) {
 
 
     // User shoud be logged to refresh token
-    if (isLogged && user_info !== null) {
-      const expiry_date = new Date(user_info.access_token.expires);
-      const today = new Date();
+    if (isLogged
+      && user_info !== null
+      && !(action.type === IS_LOGGED_IN_SUCCESS || action.type === IS_LOGGED_OUT_SUCCESS)) {
 
+      const expiry_date = new Date(user_info.access_token.expires);
+      const today = new Date(new Date().toUTCString().substr(0, 25));
       if (today > expiry_date) {
         try {
           const api = getApi(RETRIEVE_USERAPI);
           api.init()
             .then(client => {
-              return client.paths["/auth/convert-token/"].post({
-                grant_type: 'convert_token',
+              return client.paths["/auth/token/"].post(null,{
+                grant_type: 'refresh_token',
                 client_id: CLIENT_ID,
-                backend: conn_info.backend,
-                token: conn_info.social_token
+                refresh_token: user_info.token
               });
             })
             .then(retour => {
               api.init()
-              .then(client => {
-                return client.paths["/user/{uid}/{provider}"].get(
-                  { uid: conn_info.uid, provider: conn_info.backend },
-                  null,
-                  { headers: { 'Authorization': `Bearer ${retour.data.access_token}` } }
-                );      
-              })
-              .then( response =>
-                dispatch(isLoggedSuccessAction(response.data)))
+                .then(client => {
+                  return client.paths["/user/{uid}/{provider}"].get(
+                    { uid: conn_info.uid, provider: conn_info.backend },
+                    null,
+                    { headers: { 'Authorization': `Bearer ${retour.data.access_token}` } }
+                  );
+                })
+                .then(response =>
+                  dispatch(isLoggedSuccessAction(response.data)))
             });
         } catch (error) {
           // We should never have an error !

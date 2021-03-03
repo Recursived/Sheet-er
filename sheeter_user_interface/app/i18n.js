@@ -10,24 +10,15 @@
 const addLocaleData = require('react-intl').addLocaleData; //eslint-disable-line
 const enLocaleData = require('react-intl/locale-data/en');
 const frLocaleData = require('react-intl/locale-data/fr');
-const esLocaleData = require('react-intl/locale-data/es');
-const deLocaleData = require('react-intl/locale-data/de');
-const ptLocaleData = require('react-intl/locale-data/pt');
-const itLocaleData = require('react-intl/locale-data/it');
+
 
 const enTranslationMessages = require('./translations/en.json');
 const frTranslationMessages = require('./translations/fr.json');
-const esTranslationMessages = require('./translations/es.json');
-const deTranslationMessages = require('./translations/de.json');
-const ptTranslationMessages = require('./translations/pt.json');
-const itTranslationMessages = require('./translations/it.json');
+
 
 addLocaleData(enLocaleData);
 addLocaleData(frLocaleData);
-addLocaleData(deLocaleData);
-addLocaleData(esLocaleData);
-addLocaleData(ptLocaleData);
-addLocaleData(itLocaleData);
+
 
 const DEFAULT_LOCALE = 'en'; // recalculated in langage provider for locale detection
 
@@ -35,11 +26,17 @@ const DEFAULT_LOCALE = 'en'; // recalculated in langage provider for locale dete
 const appLocales = [
   'en',
   'fr',
-  'de',
-  'pt',
-  'it',
-  'es'
 ];
+
+const localeLabels = {
+  'en': 'English',
+  'fr': 'Français'
+}
+
+const localeToCode = {
+  'en': 'en-EN',
+  'fr': 'fr-FR'
+}
 
 const formatTranslationMessages = (locale, messages) => {
   const defaultFormattedMessages =
@@ -56,15 +53,30 @@ const formatTranslationMessages = (locale, messages) => {
   return Object.keys(messages).reduce(flattenFormattedMessages, {});
 };
 
+const countryToFlag = (isoCode) => {
+  // Pour les drapeaux et leur code https://material-ui.com/components/autocomplete/ 
+  // Country select component
+  const codeConverter = {
+    'en': 'gb',
+    'fr': 'fr'
+  };
+  isoCode = codeConverter[isoCode];
+  return typeof String.fromCodePoint !== 'undefined'
+    ? isoCode
+        .toUpperCase()
+        .replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
+    : isoCode
+}
+
 const translationMessages = {
   en: formatTranslationMessages('en', enTranslationMessages),
   fr: formatTranslationMessages('fr', frTranslationMessages),
-  de: formatTranslationMessages('de', deTranslationMessages),
-  es: formatTranslationMessages('es', esTranslationMessages),
-  pt: formatTranslationMessages('pt', ptTranslationMessages),
-  it: formatTranslationMessages('it', itTranslationMessages),
+
 };
 
+exports.localeLabels = localeLabels;
+exports.localeToCode = localeToCode;
+exports.countryToFlag = countryToFlag;
 exports.appLocales = appLocales;
 exports.formatTranslationMessages = formatTranslationMessages;
 exports.translationMessages = translationMessages;

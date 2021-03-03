@@ -48,7 +48,7 @@ services:
             DEBUG: "True"
     contactusapi:
         build: ./contactusAPI
-        command: bash -c "python3 ./contactusAPI/manage.py makemigrations && python3 ./contactusAPI/manage.py migrate && python3 ./contactusAPI/manage.py runserver 0.0.0.0:8002"
+        command: bash -c "python3 ./contactusAPI/manage.py makemigrations && python3 ./contactusAPI/manage.py migrate && python3 ./contactusAPI/manage.py loaddata ./contactusAPI/fixtures/categories.json && python3 ./contactusAPI/manage.py runserver 0.0.0.0:8002"
         volumes:
             - .:/codecontactusAPI
         links:
