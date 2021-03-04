@@ -37,6 +37,6 @@ export default {
 
     editingpage: {
         path: '/editing',
-        name: <FormattedMessage {...editingpageMessages.routeLoginpage} />,
+        name: <FormattedMessage {...editingpageMessages.editingroute} />,
     }
 }
