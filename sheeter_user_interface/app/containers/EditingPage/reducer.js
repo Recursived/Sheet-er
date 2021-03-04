@@ -15,7 +15,6 @@ import {
   REQUEST_SET_LOCALESHEET,
   REQUEST_SET_IDSHEET,
   REQUEST_SET_TYPESHEET,
-  REQUEST_SET_TAGSHEET,
   SUCCESS_ADD_SHEET,
   SUCCESS_DELETE_SHEET
  } from './constants';
@@ -27,7 +26,6 @@ export const initialState = {
   
   filter_tag: null, // Used to do search against tag API
   add_tag: null, // Used to add the tag in the SHEET API
-  response_add_tag: null, // Used to store the response the tag gave
   
   // Used to manage the current edited sheet
   editor_content_sheet: null,
@@ -35,7 +33,7 @@ export const initialState = {
   locale_sheet: null,
   id_sheet: null,
   type_sheet: null,
-  tags_sheet: null,
+  tags_sheet: [],
 
 
 };
@@ -54,10 +52,10 @@ const editingPageReducer = (state = initialState, action) =>
         draft.sheet_tags = action.tags;
         break;
       case REQUEST_ADD_SHEETTAG:
-        draft.add_tag = action.add_tag;
+        draft.add_tag = action.tags;
         break;
       case SUCCESS_ADD_SHEETTAG:
-        draft.response_add_tag = action.response;
+        draft.tags_sheet = action.response;
         break;
       case REQUEST_SET_EDITORCONTENT:
         draft.editor_content_sheet = action.content;
@@ -73,9 +71,6 @@ const editingPageReducer = (state = initialState, action) =>
         break;
       case REQUEST_SET_TYPESHEET:
         draft.type_sheet = action.sheet_type;
-        break;
-      case REQUEST_SET_TAGSHEET:
-        draft.tags_sheet = action.tags;
         break;
       case SUCCESS_ADD_SHEET:
         draft.id_sheet = action.id_sheet;

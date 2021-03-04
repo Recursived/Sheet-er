@@ -16,7 +16,6 @@ import {
   REQUEST_SET_TITLESHEET,
   REQUEST_SET_IDSHEET,
   REQUEST_SET_TYPESHEET,
-  REQUEST_SET_TAGSHEET,
   REQUEST_ADD_SHEET,
   SUCCESS_ADD_SHEET,
   SUCCESS_DELETE_SHEET
@@ -49,10 +48,10 @@ export function successSheetTagAction(tags) {
   };
 }
 
-export function requestAddSheetTagAction(add_tag) {
+export function requestAddSheetTagAction(tags) {
   return {
     type: REQUEST_ADD_SHEETTAG,
-    add_tag: add_tag
+    tags: tags
   };
 }
 
@@ -91,13 +90,6 @@ export function requestSetTypeSheet(sheet_type) {
   return {
     type: REQUEST_SET_TYPESHEET,
     sheet_type: sheet_type
-  }
-}
-
-export function requestSetTagSheet(tags) {
-  return {
-    type: REQUEST_SET_TAGSHEET,
-    tags: tags
   }
 }
 

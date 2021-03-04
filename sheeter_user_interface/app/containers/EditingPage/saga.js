@@ -1,18 +1,19 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { 
-  takeLatest, 
-  select, 
-  put, 
+import {
+  takeLatest,
+  select,
+  put,
+  call
 } from 'redux-saga/effects';
 
 
 import { enqueueSnackbar } from 'containers/NotifProvider/actions';
-import { 
+import {
   makeSelectUserInfo,
 } from 'containers/App/selectors';
 
-import { 
+import {
   makeSelectFilterTag,
   makeSelectAddTag
 } from 'containers/EditingPage/selectors';
@@ -25,10 +26,11 @@ import {
   REQUEST_ADD_SHEET
 } from './constants';
 
-import { 
+import {
   successSheetTypeAction,
   successSheetTagAction,
-  successAddSheetTagAction
+  successAddSheetTagAction,
+  successAddSheet
 } from './actions';
 
 import messages from './messages';
@@ -94,16 +96,28 @@ export function* handleRequestAddSheetTag() {
   const client = yield api.getClient();
   try {
     const user_info = yield select(makeSelectUserInfo());
-    const add_tag = yield select(makeSelectAddTag());
-    const res = yield client.sheettag_create(
-      null,
-      { label: add_tag },
-      { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
-    )
-    yield put(successAddSheetTagAction(res.data));
+    const add_tags = yield select(makeSelectAddTag());
+    const to_send = [];
+    console.log(add_tags);
+
+    for (let i = 0; i < add_tags.length; i++) {
+      const tag = add_tags[i];
+      console.log(tag);
+      if (tag.inputValue) {
+        const res = yield call(
+          client.sheettag_create,
+          null,
+          { label: tag.inputValue },
+          { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
+        );
+        to_send.push(res.data);
+      } else {
+        to_send.push(tag);
+      }
+    }
+    yield put(successAddSheetTagAction(to_send));
 
   } catch (error) {
-    console.log(error);
     yield put(enqueueSnackbar({
       message: <FormattedMessage {...messages.erroraddsheettag} />,
       options: {
@@ -123,28 +137,35 @@ export function* handleRequestAddSheet() {
     const sheet_info = yield select(makeSelectEditingPage());
 
     // If sheet not yet created
-    if (sheet_info.id_sheet === null){
+    if (sheet_info.id_sheet === null) {
       const res = yield client.sheet_create(
         null,
         {
           content: JSON.stringify(sheet_info.editor_content_sheet),
           title: sheet_info.title_sheet,
           locale: localeToCode[sheet_info.locale_sheet],
-          type: sheet_info.type_sheet,
+          subject: sheet_info.type_sheet,
           plagiarism_rate: 0, // to-do : faire une api qui permet de calculer cela
           tags: sheet_info.tags_sheet.map(tag => tag.id)
         },
         { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
       );
-
+      yield put(successAddSheet(res.data.id));
     } else { // If sheet created, we update
-      
+      const res = yield client.sheet_update(
+        null,
+        {
+          content: JSON.stringify(sheet_info.editor_content_sheet),
+          title: sheet_info.title_sheet,
+          locale: localeToCode[sheet_info.locale_sheet],
+          subject: sheet_info.type_sheet,
+          plagiarism_rate: 0, // to-do : faire une api qui permet de calculer cela
+          tags: sheet_info.tags_sheet.map(tag => tag.id)
+        },
+        { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
+      );
+      yield put(successAddSheet(res.data.id));
     }
-
-    console.log(client);
-    
-   
-    // yield put(successAddSheetTagAction(res.data));
 
   } catch (error) {
     console.log(error);

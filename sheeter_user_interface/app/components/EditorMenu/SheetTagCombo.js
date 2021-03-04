@@ -15,8 +15,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 // Importing actions and selectors
 import {
     requestSheetTagAction,
-    requestAddSheetTagAction,
-    requestSetTagSheet
+    requestAddSheetTagAction
 } from 'containers/EditingPage/actions';
 import makeSelectEditingPage from 'containers/EditingPage/selectors';
 
@@ -29,28 +28,23 @@ import messages from './messages';
 const filter = createFilterOptions();
 
 function SheetTagCombo(props) {
-    const [toReplace, setToReplace] = React.useState(0);
     const [value, setValue] = React.useState([]);
+
     const { editing, intl, dispatch } = props;
     const handlerChange = React.useCallback(
         debounce((newValue) => dispatch(requestSheetTagAction(newValue)), 500),
         []
     );
 
-
-
     React.useEffect(() => {
         if (editing.response_add_tag !== null) {
-            value[toReplace] = editing.response_add_tag;
-
+            setValue(editing.tags_sheet);
         }
-        dispatch(requestSetTagSheet(value));
-    }, [editing.response_add_tag, value])
+    }, [editing.tags_sheet])
 
     return (
         <Autocomplete
             value={value}
-            defaultValue={value}
             noOptionsText={<FormattedMessage {...messages.nooptionslabel} />}
             onKeyUp={(e) => {
                 if (e.target.value !== "") {
@@ -58,13 +52,7 @@ function SheetTagCombo(props) {
                 }
             }}
             onChange={(_, arr) => {
-                setValue([...arr]);
-                for (let i = arr.length - 1; i >= 0; i--) {
-                    if (arr[i].inputValue) {
-                        dispatch(requestAddSheetTagAction(arr[i].inputValue));
-                        setToReplace(i);
-                    }
-                }
+                dispatch(requestAddSheetTagAction(arr));
             }}
             filterOptions={(options, params) => {
                 const filtered = filter(options, params);
