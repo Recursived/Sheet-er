@@ -25,7 +25,9 @@ import messages from './messages';
 
 
 
-const filter = createFilterOptions();
+const filter = createFilterOptions({
+    matchFrom: 'start'
+});
 
 function SheetTagCombo(props) {
     const [value, setValue] = React.useState([]);

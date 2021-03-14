@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { TextField } from '@material-ui/core';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import Autocomplete, { createFilterOptions }from '@material-ui/lab/Autocomplete';
 import { FormattedMessage } from 'react-intl';
 
 // Importing icons
@@ -47,6 +47,9 @@ function SheetTypeCombo(props) {
             selectOnFocus
             clearOnBlur
             handleHomeEndKeys
+            filterOptions={createFilterOptions({
+                matchFrom: 'start'
+            })}
             groupBy={(option) => option.firstLetter}
             getOptionLabel={(option) => option.label}
             noOptionsText={<FormattedMessage {...messages.nooptionslabel} />}
