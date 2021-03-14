@@ -30,5 +30,11 @@ export default defineMessages({
     defaultMessage: 'We faced a problem trying to add your tag',
   },
 
+  erroraddsheet: {
+    id: `${scope}.erroraddsheet`,
+    defaultMessage: 'We faced a problem trying to add/modify your sheet',
+  },
+
+
 
 });

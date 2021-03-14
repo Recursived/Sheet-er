@@ -63,11 +63,10 @@ const useStyles = makeStyles(theme => ({
 export function EditingPage(props) {
   const classes = useStyles();
   const intl = props.intl;
-  const editing = props.editing
 
   useInjectReducer({ key: 'editingPage', reducer });
   useInjectSaga({ key: 'editingPage', saga });
-
+  
   return (
     <Box className={classes.boxcontainer}>
       <Helmet>

@@ -51,18 +51,6 @@ function EditorMenu(props) {
   const classes = useStyles();
   const { buttons, dispatch, editing } = props;
 
-  React.useEffect(() => {
-    if (editing.editor_content_sheet !== null &&
-      editing.title_sheet !== null &&
-      editing.locale_sheet !== null &&
-      editing.type_sheet !== null &&
-      (editing.tags_sheet !== null && editing.tags_sheet.length > 0)
-    ) {
-      // When every fields are complete
-      dispatch(requestAddSheet());
-    }
-  }, [editing]);
-
   return (
     <Box className={classes.containermenu}>
       <Grid

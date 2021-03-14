@@ -113,7 +113,7 @@ export function requestAddSheet() {
 export function successAddSheet(id_sheet) {
   return {
     type: SUCCESS_ADD_SHEET,
-    id_sheet: id_sheet
+    id: id_sheet
   }
 }
 

@@ -5,6 +5,7 @@
  */
 
 import React, { memo } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import katex from 'katex'
@@ -42,7 +43,8 @@ import createKaTeXPlugin from 'draft-js-katex-plugin';
 
 // Importing actions and selectors
 import {
-  requestSetEditorContent
+  requestSetEditorContent,
+  requestAddSheet
 } from 'containers/EditingPage/actions';
 import makeSelectEditingPage from 'containers/EditingPage/selectors';
 
@@ -138,9 +140,10 @@ const useStyles = makeStyles(theme => ({
 function SheeterEditor(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const { intl, dispatch } = props;
+  const { editing, dispatch } = props;
 
   const [hasFocus, setHasFocus] = React.useState(false);
+  const [wasModified, setWasModified] = React.useState(false);
   const [editorState, setEditorState] = React.useState(EditorState.createEmpty());
 
   const getWordCount = (editorState) => {
@@ -152,9 +155,27 @@ function SheeterEditor(props) {
   }
 
   const saveContentEditor = React.useCallback(
-    debounce((content) => dispatch(requestSetEditorContent(content)), 1000),
+    debounce((content) => {
+      dispatch(requestSetEditorContent(content));
+      setWasModified(true);
+    }, 1000),
     []
   );
+
+  React.useEffect(() => {
+    console.log(wasModified);
+    if (editing.editor_content_sheet !== null &&
+      editing.title_sheet !== null &&
+      editing.locale_sheet !== null &&
+      editing.type_sheet !== null &&
+      (editing.tags_sheet !== null && editing.tags_sheet.length > 0) &&
+      wasModified
+    ) {
+      // When every fields are complete
+      dispatch(requestAddSheet());
+      setWasModified(false);
+    }
+  }, [wasModified])
 
   return (
     <Grid
@@ -183,7 +204,7 @@ function SheeterEditor(props) {
                 onBlur={() => setHasFocus(false)}
                 onChange={(newState) => {
                   if (editorState.getCurrentContent() !== newState.getCurrentContent()){
-                    saveContentEditor(convertToRaw(newState.getCurrentContent()))
+                    saveContentEditor(convertToRaw(newState.getCurrentContent()));
                   }
                   setEditorState(newState);
                 }}
@@ -264,10 +285,13 @@ function SheeterEditor(props) {
   );
 }
 
-SheeterEditor.propTypes = {};
+SheeterEditor.propTypes = {
+  editing: PropTypes.object.isRequired
+};
 
 
 const mapStateToProps = createStructuredSelector({
+  editing: makeSelectEditingPage(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -283,5 +307,4 @@ const withConnect = connect(
 
 export default compose(
   withConnect,
-  injectIntl
 )(SheeterEditor);

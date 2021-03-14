@@ -98,11 +98,9 @@ export function* handleRequestAddSheetTag() {
     const user_info = yield select(makeSelectUserInfo());
     const add_tags = yield select(makeSelectAddTag());
     const to_send = [];
-    console.log(add_tags);
 
     for (let i = 0; i < add_tags.length; i++) {
       const tag = add_tags[i];
-      console.log(tag);
       if (tag.inputValue) {
         const res = yield call(
           client.sheettag_create,
@@ -153,8 +151,9 @@ export function* handleRequestAddSheet() {
       yield put(successAddSheet(res.data.id));
     } else { // If sheet created, we update
       const res = yield client.sheet_update(
-        null,
+        {id: sheet_info.id_sheet},
         {
+
           content: JSON.stringify(sheet_info.editor_content_sheet),
           title: sheet_info.title_sheet,
           locale: localeToCode[sheet_info.locale_sheet],
@@ -164,13 +163,13 @@ export function* handleRequestAddSheet() {
         },
         { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
       );
+      
       yield put(successAddSheet(res.data.id));
     }
 
   } catch (error) {
-    console.log(error);
     yield put(enqueueSnackbar({
-      message: <FormattedMessage {...messages.erroraddsheettag} />,
+      message: <FormattedMessage {...messages.erroraddsheet} />,
       options: {
         key: new Date().getTime() + Math.random(),
         variant: 'error'

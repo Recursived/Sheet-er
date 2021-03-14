@@ -73,9 +73,11 @@ const editingPageReducer = (state = initialState, action) =>
         draft.type_sheet = action.sheet_type;
         break;
       case SUCCESS_ADD_SHEET:
-        draft.id_sheet = action.id_sheet;
+        draft.id_sheet = action.id;
+        break;
       case SUCCESS_DELETE_SHEET:
         draft.id_sheet = null;
+        break;
     }
   });
 
