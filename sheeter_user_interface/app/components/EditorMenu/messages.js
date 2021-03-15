@@ -93,6 +93,26 @@ export default defineMessages({
     id: `${scope}.tooltipsheethistorybutton`,
     defaultMessage: 'Edit a previously created Sheet',
   },
+
+  tooltipsheetissaving: {
+    id: `${scope}.tooltipsheetissaving`,
+    defaultMessage: 'Loading...',
+  },
+
+  tooltipsheetnonexistant: {
+    id: `${scope}.tooltipsheetnonexistant`,
+    defaultMessage: 'No existing sheet',
+  },
+
+  tooltipsheetsaved: {
+    id: `${scope}.tooltipsheetsaved`,
+    defaultMessage: 'Sheet synced !',
+  },
+
+
+
+
+
   
 
 });
