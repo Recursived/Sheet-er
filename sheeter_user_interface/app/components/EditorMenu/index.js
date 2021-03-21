@@ -9,7 +9,8 @@ import {
   Grid,
   Box,
   Divider,
-  TextField
+  TextField,
+  Tooltip
 } from '@material-ui/core';
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
@@ -18,6 +19,10 @@ import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
 
+// Importing icons
+import PostAddIcon from '@material-ui/icons/PostAdd';
+import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
+import DoneAllIcon from '@material-ui/icons/DoneAll';
 
 // Misc imports
 import messages from './messages';
@@ -26,14 +31,13 @@ import SheetTypeCombo from './SheetTypeCombo';
 import SheetTagCombo from './SheetTagCombo';
 import TabEditor from './TabEditor';
 import GroupButtonEditor from './GroupButtonEditor';
+import { checkSheetExist, checkSheetDeleted } from 'utils/utils';
 
 // Importing actions 
-import { requestSetTitleSheet, requestAddSheet } from 'containers/EditingPage/actions';
+import { requestSetTitleSheet } from 'containers/EditingPage/actions';
 import makeSelectEditingPage from 'containers/EditingPage/selectors';
 
-
 const useStyles = makeStyles(theme => ({
-
   containermenu: {
     minHeight: '100%',
     [theme.breakpoints.down('sm')]: {
@@ -42,14 +46,38 @@ const useStyles = makeStyles(theme => ({
     }
   },
 
+  sheetstatus: {
+    textAlign: 'center',
+    paddingTop: '10px!important',
+  },
 
-
-
+  statusicon: {
+    fontSize: '3.5vh'
+  }
 }));
 
 function EditorMenu(props) {
   const classes = useStyles();
   const { buttons, dispatch, editing } = props;
+  const [titleValue, setTitleValue] = React.useState("");
+  const sheet_exists = checkSheetExist(editing);
+  
+  
+  let statusIcon = null;
+
+  if (editing.loading) {
+    statusIcon = <Tooltip aria-label="loading" title={<FormattedMessage {...messages.tooltipsheetissaving} />}><HourglassEmptyIcon className={classes.statusicon} /></Tooltip>;
+  } else if (sheet_exists) {
+    statusIcon = <Tooltip aria-label="loading" title={<FormattedMessage {...messages.tooltipsheetsaved} />}><DoneAllIcon className={classes.statusicon} /></Tooltip>;
+  } else {
+    statusIcon = <Tooltip aria-label="loading" title={<FormattedMessage {...messages.tooltipsheetnonexistant} />}><PostAddIcon className={classes.statusicon} /></Tooltip>;
+  }
+
+  React.useEffect(() => {
+    if (checkSheetDeleted(editing)){
+      setTitleValue("");
+    }
+  }, [editing])
 
   return (
     <Box className={classes.containermenu}>
@@ -65,8 +93,12 @@ function EditorMenu(props) {
             <Grid item xs={12}>
               <TextField
                 fullWidth
+                value={titleValue}
                 label={<FormattedMessage {...messages.titlesheet} />}
-                onChange={(event) => dispatch(requestSetTitleSheet(event.target.value))}
+                onChange={(event) => {
+                  setTitleValue(event.target.value);
+                  dispatch(requestSetTitleSheet(event.target.value))
+                }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -81,8 +113,8 @@ function EditorMenu(props) {
             <Grid item sm={12} lg={8}>
               <GroupButtonEditor />
             </Grid>
-            <Grid item sm={12} lg={4}>
-
+            <Grid item sm={12} lg={4} className={classes.sheetstatus}>
+              {statusIcon}
             </Grid>
           </Grid>
         </Grid>

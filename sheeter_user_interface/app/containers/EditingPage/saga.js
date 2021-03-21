@@ -23,14 +23,16 @@ import {
   REQUEST_SHEET_TYPE,
   REQUEST_SHEET_TAG,
   REQUEST_ADD_SHEETTAG,
-  REQUEST_ADD_SHEET
+  REQUEST_ADD_SHEET,
+  REQUEST_DELETE_SHEET
 } from './constants';
 
 import {
   successSheetTypeAction,
   successSheetTagAction,
   successAddSheetTagAction,
-  successAddSheet
+  successAddSheet,
+  successDeleteSheet
 } from './actions';
 
 import messages from './messages';
@@ -178,6 +180,35 @@ export function* handleRequestAddSheet() {
   }
 }
 
+export function* handleRequestDeleteSheetSheet() {
+  const api = getApi(RETRIEVE_SHEETAPI);
+  yield api.init();
+  const client = yield api.getClient();
+  try {
+    const user_info = yield select(makeSelectUserInfo());
+    const sheet_info = yield select(makeSelectEditingPage());
+
+    // We check if Sheet is created
+    if (sheet_info.id_sheet !== null) {
+      const res = yield client.sheet_delete(
+        {id : sheet_info.id_sheet},
+        null,
+        { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
+      );
+      yield put(successDeleteSheet());
+    }
+
+  } catch (error) {
+    yield put(enqueueSnackbar({
+      message: <FormattedMessage {...messages.erroraddsheet} />,
+      options: {
+        key: new Date().getTime() + Math.random(),
+        variant: 'error'
+      },
+    }));
+  }
+}
+
 
 /**
  * Watcher saga
@@ -187,4 +218,5 @@ export default function* handlerSaga() {
   yield takeLatest(REQUEST_ADD_SHEETTAG, handleRequestAddSheetTag);
   yield takeLatest(REQUEST_SHEET_TAG, handleRequestSheetTag);
   yield takeLatest(REQUEST_ADD_SHEET, handleRequestAddSheet);
+  yield takeLatest(REQUEST_DELETE_SHEET, handleRequestDeleteSheetSheet);
 }

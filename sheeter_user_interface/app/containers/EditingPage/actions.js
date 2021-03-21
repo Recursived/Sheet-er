@@ -18,7 +18,8 @@ import {
   REQUEST_SET_TYPESHEET,
   REQUEST_ADD_SHEET,
   SUCCESS_ADD_SHEET,
-  SUCCESS_DELETE_SHEET
+  SUCCESS_DELETE_SHEET,
+  REQUEST_DELETE_SHEET
 } from './constants';
 
 export function requestSheetTypeAction() {

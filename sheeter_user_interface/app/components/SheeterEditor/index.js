@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import katex from 'katex'
+import { debounce } from 'lodash';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import asciimath2latex from 'asciimath-to-latex';
 import { createStructuredSelector } from 'reselect';
@@ -56,7 +57,8 @@ import messages from './messages';
 import { WrapperEditor } from './WrapperEditor'
 import EditorMenu from 'components/EditorMenu/Loadable';
 import SheeterInlineToolbar from './EditorPlugins/InlinePlugin/SheeterInlineToolbar';
-import { debounce } from 'lodash';
+import { checkSheetExist, checkSheetDeleted } from 'utils/utils';
+
 
 
 // Init plugins for editor
@@ -163,19 +165,13 @@ function SheeterEditor(props) {
   );
 
   React.useEffect(() => {
-    console.log(wasModified);
-    if (editing.editor_content_sheet !== null &&
-      editing.title_sheet !== null &&
-      editing.locale_sheet !== null &&
-      editing.type_sheet !== null &&
-      (editing.tags_sheet !== null && editing.tags_sheet.length > 0) &&
-      wasModified
-    ) {
-      // When every fields are complete
+    if (checkSheetExist(editing) && wasModified) {
       dispatch(requestAddSheet());
       setWasModified(false);
     }
-  }, [wasModified])
+
+    if (checkSheetDeleted(editing)) setEditorState(EditorState.createEmpty());
+  }, [wasModified, editing])
 
   return (
     <Grid
@@ -203,7 +199,7 @@ function SheeterEditor(props) {
                 }}
                 onBlur={() => setHasFocus(false)}
                 onChange={(newState) => {
-                  if (editorState.getCurrentContent() !== newState.getCurrentContent()){
+                  if (editorState.getCurrentContent() !== newState.getCurrentContent()) {
                     saveContentEditor(convertToRaw(newState.getCurrentContent()));
                   }
                   setEditorState(newState);
@@ -247,21 +243,21 @@ function SheeterEditor(props) {
                 }
               />
             ) : (
-                <Tooltip title={<FormattedMessage {...messages.toomanywords} />}>
-                  <Chip
-                    icon={<WarningIcon className={classes.chipicon} />}
-                    className={classes.warningchip}
-                    label={
-                      <FormattedMessage
-                        {...messages.word}
-                        values={{
-                          counter: getWordCount(editorState),
-                        }}
-                      />
-                    }
-                  />
-                </Tooltip>
-              )}
+              <Tooltip title={<FormattedMessage {...messages.toomanywords} />}>
+                <Chip
+                  icon={<WarningIcon className={classes.chipicon} />}
+                  className={classes.warningchip}
+                  label={
+                    <FormattedMessage
+                      {...messages.word}
+                      values={{
+                        counter: getWordCount(editorState),
+                      }}
+                    />
+                  }
+                />
+              </Tooltip>
+            )}
           </Grid>
         </Grid>
       </Grid>

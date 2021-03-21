@@ -16,7 +16,8 @@ import {
   REQUEST_SET_IDSHEET,
   REQUEST_SET_TYPESHEET,
   SUCCESS_ADD_SHEET,
-  SUCCESS_DELETE_SHEET
+  SUCCESS_DELETE_SHEET,
+  REQUEST_ADD_SHEET
  } from './constants';
 
 export const initialState = {
@@ -34,6 +35,9 @@ export const initialState = {
   id_sheet: null,
   type_sheet: null,
   tags_sheet: [],
+  // loading flag when adding sheet to DB
+  sheet_loading: false,
+  sheet_deleted: false
 
 
 };
@@ -72,11 +76,20 @@ const editingPageReducer = (state = initialState, action) =>
       case REQUEST_SET_TYPESHEET:
         draft.type_sheet = action.sheet_type;
         break;
+      case REQUEST_ADD_SHEET:
+        draft.sheet_loading = true;
+        break;
       case SUCCESS_ADD_SHEET:
         draft.id_sheet = action.id;
+        draft.sheet_loading = false;
         break;
       case SUCCESS_DELETE_SHEET:
+        draft.sheet_deleted = true;
         draft.id_sheet = null;
+        draft.title_sheet = null;
+        draft.type_sheet = null;
+        draft.editor_content_sheet = null;
+        draft.tags_sheet = [];
         break;
     }
   });

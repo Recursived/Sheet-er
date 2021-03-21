@@ -109,6 +109,27 @@ export default defineMessages({
     defaultMessage: 'Sheet synced !',
   },
 
+  deletetitledialog: {
+    id: `${scope}.deletetitledialog`,
+    defaultMessage: 'Delete Sheet ?',
+  },
+
+  deletecontentdialog: {
+    id: `${scope}.deletecontentdialog`,
+    defaultMessage: 'Do you want to delete the current Sheet ? This action is irreversible !',
+  },
+
+  deleteyesbuttondialog: {
+    id: `${scope}.deleteyesbuttondialog`,
+    defaultMessage: 'Yes',
+  },
+
+  deletenobuttondialog: {
+    id: `${scope}.deletenobuttondialog`,
+    defaultMessage: 'No',
+  },
+
+
 
 
 
