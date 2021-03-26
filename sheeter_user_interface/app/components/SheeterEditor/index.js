@@ -13,7 +13,7 @@ import { debounce } from 'lodash';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import asciimath2latex from 'asciimath-to-latex';
 import { createStructuredSelector } from 'reselect';
-import { EditorState, RichUtils, getDefaultKeyBinding, convertToRaw } from 'draft-js';
+import { EditorState, RichUtils, getDefaultKeyBinding, convertToRaw, convertFromRaw } from 'draft-js';
 import Editor, { composeDecorators } from '@draft-js-plugins/editor';
 import { useTheme } from "@material-ui/styles";
 import { Chip, Tooltip, makeStyles, Grid } from '@material-ui/core';
@@ -146,7 +146,8 @@ function SheeterEditor(props) {
 
   const [hasFocus, setHasFocus] = React.useState(false);
   const [wasModified, setWasModified] = React.useState(false);
-  const [editorState, setEditorState] = React.useState(EditorState.createEmpty());
+  const [editorState, setEditorState] = React.useState(editing.editor_content_sheet ? 
+    EditorState.createWithContent(convertFromRaw(editing.editor_content_sheet)) : EditorState.createEmpty());
 
   const getWordCount = (editorState) => {
     const plainText = editorState.getCurrentContent().getPlainText('');

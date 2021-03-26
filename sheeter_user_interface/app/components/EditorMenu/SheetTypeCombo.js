@@ -35,7 +35,8 @@ function SheetTypeCombo(props) {
     const loading = open && editing.sheet_types.length === 0;
 
     React.useEffect(() => {
-        if (checkSheetDeleted(editing)) setTypeValue(null);
+        setTypeValue(editing.type_sheet ? 
+            editing.sheet_types.find(elem => elem.id == editing.type_sheet) : null);
     }, [editing]);
 
     return (

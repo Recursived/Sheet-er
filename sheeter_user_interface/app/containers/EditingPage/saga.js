@@ -153,7 +153,7 @@ export function* handleRequestAddSheet() {
       yield put(successAddSheet(res.data.id));
     } else { // If sheet created, we update
       const res = yield client.sheet_update(
-        {id: sheet_info.id_sheet},
+        { id: sheet_info.id_sheet },
         {
 
           content: JSON.stringify(sheet_info.editor_content_sheet),
@@ -165,7 +165,7 @@ export function* handleRequestAddSheet() {
         },
         { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
       );
-      
+
       yield put(successAddSheet(res.data.id));
     }
 
@@ -190,17 +190,36 @@ export function* handleRequestDeleteSheetSheet() {
 
     // We check if Sheet is created
     if (sheet_info.id_sheet !== null) {
-      const res = yield client.sheet_delete(
-        {id : sheet_info.id_sheet},
-        null,
-        { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
-      );
-      yield put(successDeleteSheet());
+      if (sheet_info.permanent_delete) {
+        yield client.sheet_delete(
+          { id: sheet_info.id_sheet },
+          null,
+          { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
+        );
+        yield put(successDeleteSheet());
+        yield put(enqueueSnackbar({
+          message: <FormattedMessage {...messages.deletesheetpermanent} />,
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'info'
+          },
+        }));
+      } else {
+        yield put(successDeleteSheet());
+        yield put(enqueueSnackbar({
+          message: <FormattedMessage {...messages.deletesheetcancel} />,
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'info'
+          },
+        }));
+      }
+      
     }
 
   } catch (error) {
     yield put(enqueueSnackbar({
-      message: <FormattedMessage {...messages.erroraddsheet} />,
+      message: <FormattedMessage {...messages.errordeletesheet} />,
       options: {
         key: new Date().getTime() + Math.random(),
         variant: 'error'

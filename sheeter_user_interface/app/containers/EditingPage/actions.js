@@ -118,9 +118,10 @@ export function successAddSheet(id_sheet) {
   }
 }
 
-export function requestDeleteSheet() {
+export function requestDeleteSheet(permanent) {
   return {
     type: REQUEST_DELETE_SHEET,
+    permanent: permanent
   }
 }
 

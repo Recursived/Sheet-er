@@ -4,7 +4,7 @@
  *
  */
 import produce from 'immer';
-import { 
+import {
   SUCCESS_SHEET_TYPE,
   REQUEST_SHEET_TAG,
   SUCCESS_SHEET_TAG,
@@ -17,17 +17,18 @@ import {
   REQUEST_SET_TYPESHEET,
   SUCCESS_ADD_SHEET,
   SUCCESS_DELETE_SHEET,
-  REQUEST_ADD_SHEET
- } from './constants';
+  REQUEST_ADD_SHEET,
+  REQUEST_DELETE_SHEET
+} from './constants';
 
 export const initialState = {
   // Used for combo
-  sheet_types : [],
-  sheet_tags : [],
-  
+  sheet_types: [],
+  sheet_tags: [],
+
   filter_tag: null, // Used to do search against tag API
   add_tag: null, // Used to add the tag in the SHEET API
-  
+
   // Used to manage the current edited sheet
   editor_content_sheet: null,
   title_sheet: null,
@@ -37,7 +38,8 @@ export const initialState = {
   tags_sheet: [],
   // loading flag when adding sheet to DB
   sheet_loading: false,
-  sheet_deleted: false
+  sheet_deleted: false,
+  permanent_delete : false,
 
 
 };
@@ -82,6 +84,9 @@ const editingPageReducer = (state = initialState, action) =>
       case SUCCESS_ADD_SHEET:
         draft.id_sheet = action.id;
         draft.sheet_loading = false;
+        break;
+      case REQUEST_DELETE_SHEET:
+        draft.permanent_delete = action.permanent;
         break;
       case SUCCESS_DELETE_SHEET:
         draft.sheet_deleted = true;

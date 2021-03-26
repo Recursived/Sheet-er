@@ -11,7 +11,8 @@ import {
     DialogActions,
     DialogContent,
     DialogContentText,
-    DialogTitle
+    DialogTitle,
+    makeStyles
 } from '@material-ui/core';
 import { FormattedMessage, injectIntl } from 'react-intl';
 
@@ -30,11 +31,19 @@ import makeSelectEditingPage from 'containers/EditingPage/selectors';
 // Misc imports
 import messages from './messages';
 
-
+const useStyles = makeStyles((theme) => ({
+    deletepermbutton: {
+        backgroundColor: `${theme.palette.error.main}`,
+        color: `${theme.palette.error.contrastText}`,
+        '&:hover': {
+            backgroundColor: `${theme.palette.error.dark}`,
+        }
+    },
+}));
 function GroupButtonEditor(props) {
     const { dispatch, editing } = props;
     const [open, setOpen] = React.useState(false);
-
+    const classes = useStyles();
 
     return (
         <React.Fragment>
@@ -56,13 +65,6 @@ function GroupButtonEditor(props) {
                         <FormattedMessage {...messages.linksheetbutton} />
                     </Button>
                 </Tooltip>
-                <Tooltip arrow title={<FormattedMessage {...messages.tooltipsheethistorybutton} />}>
-                    <Button
-                        startIcon={<RestorePageIcon />}
-                    >
-                        <FormattedMessage {...messages.sheethistorybutton} />
-                    </Button>
-                </Tooltip>
             </ButtonGroup>
 
             <Dialog
@@ -81,14 +83,25 @@ function GroupButtonEditor(props) {
                     <Button
                         onClick={() => {
                             setOpen(false);
-                            dispatch(requestDeleteSheet());
+                            dispatch(requestDeleteSheet(true));
                         }}
-                        color="primary"
+                        variant="contained"
+                        className={classes.deletepermbutton}
                     >
-                        <FormattedMessage {...messages.deleteyesbuttondialog} />
+                        <FormattedMessage {...messages.deletepermenatentbuttondialog} />
                     </Button>
-                    <Button onClick={() => setOpen(false)} color="primary" autoFocus>
-                        <FormattedMessage {...messages.deletenobuttondialog} />
+                    <Button
+                        onClick={() => {
+                            setOpen(false);
+                            dispatch(requestDeleteSheet(false));
+                        }}
+                        variant="contained"
+                        color="secondary"
+                    >
+                        <FormattedMessage {...messages.deletebuttondialog} />
+                    </Button>
+                    <Button onClick={() => setOpen(false)} variant="contained" color="secondary" autoFocus>
+                        <FormattedMessage {...messages.deletecancelbuttondialog} />
                     </Button>
                 </DialogActions>
             </Dialog>

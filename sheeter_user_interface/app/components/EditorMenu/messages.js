@@ -89,11 +89,6 @@ export default defineMessages({
     defaultMessage: 'Sheet history',
   },
 
-  tooltipsheethistorybutton: {
-    id: `${scope}.tooltipsheethistorybutton`,
-    defaultMessage: 'Edit a previously created Sheet',
-  },
-
   tooltipsheetissaving: {
     id: `${scope}.tooltipsheetissaving`,
     defaultMessage: 'Loading...',
@@ -111,22 +106,27 @@ export default defineMessages({
 
   deletetitledialog: {
     id: `${scope}.deletetitledialog`,
-    defaultMessage: 'Delete Sheet ?',
+    defaultMessage: 'Delete Sheet',
   },
 
   deletecontentdialog: {
     id: `${scope}.deletecontentdialog`,
-    defaultMessage: 'Do you want to delete the current Sheet ? This action is irreversible !',
+    defaultMessage: 'What do you want to do with this Sheet ?',
   },
 
-  deleteyesbuttondialog: {
-    id: `${scope}.deleteyesbuttondialog`,
-    defaultMessage: 'Yes',
+  deletepermenatentbuttondialog: {
+    id: `${scope}.deletepermenatentbuttondialog`,
+    defaultMessage: 'Delete permanently',
   },
 
-  deletenobuttondialog: {
-    id: `${scope}.deletenobuttondialog`,
-    defaultMessage: 'No',
+  deletebuttondialog: {
+    id: `${scope}.deletebuttondialog`,
+    defaultMessage: 'Clear editor',
+  },
+
+  deletecancelbuttondialog: {
+    id: `${scope}.deletecancelbuttondialog`,
+    defaultMessage: 'Cancel',
   },
 
 

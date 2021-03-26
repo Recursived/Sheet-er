@@ -60,24 +60,21 @@ function EditorMenu(props) {
   const classes = useStyles();
   const { buttons, dispatch, editing } = props;
   const [titleValue, setTitleValue] = React.useState("");
-  const sheet_exists = checkSheetExist(editing);
+
+  React.useEffect(() => {
+    setTitleValue(editing.title_sheet ? editing.title_sheet : "");
+  }, [editing]);
   
   
   let statusIcon = null;
 
   if (editing.loading) {
     statusIcon = <Tooltip aria-label="loading" title={<FormattedMessage {...messages.tooltipsheetissaving} />}><HourglassEmptyIcon className={classes.statusicon} /></Tooltip>;
-  } else if (sheet_exists) {
+  } else if (checkSheetExist(editing)) {
     statusIcon = <Tooltip aria-label="loading" title={<FormattedMessage {...messages.tooltipsheetsaved} />}><DoneAllIcon className={classes.statusicon} /></Tooltip>;
   } else {
     statusIcon = <Tooltip aria-label="loading" title={<FormattedMessage {...messages.tooltipsheetnonexistant} />}><PostAddIcon className={classes.statusicon} /></Tooltip>;
   }
-
-  React.useEffect(() => {
-    if (checkSheetDeleted(editing)){
-      setTitleValue("");
-    }
-  }, [editing])
 
   return (
     <Box className={classes.containermenu}>
