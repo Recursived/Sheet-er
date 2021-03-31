@@ -13,6 +13,7 @@ import {
   Tooltip
 } from '@material-ui/core';
 import React, { memo } from 'react';
+import { debounce } from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -31,11 +32,14 @@ import SheetTypeCombo from './SheetTypeCombo';
 import SheetTagCombo from './SheetTagCombo';
 import TabEditor from './TabEditor';
 import GroupButtonEditor from './GroupButtonEditor';
-import { checkSheetExist, checkSheetDeleted } from 'utils/utils';
+import { checkSheetExist, localeToCode } from 'utils/utils';
 
-// Importing actions 
+
+// Importing actions and selector
 import { requestSetTitleSheet } from 'containers/EditingPage/actions';
 import makeSelectEditingPage from 'containers/EditingPage/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+
 
 const useStyles = makeStyles(theme => ({
   containermenu: {
@@ -58,22 +62,43 @@ const useStyles = makeStyles(theme => ({
 
 function EditorMenu(props) {
   const classes = useStyles();
-  const { buttons, dispatch, editing } = props;
+  const { buttons, dispatch, editing, locale } = props;
   const [titleValue, setTitleValue] = React.useState("");
+  const saveTitleSheet = React.useCallback(
+    debounce((title) => {
+      dispatch(requestSetTitleSheet(title));
+    }, 1000),
+    []
+  );
+
 
   React.useEffect(() => {
     setTitleValue(editing.title_sheet ? editing.title_sheet : "");
   }, [editing]);
-  
-  
-  let statusIcon = null;
 
+
+  let statusIcon = null;
   if (editing.loading) {
-    statusIcon = <Tooltip aria-label="loading" title={<FormattedMessage {...messages.tooltipsheetissaving} />}><HourglassEmptyIcon className={classes.statusicon} /></Tooltip>;
+    statusIcon =
+      <Tooltip aria-label="Saving sheet" title={<FormattedMessage {...messages.tooltipsheetissaving} />}>
+        <HourglassEmptyIcon className={classes.statusicon} />
+      </Tooltip>;
   } else if (checkSheetExist(editing)) {
-    statusIcon = <Tooltip aria-label="loading" title={<FormattedMessage {...messages.tooltipsheetsaved} />}><DoneAllIcon className={classes.statusicon} /></Tooltip>;
+    statusIcon =
+      <Tooltip aria-label="Sheet saved"
+        title={
+          <FormattedMessage {...messages.tooltipsheetsaved}
+            values={{
+              lasttime: new Date().toLocaleString(localeToCode[locale])
+            }} />
+        }>
+        <DoneAllIcon className={classes.statusicon} />
+      </Tooltip>;
   } else {
-    statusIcon = <Tooltip aria-label="loading" title={<FormattedMessage {...messages.tooltipsheetnonexistant} />}><PostAddIcon className={classes.statusicon} /></Tooltip>;
+    statusIcon =
+      <Tooltip aria-label="Sheet is invalid or non existant" title={<FormattedMessage {...messages.tooltipsheetnonexistant} />}>
+        <PostAddIcon className={classes.statusicon} />
+      </Tooltip>;
   }
 
   return (
@@ -94,7 +119,7 @@ function EditorMenu(props) {
                 label={<FormattedMessage {...messages.titlesheet} />}
                 onChange={(event) => {
                   setTitleValue(event.target.value);
-                  dispatch(requestSetTitleSheet(event.target.value))
+                  saveTitleSheet(event.target.value);
                 }}
               />
             </Grid>
@@ -134,11 +159,13 @@ function EditorMenu(props) {
 
 EditorMenu.propTypes = {
   buttons: PropTypes.object.isRequired,
-  editing: PropTypes.object.isRequired
+  editing: PropTypes.object.isRequired,
+  locale: PropTypes.string.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
-  editing: makeSelectEditingPage()
+  editing: makeSelectEditingPage(),
+  locale: makeSelectLocale()
 });
 
 function mapDispatchToProps(dispatch) {
