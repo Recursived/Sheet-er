@@ -66,12 +66,8 @@ services:
     frontend:
         build: ./sheeter_user_interface
         command: ["npm", "run", "start"]
-        volumes:
-            - ./sheeter_user_interface:/app/
-            - node-modules:/app/node_modules
         ports:
             - 3000:3000
         
 volumes:
     db-data:
-    node-modules:
