@@ -19,7 +19,6 @@ import {
 
 // Misc imports
 import messages from './messages';
-import { checkSheetDeleted } from 'utils/utils';
 
 function SheetTypeCombo(props) {
     const { editing, dispatch } = props;

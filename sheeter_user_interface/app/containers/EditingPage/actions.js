@@ -14,7 +14,6 @@ import {
   REQUEST_SET_EDITORCONTENT,
   REQUEST_SET_LOCALESHEET,
   REQUEST_SET_TITLESHEET,
-  REQUEST_SET_IDSHEET,
   REQUEST_SET_TYPESHEET,
   REQUEST_ADD_SHEET,
   SUCCESS_ADD_SHEET,
@@ -94,12 +93,6 @@ export function requestSetTypeSheet(sheet_type) {
   }
 }
 
-export function requestSetIdSheet(id_sheet) {
-  return {
-    type: REQUEST_SET_IDSHEET,
-    id_sheet: id_sheet
-  }
-}
 
 /**
  * Actions used to create, modify or delete a sheet

@@ -26,7 +26,7 @@ export default defineMessages({
 
   donecontentvalid: {
     id: `${scope}.donecontentvalid`,
-    defaultMessage: "Done",
+    defaultMessage: "dededez",
   },
 
   donecontentinvalid: {

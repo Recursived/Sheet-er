@@ -36,10 +36,10 @@ export const initialState = {
   id_sheet: null,
   type_sheet: null,
   tags_sheet: [],
-  // loading flag when adding sheet to DB
+  // flag when making an action on sheet
   sheet_loading: false,
-  sheet_deleted: false,
   permanent_delete : false,
+  sheet_modified : false
 
 
 };
@@ -61,35 +61,38 @@ const editingPageReducer = (state = initialState, action) =>
         draft.add_tag = action.tags;
         break;
       case SUCCESS_ADD_SHEETTAG:
+        draft.sheet_modified = true;
         draft.tags_sheet = action.response;
         break;
       case REQUEST_SET_EDITORCONTENT:
+        draft.sheet_modified = true;
         draft.editor_content_sheet = action.content;
         break;
       case REQUEST_SET_TITLESHEET:
+        draft.sheet_modified = true;
         draft.title_sheet = action.title;
         break;
       case REQUEST_SET_LOCALESHEET:
+        draft.sheet_modified = true;
         draft.locale_sheet = action.locale;
         break;
-      case REQUEST_SET_IDSHEET:
-        draft.id_sheet = action.id_sheet;
-        break;
       case REQUEST_SET_TYPESHEET:
+        draft.sheet_modified = true;
         draft.type_sheet = action.sheet_type;
         break;
       case REQUEST_ADD_SHEET:
+        draft.sheet_modified = false;
         draft.sheet_loading = true;
         break;
       case SUCCESS_ADD_SHEET:
-        draft.id_sheet = action.id;
+        draft.sheet_modified = false;
         draft.sheet_loading = false;
+        draft.id_sheet = action.id;
         break;
       case REQUEST_DELETE_SHEET:
         draft.permanent_delete = action.permanent;
         break;
       case SUCCESS_DELETE_SHEET:
-        draft.sheet_deleted = true;
         draft.id_sheet = null;
         draft.title_sheet = null;
         draft.type_sheet = null;

@@ -37,7 +37,7 @@ export default defineMessages({
 
 
   errordeletesheet: {
-    id: `${scope}.erroraddsheet`,
+    id: `${scope}.errordeletesheet`,
     defaultMessage: 'We faced a problem trying to delete your sheet',
   },
 

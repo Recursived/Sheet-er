@@ -99,9 +99,9 @@ export default defineMessages({
     defaultMessage: 'No existing sheet',
   },
 
-  tooltipsheetsaved: {
+  tooltipsheetsaved : {
     id: `${scope}.tooltipsheetsaved`,
-    defaultMessage: 'Sheet synced !',
+    defaultMessage: 'Sheet synced ! (last time : {lasttime})',
   },
 
   deletetitledialog: {

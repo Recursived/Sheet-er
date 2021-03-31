@@ -22,8 +22,16 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
+// Importing actions and selectors
+import {
+  requestAddSheet
+} from 'containers/EditingPage/actions';
+
 // Importing components
 import SheeterEditor from 'components/SheeterEditor/Loadable';
+
+// Misc imports
+import { checkSheetExist } from 'utils/utils';
 
 
 const useStyles = makeStyles(theme => ({
@@ -63,9 +71,18 @@ const useStyles = makeStyles(theme => ({
 export function EditingPage(props) {
   const classes = useStyles();
   const intl = props.intl;
+  const {dispatch, editing } = props;
 
   useInjectReducer({ key: 'editingPage', reducer });
   useInjectSaga({ key: 'editingPage', saga });
+
+  // Si un elem est modifié est que la fiche est complète, on save automatiquement
+  React.useEffect(() => {
+    if (checkSheetExist(editing) && editing.sheet_modified) {
+      dispatch(requestAddSheet());
+    }
+
+  }, [editing]);
   
   return (
     <Box className={classes.boxcontainer}>

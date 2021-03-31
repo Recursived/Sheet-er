@@ -146,33 +146,27 @@ function SheeterEditor(props) {
 
   const [hasFocus, setHasFocus] = React.useState(false);
   const [wasModified, setWasModified] = React.useState(false);
-  const [editorState, setEditorState] = React.useState(editing.editor_content_sheet ? 
+  const [editorState, setEditorState] = React.useState(editing.editor_content_sheet ?
     EditorState.createWithContent(convertFromRaw(editing.editor_content_sheet)) : EditorState.createEmpty());
-
+    
   const getWordCount = (editorState) => {
     const plainText = editorState.getCurrentContent().getPlainText('');
     const regex = /(?:\r\n|\r|\n)/g;  // new line, carriage return, line feed
     const cleanString = plainText.replace(regex, ' ').trim(); // replace above characters w/ space
     const wordArray = cleanString.match(/\S+/g);  // matches words according to whitespace
     return wordArray ? wordArray.length : 0;
-  }
-
+  };
   const saveContentEditor = React.useCallback(
     debounce((content) => {
       dispatch(requestSetEditorContent(content));
-      setWasModified(true);
     }, 1000),
     []
   );
 
   React.useEffect(() => {
-    if (checkSheetExist(editing) && wasModified) {
-      dispatch(requestAddSheet());
-      setWasModified(false);
-    }
-
-    if (checkSheetDeleted(editing)) setEditorState(EditorState.createEmpty());
-  }, [wasModified, editing])
+    if (checkSheetDeleted(editing))
+      setEditorState(EditorState.createEmpty());
+  }, [editing]);
 
   return (
     <Grid

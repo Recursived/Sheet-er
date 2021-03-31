@@ -41,7 +41,7 @@ import { RETRIEVE_SHEETAPI } from 'utils/api';
 import makeSelectEditingPage from './selectors';
 import {
   localeToCode
-} from 'i18n';
+} from 'utils/utils';
 
 
 export function* handleRequestSheetType() {
@@ -214,7 +214,7 @@ export function* handleRequestDeleteSheetSheet() {
           },
         }));
       }
-      
+
     }
 
   } catch (error) {
