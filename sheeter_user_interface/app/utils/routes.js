@@ -11,6 +11,7 @@ import landingpageMessages from 'containers/LandingPage/messages';
 import notfoundpageMessages from 'containers/NotFoundPage/messages';
 import loginpageMessages from 'containers/LoginPage/messages';
 import editingpageMessages from 'containers/EditingPage/messages';
+import settingspageMessages from 'containers/SettingsPage/messages';
 
 
 
@@ -37,6 +38,11 @@ export default {
 
     editingpage: {
         path: '/editing',
-        name: <FormattedMessage {...editingpageMessages.routeLoginpage} />,
+        name: <FormattedMessage {...editingpageMessages.editingroute} />,
+    },
+
+    settingspage: {
+        path: '/settings',
+        name: <FormattedMessage {...settingspageMessages.routeSettingsPage} />,
     }
 }
