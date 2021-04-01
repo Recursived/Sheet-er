@@ -26,7 +26,7 @@
   "app.components.EditorMenu.tooltiplinksheetbutton": "Link this Sheet to another one",
   "app.components.EditorMenu.tooltipsave": "Save",
   "app.components.EditorMenu.tooltipsheetissaving": "Loading...",
-  "app.components.EditorMenu.tooltipsheetnonexistant": "No existing sheet",
+  "app.components.EditorMenu.tooltipsheetnonexistant": "No existing sheet or not complete",
   "app.components.EditorMenu.tooltipsheetsaved": "Sheet synced ! (last time : {lasttime})",
   "app.components.HamburgerMenu.header": "This is the HamburgerMenu component!",
   "app.components.LandingPageForm.errorfacebook": "An error occured when trying to connect with Facebook",

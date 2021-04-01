@@ -96,7 +96,7 @@ export default defineMessages({
 
   tooltipsheetnonexistant: {
     id: `${scope}.tooltipsheetnonexistant`,
-    defaultMessage: 'No existing sheet',
+    defaultMessage: 'No existing sheet or not complete',
   },
 
   tooltipsheetsaved : {
