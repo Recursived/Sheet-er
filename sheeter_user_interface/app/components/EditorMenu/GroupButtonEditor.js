@@ -30,6 +30,7 @@ import makeSelectEditingPage from 'containers/EditingPage/selectors';
 
 // Misc imports
 import messages from './messages';
+import { checkSheetExist, localeToCode } from 'utils/utils';
 
 const useStyles = makeStyles((theme) => ({
     deletepermbutton: {
@@ -50,7 +51,7 @@ function GroupButtonEditor(props) {
             <ButtonGroup disableElevation variant="contained" color="primary" >
                 <Tooltip arrow title={<FormattedMessage {...messages.tooltipdeletesheetbutton} />}>
                     <Button
-                        disabled={editing.id_sheet === null}
+                        disabled={!checkSheetExist(editing)}
                         startIcon={<DeleteForeverIcon />}
                         onClick={() => setOpen(true)}
                     >
@@ -59,7 +60,7 @@ function GroupButtonEditor(props) {
                 </Tooltip>
                 <Tooltip arrow title={<FormattedMessage {...messages.tooltiplinksheetbutton} />}>
                     <Button
-                        disabled={editing.id_sheet === null}
+                        disabled={!checkSheetExist(editing)}
                         startIcon={<LinkIcon />}
                     >
                         <FormattedMessage {...messages.linksheetbutton} />

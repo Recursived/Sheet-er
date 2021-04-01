@@ -4,9 +4,14 @@
  */
 
 // Locale utils
+
+/**
+ * Transform isoCode of locale into a char reprensenting an flag
+ * @param {string} isoCode 
+ * @returns 
+ */
 export function countryToFlag(isoCode) {
-    // Pour les drapeaux et leur code https://material-ui.com/components/autocomplete/ 
-    // Country select component
+    // For flags and their code https://material-ui.com/components/autocomplete/ 
     const codeConverter = {
         'en': 'gb',
         'fr': 'fr'
@@ -28,18 +33,23 @@ export const localeToCode = {
     'en': 'en-EN',
     'fr': 'fr-FR'
 }
+
 // Editing pages utils
 
+function checkNullOrEmpty(val){
+    return val === null || val === "";
+}
+
 /**
- * This function check if a sheet exists in redux store
+ * This function check if a sheet exists in redux store 
  * @param {obj} editing 
- * @returns 
+ * @returns array
  */
 export function checkSheetExist(editing) {
-    return editing.editor_content_sheet !== null &&
-        editing.title_sheet !== null &&
-        editing.locale_sheet !== null &&
-        editing.type_sheet !== null &&
+    return !checkNullOrEmpty(editing.editor_content_sheet) &&
+        !checkNullOrEmpty(editing.title_sheet) &&
+        !checkNullOrEmpty(editing.locale_sheet) &&
+        !checkNullOrEmpty(editing.type_sheet) &&
         (editing.tags_sheet !== null && editing.tags_sheet.length > 0);
 }
 

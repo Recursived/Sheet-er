@@ -71,13 +71,13 @@ function EditorMenu(props) {
     []
   );
 
-
+  let statusIcon = null;
   React.useEffect(() => {
     setTitleValue(editing.title_sheet ? editing.title_sheet : "");
   }, [editing]);
 
 
-  let statusIcon = null;
+  
   if (editing.loading) {
     statusIcon =
       <Tooltip aria-label="Saving sheet" title={<FormattedMessage {...messages.tooltipsheetissaving} />}>
