@@ -25,7 +25,6 @@ import {appLocales} from 'i18n';
 function LocaleCombo(props) {
     const { defaultLocale, dispatch } = props;
     const [localeValue, setLocaleValue] = React.useState(defaultLocale);
-    console.log(appLocales);
     React.useEffect(() => {
         dispatch(requestSetLocaleSheet(localeValue));
     }, [])
