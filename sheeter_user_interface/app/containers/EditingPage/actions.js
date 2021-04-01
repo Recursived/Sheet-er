@@ -15,6 +15,7 @@ import {
   REQUEST_SET_LOCALESHEET,
   REQUEST_SET_TITLESHEET,
   REQUEST_SET_TYPESHEET,
+  REQUEST_SET_DESCRSHEET,
   REQUEST_ADD_SHEET,
   SUCCESS_ADD_SHEET,
   SUCCESS_DELETE_SHEET,
@@ -90,6 +91,13 @@ export function requestSetTypeSheet(sheet_type) {
   return {
     type: REQUEST_SET_TYPESHEET,
     sheet_type: sheet_type
+  }
+}
+
+export function requestSetDescrSheet(descr_sheet) {
+  return {
+    type: REQUEST_SET_DESCRSHEET,
+    descr_sheet: descr_sheet
   }
 }
 

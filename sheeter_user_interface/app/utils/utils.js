@@ -34,6 +34,10 @@ export const localeToCode = {
     'fr': 'fr-FR'
 }
 
+export const codeToLocale = {
+    'en-EN': 'en',
+    'fr-FR': 'fr'
+}
 // Editing pages utils
 
 function checkNullOrEmpty(val){
@@ -50,6 +54,7 @@ export function checkSheetExist(editing) {
         !checkNullOrEmpty(editing.title_sheet) &&
         !checkNullOrEmpty(editing.locale_sheet) &&
         !checkNullOrEmpty(editing.type_sheet) &&
+        !checkNullOrEmpty(editing.descr_sheet) &&
         (editing.tags_sheet !== null && editing.tags_sheet.length > 0);
 }
 
@@ -63,5 +68,6 @@ export function checkSheetDeleted(editing) {
         editing.title_sheet === null &&
         editing.id_sheet === null &&
         editing.type_sheet === null &&
+        editing.descr_sheet === null &&
         (editing.tags_sheet !== null && editing.tags_sheet.length == 0);
 }

@@ -138,30 +138,34 @@ export function* handleRequestAddSheet() {
 
     // If sheet not yet created
     if (sheet_info.id_sheet === null) {
+      delete sheet_info.type_sheet["firstLetter"];
       const res = yield client.sheet_create(
         null,
         {
           content: JSON.stringify(sheet_info.editor_content_sheet),
           title: sheet_info.title_sheet,
+          descr: sheet_info.descr_sheet,
           locale: localeToCode[sheet_info.locale_sheet],
           subject: sheet_info.type_sheet,
           plagiarism_rate: 0, // to-do : faire une api qui permet de calculer cela
-          tags: sheet_info.tags_sheet.map(tag => tag.id)
+          tags: sheet_info.tags_sheet
         },
         { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
       );
       yield put(successAddSheet(res.data.id));
     } else { // If sheet created, we update
+      delete sheet_info.type_sheet["firstLetter"];
       const res = yield client.sheet_update(
         { id: sheet_info.id_sheet },
         {
 
           content: JSON.stringify(sheet_info.editor_content_sheet),
           title: sheet_info.title_sheet,
+          descr: sheet_info.descr_sheet,
           locale: localeToCode[sheet_info.locale_sheet],
           subject: sheet_info.type_sheet,
           plagiarism_rate: 0, // to-do : faire une api qui permet de calculer cela
-          tags: sheet_info.tags_sheet.map(tag => tag.id)
+          tags: sheet_info.tags_sheet
         },
         { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
       );

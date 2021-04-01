@@ -14,6 +14,11 @@ export default defineMessages({
     defaultMessage: 'Title',
   },
 
+  descrsheet: {
+    id: `${scope}.descrsheet`,
+    defaultMessage: 'Description',
+  },
+
   localesheet: {
     id: `${scope}.localesheet`,
     defaultMessage: 'Locale',

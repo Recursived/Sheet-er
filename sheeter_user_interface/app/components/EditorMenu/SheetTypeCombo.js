@@ -35,7 +35,7 @@ function SheetTypeCombo(props) {
 
     React.useEffect(() => {
         setTypeValue(editing.type_sheet ? 
-            editing.sheet_types.find(elem => elem.id == editing.type_sheet) : null);
+            editing.sheet_types.find(elem => elem.id == editing.type_sheet.id) : null);
     }, [editing]);
 
     return (
@@ -49,7 +49,7 @@ function SheetTypeCombo(props) {
             open={open}
             onChange={(_, value) => {
                 setTypeValue(value)
-                dispatch(requestSetTypeSheet(value.id));
+                dispatch(requestSetTypeSheet(value));
             }}
             loading={loading}
             options={options.sort((a, b) => -b.firstLetter.localeCompare(a.firstLetter))}

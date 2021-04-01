@@ -36,7 +36,7 @@ import { checkSheetExist, localeToCode } from 'utils/utils';
 
 
 // Importing actions and selector
-import { requestSetTitleSheet } from 'containers/EditingPage/actions';
+import { requestSetTitleSheet, requestSetDescrSheet } from 'containers/EditingPage/actions';
 import makeSelectEditingPage from 'containers/EditingPage/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -64,9 +64,17 @@ function EditorMenu(props) {
   const classes = useStyles();
   const { buttons, dispatch, editing, locale } = props;
   const [titleValue, setTitleValue] = React.useState("");
+  const [descrValue, setDescrValue] = React.useState("");
+  
   const saveTitleSheet = React.useCallback(
     debounce((title) => {
       dispatch(requestSetTitleSheet(title));
+    }, 1000),
+    []
+  );
+  const saveDescrSheet = React.useCallback(
+    debounce((title) => {
+      dispatch(requestSetDescrSheet(title));
     }, 1000),
     []
   );
@@ -74,6 +82,7 @@ function EditorMenu(props) {
   let statusIcon = null;
   React.useEffect(() => {
     setTitleValue(editing.title_sheet ? editing.title_sheet : "");
+    setDescrValue(editing.descr_sheet ? editing.descr_sheet : "");
   }, [editing]);
 
 
@@ -120,6 +129,19 @@ function EditorMenu(props) {
                 onChange={(event) => {
                   setTitleValue(event.target.value);
                   saveTitleSheet(event.target.value);
+                }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                multiline
+                rows={3}
+                value={descrValue}
+                label={<FormattedMessage {...messages.descrsheet} />}
+                onChange={(event) => {
+                  setDescrValue(event.target.value);
+                  saveDescrSheet(event.target.value);
                 }}
               />
             </Grid>

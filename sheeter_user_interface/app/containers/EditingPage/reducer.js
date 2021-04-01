@@ -13,7 +13,7 @@ import {
   REQUEST_SET_EDITORCONTENT,
   REQUEST_SET_TITLESHEET,
   REQUEST_SET_LOCALESHEET,
-  REQUEST_SET_IDSHEET,
+  REQUEST_SET_DESCRSHEET,
   REQUEST_SET_TYPESHEET,
   SUCCESS_ADD_SHEET,
   SUCCESS_DELETE_SHEET,
@@ -33,6 +33,7 @@ export const initialState = {
   editor_content_sheet: null,
   title_sheet: null,
   locale_sheet: null,
+  descr_sheet: null,
   id_sheet: null,
   type_sheet: null,
   tags_sheet: [],
@@ -80,6 +81,10 @@ const editingPageReducer = (state = initialState, action) =>
         draft.sheet_modified = true;
         draft.type_sheet = action.sheet_type;
         break;
+      case REQUEST_SET_DESCRSHEET:
+        draft.descr_sheet = action.descr_sheet
+        draft.sheet_modified = true;
+        break;
       case REQUEST_ADD_SHEET:
         draft.sheet_modified = false;
         draft.sheet_loading = true;
@@ -96,6 +101,7 @@ const editingPageReducer = (state = initialState, action) =>
         draft.id_sheet = null;
         draft.title_sheet = null;
         draft.type_sheet = null;
+        draft.descr_sheet = null;
         draft.editor_content_sheet = null;
         draft.tags_sheet = [];
         break;
