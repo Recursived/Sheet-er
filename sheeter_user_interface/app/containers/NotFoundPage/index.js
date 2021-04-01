@@ -37,7 +37,7 @@ export function NotFound(props) {
 }
 
 NotFound.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  // dispatch: PropTypes.func.isRequired,
   intl: intlShape.isRequired
 };
 
