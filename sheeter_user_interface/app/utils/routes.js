@@ -11,6 +11,7 @@ import landingpageMessages from 'containers/LandingPage/messages';
 import notfoundpageMessages from 'containers/NotFoundPage/messages';
 import loginpageMessages from 'containers/LoginPage/messages';
 import editingpageMessages from 'containers/EditingPage/messages';
+import sheetpageMessages from 'containers/SheetPage/messages'
 
 
 
@@ -38,5 +39,10 @@ export default {
     editingpage: {
         path: '/editing',
         name: <FormattedMessage {...editingpageMessages.editingroute} />,
+    },
+
+    sheetpage: {
+        path: '/sheet/:id',
+        name:  <FormattedMessage {...sheetpageMessages.sheetroute} />,
     }
 }
