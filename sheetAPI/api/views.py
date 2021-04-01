@@ -12,6 +12,10 @@ class SheetViewSet(viewsets.ModelViewSet):
     queryset = Sheet.objects.all()
     serializer_class = SheetSerializer
 
+    # def perform_create(self, serializer):
+    #     print(self.request.query_params)
+    #     serializer.save(self.request)
+
 
 class SheetTagViewSet(viewsets.ModelViewSet):
     """
