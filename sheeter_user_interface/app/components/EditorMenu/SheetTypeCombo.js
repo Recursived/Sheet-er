@@ -63,7 +63,6 @@ function SheetTypeCombo(props) {
             groupBy={(option) => option.firstLetter}
             getOptionLabel={(option) => option.label}
             noOptionsText={<FormattedMessage {...messages.nooptionslabel} />}
-
             loadingText={<FormattedMessage {...messages.loadinglabel} />}
             renderInput={(params) => (
                 <TextField

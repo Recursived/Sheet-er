@@ -28,7 +28,6 @@ function LocaleCombo(props) {
     React.useEffect(() => {
         dispatch(requestSetLocaleSheet(localeValue));
     }, [])
-
     return (
         <Autocomplete
             options={appLocales}

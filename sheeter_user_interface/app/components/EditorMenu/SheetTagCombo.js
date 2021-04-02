@@ -31,13 +31,13 @@ const filter = createFilterOptions({
 
 function SheetTagCombo(props) {
     const [value, setValue] = React.useState([]);
-
+  
     const { editing, intl, dispatch } = props;
     const handlerChange = React.useCallback(
         debounce((newValue) => dispatch(requestSheetTagAction(newValue)), 500),
         []
     );
-
+  
     React.useEffect(() => {
         if (editing.response_add_tag !== null) {
             setValue(editing.tags_sheet);

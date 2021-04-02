@@ -43,9 +43,11 @@ const useStyles = makeStyles((theme) => ({
     height: "45px",
   },
 
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
 
 }));
-
 
 function SheeterNav(props) {
   const classes = useStyles();
@@ -53,7 +55,7 @@ function SheeterNav(props) {
 
   return (
     <div>
-      <AppBar position="fixed" color="inherit">
+      <AppBar position="fixed" color="inherit" className={classes.appBar}>
         <Toolbar>
           <Grid
             container

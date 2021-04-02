@@ -28,7 +28,6 @@ const appLocales = [
 ];
 
 
-
 const formatTranslationMessages = (locale, messages) => {
   const defaultFormattedMessages =
     locale !== DEFAULT_LOCALE
@@ -51,7 +50,6 @@ const translationMessages = {
   fr: formatTranslationMessages('fr', frTranslationMessages),
 
 };
-
 exports.appLocales = appLocales;
 exports.formatTranslationMessages = formatTranslationMessages;
 exports.translationMessages = translationMessages;

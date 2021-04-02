@@ -94,6 +94,7 @@ export default defineMessages({
     defaultMessage: 'Sheet history',
   },
 
+
   tooltipsheetissaving: {
     id: `${scope}.tooltipsheetissaving`,
     defaultMessage: 'Loading...',
@@ -133,12 +134,4 @@ export default defineMessages({
     id: `${scope}.deletecancelbuttondialog`,
     defaultMessage: 'Cancel',
   },
-
-
-
-
-
-
-  
-
 });

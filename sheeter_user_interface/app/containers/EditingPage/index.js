@@ -22,6 +22,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
+
 // Importing actions and selectors
 import {
   requestAddSheet
@@ -83,7 +84,7 @@ export function EditingPage(props) {
     }
 
   }, [editing]);
-  
+
   return (
     <Box className={classes.boxcontainer}>
       <Helmet>
