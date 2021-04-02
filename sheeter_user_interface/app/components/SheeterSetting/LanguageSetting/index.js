@@ -6,24 +6,20 @@
  */
 
 import React, { memo } from 'react';
-import { makeStyles } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-import { changeTheme } from 'containers/ThemeProvider/actions';
+// Misc imports
+import LocaleSelector from 'components/LocaleSelector';
 
-function LanguageSetting(props) {
-  const {
-    dispatch,
-    theme,
-    user_info
-  } = props;
+function LanguageSetting() {
   
   return (
     <CardContent>
       <Typography color="textSecondary" gutterBottom>
         Select your Language
       </Typography>
+      <LocaleSelector/>
     </CardContent>
   );
 }

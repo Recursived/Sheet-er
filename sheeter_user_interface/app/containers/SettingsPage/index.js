@@ -26,7 +26,7 @@ import Card from '@material-ui/core/Card';
 import ExitToApp from '@material-ui/icons/ExitToApp';
 import InfoIcon from '@material-ui/icons/Info';
 
-import  { isRequestLogOutAction }  from 'containers/App/actions';
+import { isRequestLogOutAction } from 'containers/App/actions';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import makeSelectSettingsPage from './selectors';
@@ -87,9 +87,33 @@ export function SettingsPage(props) {
     user_info
   } = props
 
-  const [state, setCurrentTab] = React.useState({
-    currentTab: "None",
-  });
+  const [currentTab, setCurrentTab] = React.useState("None");
+
+
+  let settingComponent = null;
+  switch (currentTab) {
+    case "AccountSetting":
+      settingComponent = <AccountSetting />;
+      break;
+    case "LanguageSetting":
+      settingComponent = <LanguageSetting />;
+      break;
+    case "ThemeSetting":
+      settingComponent = <LanguageSetting />;
+      break;
+    case "AboutSetting":
+      settingComponent = <AboutSetting />;
+      break;
+    default:
+      settingComponent = <span />;
+  }
+
+  console.log(currentTab);
+
+  // {(state.currentTab == "ThemeSetting") && <ThemeSetting />}
+  // {(state.currentTab == "AboutSetting") && <AboutSetting />}
+  // {(state.currentTab == "AccountSetting") && <AccountSetting />}
+  // {(state.currentTab == "LanguageSetting") && <LanguageSetting />
 
   return (
     <div>
@@ -107,16 +131,16 @@ export function SettingsPage(props) {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            <ListItem button key="Account" onClick={() => { setCurrentTab({ currentTab: "AccountSetting" }) }}>
+            <ListItem button key="Account" onClick={() => { setCurrentTab("AccountSetting") }}>
               <ListItemIcon> <AccountCircleIcon /> </ListItemIcon>
               <ListItemText primary="Account" />
             </ListItem>
             <Divider />
-            <ListItem button key="Language" onClick={() => { setCurrentTab({ currentTab: "LanguageSetting" }) }}>
+            <ListItem button key="Language" onClick={() => { setCurrentTab("LanguageSetting") }}>
               <ListItemIcon> <LanguageIcon /> </ListItemIcon>
               <ListItemText primary="Language" />
             </ListItem>
-            <ListItem button key="Theme" onClick={() => { setCurrentTab({ currentTab: "ThemeSetting" }) }}>
+            <ListItem button key="Theme" onClick={() => { setCurrentTab("ThemeSetting") }}>
               <ListItemIcon> <Brightness6Icon /> </ListItemIcon>
               <ListItemText primary="Theme" />
             </ListItem>
@@ -125,7 +149,7 @@ export function SettingsPage(props) {
               <ListItemIcon> <ExitToApp /> </ListItemIcon>
               <ListItemText primary="Log out" />
             </ListItem>
-            <ListItem button key="About" onClick={() => { setCurrentTab({ currentTab: "AboutSetting" }) }}>
+            <ListItem button key="About" onClick={() => { setCurrentTab("AboutSetting") }}>
               <ListItemIcon> <InfoIcon /> </ListItemIcon>
               <ListItemText primary="About" />
             </ListItem>
@@ -135,10 +159,7 @@ export function SettingsPage(props) {
 
       <div>
         <Card className={classes.root} id="tab-viewer">
-          {(state.currentTab == "ThemeSetting") && <ThemeSetting />}
-          {(state.currentTab == "AboutSetting") && <AboutSetting />}
-          {(state.currentTab == "AccountSetting") && <AccountSetting />}
-          {(state.currentTab == "LanguageSetting") && <LanguageSetting />}
+          {settingComponent}
         </Card>
       </div>
 

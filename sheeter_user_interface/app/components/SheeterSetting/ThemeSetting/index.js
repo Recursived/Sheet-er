@@ -5,31 +5,30 @@
  *
  */
 
-import React, { memo } from 'react';
-import { makeStyles } from '@material-ui/core';
-import CardContent from '@material-ui/core/CardContent';
-import Switch from '@material-ui/core/Switch';
-import Typography from '@material-ui/core/Typography';
+import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import {
+  CardContent,
+  Switch,
+  Typography
+} from '@material-ui/core'
+import { useTheme } from "@material-ui/styles";
+import { createStructuredSelector } from 'reselect';
 
 import { changeTheme } from 'containers/ThemeProvider/actions';
 
 
 function ThemeSetting(props) {
-  const {
-    dispatch,
-    theme,
-    user_info
-  } = props;
-  
-  const [state, setState] = React.useState({
-    checkedDarkMode: true,
-  });
+  const { dispatch } = props;
 
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-    console.log("checkedDarkMode :", state.checkedDarkMode);
-    dispatch(changeTheme(state.checkedDarkMode ? 'light' : 'dark'));
- };
+  const theme = useTheme();
+  const [isDark, setIsDark] = React.useState(theme.palette.type == "dark");
+
+  const handleChange = () => {
+    setIsDark(!isDark);
+    dispatch(changeTheme(isDark ? 'light' : 'dark'));
+  };
 
   return (
     <CardContent>
@@ -40,11 +39,11 @@ function ThemeSetting(props) {
         Toggle Dark Mode
       </Typography>
       <Switch
-        checked={state.checkedDarkMode}
+        checked={isDark}
         onChange={handleChange}
         color="primary"
         name="checkedDarkMode"
-        inputProps={{ 'aria-label': 'primary checkbox' }}
+        inputProps={{ 'aria-label': 'theme checkbox' }}
       />
     </CardContent>
   );
@@ -52,4 +51,20 @@ function ThemeSetting(props) {
 
 ThemeSetting.propTypes = {};
 
-export default memo(ThemeSetting);
+const mapStateToProps = createStructuredSelector({
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+export default compose(
+  withConnect,
+)(ThemeSetting);
