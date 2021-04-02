@@ -156,6 +156,7 @@ function SheeterEditor(props) {
     const wordArray = cleanString.match(/\S+/g);  // matches words according to whitespace
     return wordArray ? wordArray.length : 0;
   };
+  
   const saveContentEditor = React.useCallback(
     debounce((content) => {
       dispatch(requestSetEditorContent(content));

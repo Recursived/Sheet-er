@@ -42,7 +42,6 @@ export const initialState = {
   permanent_delete : false,
   sheet_modified : false
 
-
 };
 
 /* eslint-disable default-case, no-param-reassign */

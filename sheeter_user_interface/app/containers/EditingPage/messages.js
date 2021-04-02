@@ -51,6 +51,4 @@ export default defineMessages({
     defaultMessage: 'The editor has been cleared',
   },
 
-
-
 });

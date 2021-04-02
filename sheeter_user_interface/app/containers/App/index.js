@@ -28,8 +28,8 @@ import LandingPage from 'containers/LandingPage/Loadable';
 import LoginPage from 'containers/LoginPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import EditingPage from 'containers/EditingPage/Loadable';
+import SettingsPage from 'containers/SettingsPage/Loadable';
 import SheetPage from 'containers/SheetPage/Loadable';
-
 
 // Import components
 import SheeterNav from 'components/SheeterNav/Loadable';
@@ -59,6 +59,11 @@ export function App(props) {
           exact
           path={routes.editingpage.path}
           component={EditingPage}
+        />
+        <PrivateRoute
+          exact
+          path={routes.settingspage.path}
+          component={SettingsPage}
         />
         <PrivateRoute
           exact
@@ -101,7 +106,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 const withConnect = connect(
-  null,
   mapDispatchToProps,
 );
 
