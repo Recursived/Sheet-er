@@ -1,18 +1,19 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { 
-  takeLatest, 
-  select, 
-  put, 
+import {
+  takeLatest,
+  select,
+  put,
+  call
 } from 'redux-saga/effects';
 
 
 import { enqueueSnackbar } from 'containers/NotifProvider/actions';
-import { 
+import {
   makeSelectUserInfo,
 } from 'containers/App/selectors';
 
-import { 
+import {
   makeSelectFilterTag,
   makeSelectAddTag
 } from 'containers/EditingPage/selectors';
@@ -22,13 +23,16 @@ import {
   REQUEST_SHEET_TYPE,
   REQUEST_SHEET_TAG,
   REQUEST_ADD_SHEETTAG,
-  REQUEST_ADD_SHEET
+  REQUEST_ADD_SHEET,
+  REQUEST_DELETE_SHEET
 } from './constants';
 
-import { 
+import {
   successSheetTypeAction,
   successSheetTagAction,
-  successAddSheetTagAction
+  successAddSheetTagAction,
+  successAddSheet,
+  successDeleteSheet
 } from './actions';
 
 import messages from './messages';
@@ -37,7 +41,7 @@ import { RETRIEVE_SHEETAPI } from 'utils/api';
 import makeSelectEditingPage from './selectors';
 import {
   localeToCode
-} from 'i18n';
+} from 'utils/utils';
 
 
 export function* handleRequestSheetType() {
@@ -94,16 +98,26 @@ export function* handleRequestAddSheetTag() {
   const client = yield api.getClient();
   try {
     const user_info = yield select(makeSelectUserInfo());
-    const add_tag = yield select(makeSelectAddTag());
-    const res = yield client.sheettag_create(
-      null,
-      { label: add_tag },
-      { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
-    )
-    yield put(successAddSheetTagAction(res.data));
+    const add_tags = yield select(makeSelectAddTag());
+    const to_send = [];
+
+    for (let i = 0; i < add_tags.length; i++) {
+      const tag = add_tags[i];
+      if (tag.inputValue) {
+        const res = yield call(
+          client.sheettag_create,
+          null,
+          { label: tag.inputValue },
+          { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
+        );
+        to_send.push(res.data);
+      } else {
+        to_send.push(tag);
+      }
+    }
+    yield put(successAddSheetTagAction(to_send));
 
   } catch (error) {
-    console.log(error);
     yield put(enqueueSnackbar({
       message: <FormattedMessage {...messages.erroraddsheettag} />,
       options: {
@@ -123,33 +137,93 @@ export function* handleRequestAddSheet() {
     const sheet_info = yield select(makeSelectEditingPage());
 
     // If sheet not yet created
-    if (sheet_info.id_sheet === null){
+    if (sheet_info.id_sheet === null) {
+      delete sheet_info.type_sheet["firstLetter"];
       const res = yield client.sheet_create(
         null,
         {
           content: JSON.stringify(sheet_info.editor_content_sheet),
           title: sheet_info.title_sheet,
+          descr: sheet_info.descr_sheet,
           locale: localeToCode[sheet_info.locale_sheet],
-          type: sheet_info.type_sheet,
+          subject: sheet_info.type_sheet,
           plagiarism_rate: 0, // to-do : faire une api qui permet de calculer cela
-          tags: sheet_info.tags_sheet.map(tag => tag.id)
+          tags: sheet_info.tags_sheet
+        },
+        { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
+      );
+      yield put(successAddSheet(res.data.id));
+    } else { // If sheet created, we update
+      delete sheet_info.type_sheet["firstLetter"];
+      const res = yield client.sheet_update(
+        { id: sheet_info.id_sheet },
+        {
+
+          content: JSON.stringify(sheet_info.editor_content_sheet),
+          title: sheet_info.title_sheet,
+          descr: sheet_info.descr_sheet,
+          locale: localeToCode[sheet_info.locale_sheet],
+          subject: sheet_info.type_sheet,
+          plagiarism_rate: 0, // to-do : faire une api qui permet de calculer cela
+          tags: sheet_info.tags_sheet
         },
         { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
       );
 
-    } else { // If sheet created, we update
-      
+      yield put(successAddSheet(res.data.id));
     }
 
-    console.log(client);
-    
-   
-    // yield put(successAddSheetTagAction(res.data));
+  } catch (error) {
+    yield put(enqueueSnackbar({
+      message: <FormattedMessage {...messages.erroraddsheet} />,
+      options: {
+        key: new Date().getTime() + Math.random(),
+        variant: 'error'
+      },
+    }));
+  }
+}
+
+export function* handleRequestDeleteSheetSheet() {
+  const api = getApi(RETRIEVE_SHEETAPI);
+  yield api.init();
+  const client = yield api.getClient();
+  try {
+    const user_info = yield select(makeSelectUserInfo());
+    const sheet_info = yield select(makeSelectEditingPage());
+
+    // We check if Sheet is created
+    if (sheet_info.id_sheet !== null) {
+      if (sheet_info.permanent_delete) {
+        yield client.sheet_delete(
+          { id: sheet_info.id_sheet },
+          null,
+          { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
+        );
+        yield put(successDeleteSheet());
+        yield put(enqueueSnackbar({
+          message: <FormattedMessage {...messages.deletesheetpermanent} />,
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'info'
+          },
+        }));
+      } else {
+        yield put(successDeleteSheet());
+        yield put(enqueueSnackbar({
+          message: <FormattedMessage {...messages.deletesheetcancel} />,
+          options: {
+            key: new Date().getTime() + Math.random(),
+            variant: 'info'
+          },
+        }));
+      }
+
+    }
 
   } catch (error) {
-    console.log(error);
     yield put(enqueueSnackbar({
-      message: <FormattedMessage {...messages.erroraddsheettag} />,
+      message: <FormattedMessage {...messages.errordeletesheet} />,
       options: {
         key: new Date().getTime() + Math.random(),
         variant: 'error'
@@ -167,4 +241,5 @@ export default function* handlerSaga() {
   yield takeLatest(REQUEST_ADD_SHEETTAG, handleRequestAddSheetTag);
   yield takeLatest(REQUEST_SHEET_TAG, handleRequestSheetTag);
   yield takeLatest(REQUEST_ADD_SHEET, handleRequestAddSheet);
+  yield takeLatest(REQUEST_DELETE_SHEET, handleRequestDeleteSheetSheet);
 }

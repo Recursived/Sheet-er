@@ -14,6 +14,11 @@ export default defineMessages({
     defaultMessage: 'Title',
   },
 
+  descrsheet: {
+    id: `${scope}.descrsheet`,
+    defaultMessage: 'Description',
+  },
+
   localesheet: {
     id: `${scope}.localesheet`,
     defaultMessage: 'Locale',
@@ -89,10 +94,44 @@ export default defineMessages({
     defaultMessage: 'Sheet history',
   },
 
-  tooltipsheethistorybutton: {
-    id: `${scope}.tooltipsheethistorybutton`,
-    defaultMessage: 'Edit a previously created Sheet',
-  },
-  
 
+  tooltipsheetissaving: {
+    id: `${scope}.tooltipsheetissaving`,
+    defaultMessage: 'Loading...',
+  },
+
+  tooltipsheetnonexistant: {
+    id: `${scope}.tooltipsheetnonexistant`,
+    defaultMessage: 'No existing sheet or not complete',
+  },
+
+  tooltipsheetsaved : {
+    id: `${scope}.tooltipsheetsaved`,
+    defaultMessage: 'Sheet synced ! (last time : {lasttime})',
+  },
+
+  deletetitledialog: {
+    id: `${scope}.deletetitledialog`,
+    defaultMessage: 'Delete Sheet',
+  },
+
+  deletecontentdialog: {
+    id: `${scope}.deletecontentdialog`,
+    defaultMessage: 'What do you want to do with this Sheet ?',
+  },
+
+  deletepermenatentbuttondialog: {
+    id: `${scope}.deletepermenatentbuttondialog`,
+    defaultMessage: 'Delete permanently',
+  },
+
+  deletebuttondialog: {
+    id: `${scope}.deletebuttondialog`,
+    defaultMessage: 'Clear editor',
+  },
+
+  deletecancelbuttondialog: {
+    id: `${scope}.deletecancelbuttondialog`,
+    defaultMessage: 'Cancel',
+  },
 });

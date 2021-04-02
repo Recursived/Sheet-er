@@ -14,12 +14,12 @@ import {
   REQUEST_SET_EDITORCONTENT,
   REQUEST_SET_LOCALESHEET,
   REQUEST_SET_TITLESHEET,
-  REQUEST_SET_IDSHEET,
   REQUEST_SET_TYPESHEET,
-  REQUEST_SET_TAGSHEET,
+  REQUEST_SET_DESCRSHEET,
   REQUEST_ADD_SHEET,
   SUCCESS_ADD_SHEET,
-  SUCCESS_DELETE_SHEET
+  SUCCESS_DELETE_SHEET,
+  REQUEST_DELETE_SHEET
 } from './constants';
 
 export function requestSheetTypeAction() {
@@ -49,10 +49,10 @@ export function successSheetTagAction(tags) {
   };
 }
 
-export function requestAddSheetTagAction(add_tag) {
+export function requestAddSheetTagAction(tags) {
   return {
     type: REQUEST_ADD_SHEETTAG,
-    add_tag: add_tag
+    tags: tags
   };
 }
 
@@ -94,19 +94,13 @@ export function requestSetTypeSheet(sheet_type) {
   }
 }
 
-export function requestSetTagSheet(tags) {
+export function requestSetDescrSheet(descr_sheet) {
   return {
-    type: REQUEST_SET_TAGSHEET,
-    tags: tags
+    type: REQUEST_SET_DESCRSHEET,
+    descr_sheet: descr_sheet
   }
 }
 
-export function requestSetIdSheet(id_sheet) {
-  return {
-    type: REQUEST_SET_IDSHEET,
-    id_sheet: id_sheet
-  }
-}
 
 /**
  * Actions used to create, modify or delete a sheet
@@ -121,13 +115,14 @@ export function requestAddSheet() {
 export function successAddSheet(id_sheet) {
   return {
     type: SUCCESS_ADD_SHEET,
-    id_sheet: id_sheet
+    id: id_sheet
   }
 }
 
-export function requestDeleteSheet() {
+export function requestDeleteSheet(permanent) {
   return {
     type: REQUEST_DELETE_SHEET,
+    permanent: permanent
   }
 }
 

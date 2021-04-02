@@ -4,7 +4,7 @@
  *
  */
 import produce from 'immer';
-import { 
+import {
   SUCCESS_SHEET_TYPE,
   REQUEST_SHEET_TAG,
   SUCCESS_SHEET_TAG,
@@ -13,30 +13,34 @@ import {
   REQUEST_SET_EDITORCONTENT,
   REQUEST_SET_TITLESHEET,
   REQUEST_SET_LOCALESHEET,
-  REQUEST_SET_IDSHEET,
+  REQUEST_SET_DESCRSHEET,
   REQUEST_SET_TYPESHEET,
-  REQUEST_SET_TAGSHEET,
   SUCCESS_ADD_SHEET,
-  SUCCESS_DELETE_SHEET
- } from './constants';
+  SUCCESS_DELETE_SHEET,
+  REQUEST_ADD_SHEET,
+  REQUEST_DELETE_SHEET
+} from './constants';
 
 export const initialState = {
   // Used for combo
-  sheet_types : [],
-  sheet_tags : [],
-  
+  sheet_types: [],
+  sheet_tags: [],
+
   filter_tag: null, // Used to do search against tag API
   add_tag: null, // Used to add the tag in the SHEET API
-  response_add_tag: null, // Used to store the response the tag gave
-  
+
   // Used to manage the current edited sheet
   editor_content_sheet: null,
   title_sheet: null,
   locale_sheet: null,
+  descr_sheet: null,
   id_sheet: null,
   type_sheet: null,
-  tags_sheet: null,
-
+  tags_sheet: [],
+  // flag when making an action on sheet
+  sheet_loading: false,
+  permanent_delete : false,
+  sheet_modified : false
 
 };
 
@@ -54,33 +58,52 @@ const editingPageReducer = (state = initialState, action) =>
         draft.sheet_tags = action.tags;
         break;
       case REQUEST_ADD_SHEETTAG:
-        draft.add_tag = action.add_tag;
+        draft.add_tag = action.tags;
         break;
       case SUCCESS_ADD_SHEETTAG:
-        draft.response_add_tag = action.response;
+        draft.sheet_modified = true;
+        draft.tags_sheet = action.response;
         break;
       case REQUEST_SET_EDITORCONTENT:
+        draft.sheet_modified = true;
         draft.editor_content_sheet = action.content;
         break;
       case REQUEST_SET_TITLESHEET:
+        draft.sheet_modified = true;
         draft.title_sheet = action.title;
         break;
       case REQUEST_SET_LOCALESHEET:
+        draft.sheet_modified = true;
         draft.locale_sheet = action.locale;
         break;
-      case REQUEST_SET_IDSHEET:
-        draft.id_sheet = action.id_sheet;
-        break;
       case REQUEST_SET_TYPESHEET:
+        draft.sheet_modified = true;
         draft.type_sheet = action.sheet_type;
         break;
-      case REQUEST_SET_TAGSHEET:
-        draft.tags_sheet = action.tags;
+      case REQUEST_SET_DESCRSHEET:
+        draft.descr_sheet = action.descr_sheet
+        draft.sheet_modified = true;
+        break;
+      case REQUEST_ADD_SHEET:
+        draft.sheet_modified = false;
+        draft.sheet_loading = true;
         break;
       case SUCCESS_ADD_SHEET:
-        draft.id_sheet = action.id_sheet;
+        draft.sheet_modified = false;
+        draft.sheet_loading = false;
+        draft.id_sheet = action.id;
+        break;
+      case REQUEST_DELETE_SHEET:
+        draft.permanent_delete = action.permanent;
+        break;
       case SUCCESS_DELETE_SHEET:
         draft.id_sheet = null;
+        draft.title_sheet = null;
+        draft.type_sheet = null;
+        draft.descr_sheet = null;
+        draft.editor_content_sheet = null;
+        draft.tags_sheet = [];
+        break;
     }
   });
 

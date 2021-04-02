@@ -12,25 +12,22 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 
 
 // Selector & actions imports
-import {makeSelectLocale} from 'containers/LanguageProvider/selectors';
-import { requestSetLocaleSheet } from 'containers/EditingPage/actions'; 
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { requestSetLocaleSheet } from 'containers/EditingPage/actions';
 
 // Misc imports
 import messages from './messages';
 import {
-    appLocales,
     countryToFlag,
     localeLabels
-} from 'i18n';
-
+} from 'utils/utils';
+import {appLocales} from 'i18n';
 function LocaleCombo(props) {
-    const {defaultLocale, dispatch} = props;
+    const { defaultLocale, dispatch } = props;
     const [localeValue, setLocaleValue] = React.useState(defaultLocale);
-
     React.useEffect(() => {
         dispatch(requestSetLocaleSheet(localeValue));
     }, [])
-    
     return (
         <Autocomplete
             options={appLocales}

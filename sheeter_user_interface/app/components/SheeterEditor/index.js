@@ -5,13 +5,15 @@
  */
 
 import React, { memo } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import katex from 'katex'
+import { debounce } from 'lodash';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import asciimath2latex from 'asciimath-to-latex';
 import { createStructuredSelector } from 'reselect';
-import { EditorState, RichUtils, getDefaultKeyBinding, convertToRaw } from 'draft-js';
+import { EditorState, RichUtils, getDefaultKeyBinding, convertToRaw, convertFromRaw } from 'draft-js';
 import Editor, { composeDecorators } from '@draft-js-plugins/editor';
 import { useTheme } from "@material-ui/styles";
 import { Chip, Tooltip, makeStyles, Grid } from '@material-ui/core';
@@ -42,7 +44,8 @@ import createKaTeXPlugin from 'draft-js-katex-plugin';
 
 // Importing actions and selectors
 import {
-  requestSetEditorContent
+  requestSetEditorContent,
+  requestAddSheet
 } from 'containers/EditingPage/actions';
 import makeSelectEditingPage from 'containers/EditingPage/selectors';
 
@@ -54,7 +57,8 @@ import messages from './messages';
 import { WrapperEditor } from './WrapperEditor'
 import EditorMenu from 'components/EditorMenu/Loadable';
 import SheeterInlineToolbar from './EditorPlugins/InlinePlugin/SheeterInlineToolbar';
-import { debounce } from 'lodash';
+import { checkSheetExist, checkSheetDeleted } from 'utils/utils';
+
 
 
 // Init plugins for editor
@@ -138,23 +142,32 @@ const useStyles = makeStyles(theme => ({
 function SheeterEditor(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const { intl, dispatch } = props;
+  const { editing, dispatch } = props;
 
   const [hasFocus, setHasFocus] = React.useState(false);
-  const [editorState, setEditorState] = React.useState(EditorState.createEmpty());
-
+  const [wasModified, setWasModified] = React.useState(false);
+  const [editorState, setEditorState] = React.useState(editing.editor_content_sheet ?
+    EditorState.createWithContent(convertFromRaw(editing.editor_content_sheet)) : EditorState.createEmpty());
+    
   const getWordCount = (editorState) => {
     const plainText = editorState.getCurrentContent().getPlainText('');
     const regex = /(?:\r\n|\r|\n)/g;  // new line, carriage return, line feed
     const cleanString = plainText.replace(regex, ' ').trim(); // replace above characters w/ space
     const wordArray = cleanString.match(/\S+/g);  // matches words according to whitespace
     return wordArray ? wordArray.length : 0;
-  }
-
+  };
+  
   const saveContentEditor = React.useCallback(
-    debounce((content) => dispatch(requestSetEditorContent(content)), 1000),
+    debounce((content) => {
+      dispatch(requestSetEditorContent(content));
+    }, 1000),
     []
   );
+
+  React.useEffect(() => {
+    if (checkSheetDeleted(editing))
+      setEditorState(EditorState.createEmpty());
+  }, [editing]);
 
   return (
     <Grid
@@ -182,8 +195,8 @@ function SheeterEditor(props) {
                 }}
                 onBlur={() => setHasFocus(false)}
                 onChange={(newState) => {
-                  if (editorState.getCurrentContent() !== newState.getCurrentContent()){
-                    saveContentEditor(convertToRaw(newState.getCurrentContent()))
+                  if (editorState.getCurrentContent() !== newState.getCurrentContent()) {
+                    saveContentEditor(convertToRaw(newState.getCurrentContent()));
                   }
                   setEditorState(newState);
                 }}
@@ -226,21 +239,21 @@ function SheeterEditor(props) {
                 }
               />
             ) : (
-                <Tooltip title={<FormattedMessage {...messages.toomanywords} />}>
-                  <Chip
-                    icon={<WarningIcon className={classes.chipicon} />}
-                    className={classes.warningchip}
-                    label={
-                      <FormattedMessage
-                        {...messages.word}
-                        values={{
-                          counter: getWordCount(editorState),
-                        }}
-                      />
-                    }
-                  />
-                </Tooltip>
-              )}
+              <Tooltip title={<FormattedMessage {...messages.toomanywords} />}>
+                <Chip
+                  icon={<WarningIcon className={classes.chipicon} />}
+                  className={classes.warningchip}
+                  label={
+                    <FormattedMessage
+                      {...messages.word}
+                      values={{
+                        counter: getWordCount(editorState),
+                      }}
+                    />
+                  }
+                />
+              </Tooltip>
+            )}
           </Grid>
         </Grid>
       </Grid>
@@ -264,10 +277,13 @@ function SheeterEditor(props) {
   );
 }
 
-SheeterEditor.propTypes = {};
+SheeterEditor.propTypes = {
+  editing: PropTypes.object.isRequired
+};
 
 
 const mapStateToProps = createStructuredSelector({
+  editing: makeSelectEditingPage(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -283,5 +299,4 @@ const withConnect = connect(
 
 export default compose(
   withConnect,
-  injectIntl
 )(SheeterEditor);

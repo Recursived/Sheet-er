@@ -30,5 +30,25 @@ export default defineMessages({
     defaultMessage: 'We faced a problem trying to add your tag',
   },
 
+  erroraddsheet: {
+    id: `${scope}.erroraddsheet`,
+    defaultMessage: 'We faced a problem trying to add/modify your sheet',
+  },
+
+
+  errordeletesheet: {
+    id: `${scope}.errordeletesheet`,
+    defaultMessage: 'We faced a problem trying to delete your sheet',
+  },
+
+  deletesheetpermanent: {
+    id: `${scope}.deletesheetpermanent`,
+    defaultMessage: 'This Sheet has been deleted',
+  },
+
+  deletesheetcancel: {
+    id: `${scope}.deletesheetcancel`,
+    defaultMessage: 'The editor has been cleared',
+  },
 
 });

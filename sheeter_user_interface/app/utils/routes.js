@@ -12,6 +12,7 @@ import notfoundpageMessages from 'containers/NotFoundPage/messages';
 import loginpageMessages from 'containers/LoginPage/messages';
 import editingpageMessages from 'containers/EditingPage/messages';
 import settingspageMessages from 'containers/SettingsPage/messages';
+import sheetpageMessages from 'containers/SheetPage/messages'
 
 
 
@@ -40,9 +41,14 @@ export default {
         path: '/editing',
         name: <FormattedMessage {...editingpageMessages.editingroute} />,
     },
-
+      
     settingspage: {
         path: '/settings',
         name: <FormattedMessage {...settingspageMessages.routeSettingsPage} />,
+    },
+      
+    sheetpage: {
+        path: '/sheet/:id',
+        name:  <FormattedMessage {...sheetpageMessages.sheetroute} />,
     }
 }

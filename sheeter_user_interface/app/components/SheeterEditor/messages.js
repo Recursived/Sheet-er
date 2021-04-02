@@ -27,14 +27,12 @@ export default defineMessages({
   donecontentvalid: {
     id: `${scope}.donecontentvalid`,
     defaultMessage: "Done",
+
   },
 
   donecontentinvalid: {
     id: `${scope}.donecontentinvalid`,
     defaultMessage: "Invalid TeX",
   },
-
-
-
 
 });

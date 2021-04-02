@@ -19,7 +19,6 @@ const frTranslationMessages = require('./translations/fr.json');
 addLocaleData(enLocaleData);
 addLocaleData(frLocaleData);
 
-
 const DEFAULT_LOCALE = 'en'; // recalculated in langage provider for locale detection
 
 // prettier-ignore
@@ -28,15 +27,6 @@ const appLocales = [
   'fr',
 ];
 
-const localeLabels = {
-  'en': 'English',
-  'fr': 'Français'
-}
-
-const localeToCode = {
-  'en': 'en-EN',
-  'fr': 'fr-FR'
-}
 
 const formatTranslationMessages = (locale, messages) => {
   const defaultFormattedMessages =
@@ -53,30 +43,13 @@ const formatTranslationMessages = (locale, messages) => {
   return Object.keys(messages).reduce(flattenFormattedMessages, {});
 };
 
-const countryToFlag = (isoCode) => {
-  // Pour les drapeaux et leur code https://material-ui.com/components/autocomplete/ 
-  // Country select component
-  const codeConverter = {
-    'en': 'gb',
-    'fr': 'fr'
-  };
-  isoCode = codeConverter[isoCode];
-  return typeof String.fromCodePoint !== 'undefined'
-    ? isoCode
-        .toUpperCase()
-        .replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
-    : isoCode
-}
+
 
 const translationMessages = {
   en: formatTranslationMessages('en', enTranslationMessages),
   fr: formatTranslationMessages('fr', frTranslationMessages),
 
 };
-
-exports.localeLabels = localeLabels;
-exports.localeToCode = localeToCode;
-exports.countryToFlag = countryToFlag;
 exports.appLocales = appLocales;
 exports.formatTranslationMessages = formatTranslationMessages;
 exports.translationMessages = translationMessages;

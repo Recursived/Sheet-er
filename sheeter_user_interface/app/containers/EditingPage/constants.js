@@ -18,7 +18,7 @@ export const REQUEST_DELETE_SHEET = 'app/EditingPage/REQUEST_DELETE_SHEET';
 export const SUCCESS_DELETE_SHEET = 'app/EditingPage/SUCCESS_DELETE_SHEET';
 
 // Used to create a sheet or modify an existing one
-export const REQUEST_ADD_SHEET = 'app/EditingPage/REQUEST_CREATE_SHEET';
+export const REQUEST_ADD_SHEET = 'app/EditingPage/REQUEST_ADD_SHEET';
 export const SUCCESS_ADD_SHEET = 'app/EditingPage/SUCCESS_ADD_SHEET';
 
 // Setter constants for the editor
@@ -26,7 +26,6 @@ export const REQUEST_SET_EDITORCONTENT = 'app/EditingPage/REQUEST_SET_EDITORCONT
 export const REQUEST_SET_TITLESHEET = 'app/EditingPage/REQUEST_SET_TITLESHEET';
 export const REQUEST_SET_LOCALESHEET = 'app/EditingPage/REQUEST_SET_LOCALESHEET';
 export const REQUEST_SET_TYPESHEET = 'app/EditingPage/REQUEST_SET_TYPESHEET';
-export const REQUEST_SET_TAGSHEET = 'app/EditingPage/REQUEST_SET_TAGSHEET';
-export const REQUEST_SET_IDSHEET = 'app/EditingPage/REQUEST_SET_IDSHEET';
+export const REQUEST_SET_DESCRSHEET = 'app/EditingPage/REQUEST_SET_DESCRSHEET';
 
 

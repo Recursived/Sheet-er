@@ -33,6 +33,11 @@ class Sheet(models.Model):
         ordering = ['-creation_date']
 
     content = models.TextField(verbose_name='Contenu fiche')
+    descr = models.TextField(
+        verbose_name='Description fiche',
+        null=True,
+        blank=True
+    )
     title = models.CharField(max_length=255, verbose_name='Titre')
     mark = models.FloatField(
         validators=[MinValueValidator(0), MaxValueValidator(5)],

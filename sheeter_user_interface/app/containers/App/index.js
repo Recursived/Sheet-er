@@ -29,6 +29,7 @@ import LoginPage from 'containers/LoginPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import EditingPage from 'containers/EditingPage/Loadable';
 import SettingsPage from 'containers/SettingsPage/Loadable';
+import SheetPage from 'containers/SheetPage/Loadable';
 
 // Import components
 import SheeterNav from 'components/SheeterNav/Loadable';
@@ -36,15 +37,8 @@ import PrivateRoute from 'components/Route/PrivateRoute';
 import PublicRoute from 'components/Route/PublicRoute';
 
 // Misc imports
-import {
-  enqueueSnackbar,
-  closeSnackbar,
-} from 'containers/NotifProvider/actions';
-import AppContainer from './AppContainer';
-import { makeSelectLoggedIn, makeSelectPathname } from './selectors'
-import reducer from './reducer';
-import messages from './messages';
 import saga from './saga';
+import AppContainer from './AppContainer';
 
 
 export function App(props) {
@@ -70,6 +64,11 @@ export function App(props) {
           exact
           path={routes.settingspage.path}
           component={SettingsPage}
+        />
+        <PrivateRoute
+          exact
+          path={routes.sheetpage.path}
+          component={SheetPage}
         />
         <PublicRoute
           exact
@@ -107,7 +106,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 const withConnect = connect(
-  null,
   mapDispatchToProps,
 );
 
