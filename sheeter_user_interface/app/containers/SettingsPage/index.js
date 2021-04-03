@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -32,11 +32,13 @@ import { useInjectReducer } from 'utils/injectReducer';
 import makeSelectSettingsPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import ThemeSetting from '../../components/SheeterSetting/ThemeSetting';
-import AboutSetting from '../../components/SheeterSetting/AboutSetting';
-import AccountSetting from '../../components/SheeterSetting/AccountSetting';
-import LanguageSetting from '../../components/SheeterSetting/LanguageSetting';
 
+import ThemeSetting from 'components/SheeterSetting/ThemeSetting';
+import AboutSetting from 'components/SheeterSetting/AboutSetting';
+import AccountSetting from 'components/SheeterSetting/AccountSetting';
+import LanguageSetting from 'components/SheeterSetting/LanguageSetting';
+
+import { requestSettingsChangePage } from './actions';
 
 const drawerWidth = 240;
 
@@ -81,39 +83,10 @@ export function SettingsPage(props) {
   useInjectSaga({ key: 'settingsPage', saga });
   const classes = useStyles();
 
-  const {
-    dispatch,
-    theme,
-    user_info
-  } = props
-
-  const [currentTab, setCurrentTab] = React.useState("None");
-
-
-  let settingComponent = null;
-  switch (currentTab) {
-    case "AccountSetting":
-      settingComponent = <AccountSetting />;
-      break;
-    case "LanguageSetting":
-      settingComponent = <LanguageSetting />;
-      break;
-    case "ThemeSetting":
-      settingComponent = <LanguageSetting />;
-      break;
-    case "AboutSetting":
-      settingComponent = <AboutSetting />;
-      break;
-    default:
-      settingComponent = <span />;
+  const { dispatch, settingsPage } = props;
+  const setCurrentTab = (tab) => {
+    dispatch(requestSettingsChangePage(tab));
   }
-
-  console.log(currentTab);
-
-  // {(state.currentTab == "ThemeSetting") && <ThemeSetting />}
-  // {(state.currentTab == "AboutSetting") && <AboutSetting />}
-  // {(state.currentTab == "AccountSetting") && <AccountSetting />}
-  // {(state.currentTab == "LanguageSetting") && <LanguageSetting />
 
   return (
     <div>
@@ -131,16 +104,16 @@ export function SettingsPage(props) {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            <ListItem button key="Account" onClick={() => { setCurrentTab("AccountSetting") }}>
+            <ListItem button key="Account" onClick={() => { setCurrentTab(<AccountSetting />) }}>
               <ListItemIcon> <AccountCircleIcon /> </ListItemIcon>
               <ListItemText primary="Account" />
             </ListItem>
             <Divider />
-            <ListItem button key="Language" onClick={() => { setCurrentTab("LanguageSetting") }}>
+            <ListItem button key="Language" onClick={() => { setCurrentTab(<LanguageSetting />) }}>
               <ListItemIcon> <LanguageIcon /> </ListItemIcon>
               <ListItemText primary="Language" />
             </ListItem>
-            <ListItem button key="Theme" onClick={() => { setCurrentTab("ThemeSetting") }}>
+            <ListItem button key="Theme" onClick={() => { setCurrentTab(<ThemeSetting />) }}>
               <ListItemIcon> <Brightness6Icon /> </ListItemIcon>
               <ListItemText primary="Theme" />
             </ListItem>
@@ -149,7 +122,7 @@ export function SettingsPage(props) {
               <ListItemIcon> <ExitToApp /> </ListItemIcon>
               <ListItemText primary="Log out" />
             </ListItem>
-            <ListItem button key="About" onClick={() => { setCurrentTab("AboutSetting") }}>
+            <ListItem button key="About" onClick={() => { setCurrentTab(<AboutSetting />) }}>
               <ListItemIcon> <InfoIcon /> </ListItemIcon>
               <ListItemText primary="About" />
             </ListItem>
@@ -159,7 +132,7 @@ export function SettingsPage(props) {
 
       <div>
         <Card className={classes.root} id="tab-viewer">
-          {settingComponent}
+          {settingsPage.page}
         </Card>
       </div>
 
@@ -186,4 +159,6 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-export default compose(withConnect)(SettingsPage);
+export default compose(
+  withConnect
+)(SettingsPage);

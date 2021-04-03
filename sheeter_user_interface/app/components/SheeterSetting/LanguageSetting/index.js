@@ -5,7 +5,7 @@
  *
  */
 
-import React, { memo } from 'react';
+import React from 'react';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
@@ -26,4 +26,4 @@ function LanguageSetting() {
 
 LanguageSetting.propTypes = {};
 
-export default memo(LanguageSetting);
+export default LanguageSetting;

@@ -4,10 +4,13 @@
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import {
+  REQUEST_SETTINGS_CHANGE_PAGE
+} from './constants';
 
-export function defaultAction() {
+export function requestSettingsChangePage(page) {
   return {
-    type: DEFAULT_ACTION,
+    type: REQUEST_SETTINGS_CHANGE_PAGE,
+    page: page
   };
 }
