@@ -11,6 +11,8 @@ class SheetViewSet(viewsets.ModelViewSet):
     """
     queryset = Sheet.objects.all()
     serializer_class = SheetSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'subject', 'tags']
 
 
 class SheetTagViewSet(viewsets.ModelViewSet):
