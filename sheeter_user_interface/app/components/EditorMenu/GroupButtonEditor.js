@@ -23,13 +23,15 @@ import LinkIcon from '@material-ui/icons/Link';
 
 // Importing actions and selectors
 import {
-    requestDeleteSheet
+    requestDeleteSheet,
+    requestOpenLinkSheetDialog
 } from 'containers/EditingPage/actions';
 import makeSelectEditingPage from 'containers/EditingPage/selectors';
 
 
 // Misc imports
 import messages from './messages';
+import SheetPreviewDialog from 'components/SheetPreviewDialog'
 import { checkSheetExist, localeToCode } from 'utils/utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -62,12 +64,13 @@ function GroupButtonEditor(props) {
                     <Button
                         disabled={!checkSheetExist(editing)}
                         startIcon={<LinkIcon />}
+                        onClick={() => dispatch(requestOpenLinkSheetDialog(true))}
                     >
                         <FormattedMessage {...messages.linksheetbutton} />
                     </Button>
                 </Tooltip>
             </ButtonGroup>
-
+            <SheetPreviewDialog />
             <Dialog
                 open={open}
                 onClose={() => setOpen(false)}

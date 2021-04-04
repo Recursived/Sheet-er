@@ -16,10 +16,13 @@ import {
   REQUEST_SET_TITLESHEET,
   REQUEST_SET_TYPESHEET,
   REQUEST_SET_DESCRSHEET,
+  REQUEST_SET_LINKSHEET,
   REQUEST_ADD_SHEET,
   SUCCESS_ADD_SHEET,
   SUCCESS_DELETE_SHEET,
-  REQUEST_DELETE_SHEET
+  REQUEST_DELETE_SHEET,
+  REQUEST_OPEN_DIALOGLINK,
+
 } from './constants';
 
 export function requestSheetTypeAction() {
@@ -101,6 +104,14 @@ export function requestSetDescrSheet(descr_sheet) {
   }
 }
 
+export function requestSetLinkIDSheet(link_id) {
+  return {
+    type: REQUEST_SET_LINKSHEET,
+    link_id: link_id
+  }
+}
+
+
 
 /**
  * Actions used to create, modify or delete a sheet
@@ -130,5 +141,12 @@ export function requestDeleteSheet(permanent) {
 export function successDeleteSheet() {
   return {
     type: SUCCESS_DELETE_SHEET,
+  }
+}
+
+export function requestOpenLinkSheetDialog(boolean){
+  return {
+    type: REQUEST_OPEN_DIALOGLINK,
+    boolean: boolean
   }
 }

@@ -11,10 +11,9 @@ import {
   CardActions,
   CardContent,
   Button,
-  Typography
+  Typography,
+  makeStyles
 } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles';
-// import styled from 'styled-components';
 
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
@@ -28,7 +27,7 @@ const useStyles = makeStyles({
 });
 
 function SheetPreviewCard(props) {
-  const { sheetId, clickHanlder, onClickLabelButton, data } = props;
+  const { sheetId, clickHandler, onClickLabelButton, data } = props;
 
   return (
     <Card variant="outlined">
@@ -54,7 +53,7 @@ function SheetPreviewCard(props) {
 
 SheetPreviewCard.propTypes = {
   sheetId: PropTypes.number.isRequired,
-  clickHanlder: PropTypes.func.isRequired,
+  clickHandler: PropTypes.func.isRequired,
   onClickLabelButton: PropTypes.string.isRequired,
   data: PropTypes.object.isRequired
   // Un prop correspondant à l'id de la fiche

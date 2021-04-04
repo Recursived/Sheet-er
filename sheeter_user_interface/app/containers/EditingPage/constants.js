@@ -27,5 +27,9 @@ export const REQUEST_SET_TITLESHEET = 'app/EditingPage/REQUEST_SET_TITLESHEET';
 export const REQUEST_SET_LOCALESHEET = 'app/EditingPage/REQUEST_SET_LOCALESHEET';
 export const REQUEST_SET_TYPESHEET = 'app/EditingPage/REQUEST_SET_TYPESHEET';
 export const REQUEST_SET_DESCRSHEET = 'app/EditingPage/REQUEST_SET_DESCRSHEET';
+export const REQUEST_SET_LINKSHEET = 'app/EditingPage/REQUEST_SET_LINKSHEET';
 
+
+// Misc constants
+export const REQUEST_OPEN_DIALOGLINK = 'app/EditingPage/REQUEST_OPEN_DIALOGLINK';
 

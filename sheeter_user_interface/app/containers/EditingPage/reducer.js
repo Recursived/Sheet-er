@@ -18,7 +18,9 @@ import {
   SUCCESS_ADD_SHEET,
   SUCCESS_DELETE_SHEET,
   REQUEST_ADD_SHEET,
-  REQUEST_DELETE_SHEET
+  REQUEST_DELETE_SHEET,
+  REQUEST_SET_LINKSHEET,
+  REQUEST_OPEN_DIALOGLINK
 } from './constants';
 
 export const initialState = {
@@ -37,10 +39,13 @@ export const initialState = {
   id_sheet: null,
   type_sheet: null,
   tags_sheet: [],
+  link_id_sheet: null,
   // flag when making an action on sheet
   sheet_loading: false,
-  permanent_delete : false,
-  sheet_modified : false
+  permanent_delete: false,
+  sheet_modified: false,
+  // Misc state elems
+  link_dialog_open: false,
 
 };
 
@@ -84,6 +89,10 @@ const editingPageReducer = (state = initialState, action) =>
         draft.descr_sheet = action.descr_sheet
         draft.sheet_modified = true;
         break;
+      case REQUEST_SET_LINKSHEET:
+        draft.link_id_sheet = action.link_id;
+        draft.sheet_modified = true;
+        break;
       case REQUEST_ADD_SHEET:
         draft.sheet_modified = false;
         draft.sheet_loading = true;
@@ -103,6 +112,9 @@ const editingPageReducer = (state = initialState, action) =>
         draft.descr_sheet = null;
         draft.editor_content_sheet = null;
         draft.tags_sheet = [];
+        break;
+      case REQUEST_OPEN_DIALOGLINK:
+        draft.link_dialog_open = action.boolean;
         break;
     }
   });
