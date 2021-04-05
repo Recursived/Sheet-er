@@ -32,6 +32,8 @@ class Sheet(models.Model):
     class Meta:
         ordering = ['-creation_date']
 
+
+    author = models.PositiveIntegerField(verbose_name="ID auteur")
     content = models.TextField(verbose_name='Contenu fiche')
     descr = models.TextField(
         verbose_name='Description fiche',

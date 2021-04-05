@@ -143,15 +143,15 @@ REST_FRAMEWORK = {
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
     ),
     
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    )
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # )
 }
 
 OAUTH2_PROVIDER = {
     'SCOPES': {'read': 'Read scope', 'write': 'Write scope'},
     'RESOURCE_SERVER_INTROSPECTION_URL': 'http://userapi:8001/o/introspect/',
-    'RESOURCE_SERVER_INTROSPECTION_CREDENTIALS': ('oXzy1IlaZpEgdRbSfhmymOKxsv2K98hPLMSgUC7I','JJWyN1p8hnr9Yo0AC8STX1hqMehwuaMG8ck1tNwL8DM24KHlW5YHaf4EwR8z75UYUOCZe3YSQl9MGTsvkQQiDtGxBKeAI67ifmTepZF18R0HyWpyWGwwSJK0xhMXFHwo'),
+    'RESOURCE_SERVER_INTROSPECTION_CREDENTIALS': ('7WjSezdAm4VkjukwqF3q1Q0rSHmYZ7BQa6Z9IKP3','CdPAJYqE2IIXQ906rHQUtbQU9LuF5sFh8O0VCCX9f13YEdeJElYKxyiI1Fzdzqc3anODnvPhG6WWXXb99y48PrQAwE40eqDGRbhfdngAkGC3922VjriDQeUZh0ZTi8x3'),
 }
 
 CORS_ORIGIN_ALLOW_ALL = True

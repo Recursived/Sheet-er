@@ -145,6 +145,7 @@ export function* handleRequestAddSheet() {
           content: JSON.stringify(sheet_info.editor_content_sheet),
           title: sheet_info.title_sheet,
           descr: sheet_info.descr_sheet,
+          author: user_info.user.id,
           locale: localeToCode[sheet_info.locale_sheet],
           subject: sheet_info.type_sheet,
           plagiarism_rate: 0, // to-do : faire une api qui permet de calculer cela
@@ -162,6 +163,7 @@ export function* handleRequestAddSheet() {
           content: JSON.stringify(sheet_info.editor_content_sheet),
           title: sheet_info.title_sheet,
           descr: sheet_info.descr_sheet,
+          author: user_info.user.id,
           locale: localeToCode[sheet_info.locale_sheet],
           subject: sheet_info.type_sheet,
           plagiarism_rate: 0, // to-do : faire une api qui permet de calculer cela
