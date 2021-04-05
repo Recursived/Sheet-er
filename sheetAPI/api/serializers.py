@@ -27,7 +27,7 @@ class SheetSerializer(serializers.ModelSerializer):
         model = Sheet
         depth = 1
         fields = ['id', 'content', 'descr' , 'title',  'subject', 'mark',
-                  'tags', 'creation_date', 'plagiarism_rate', 'locale']
+                  'tags', 'creation_date', 'plagiarism_rate', 'locale', 'author']
 
     def create(self, validated_data):
         subject_data = self.context["request"].data.get("subject")
