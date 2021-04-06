@@ -22,6 +22,8 @@ import {
   SUCCESS_DELETE_SHEET,
   REQUEST_DELETE_SHEET,
   REQUEST_OPEN_DIALOGLINK,
+  REQUEST_ADD_LINKSHEET,
+  SUCCESS_ADD_LINKSHEET,
 
 } from './constants';
 
@@ -144,9 +146,25 @@ export function successDeleteSheet() {
   }
 }
 
+// Actions used to retrieve and set link sheet data
+export function requestAddLinkSheet() {
+  return {
+    type: REQUEST_ADD_LINKSHEET,
+  }
+}
+
+export function successAddLinkSheet(link_sheet){
+  return {
+    type: SUCCESS_ADD_LINKSHEET,
+    link_sheet: link_sheet
+  }
+}
+
+// Misc actions
 export function requestOpenLinkSheetDialog(boolean){
   return {
     type: REQUEST_OPEN_DIALOGLINK,
     boolean: boolean
   }
 }
+

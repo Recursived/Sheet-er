@@ -13,4 +13,9 @@ export default defineMessages({
     id: `${scope}.titledialog`,
     defaultMessage: 'Link a Sheet',
   },
+
+  emptysheetdialog: {
+    id: `${scope}.emptysheetdialog`,
+    defaultMessage: 'There a no sheet available',
+  }
 });

@@ -64,7 +64,9 @@ function GroupButtonEditor(props) {
                     <Button
                         disabled={!checkSheetExist(editing)}
                         startIcon={<LinkIcon />}
-                        onClick={() => dispatch(requestOpenLinkSheetDialog(true))}
+                        onClick={() => {
+                            dispatch(requestOpenLinkSheetDialog(true));
+                        }}
                     >
                         <FormattedMessage {...messages.linksheetbutton} />
                     </Button>

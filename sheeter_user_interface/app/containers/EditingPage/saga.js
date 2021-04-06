@@ -24,7 +24,8 @@ import {
   REQUEST_SHEET_TAG,
   REQUEST_ADD_SHEETTAG,
   REQUEST_ADD_SHEET,
-  REQUEST_DELETE_SHEET
+  REQUEST_DELETE_SHEET,
+  REQUEST_ADD_LINKSHEET
 } from './constants';
 
 import {
@@ -32,7 +33,8 @@ import {
   successSheetTagAction,
   successAddSheetTagAction,
   successAddSheet,
-  successDeleteSheet
+  successDeleteSheet,
+  successAddLinkSheet
 } from './actions';
 
 import messages from './messages';
@@ -186,7 +188,7 @@ export function* handleRequestAddSheet() {
   }
 }
 
-export function* handleRequestDeleteSheetSheet() {
+export function* handleRequestDeleteSheet() {
   const api = getApi(RETRIEVE_SHEETAPI);
   yield api.init();
   const client = yield api.getClient();
@@ -235,6 +237,36 @@ export function* handleRequestDeleteSheetSheet() {
 }
 
 
+export function* handleRequestLinkSheet() {
+  const api = getApi(RETRIEVE_SHEETAPI);
+  yield api.init();
+  const client = yield api.getClient();
+  try {
+    const user_info = yield select(makeSelectUserInfo());
+    const sheet_info = yield select(makeSelectEditingPage());
+
+    
+    const sheets = yield client.sheet_list(
+      [
+        { name: 'author', value: user_info.user.id, in: 'query' },
+        { name: 'subject__id', value: sheet_info.type_sheet.id, in: 'query' },
+      ],
+      null,
+      { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
+    );
+    console.log(sheets);
+    yield put(successAddLinkSheet(sheets.data))
+  } catch (error) {
+    yield put(enqueueSnackbar({
+      message: <FormattedMessage {...messages.errordeletesheet} />,
+      options: {
+        key: new Date().getTime() + Math.random(),
+        variant: 'error'
+      },
+    }));
+  }
+}
+
 /**
  * Watcher saga
  */
@@ -243,5 +275,7 @@ export default function* handlerSaga() {
   yield takeLatest(REQUEST_ADD_SHEETTAG, handleRequestAddSheetTag);
   yield takeLatest(REQUEST_SHEET_TAG, handleRequestSheetTag);
   yield takeLatest(REQUEST_ADD_SHEET, handleRequestAddSheet);
-  yield takeLatest(REQUEST_DELETE_SHEET, handleRequestDeleteSheetSheet);
+  yield takeLatest(REQUEST_DELETE_SHEET, handleRequestDeleteSheet);
+  yield takeLatest(REQUEST_ADD_LINKSHEET, handleRequestLinkSheet);
+  
 }
