@@ -4,7 +4,7 @@
  *
  */
 
-import React, { memo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
@@ -117,7 +117,17 @@ function SheetPreviewDialog(props) {
               {
                 editing.link_sheets_data.results.map((data, index) => (
                   <Grid item xs={12} md={4} key={index}>
-                    <SheetPreviewCard key={index} data={data} onClickHandler={() => dispatch(requestSetLinkIDSheet())} />
+                    <SheetPreviewCard 
+                      variant="link"
+                      key={index}
+                      data={data}
+                      sheetId={data.id}
+                      context={editing}
+                      clickHandler={() => {
+                        dispatch(requestSetLinkIDSheet(data.id));
+                        dispatch(requestOpenLinkSheetDialog(false))
+                      }}
+                    />
                   </Grid>
                 ))
               }

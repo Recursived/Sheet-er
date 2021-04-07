@@ -115,6 +115,7 @@ const editingPageReducer = (state = initialState, action) =>
         draft.type_sheet = null;
         draft.descr_sheet = null;
         draft.editor_content_sheet = null;
+        draft.link_id_sheet = null;
         draft.tags_sheet = [];
         break;
       case REQUEST_OPEN_DIALOGLINK:

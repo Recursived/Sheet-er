@@ -165,6 +165,7 @@ export function* handleRequestAddSheet() {
           content: JSON.stringify(sheet_info.editor_content_sheet),
           title: sheet_info.title_sheet,
           descr: sheet_info.descr_sheet,
+          next_sheet: sheet_info.link_id_sheet,
           author: user_info.user.id,
           locale: localeToCode[sheet_info.locale_sheet],
           subject: sheet_info.type_sheet,
@@ -254,11 +255,10 @@ export function* handleRequestLinkSheet() {
       null,
       { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
     );
-    console.log(sheets);
     yield put(successAddLinkSheet(sheets.data))
   } catch (error) {
     yield put(enqueueSnackbar({
-      message: <FormattedMessage {...messages.errordeletesheet} />,
+      message: <FormattedMessage {...messages.errorlinksheet} />,
       options: {
         key: new Date().getTime() + Math.random(),
         variant: 'error'

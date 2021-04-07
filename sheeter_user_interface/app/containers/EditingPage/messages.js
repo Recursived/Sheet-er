@@ -51,4 +51,9 @@ export default defineMessages({
     defaultMessage: 'The editor has been cleared',
   },
 
+  errorlinksheet: {
+    id: `${scope}.errorlinksheet`,
+    defaultMessage: 'We could not find linkable Sheets',
+  },
+
 });

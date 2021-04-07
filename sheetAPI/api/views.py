@@ -1,4 +1,5 @@
 from rest_framework import filters, viewsets
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Sheet, SheetTag, SheetType
 from .serializers import (SheetSerializer, SheetTagSerializer,
@@ -11,8 +12,9 @@ class SheetViewSet(viewsets.ModelViewSet):
     """
     queryset = Sheet.objects.all()
     serializer_class = SheetSerializer
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['title', 'subject', 'tags', 'author']
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    filterset_fields = ['subject__id', 'author']
+    search_fields = ['title']
 
 
 class SheetTagViewSet(viewsets.ModelViewSet):

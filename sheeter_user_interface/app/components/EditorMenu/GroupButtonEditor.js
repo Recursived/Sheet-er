@@ -17,7 +17,6 @@ import {
 import { FormattedMessage, injectIntl } from 'react-intl';
 
 // Importing icons
-import RestorePageIcon from '@material-ui/icons/RestorePage';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import LinkIcon from '@material-ui/icons/Link';
 
@@ -32,7 +31,7 @@ import makeSelectEditingPage from 'containers/EditingPage/selectors';
 // Misc imports
 import messages from './messages';
 import SheetPreviewDialog from 'components/SheetPreviewDialog'
-import { checkSheetExist, localeToCode } from 'utils/utils';
+import { checkSheetExist } from 'utils/utils';
 
 const useStyles = makeStyles((theme) => ({
     deletepermbutton: {
@@ -42,6 +41,13 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: `${theme.palette.error.dark}`,
         }
     },
+
+    islinked: {
+        backgroundColor: `${theme.palette.secondary.main}`,
+        '&:hover': {
+            backgroundColor: `${theme.palette.secondary.dark}`,
+        }
+    }
 }));
 function GroupButtonEditor(props) {
     const { dispatch, editing } = props;
@@ -64,6 +70,7 @@ function GroupButtonEditor(props) {
                     <Button
                         disabled={!checkSheetExist(editing)}
                         startIcon={<LinkIcon />}
+                        className={editing.link_id_sheet !== null ? classes.islinked : null}
                         onClick={() => {
                             dispatch(requestOpenLinkSheetDialog(true));
                         }}
