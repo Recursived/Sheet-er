@@ -4,7 +4,8 @@ import {
   takeLatest,
   select,
   put,
-  call
+  call,
+  takeEvery
 } from 'redux-saga/effects';
 
 
@@ -44,6 +45,7 @@ import makeSelectEditingPage from './selectors';
 import {
   localeToCode
 } from 'utils/utils';
+import { element } from 'prop-types';
 
 
 export function* handleRequestSheetType() {
@@ -246,17 +248,19 @@ export function* handleRequestLinkSheet() {
     const user_info = yield select(makeSelectUserInfo());
     const sheet_info = yield select(makeSelectEditingPage());
 
-    
+
     const sheets = yield client.sheet_list(
       [
         { name: 'author', value: user_info.user.id, in: 'query' },
         { name: 'subject__id', value: sheet_info.type_sheet.id, in: 'query' },
+        { name: 'page', value: sheet_info.link_sheets_page, in: 'query' },
       ],
       null,
       { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
     );
     yield put(successAddLinkSheet(sheets.data))
   } catch (error) {
+    console.log(error);
     yield put(enqueueSnackbar({
       message: <FormattedMessage {...messages.errorlinksheet} />,
       options: {
@@ -276,6 +280,6 @@ export default function* handlerSaga() {
   yield takeLatest(REQUEST_SHEET_TAG, handleRequestSheetTag);
   yield takeLatest(REQUEST_ADD_SHEET, handleRequestAddSheet);
   yield takeLatest(REQUEST_DELETE_SHEET, handleRequestDeleteSheet);
-  yield takeLatest(REQUEST_ADD_LINKSHEET, handleRequestLinkSheet);
-  
+  yield takeEvery(REQUEST_ADD_LINKSHEET, handleRequestLinkSheet);
+
 }

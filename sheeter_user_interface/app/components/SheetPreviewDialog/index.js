@@ -23,7 +23,7 @@ import {
   DialogContentText
 } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
-import InfiniteScroll from "react-infinite-scroll-component";
+import InfiniteScroll from 'react-infinite-scroller';
 
 // Importing selectors and actions
 import makeSelectEditingPage from 'containers/EditingPage/selectors';
@@ -66,19 +66,31 @@ const useStyles = makeStyles((theme) => ({
 function SheetPreviewDialog(props) {
   const { dispatch, editing } = props;
   const classes = useStyles();
+  const [page, setPage] = React.useState(1); // Used by infinite scroll to manage paging
   const [count, setCount] = React.useState(0);
+  const [length, setLength] = React.useState(0);
+  const [items, setItems] = React.useState([]);
 
   React.useEffect(() => {
     if (checkSheetExist(editing)) {
-      if (editing.link_sheets_data === null) {
-        dispatch(requestAddLinkSheet());
-      } else {
+      if (page == 1) {
+        dispatch(requestAddLinkSheet(page));
+        setPage(page + 1);
+      } else if (page > 1 && editing.link_sheets_data !== null) {
+
+        if (editing.type_sheet.id !== editing.link_sheets_data.results[0].subject.id) {
+          setPage(1);
+          setItems([]);
+        } else {
+          setItems(items.concat(editing.link_sheets_data.results.filter(elem => elem.id !== editing.id_sheet)));
+        }
         setCount(editing.link_sheets_data.count);
+        setLength(items.length);
       }
     }
-  }, [editing]);
+  }, [editing, page]);
 
-
+  // problème de doublon --> verif
   return (
     <Dialog fullScreen open={editing.link_dialog_open} onClose={() => dispatch(requestOpenLinkSheetDialog(false))} TransitionComponent={Transition}>
       <AppBar className={classes.appBar}>
@@ -96,28 +108,34 @@ function SheetPreviewDialog(props) {
       <DialogContent>
         {count > 0 ?
           (<InfiniteScroll
-            className={classes.infinite}
-            dataLength={count}
-            next={() => dispatch(requestAddLinkSheet())}
-            hasMore={editing.link_sheets_data.length < count}
-            loader={<h4>Loading...</h4>}
-            endMessage={
-              <p style={{ textAlign: 'center' }}>
-                <b>Yay! You have seen it all</b>
-              </p>
+            initialLoad={false}
+            useWindow={false}
+            pageStart={0}
+            loadMore={() => {
+              console.log(length < count);
+              console.log(page);
+              dispatch(requestAddLinkSheet(page));
+              setPage(page + 1);
+            }}
+            hasMore={length < count}
+            loader={
+            <Typography variant="h5" align="center">
+              Loading...
+            </Typography>
             }
+
           >
             <Grid
               container
               direction="row"
-              justify="center"
+              justify="flex-start"
               alignItems="center"
               spacing={2}
             >
               {
-                editing.link_sheets_data.results.map((data, index) => (
+                items.map((data, index) => (
                   <Grid item xs={12} md={4} key={index}>
-                    <SheetPreviewCard 
+                    <SheetPreviewCard
                       variant="link"
                       key={index}
                       data={data}

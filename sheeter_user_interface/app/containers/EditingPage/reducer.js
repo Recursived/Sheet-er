@@ -21,7 +21,8 @@ import {
   REQUEST_DELETE_SHEET,
   REQUEST_SET_LINKSHEET,
   REQUEST_OPEN_DIALOGLINK,
-  SUCCESS_ADD_LINKSHEET
+  SUCCESS_ADD_LINKSHEET,
+  REQUEST_ADD_LINKSHEET
 } from './constants';
 
 export const initialState = {
@@ -46,7 +47,8 @@ export const initialState = {
   permanent_delete: false,
   sheet_modified: false,
   // Link sheet variables
-  link_sheets_data : null,
+  link_sheets_data: null,
+  link_sheets_page: null,
   // Misc state elems
   link_dialog_open: false,
 
@@ -120,6 +122,9 @@ const editingPageReducer = (state = initialState, action) =>
         break;
       case REQUEST_OPEN_DIALOGLINK:
         draft.link_dialog_open = action.boolean;
+        break;
+      case REQUEST_ADD_LINKSHEET:
+        draft.link_sheets_page = action.page;
         break;
       case SUCCESS_ADD_LINKSHEET:
         draft.link_sheets_data = action.link_sheet;
