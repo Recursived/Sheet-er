@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { withRouter } from "react-router";
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -32,12 +33,10 @@ export function SheetPage(props) {
   useInjectSaga({ key: 'sheetPage', saga });
   
   React.useEffect(() => {
-
     if (sheetPage.id_sheet == null){
-      // console.log("zfe");
       dispatch(requestGetSheetInfoAction(match.params.id));
     }
-  }, []);
+  }, [sheetPage]);
 
   return (
     <div>
@@ -72,4 +71,5 @@ const withConnect = connect(
 export default compose(
   withConnect,
   memo,
+  withRouter
 )(SheetPage);

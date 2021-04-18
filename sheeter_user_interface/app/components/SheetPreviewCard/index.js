@@ -40,7 +40,9 @@ const useStyles = makeStyles((theme) => ({
   },
 
   selected: {
-    borderColor: `${theme.palette.primary.main}`
+    borderColor: `${theme.palette.primary.main}`,
+
+    borderWidth: '5px'
   }
 }));
 

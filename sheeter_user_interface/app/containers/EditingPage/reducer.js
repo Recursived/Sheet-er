@@ -48,7 +48,6 @@ export const initialState = {
   sheet_modified: false,
   // Link sheet variables
   link_sheets_data: null,
-  link_sheets_page: null,
   // Misc state elems
   link_dialog_open: false,
 
@@ -90,6 +89,8 @@ const editingPageReducer = (state = initialState, action) =>
       case REQUEST_SET_TYPESHEET:
         draft.sheet_modified = true;
         draft.type_sheet = action.sheet_type;
+        draft.link_sheets_data = null;
+        draft.link_id_sheet = null;
         break;
       case REQUEST_SET_DESCRSHEET:
         draft.descr_sheet = action.descr_sheet
@@ -122,9 +123,6 @@ const editingPageReducer = (state = initialState, action) =>
         break;
       case REQUEST_OPEN_DIALOGLINK:
         draft.link_dialog_open = action.boolean;
-        break;
-      case REQUEST_ADD_LINKSHEET:
-        draft.link_sheets_page = action.page;
         break;
       case SUCCESS_ADD_LINKSHEET:
         draft.link_sheets_data = action.link_sheet;

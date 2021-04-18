@@ -248,17 +248,42 @@ export function* handleRequestLinkSheet() {
     const user_info = yield select(makeSelectUserInfo());
     const sheet_info = yield select(makeSelectEditingPage());
 
+    // Setting current page
+    if (sheet_info.link_sheets_data === null) {
+      var page = 1;
+    } else {
+      if (sheet_info.link_sheets_data.next !== null) {
+        let reg = /page=([1-9]+)/g;
+        var page = reg.exec(sheet_info.link_sheets_data.next)[1];
+      }
+    }
 
-    const sheets = yield client.sheet_list(
-      [
-        { name: 'author', value: user_info.user.id, in: 'query' },
-        { name: 'subject__id', value: sheet_info.type_sheet.id, in: 'query' },
-        { name: 'page', value: sheet_info.link_sheets_page, in: 'query' },
-      ],
-      null,
-      { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
-    );
-    yield put(successAddLinkSheet(sheets.data))
+    // if there is a next page or first call => nothing happens
+    if (
+      sheet_info.link_sheets_data === null ||
+      (sheet_info.link_sheets_data !== null &&
+      sheet_info.link_sheets_data.next !== null)
+    ) {
+      const sheets = yield client.sheet_list(
+        [
+          { name: 'author', value: user_info.user.id, in: 'query' },
+          { name: 'subject__id', value: sheet_info.type_sheet.id, in: 'query' },
+          { name: 'page', value: page, in: 'query' },
+        ],
+        null,
+        { headers: { 'Authorization': `Bearer ${user_info.access_token.token}` } }
+      );
+
+      // Concat & remove self record
+      if (sheet_info.link_sheets_data !== null) {
+        let arr = sheet_info.link_sheets_data.results.concat(sheets.data.results);
+        sheets.data.results = arr;
+      }
+      sheets.data.results = sheets.data.results.filter(elem => elem.id !== sheet_info.type_sheet.id);
+      yield put(successAddLinkSheet(sheets.data))
+    }
+
+
   } catch (error) {
     console.log(error);
     yield put(enqueueSnackbar({

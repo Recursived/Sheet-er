@@ -66,29 +66,16 @@ const useStyles = makeStyles((theme) => ({
 function SheetPreviewDialog(props) {
   const { dispatch, editing } = props;
   const classes = useStyles();
-  const [page, setPage] = React.useState(1); // Used by infinite scroll to manage paging
-  const [count, setCount] = React.useState(0);
-  const [length, setLength] = React.useState(0);
-  const [items, setItems] = React.useState([]);
 
   React.useEffect(() => {
     if (checkSheetExist(editing)) {
-      if (page == 1) {
-        dispatch(requestAddLinkSheet(page));
-        setPage(page + 1);
-      } else if (page > 1 && editing.link_sheets_data !== null) {
-
-        if (editing.type_sheet.id !== editing.link_sheets_data.results[0].subject.id) {
-          setPage(1);
-          setItems([]);
-        } else {
-          setItems(items.concat(editing.link_sheets_data.results.filter(elem => elem.id !== editing.id_sheet)));
-        }
-        setCount(editing.link_sheets_data.count);
-        setLength(items.length);
+      if (editing.link_sheets_data === null) {
+        dispatch(requestAddLinkSheet());
       }
     }
-  }, [editing, page]);
+  }, [editing]);
+
+
 
   // problème de doublon --> verif
   return (
@@ -106,21 +93,18 @@ function SheetPreviewDialog(props) {
         </Toolbar>
       </AppBar>
       <DialogContent>
-        {count > 0 ?
+        {editing.link_sheets_data !== null ?
           (<InfiniteScroll
             initialLoad={false}
             useWindow={false}
             pageStart={0}
             loadMore={() => {
-              console.log(length < count);
-              console.log(page);
-              dispatch(requestAddLinkSheet(page));
-              setPage(page + 1);
+              dispatch(requestAddLinkSheet());
             }}
-            hasMore={length < count}
+            hasMore={editing.link_sheets_data.results.length < editing.link_sheets_data.count}
             loader={
-            <Typography variant="h5" align="center">
-              Loading...
+              <Typography variant="h5" align="center">
+                Loading...
             </Typography>
             }
 
@@ -133,7 +117,7 @@ function SheetPreviewDialog(props) {
               spacing={2}
             >
               {
-                items.map((data, index) => (
+                editing.link_sheets_data.results.map((data, index) => (
                   <Grid item xs={12} md={4} key={index}>
                     <SheetPreviewCard
                       variant="link"

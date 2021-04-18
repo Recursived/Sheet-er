@@ -49,8 +49,10 @@ class SheetSerializer(serializers.ModelSerializer):
         for tag in tags_data:
             lst_tags.append(SheetTag.objects.get(id=tag.get("id")))
         subject = SheetType.objects.get(id=subject_data.get("id"))
-        next_sheet = Sheet.objects.get(id=link_sheet_data)
-        instance.next_sheet = next_sheet
+        
+        if link_sheet_data is not None:
+            next_sheet = Sheet.objects.get(id=link_sheet_data)
+            instance.next_sheet = next_sheet
         instance.subject = subject
         instance.tags.add(*lst_tags)
         instance.save()

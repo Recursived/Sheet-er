@@ -147,10 +147,9 @@ export function successDeleteSheet() {
 }
 
 // Actions used to retrieve and set link sheet data
-export function requestAddLinkSheet(page) {
+export function requestAddLinkSheet() {
   return {
     type: REQUEST_ADD_LINKSHEET,
-    page: page
   }
 }
 
