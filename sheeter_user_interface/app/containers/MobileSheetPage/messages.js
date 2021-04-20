@@ -13,4 +13,9 @@ export default defineMessages({
     id: `${scope}.header`,
     defaultMessage: 'This is the MobileSheetPage container!',
   },
+
+  mobilesheetroute: {
+    id: `${scope}.mobilesheetroute`,
+    defaultMessage: 'Sheet - mobile',
+  },
 });

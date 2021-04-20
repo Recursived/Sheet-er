@@ -13,7 +13,7 @@ import loginpageMessages from 'containers/LoginPage/messages';
 import editingpageMessages from 'containers/EditingPage/messages';
 import settingspageMessages from 'containers/SettingsPage/messages';
 import sheetpageMessages from 'containers/SheetPage/messages'
-
+import mobilesheetpageMessages from 'containers/MobileSheetPage/messages'
 
 
 export default {
@@ -50,5 +50,10 @@ export default {
     sheetpage: {
         path: '/sheet/:id',
         name:  <FormattedMessage {...sheetpageMessages.sheetroute} />,
-    }
+    },
+
+    mobilesheetpage: {
+        path: '/mobile/sheet',
+        name: <FormattedMessage {...mobilesheetpageMessages.mobilesheetroute} />,
+    },
 }

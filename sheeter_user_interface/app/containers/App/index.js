@@ -30,7 +30,7 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import EditingPage from 'containers/EditingPage/Loadable';
 import SettingsPage from 'containers/SettingsPage/Loadable';
 import SheetPage from 'containers/SheetPage/Loadable';
-
+import MobileSheetPage from 'containers/MobileSheetPage/Loadable';
 // Import components
 import SheeterNav from 'components/SheeterNav/Loadable';
 import PrivateRoute from 'components/Route/PrivateRoute';
@@ -44,7 +44,6 @@ import AppContainer from './AppContainer';
 export function App(props) {
   useInjectSaga({ key: 'global', saga });
   const theme = useTheme();
-  // const {loggedIn, path, dispatch} = props;
 
   return (
     <AppContainer theme={theme}>
@@ -74,6 +73,11 @@ export function App(props) {
           exact
           path={routes.landingpage.path}
           component={LandingPage}
+        />
+        <PublicRoute
+          exact
+          path={routes.mobilesheetpage.path}
+          component={MobileSheetPage}
         />
         <PublicRoute
           restricted

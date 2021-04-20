@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import queryString from 'query-string';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -19,9 +20,10 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-export function MobileSheetPage() {
+export function MobileSheetPage(props) {
   useInjectReducer({ key: 'mobileSheetPage', reducer });
   useInjectSaga({ key: 'mobileSheetPage', saga });
+  console.log(queryString.parse(props.location.search));
 
   return (
     <div>
