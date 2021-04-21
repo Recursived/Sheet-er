@@ -93,12 +93,12 @@ class Sheet(models.Model):
     )
     visibility = models.CharField(
         max_length=50, choices=VISIBILITY,
-        verbose_name="Niveau de la difficulte de la fiche",
+        verbose_name="Niveau de visibilité de la fiche",
         default='PU', blank=True
     )
     state = models.CharField(
         max_length=50, choices=SHEET_STATE,
-        verbose_name="Niveau de la difficulte de la fiche",
+        verbose_name="Etat de la fiche",
         default='D', blank=True
     )
     nb_click = models.IntegerField(default=0)
@@ -111,12 +111,14 @@ class Sheet(models.Model):
         on_delete=models.DO_NOTHING
     )
 
-    score = models.FloatField(verbose_name="Score interne")
     has_exercice = models.BooleanField(verbose_name="Contient exercice", default=False, blank=True)
 
     @property
     def score(self):
-        return self.nb_click * self.mark
+        if self.nb_click is None or self.mark is None:
+            return 0
+        elif self.nb_click is not None and self.mark is not None:
+            return self.nb_click * self.mark
 
     def __str__(self):
         return f"{self.id} : {self.title}"
@@ -152,7 +154,7 @@ class Avis(models.Model):
         ordering = ['-id']
 
     author = models.BigIntegerField(verbose_name="Id de l'auteur de l'avis")
-    target_id = models.PositiveBigIntegerField(verbose_name="Id de la cible de l'avis")
+    target_id = models.PositiveIntegerField(verbose_name="Id de la cible de l'avis")
     target_type = models.CharField(
         max_length=50, choices=TARGET_TYPE,
         verbose_name="Type de l'element ayant recu l'avis",

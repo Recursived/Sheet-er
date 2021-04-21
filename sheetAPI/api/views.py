@@ -1,9 +1,10 @@
 from rest_framework import filters, viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import Sheet, SheetTag, SheetType
+from .models import Sheet, SheetComment, SheetTag, SheetType, SheetComment, Avis
 from .serializers import (SheetSerializer, SheetTagSerializer,
-                          SheetTypeSerializer)
+                          SheetTypeSerializer, SheetCommentSerializer,
+                          AvisSerializer)
 
 
 class SheetViewSet(viewsets.ModelViewSet):
@@ -16,6 +17,25 @@ class SheetViewSet(viewsets.ModelViewSet):
     filterset_fields = ['subject__id', 'author']
     search_fields = ['title']
 
+
+class SheetCommentViewSet(viewsets.ModelViewSet):
+    """
+    A simple ViewSet for viewing and editing Sheet comments.
+    """
+    queryset = SheetComment.objects.all()
+    serializer_class = SheetCommentSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['sheetid', 'author']
+
+class AvisViewSet(viewsets.ModelViewSet):
+    """
+    A simple ViewSet for viewing and editing Like/Dislikes.
+    """
+    queryset = Avis.objects.all()
+    serializer_class = AvisSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['author', 'target_id', 'target_type']
+    paginator = None
 
 class SheetTagViewSet(viewsets.ModelViewSet):
     """
