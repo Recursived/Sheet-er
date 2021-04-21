@@ -31,6 +31,8 @@ export function MobileSheetPage(props) {
         <title>MobileSheetPage</title>
         <meta name="description" content="Description of MobileSheetPage" />
       </Helmet>
+      <h1>TESt</h1>
+      <h1>{props.location.search}</h1>
       <FormattedMessage {...messages.header} />
     </div>
   );
