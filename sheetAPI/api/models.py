@@ -24,18 +24,16 @@ SHEET_STATE = (
     ('P', 'Published'),
 )
 
-TARGET_TYPE =(
+TARGET_TYPE = (
     ('C', 'Comment'),
     ('S', 'Sheet'),
 )
 
 
-
-
 class SheetTag(models.Model):
     class Meta:
         ordering = ['-id']
-     
+
     id = models.AutoField(primary_key=True)
     label = models.CharField(max_length=50, verbose_name='Label')
 
@@ -50,13 +48,12 @@ class SheetType(models.Model):
     label = models.CharField(max_length=200, verbose_name='Label')
 
     def __str__(self):
-        return  f"({self.id}) {self.label}"
+        return f"({self.id}) {self.label}"
 
 
 class Sheet(models.Model):
     class Meta:
         ordering = ['-creation_date']
-
 
     author = models.PositiveIntegerField(verbose_name="ID auteur")
     content = models.TextField(verbose_name='Contenu fiche')
@@ -66,6 +63,7 @@ class Sheet(models.Model):
         blank=True
     )
     title = models.CharField(max_length=255, verbose_name='Titre')
+    # Remplacer cet élém par une table qui gère les notes d'une fiche
     mark = models.FloatField(
         validators=[MinValueValidator(0), MaxValueValidator(5)],
         verbose_name='Note',
@@ -111,7 +109,8 @@ class Sheet(models.Model):
         on_delete=models.DO_NOTHING
     )
 
-    has_exercice = models.BooleanField(verbose_name="Contient exercice", default=False, blank=True)
+    has_exercice = models.BooleanField(
+        verbose_name="Contient exercice", default=False, blank=True)
 
     @property
     def score(self):
@@ -131,7 +130,7 @@ class SheetComment(models.Model):
     sheetid = models.ForeignKey('Sheet', on_delete=models.CASCADE)
     author = models.PositiveIntegerField(verbose_name="ID auteur")
     content = models.TextField(verbose_name='Contenu commentaire')
-    publication_date =  models.DateField(
+    publication_date = models.DateField(
         verbose_name="Date de publication",
         name="publication_date",
         auto_now=True
@@ -146,7 +145,7 @@ class SheetComment(models.Model):
     )
 
     def __str__(self):
-        return  f"({self.sheetid}) {self.author}"
+        return f"({self.sheetid}) {self.author}"
 
 
 class Avis(models.Model):
@@ -154,12 +153,14 @@ class Avis(models.Model):
         ordering = ['-id']
 
     author = models.BigIntegerField(verbose_name="Id de l'auteur de l'avis")
-    target_id = models.PositiveIntegerField(verbose_name="Id de la cible de l'avis")
+    target_id = models.PositiveIntegerField(
+        verbose_name="Id de la cible de l'avis")
     target_type = models.CharField(
         max_length=50, choices=TARGET_TYPE,
         verbose_name="Type de l'element ayant recu l'avis",
     )
-    value = models.BooleanField(verbose_name="Type de l'avis (1 = Positif, 0 = Negatif)")
+    value = models.BooleanField(
+        verbose_name="Type de l'avis (1 = Positif, 0 = Negatif)")
 
     def __str__(self):
-        return  f"({self.author} - {self.target_id}) => {self.value}"
+        return f"({self.author} - {self.target_id}) => {self.value}"
