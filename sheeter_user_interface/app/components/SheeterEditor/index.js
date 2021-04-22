@@ -54,7 +54,7 @@ import makeSelectEditingPage from 'containers/EditingPage/selectors';
 
 // Misc import
 import messages from './messages';
-import { WrapperEditor } from './WrapperEditor'
+import { WrapperEditor } from './WrapperEditor';
 import EditorMenu from 'components/EditorMenu/Loadable';
 import SheeterInlineToolbar from './EditorPlugins/InlinePlugin/SheeterInlineToolbar';
 import { checkSheetExist, checkSheetDeleted } from 'utils/utils';
@@ -145,7 +145,6 @@ function SheeterEditor(props) {
   const { editing, dispatch } = props;
 
   const [hasFocus, setHasFocus] = React.useState(false);
-  const [wasModified, setWasModified] = React.useState(false);
   const [editorState, setEditorState] = React.useState(editing.editor_content_sheet ?
     EditorState.createWithContent(convertFromRaw(editing.editor_content_sheet)) : EditorState.createEmpty());
     
