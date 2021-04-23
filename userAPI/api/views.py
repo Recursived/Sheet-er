@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from oauth2_provider.models import AccessToken, RefreshToken
 from rest_framework import mixins, viewsets
 from rest_framework.generics import (RetrieveAPIView,
-                                     RetrieveUpdateDestroyAPIView)
+                                     RetrieveUpdateAPIView)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from social_django.models import UserSocialAuth
@@ -40,7 +40,7 @@ class UserView(
 
 class UserViewSet(
         viewsets.ViewSet,
-        RetrieveUpdateDestroyAPIView):
+        RetrieveUpdateAPIView):
     """
     A simple ViewSet for viewing and editing Sheeter users
     """
