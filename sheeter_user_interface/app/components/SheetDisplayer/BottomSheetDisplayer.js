@@ -35,7 +35,7 @@ function BottomSheetDisplayer() {
                 />
             </Grid>
             <Grid item>
-                <Button variant="outlined" color="primary" endIcon={<SkipNextIcon />}>
+                <Button variant="outlined" endIcon={<SkipNextIcon />}>
                     <FormattedMessage {...messages.labelnextsheetbutton} />
                 </Button>
             </Grid>
