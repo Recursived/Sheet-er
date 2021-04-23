@@ -11,7 +11,6 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { withRouter } from "react-router";
 import {
   Container,
   Grid,
@@ -44,16 +43,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export function SheetPage(props) {
-  const { dispatch, match, sheetPage } = props;
-  const classes = useStyles();
   useInjectReducer({ key: 'sheetPage', reducer });
   useInjectSaga({ key: 'sheetPage', saga });
 
+  const { dispatch, match, sheetPage } = props;
+  const classes = useStyles();
+
   React.useEffect(() => {
-    if (sheetPage.id_sheet == null) {
-      dispatch(requestGetSheetInfoAction(match.params.id));
-    }
-  }, [sheetPage]);
+    dispatch(requestGetSheetInfoAction(match.params.id));
+  }, [match.params.id]);
 
   return (
     <div>
@@ -71,17 +69,15 @@ export function SheetPage(props) {
           spacing={2}
         >
           <Grid xs={12} item>
-            <TopSheetDisplayer />
+            <TopSheetDisplayer data={sheetPage} />
           </Grid>
           <Grid xs={12} item>
-            <SheetDisplayer />
+            <SheetDisplayer data={sheetPage} />
           </Grid>
           <Grid xs={12} item>
-            <BottomSheetDisplayer />
+            <BottomSheetDisplayer data={sheetPage} />
           </Grid>
-
         </Grid>
-
       </Container>
 
     </div>
@@ -110,5 +106,4 @@ const withConnect = connect(
 export default compose(
   withConnect,
   memo,
-  withRouter
 )(SheetPage);

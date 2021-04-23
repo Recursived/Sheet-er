@@ -6,7 +6,7 @@
 
 import React, { memo } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid, Tooltip } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import PropTypes from 'prop-types';
 
@@ -20,7 +20,7 @@ import messages from './messages';
 
 
 
-function BottomSheetDisplayer() {
+function BottomSheetDisplayer(props) {
 
     return (
         <Grid
@@ -35,9 +35,12 @@ function BottomSheetDisplayer() {
                 />
             </Grid>
             <Grid item>
-                <Button variant="outlined" endIcon={<SkipNextIcon />}>
-                    <FormattedMessage {...messages.labelnextsheetbutton} />
-                </Button>
+                <Tooltip title={<FormattedMessage {...messages.tooltipnextsheet} />}>
+                    <Button variant="outlined" endIcon={<SkipNextIcon />} disabled={props.data.next_sheet === null}>
+                        <FormattedMessage {...messages.labelnextsheetbutton} />
+                    </Button>
+                </Tooltip>
+
             </Grid>
 
         </Grid>

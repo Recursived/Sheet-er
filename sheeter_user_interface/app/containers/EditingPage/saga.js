@@ -45,7 +45,6 @@ import makeSelectEditingPage from './selectors';
 import {
   localeToCode
 } from 'utils/utils';
-import { element } from 'prop-types';
 
 
 export function* handleRequestSheetType() {
@@ -306,5 +305,4 @@ export default function* handlerSaga() {
   yield takeLatest(REQUEST_ADD_SHEET, handleRequestAddSheet);
   yield takeLatest(REQUEST_DELETE_SHEET, handleRequestDeleteSheet);
   yield takeEvery(REQUEST_ADD_LINKSHEET, handleRequestLinkSheet);
-
 }

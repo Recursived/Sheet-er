@@ -14,7 +14,8 @@ import {
     Popover,
     Card,
     CardContent,
-    Divider
+    Divider,
+    Chip
 } from '@material-ui/core';
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
@@ -28,10 +29,19 @@ import messages from './messages';
 import InfoIcon from '@material-ui/icons/Info';
 
 
-function TopSheetDisplayer() {
+const useStyles = makeStyles((theme) => ({
+    gridcontainer: {
+        marginTop: theme.spacing(1)
+    }
+}));
+
+
+function TopSheetDisplayer(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const classes = useStyles();
     const id = open ? 'sheetinfo-popover' : undefined;
+    console.log(props);
     return (
         <React.Fragment>
             <Grid
@@ -42,8 +52,8 @@ function TopSheetDisplayer() {
             >
                 <Grid item>
                     <Typography variant="h4">
-                        TITRE test
-                </Typography>
+                        {props.data.title}
+                    </Typography>
                 </Grid>
                 <Grid item>
                     <IconButton onClick={(event) => setAnchorEl(event.currentTarget)} aria-label="delete">
@@ -68,22 +78,48 @@ function TopSheetDisplayer() {
             >
                 <Card>
                     <CardContent>
-                        <Typography variant="h5" component="h2">
-                            Sujet
-                        </Typography>
-                        <Typography color="textSecondary" gutterBottom>
-                            Auteur + date créa
-                        </Typography>
+                        <Grid
+                            container
+                            direction="column"
+                            justify="center"
+                            alignItems="stretch"
+                            spacing={2}
+                        >
+                            <Grid item>
+                                <Typography variant="h5" component="h2">
+                                    {props.data.subject !== null ? props.data.subject.label : ""}
+                                </Typography>
+                            </Grid>
+                            
+                            <Grid item>
+                                <Typography color="textSecondary" gutterBottom>
+                                    TO DO : inject INTL + recup auteur
+                                </Typography>
+                            </Grid>
+                            <Divider variant="fullWidth" />
+                            <Grid item>
+                                <Typography color="textSecondary">
+                                    {props.data.descr}
 
-                        <Divider variant="middle" />
-                        <Typography color="textSecondary">
-                            Description
+                                </Typography>
+                            </Grid>
+                            <Divider variant="fullWidth" />
+                            <Grid item>
+                                <Grid
+                                    container
+                                    direction="row"
+                                    justify="flex-start"
+                                    alignItems="center"
+                                >
+                                    {props.data.tags.map((tag) => (
+                                        // eslint-disable-next-line react/no-array-index-key
+                                        <Grid item><Chip label={tag.label} /></Grid>
+                                    ))}
 
-                        </Typography>
-                        <Typography color="textSecondary">
-                            tags + temps de lecture/nbr de mots
-
-                        </Typography>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                            
 
                     </CardContent>
                 </Card>

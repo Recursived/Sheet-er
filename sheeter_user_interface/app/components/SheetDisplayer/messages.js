@@ -16,6 +16,11 @@ export default defineMessages({
 
   labelnextsheetbutton: {
     id: `${scope}.labelnextsheetbutton`,
-    defaultMessage: 'Go to next sheet',
+    defaultMessage: 'Next sheet',
+  },
+
+  tooltipnextsheet: {
+    id: `${scope}.tooltipnextsheet`,
+    defaultMessage: 'Go to the next chapter',
   },
 });

@@ -5,7 +5,9 @@
  */
 
 import React, { memo } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { useTheme } from "@material-ui/styles";
 import { EditorState, RichUtils, getDefaultKeyBinding, convertToRaw, convertFromRaw } from 'draft-js';
 import Editor, { composeDecorators } from '@draft-js-plugins/editor';
@@ -77,10 +79,17 @@ const plugins = [
   kaTeXPlugin
 ];
 
-function SheetDisplayer() {
+function SheetDisplayer(props) {
   const theme = useTheme();
   const [hasFocus, setHasFocus] = React.useState(false);
   const [editorState, setEditorState] = React.useState(EditorState.createEmpty());
+
+  React.useEffect(() => {
+    if (props.data.content !== null ) setEditorState(EditorState.createWithContent(convertFromRaw(JSON.parse(props.data.content))));
+  }, [props.data])
+    
+
+    
   return (
     <WrapperEditor theme={theme} focus={hasFocus}>
       <Editor
@@ -100,4 +109,22 @@ function SheetDisplayer() {
 
 SheetDisplayer.propTypes = {};
 
-export default memo(SheetDisplayer);
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch,
+  };
+}
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
+
+
+export default compose(
+  withConnect,
+  memo,
+  injectIntl
+)(SheetDisplayer);
+
+

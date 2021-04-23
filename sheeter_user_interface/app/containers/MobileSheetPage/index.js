@@ -66,10 +66,6 @@ export function MobileSheetPage(props) {
           <Grid xs={12} item>
             <SheetDisplayer />
           </Grid>
-          <Grid xs={12} item>
-            <BottomSheetDisplayer />
-          </Grid>
-
         </Grid>
 
       </Container>
