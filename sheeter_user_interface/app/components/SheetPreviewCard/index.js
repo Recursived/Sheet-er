@@ -36,19 +36,19 @@ const useStyles = makeStyles((theme) => ({
   },
 
   clickable: {
-    cursor: "pointer"
+    cursor: "pointer",
   },
 
   selected: {
     borderColor: `${theme.palette.primary.main}`,
-
     borderWidth: '5px'
-  }
+  },
 }));
 
 function SheetPreviewCard(props) {
   const classes = useStyles();
   const { sheetId, clickHandler, data, variant, context } = props;
+  const [noWrap, setNoWrap] = React.useState(true);
   let className = null;
   switch (variant) {
     case "link":
@@ -56,7 +56,7 @@ function SheetPreviewCard(props) {
       if (context !== null && context.link_id_sheet === sheetId) {
         className = clsx(classes.clickable, classes.selected);
       }
-      
+
       break;
     case "homepage":
       className = classes.clickable;
@@ -67,7 +67,14 @@ function SheetPreviewCard(props) {
   }
 
   return (
-    <Card id={sheetId} className={className} variant="outlined" onClick={clickHandler}>
+    <Card 
+      onMouseEnter={() => setNoWrap(false)}
+      onMouseLeave={() => setNoWrap(true)}
+      id={sheetId}
+      className={className}
+      variant="outlined"
+      onClick={clickHandler}
+    >
       <CardContent>
         <Typography variant="h5" component="h2">
           {data.title}
@@ -78,7 +85,7 @@ function SheetPreviewCard(props) {
         <Typography color="textSecondary">
           {data.subject.label}
         </Typography>
-        <Typography variant="body2" component="p">
+        <Typography variant="body2" component="p" noWrap={noWrap}>
           {data.descr}
         </Typography>
       </CardContent>
