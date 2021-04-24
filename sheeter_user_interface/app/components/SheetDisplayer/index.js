@@ -73,10 +73,10 @@ const kaTeXPlugin = createKaTeXPlugin({
 
 const plugins = [
   createLinkifyPlugin(),
-  linkPlugin,
   createMarkdownShortcutsPlugin(),
   inlineToolbarPlugin,
   focusPlugin,
+  linkPlugin,
   undoPlugin,
   kaTeXPlugin
 ];

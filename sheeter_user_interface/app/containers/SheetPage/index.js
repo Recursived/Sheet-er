@@ -8,7 +8,7 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import {
@@ -46,7 +46,7 @@ export function SheetPage(props) {
   useInjectReducer({ key: 'sheetPage', reducer });
   useInjectSaga({ key: 'sheetPage', saga });
 
-  const { dispatch, match, sheetPage } = props;
+  const { dispatch, match, sheetPage, intl } = props;
   const classes = useStyles();
 
   React.useEffect(() => {
@@ -56,7 +56,7 @@ export function SheetPage(props) {
   return (
     <div>
       <Helmet>
-        <title>SheetPage</title>
+        <title>{intl.formatMessage(messages.sheetroute, {title: sheetPage.title})}</title>
         <meta name="description" content="Description of SheetPage" />
       </Helmet>
       <FormattedMessage {...messages.header} />
@@ -86,6 +86,7 @@ export function SheetPage(props) {
 
 SheetPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  intl: intlShape.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -106,4 +107,5 @@ const withConnect = connect(
 export default compose(
   withConnect,
   memo,
+  injectIntl
 )(SheetPage);

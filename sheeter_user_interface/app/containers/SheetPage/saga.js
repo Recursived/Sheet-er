@@ -1,5 +1,7 @@
-import { takeLatest, call, put, select } from 'redux-saga/effects';
 import React from 'react';
+import routes from 'utils/routes';
+import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { push } from 'connected-react-router';
 import { FormattedMessage } from 'react-intl';
 import { enqueueSnackbar } from 'containers/NotifProvider/actions';
 import {
@@ -54,14 +56,14 @@ export function* requestSheetInfoSaga() {
     // TO-DO : get author of sheet
     yield put(successGetSheetInfoAction(sheet_record.data));
   } catch (error) {
-    console.log(error);
     yield put(enqueueSnackbar({
-      message: "test sagas requestSheetInfoSaga",
+      message: <FormattedMessage {...messages.errorretrievesheet} />,
       options: {
         key: new Date().getTime() + Math.random(),
         variant: 'error'
       },
     }));
+    yield put(push("../404"))
   }
 }
 
