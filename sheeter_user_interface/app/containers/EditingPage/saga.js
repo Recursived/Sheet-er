@@ -278,7 +278,9 @@ export function* handleRequestLinkSheet() {
         let arr = sheet_info.link_sheets_data.results.concat(sheets.data.results);
         sheets.data.results = arr;
       }
-      sheets.data.results = sheets.data.results.filter(elem => elem.id !== sheet_info.type_sheet.id);
+      
+      sheets.data.count -= 1;
+      sheets.data.results = sheets.data.results.filter(elem => sheet_info.id_sheet !== elem.id);
       yield put(successAddLinkSheet(sheets.data))
     }
 

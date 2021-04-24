@@ -8,8 +8,8 @@ from oauth2_provider.models import RefreshToken, AccessToken
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'first_name',
-                  'last_name', 'email', 'date_joined', 'last_login']
+        fields = ['id', 'username', 'first_name', 'email',
+                  'last_name', 'date_joined', 'last_login']
 
 
 class AccessTokenSerializer(serializers.ModelSerializer):

@@ -20,6 +20,7 @@ import asciimath2latex from 'asciimath-to-latex';
 import 'draft-js/dist/Draft.css';
 import '@draft-js-plugins/inline-toolbar/lib/plugin.css';
 import '@draft-js-plugins/linkify/lib/plugin.css';
+import linkStyles from 'components/SheeterEditor/linkStyles.module.css';
 
 
 // Importing plugins for editor
@@ -41,6 +42,7 @@ const inlineToolbarPlugin = createInlineToolbarPlugin();
 const focusPlugin = createFocusPlugin();
 const linkPlugin = createLinkPlugin({
   placeholder: 'http://…',
+  theme: linkStyles
 });
 
 
@@ -116,7 +118,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 const withConnect = connect(
-  mapStateToProps,
   mapDispatchToProps,
 );
 

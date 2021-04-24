@@ -5,7 +5,9 @@
  */
 
 import React, { memo } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 import {
     Grid,
     Typography,
@@ -17,7 +19,7 @@ import {
     Divider,
     Chip
 } from '@material-ui/core';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
 
@@ -32,6 +34,10 @@ import InfoIcon from '@material-ui/icons/Info';
 const useStyles = makeStyles((theme) => ({
     gridcontainer: {
         marginTop: theme.spacing(1)
+    },
+
+    card: {
+        maxWidth: '25vw'
     }
 }));
 
@@ -41,7 +47,7 @@ function TopSheetDisplayer(props) {
     const open = Boolean(anchorEl);
     const classes = useStyles();
     const id = open ? 'sheetinfo-popover' : undefined;
-    console.log(props);
+
     return (
         <React.Fragment>
             <Grid
@@ -76,7 +82,7 @@ function TopSheetDisplayer(props) {
                     horizontal: 'center',
                 }}
             >
-                <Card>
+                <Card className={classes.card}>
                     <CardContent>
                         <Grid
                             container
@@ -90,10 +96,18 @@ function TopSheetDisplayer(props) {
                                     {props.data.subject !== null ? props.data.subject.label : ""}
                                 </Typography>
                             </Grid>
-                            
+
                             <Grid item>
                                 <Typography color="textSecondary" gutterBottom>
-                                    TO DO : inject INTL + recup auteur
+                                    {isNaN(props.data.author) ?
+                                        props.data.author.first_name + " " + props.data.author.last_name + " - " : ""
+                                    }
+                                    {<FormattedDate
+                                        value={new Date(props.data.creation_date)}
+                                        year="numeric"
+                                        month="long"
+                                        day="2-digit"
+                                    />}
                                 </Typography>
                             </Grid>
                             <Divider variant="fullWidth" />
@@ -119,7 +133,7 @@ function TopSheetDisplayer(props) {
                                 </Grid>
                             </Grid>
                         </Grid>
-                            
+
 
                     </CardContent>
                 </Card>
@@ -130,6 +144,23 @@ function TopSheetDisplayer(props) {
     );
 }
 
-TopSheetDisplayer.propTypes = {};
+TopSheetDisplayer.propTypes = {
+    data: PropTypes.object
+};
 
-export default memo(TopSheetDisplayer);
+function mapDispatchToProps(dispatch) {
+    return {
+        dispatch,
+    };
+}
+
+const withConnect = connect(
+    mapDispatchToProps,
+);
+
+
+export default compose(
+    withConnect,
+    memo,
+)(TopSheetDisplayer);
+
