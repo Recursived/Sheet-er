@@ -18,4 +18,9 @@ export default defineMessages({
     id: `${scope}.mobilesheetroute`,
     defaultMessage: 'Sheet - mobile',
   },
+
+  errordisplaysheet: {
+    id: `${scope}.errordisplaysheet`,
+    defaultMessage: 'Oops... We could not display the sheet',
+  },
 });

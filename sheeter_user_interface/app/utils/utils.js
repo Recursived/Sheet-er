@@ -1,7 +1,11 @@
-/**
- * This file contains any function that would clutter the file of a component
- * /!\Functions should be grouped by specific pages /!\
- */
+/*******************************************************************************
+ * This file contains any function that would clutter the file of a component  *
+ * /!\ Functions should be grouped by specific pages /!\                       *
+ *******************************************************************************/
+
+// Imports
+import React from 'react';
+
 
 // Locale utils
 
@@ -40,9 +44,39 @@ export const codeToLocale = {
 }
 // Editing pages utils
 
-function checkNullOrEmpty(val){
+function checkNullOrEmpty(val) {
     return val === null || val === "";
 }
+
+/**
+ * Error boundary class acting as try catch but for components
+*/
+export class ErrorBoundary extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false };
+    }
+
+    static getDerivedStateFromError(error) {
+        // Update state so the next render will show the fallback UI.
+        return { hasError: true };
+    }
+
+    componentDidCatch(error, errorInfo) {
+        // You can also log the error to an error reporting service
+        console.log(error, errorInfo);
+    }
+
+    render() {
+        if (this.state.hasError) {
+            // You can render any custom fallback UI
+            return this.props.error;
+        }
+
+        return this.props.children;
+    }
+}
+
 
 /**
  * This function check if a sheet exists in redux store 
@@ -71,3 +105,5 @@ export function checkSheetDeleted(editing) {
         editing.descr_sheet === null &&
         (editing.tags_sheet !== null && editing.tags_sheet.length == 0);
 }
+
+

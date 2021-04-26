@@ -31,7 +31,6 @@ export function LoginPage(props) {
   
   return (
     <div>
-      
         <Helmet>
           <title>{intl.formatMessage(messages.routeLoginpage)}</title>
         </Helmet>

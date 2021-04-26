@@ -9,6 +9,7 @@ import {
   Container,
   Grid,
   makeStyles,
+  Typography,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -31,12 +32,19 @@ import BottomSheetDisplayer from 'components/SheetDisplayer/BottomSheetDisplayer
 import makeSelectMobileSheetPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { ErrorBoundary } from 'utils/utils';
 import messages from './messages';
+
+
 
 const useStyles = makeStyles(theme => ({
 
   container: {
     marginTop: theme.spacing(10)
+  },
+
+  errormessage: {
+    paddingTop: '50vh'
   }
 }));
 
@@ -44,7 +52,8 @@ export function MobileSheetPage(props) {
   const classes = useStyles();
   useInjectReducer({ key: 'mobileSheetPage', reducer });
   useInjectSaga({ key: 'mobileSheetPage', saga });
-  console.log(queryString.parse(props.location.search));
+  const qsdata = queryString.parse(props.location.search);
+
 
   return (
     <div>
@@ -52,23 +61,27 @@ export function MobileSheetPage(props) {
         <title>MobileSheetPage</title>
         <meta name="description" content="Description of MobileSheetPage" />
       </Helmet>
-      <Container maxWidth="md" className={classes.container}>
-        <Grid
-          container
-          direction="column"
-          justify="center"
-          alignItems="stretch"
-          spacing={2}
-        >
-          <Grid xs={12} item>
-            <TopSheetDisplayer />
+      <ErrorBoundary
+        error={<Typography className={classes.errormessage} variant="h3" align="center"><FormattedMessage {...messages.errordisplaysheet} /></Typography>}
+      >
+        <Container maxWidth="md" className={classes.container}>
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="stretch"
+            spacing={2}
+          >
+            <Grid xs={12} item>
+              <TopSheetDisplayer data={qsdata.data} />
+            </Grid>
+            <Grid xs={12} item>
+              <SheetDisplayer data={qsdata.data} />
+            </Grid>
           </Grid>
-          <Grid xs={12} item>
-            <SheetDisplayer />
-          </Grid>
-        </Grid>
 
-      </Container>
+        </Container>
+      </ErrorBoundary>
     </div>
   );
 }
