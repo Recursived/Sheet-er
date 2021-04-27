@@ -31,6 +31,8 @@ import EditingPage from 'containers/EditingPage/Loadable';
 import SettingsPage from 'containers/SettingsPage/Loadable';
 import SheetPage from 'containers/SheetPage/Loadable';
 import MobileSheetPage from 'containers/MobileSheetPage/Loadable';
+import ProfilePage from 'containers/ProfilePage/Loadable';
+
 // Import components
 import SheeterNav from 'components/SheeterNav/Loadable';
 import PrivateRoute from 'components/Route/PrivateRoute';
@@ -68,6 +70,11 @@ export function App(props) {
           exact
           path={routes.sheetpage.path}
           component={SheetPage}
+        />
+        <PrivateRoute
+          exact
+          path={routes.profilepage.path}
+          component={ProfilePage}
         />
         <PublicRoute
           exact

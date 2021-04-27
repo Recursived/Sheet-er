@@ -14,6 +14,7 @@ import editingpageMessages from 'containers/EditingPage/messages';
 import settingspageMessages from 'containers/SettingsPage/messages';
 import sheetpageMessages from 'containers/SheetPage/messages'
 import mobilesheetpageMessages from 'containers/MobileSheetPage/messages'
+import profilepageMessages from 'containers/ProfilePage/messages';
 
 
 export default {
@@ -56,4 +57,9 @@ export default {
         path: '/mobile/sheet',
         name: <FormattedMessage {...mobilesheetpageMessages.mobilesheetroute} />,
     },
+
+    profilepage: {
+        path: '/profile',
+        name: <FormattedMessage {...profilepageMessages.profileroute} />
+    }
 }
