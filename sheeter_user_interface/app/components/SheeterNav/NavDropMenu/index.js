@@ -90,7 +90,6 @@ function NavDropMenu(props) {
   React.useEffect(() => {
     if (prevOpen.current === true && open === false) {
       if (anchorRef.current != null) { anchorRef.current.focus();}
-      
     }
 
     prevOpen.current = open;

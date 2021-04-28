@@ -9,8 +9,18 @@ import { defineMessages } from 'react-intl';
 export const scope = 'app.components.HamburgerMenu';
 
 export default defineMessages({
-  header: {
-    id: `${scope}.header`,
-    defaultMessage: 'This is the HamburgerMenu component!',
+  homepagemessage: {
+    id: `${scope}.homepagemessage`,
+    defaultMessage: 'Homepage',
+  },
+
+  editmessage: {
+    id: `${scope}.editmessage`,
+    defaultMessage: 'Create/Edit Sheet',
+  },
+
+  profilemessage: {
+    id: `${scope}.profilemessage`,
+    defaultMessage: 'Profile',
   },
 });
