@@ -32,7 +32,12 @@ export default defineMessages({
 
     messagedatejoined: {
         id: `${scope}.messagedatejoined`,
-        defaultMessage: 'Joining date : {date} ',
+        defaultMessage: 'Joining date : {date}',
+    },
+
+    titelprofilecard: {
+        id: `${scope}.titelprofilecard`,
+        defaultMessage: 'My account',
     },
 
     

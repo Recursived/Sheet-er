@@ -47,115 +47,117 @@ function ProfileCard(props) {
   const classes = useStyles();
   const { userInfo, intl } = props;
   return (
-    <Paper variant="outlined" className={classes.paper}>
-      <Grid
-        container
-        direction="column"
-        justify="center"
-        alignItems="center"
-        className={classes.gridcolumn}
-      >
-        <Grid xs={12} md={4} item>
-          <Avatar className={classes.avatar}>
-            {userInfo.user.first_name.charAt(0) + userInfo.user.last_name.charAt(0)}
-          </Avatar>
-        </Grid>
-        <Grid xs={12} md={8} item>
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-            spacing={3}
-          >
-            <Grid item xs={6}>
-              <Typography
-                variant="h6"
-                
-              >
-                <FormattedMessage
-                  {...messages.messageusername}
-                />
-              </Typography>
-              <Typography
-                variant="subtitle2"
-                
-              >
-                {userInfo.user.username}
-              </Typography>
+    <React.Fragment>
+      <Typography variant="h4" gutterBottom><FormattedMessage {...messages.titelprofilecard} /></Typography>
+      <Paper variant="outlined" className={classes.paper}>
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="center"
+          className={classes.gridcolumn}
+        >
+          <Grid xs={12} md={4} item>
+            <Avatar className={classes.avatar}>
+              {userInfo.user.first_name.charAt(0) + userInfo.user.last_name.charAt(0)}
+            </Avatar>
+          </Grid>
+          <Grid xs={12} md={8} item>
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+              spacing={3}
+            >
+              <Grid item xs={6}>
+                <Typography
+                  variant="h6"
+                >
+                  <FormattedMessage
+                    {...messages.messageusername}
+                  />
+                </Typography>
+                <Typography
+                  variant="subtitle2"
 
-            </Grid>
-            <Grid item xs={6}>
-              <Typography
-                variant="h6"
-                
-              >
-                <FormattedMessage
-                  {...messages.messagemail}
-                />
-              </Typography>
-              <Typography
-                variant="subtitle2"
-                
-              >
-                {userInfo.user.email}
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography
-                variant="h6"
-              >
-                <FormattedMessage
-                  {...messages.messagefirstname}
-                />
-              </Typography>
-              <Typography
-                variant="subtitle2"
-                
-              >
-                {userInfo.user.first_name}
-              </Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography
-                variant="h6"
-              >
-                <FormattedMessage
-                  {...messages.messagelastname}
-                />
-              </Typography>
-              <Typography
-                variant="subtitle2"
-                
-              >
-                {userInfo.user.last_name}
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography
-                variant="caption"
-                display="block"
-                className={classes.center}
-                gutterBottom
-              >
-                <FormattedMessage
-                  {...messages.messagedatejoined}
-                  values={{
-                    date: intl.formatDate(new Date(userInfo.user.date_joined), {
-                      year: 'numeric',
-                      month: 'numeric',
-                      day: 'numeric',
-                    })
-                  }}
-                />
+                >
+                  {userInfo.user.username}
+                </Typography>
 
-              </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography
+                  variant="h6"
+
+                >
+                  <FormattedMessage
+                    {...messages.messagemail}
+                  />
+                </Typography>
+                <Typography
+                  variant="subtitle2"
+
+                >
+                  {userInfo.user.email}
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography
+                  variant="h6"
+                >
+                  <FormattedMessage
+                    {...messages.messagefirstname}
+                  />
+                </Typography>
+                <Typography
+                  variant="subtitle2"
+
+                >
+                  {userInfo.user.first_name}
+                </Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography
+                  variant="h6"
+                >
+                  <FormattedMessage
+                    {...messages.messagelastname}
+                  />
+                </Typography>
+                <Typography
+                  variant="subtitle2"
+
+                >
+                  {userInfo.user.last_name}
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography
+                  variant="caption"
+                  display="block"
+                  className={classes.center}
+                  gutterBottom
+                >
+                  <FormattedMessage
+                    {...messages.messagedatejoined}
+                    values={{
+                      date: intl.formatDate(new Date(userInfo.user.date_joined), {
+                        year: 'numeric',
+                        month: 'numeric',
+                        day: 'numeric',
+                      })
+                    }}
+                  />
+
+                </Typography>
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
 
-    </Paper>
+      </Paper>
+    </React.Fragment>
   );
 }
 
