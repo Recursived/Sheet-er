@@ -31,7 +31,7 @@ import messages from './messages';
 const useStyles = makeStyles((theme) => ({
 
   boxcontainer: {
-    marginTop: theme.spacing(14)
+    marginTop: theme.spacing(10)
   },
 
   gridcomp : {
