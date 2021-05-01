@@ -37,7 +37,7 @@ import {
 // Misc imports
 import messages from './messages';
 import SheetPreviewCard from 'components/SheetPreviewCard';
-import { checkSheetExist } from 'utils/utils';
+import { checkSheetComplete } from 'utils/utils';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -68,8 +68,9 @@ function SheetPreviewDialog(props) {
   const classes = useStyles();
 
   React.useEffect(() => {
-    if (checkSheetExist(editing)) {
-      if (editing.link_sheets_data === null) {
+    if (checkSheetComplete(editing)) {
+      // id_sheet !== null to avoid problems with link sheets
+      if (editing.link_sheets_data === null && editing.id_sheet !== null) {
         dispatch(requestAddLinkSheet());
       }
     }

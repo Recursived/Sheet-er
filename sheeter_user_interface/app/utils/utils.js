@@ -83,7 +83,7 @@ export class ErrorBoundary extends React.Component {
  * @param {obj} editing 
  * @returns array
  */
-export function checkSheetExist(editing) {
+export function checkSheetComplete(editing) {
     return !checkNullOrEmpty(editing.editor_content_sheet) &&
         !checkNullOrEmpty(editing.title_sheet) &&
         !checkNullOrEmpty(editing.locale_sheet) &&

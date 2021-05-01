@@ -31,7 +31,7 @@ import makeSelectEditingPage from 'containers/EditingPage/selectors';
 // Misc imports
 import messages from './messages';
 import SheetPreviewDialog from 'components/SheetPreviewDialog'
-import { checkSheetExist } from 'utils/utils';
+import { checkSheetComplete } from 'utils/utils';
 
 const useStyles = makeStyles((theme) => ({
     deletepermbutton: {
@@ -59,7 +59,7 @@ function GroupButtonEditor(props) {
             <ButtonGroup disableElevation variant="contained" color="primary" >
                 <Tooltip arrow title={<FormattedMessage {...messages.tooltipdeletesheetbutton} />}>
                     <Button
-                        disabled={!checkSheetExist(editing)}
+                        disabled={!checkSheetComplete(editing)}
                         startIcon={<DeleteForeverIcon />}
                         onClick={() => setOpen(true)}
                     >
@@ -68,7 +68,7 @@ function GroupButtonEditor(props) {
                 </Tooltip>
                 <Tooltip arrow title={<FormattedMessage {...messages.tooltiplinksheetbutton} />}>
                     <Button
-                        disabled={!checkSheetExist(editing)}
+                        disabled={!checkSheetComplete(editing)}
                         startIcon={<LinkIcon />}
                         className={editing.link_id_sheet !== null ? classes.islinked : null}
                         onClick={() => {

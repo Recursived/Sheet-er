@@ -32,7 +32,7 @@ import {
 import SheeterEditor from 'components/SheeterEditor/Loadable';
 
 // Misc imports
-import { checkSheetExist } from 'utils/utils';
+import { checkSheetComplete } from 'utils/utils';
 
 
 const useStyles = makeStyles(theme => ({
@@ -79,7 +79,7 @@ export function EditingPage(props) {
 
   // Si un elem est modifié est que la fiche est complète, on save automatiquement
   React.useEffect(() => {
-    if (checkSheetExist(editing) && editing.sheet_modified) {
+    if (checkSheetComplete(editing) && editing.sheet_modified) {
       dispatch(requestAddSheet());
     }
 

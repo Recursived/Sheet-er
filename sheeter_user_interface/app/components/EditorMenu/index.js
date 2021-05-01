@@ -32,7 +32,7 @@ import SheetTypeCombo from './SheetTypeCombo';
 import SheetTagCombo from './SheetTagCombo';
 import TabEditor from './TabEditor';
 import GroupButtonEditor from './GroupButtonEditor';
-import { checkSheetExist, localeToCode } from 'utils/utils';
+import { checkSheetComplete, localeToCode } from 'utils/utils';
 
 
 // Importing actions and selector
@@ -92,7 +92,7 @@ function EditorMenu(props) {
       <Tooltip aria-label="Saving sheet" title={<FormattedMessage {...messages.tooltipsheetissaving} />}>
         <HourglassEmptyIcon className={classes.statusicon} />
       </Tooltip>;
-  } else if (checkSheetExist(editing)) {
+  } else if (checkSheetComplete(editing)) {
     statusIcon =
       <Tooltip aria-label="Sheet saved"
         title={

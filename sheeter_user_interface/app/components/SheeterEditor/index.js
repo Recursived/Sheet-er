@@ -57,7 +57,7 @@ import messages from './messages';
 import { WrapperEditor } from './WrapperEditor';
 import EditorMenu from 'components/EditorMenu/Loadable';
 import SheeterInlineToolbar from './EditorPlugins/InlinePlugin/SheeterInlineToolbar';
-import { checkSheetExist, checkSheetDeleted } from 'utils/utils';
+import { checkSheetComplete, checkSheetDeleted } from 'utils/utils';
 
 
 

@@ -280,6 +280,7 @@ export function* handleRequestLinkSheet() {
       }
       
       sheets.data.count -= 1;
+      
       sheets.data.results = sheets.data.results.filter(elem => sheet_info.id_sheet !== elem.id);
       yield put(successAddLinkSheet(sheets.data))
     }
