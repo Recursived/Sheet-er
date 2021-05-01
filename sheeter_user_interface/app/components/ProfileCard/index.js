@@ -31,10 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   paper: {
-    padding: theme.spacing(2)
-  },
-
-  gridcolumn: {
+    padding: theme.spacing(2),
     height: '100%'
   },
 
@@ -55,7 +52,6 @@ function ProfileCard(props) {
           direction="column"
           justify="center"
           alignItems="center"
-          className={classes.gridcolumn}
         >
           <Grid xs={12} md={4} item>
             <Avatar className={classes.avatar}>

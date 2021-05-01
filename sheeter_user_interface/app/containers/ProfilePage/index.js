@@ -22,6 +22,7 @@ import makeSelectProfilePage from './selectors';
 
 // Component imports
 import ProfileCard from 'components/ProfileCard/Loadable';
+import DashboardCard from 'components/DashboardCard/Loadable';
 
 // Misc imports 
 import reducer from './reducer';
@@ -57,14 +58,15 @@ export function ProfilePage(props) {
         container
         direction="row"
         justify="center"
-        alignItems="center"
+        alignItems="stretch"
         spacing={3}
+        className={classes.gridcomp}
       >
         <Grid item xs={12} md={6}>
           <ProfileCard />
         </Grid>
         <Grid item xs={12} md={6}>
-
+          <DashboardCard/>
         </Grid>
         <Grid item xs={12} md={12}>
 
