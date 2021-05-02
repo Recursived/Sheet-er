@@ -17,5 +17,11 @@ export default defineMessages({
   emptysheetdialog: {
     id: `${scope}.emptysheetdialog`,
     defaultMessage: 'There a no sheet available',
+  },
+
+  loadingtext: {
+    id: `${scope}.loadingtext`,
+    defaultMessage: 'Loading...',
   }
+  
 });

@@ -36,7 +36,7 @@ import {
 
 // Misc imports
 import messages from './messages';
-import SheetPreviewCard from 'components/SheetPreviewCard';
+import SheetPreviewCard from 'components/SheetPreviewCard/Loadable';
 import { checkSheetComplete } from 'utils/utils';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -105,8 +105,8 @@ function SheetPreviewDialog(props) {
             hasMore={editing.link_sheets_data.results.length < editing.link_sheets_data.count}
             loader={
               <Typography variant="h5" align="center">
-                Loading...
-            </Typography>
+                <FormattedMessage {...messages.loadingtext} />
+              </Typography>
             }
 
           >

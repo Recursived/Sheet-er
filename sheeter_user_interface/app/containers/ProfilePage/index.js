@@ -5,7 +5,7 @@
  */
 
 import React, { memo } from 'react';
-import { Box, Container, Grid, makeStyles } from '@material-ui/core';
+import { Box, Container, Divider, Grid, makeStyles, Paper, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -18,25 +18,29 @@ import { useInjectReducer } from 'utils/injectReducer';
 
 // Import selectors
 import { makeSelectUserInfo } from 'containers/App/selectors';
-import makeSelectProfilePage from './selectors';
 
 // Component imports
 import ProfileCard from 'components/ProfileCard/Loadable';
 import DashboardCard from 'components/DashboardCard/Loadable';
+import FilterSheetType from 'components/FilterSheetType/Loadable';
+import PersonalSheetDisplay from 'components/PersonalSheetDisplay';
 
 // Misc imports 
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { requestGetMySheets } from 'containers/ProfilePage/actions';
 
 const useStyles = makeStyles((theme) => ({
 
   boxcontainer: {
-    marginTop: theme.spacing(10)
+    paddingTop: theme.spacing(10)
   },
 
-  gridcomp : {
-    height: '40vh'
+  paper: {
+    padding: theme.spacing(3),
+    height: '100%',
+    backgroundColor: theme.palette.type === "dark" ? theme.palette.grey[900] : theme.palette.grey[200],
   }
 }));
 export function ProfilePage(props) {
@@ -47,7 +51,9 @@ export function ProfilePage(props) {
   const name = userInfo.user.first_name + " "
     + userInfo.user.last_name;
 
-
+  React.useEffect(() => {
+    dispatch(requestGetMySheets());
+  }, [])
   return (
     <Container maxWidth="lg" className={classes.boxcontainer}>
       <Helmet>
@@ -60,16 +66,27 @@ export function ProfilePage(props) {
         justify="center"
         alignItems="stretch"
         spacing={3}
-        className={classes.gridcomp}
       >
         <Grid item xs={12} md={6}>
-          <ProfileCard />
+          <Paper className={classes.paper}>
+            <ProfileCard />
+          </Paper>
+
         </Grid>
         <Grid item xs={12} md={6}>
-          <DashboardCard/>
+          <Paper className={classes.paper}>
+            <DashboardCard />
+          </Paper>
+
         </Grid>
         <Grid item xs={12} md={12}>
-
+          <Typography gutterBottom variant="h4" align="center"><FormattedMessage {...messages.titlemysheetsection}/></Typography>
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <FilterSheetType />
+        </Grid>
+        <Grid item xs={12} md={12}>
+          <PersonalSheetDisplay/>
         </Grid>
       </Grid>
     </Container>

@@ -4,7 +4,7 @@
  *
  */
 
-import { Grid, makeStyles, Paper, Typography } from '@material-ui/core';
+import { Divider, Grid, makeStyles, Typography } from '@material-ui/core';
 import React, { memo } from 'react';
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
@@ -15,13 +15,10 @@ import messages from './messages';
 
 const useStyles = makeStyles((theme) => ({
 
-  gridcolumn: {
-    height: '100%'
-  },
 
-  paper: {
+  boxcontainer: {
     padding: theme.spacing(2),
-    height: '100%'
+
   },
 }));
 function DashboardCard() {
@@ -29,23 +26,20 @@ function DashboardCard() {
   return (
     <React.Fragment>
       <Typography align="right" variant="h4" gutterBottom><FormattedMessage {...messages.titeldashboardcard} /></Typography>
-      <Paper variant="outlined" className={classes.paper}>
-        <Grid
-          container
-          direction="column"
-          justify="center"
-          alignItems="center"
-          className={classes.gridcolumn}
-        >
-          <Grid item>
-            <Typography variant="h4">
-              En cours d'élaboration
+      <Divider variant="fullWidth" />
+      <Grid
+        container
+        direction="column"
+        justify="center"
+        alignItems="stretch"
+      >
+
+        <Grid item>
+          <Typography variant="h4" align="center">
+            En cours d'élaboration
             </Typography>
-          </Grid>
-
         </Grid>
-
-      </Paper>
+      </Grid>
     </React.Fragment>
 
   );

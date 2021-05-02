@@ -9,8 +9,15 @@ import { defineMessages } from 'react-intl';
 export const scope = 'app.components.PersonalSheetDisplay';
 
 export default defineMessages({
-  header: {
-    id: `${scope}.header`,
-    defaultMessage: 'This is the PersonalSheetDisplay component!',
+  loadingtext: {
+    id: `${scope}.loadingtext`,
+    defaultMessage: 'Loading...',
   },
+
+  nosheettext: {
+    id: `${scope}.nosheettext`,
+    defaultMessage: 'No sheets available',
+  },
+
+
 });

@@ -9,8 +9,18 @@ import { defineMessages } from 'react-intl';
 export const scope = 'app.components.FilterSheetType';
 
 export default defineMessages({
-  header: {
-    id: `${scope}.header`,
-    defaultMessage: 'This is the FilterSheetType component!',
+  nooptionslabel: {
+    id: `${scope}.nooptionslabel`,
+    defaultMessage: 'No options',
+  },
+
+  loadinglabel: {
+    id: `${scope}.loadinglabel`,
+    defaultMessage: 'Loading...',
+  },
+
+  labelsheettype: {
+    id: `${scope}.labelsheettype`,
+    defaultMessage: 'Subject',
   },
 });

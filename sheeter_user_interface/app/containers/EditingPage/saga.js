@@ -287,7 +287,6 @@ export function* handleRequestLinkSheet() {
 
 
   } catch (error) {
-    console.log(error);
     yield put(enqueueSnackbar({
       message: <FormattedMessage {...messages.errorlinksheet} />,
       options: {

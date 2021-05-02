@@ -4,10 +4,47 @@
  *
  */
 
-import { DEFAULT_ACTION } from './constants';
+import { 
+  REQUEST_SET_TYPE, 
+  REQUEST_GET_SHEETTYPE,
+  SUCCESS_GET_SHEETTYPE,
+  REQUEST_GET_MYSHEETS,
+  SUCCESS_GET_MYSHEETS
+} from './constants';
 
-export function defaultAction() {
+export function requestSetType(sheettype) {
   return {
-    type: DEFAULT_ACTION,
+    type: REQUEST_SET_TYPE,
+    sheettype: sheettype
   };
 }
+
+export function requestGetSheetType() {
+  return {
+    type: REQUEST_GET_SHEETTYPE,
+  };
+}
+
+export function requestSucessGetSheetType(sheettypes) {
+  return {
+    type: SUCCESS_GET_SHEETTYPE,
+    sheettypes: sheettypes
+  };
+}
+
+export function requestGetMySheets(){
+  return {
+    type: REQUEST_GET_MYSHEETS
+  }
+}
+
+export function successGetMySheets(data){
+  return {
+    type: SUCCESS_GET_MYSHEETS,
+    data: data
+  }
+}
+
+
+
+
