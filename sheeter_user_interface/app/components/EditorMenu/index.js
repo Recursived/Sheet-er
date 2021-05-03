@@ -38,7 +38,7 @@ import { checkSheetComplete, localeToCode } from 'utils/utils';
 // Importing actions and selector
 import { requestSetTitleSheet, requestSetDescrSheet } from 'containers/EditingPage/actions';
 import makeSelectEditingPage from 'containers/EditingPage/selectors';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectLocale } from 'providers/LanguageProvider/selectors';
 
 
 const useStyles = makeStyles(theme => ({

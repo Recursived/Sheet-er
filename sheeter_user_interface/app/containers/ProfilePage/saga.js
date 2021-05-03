@@ -8,7 +8,7 @@ import {
   REQUEST_GET_MYSHEETS
 } from './constants';
 
-import { enqueueSnackbar } from 'containers/NotifProvider/actions';
+import { enqueueSnackbar } from 'providers/NotifProvider/actions';
 import makeSelectProfilePage  from 'containers/ProfilePage/selectors';
 import { makeSelectUserInfo } from 'containers/App/selectors';
 

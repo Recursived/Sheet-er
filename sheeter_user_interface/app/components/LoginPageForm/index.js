@@ -32,7 +32,7 @@ import { isRequestLoginAction } from 'containers/App/actions';
 import {
   enqueueSnackbar,
   closeSnackbar,
-} from 'containers/NotifProvider/actions';
+} from 'providers/NotifProvider/actions';
 
 
 const useStyles = makeStyles(theme => ({

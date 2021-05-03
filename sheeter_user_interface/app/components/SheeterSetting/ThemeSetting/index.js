@@ -16,7 +16,7 @@ import {
 import { useTheme } from "@material-ui/styles";
 import { createStructuredSelector } from 'reselect';
 
-import { changeTheme } from 'containers/ThemeProvider/actions';
+import { changeTheme } from 'providers/ThemeProvider/actions';
 
 
 function ThemeSetting(props) {

@@ -4,7 +4,7 @@ import { push } from 'connected-react-router';
 import {
   enqueueSnackbar,
   closeSnackbar,
-} from 'containers/NotifProvider/actions';
+} from 'providers/NotifProvider/actions';
 
 import { FormattedMessage } from 'react-intl';
 import { put, takeLatest, call, select } from 'redux-saga/effects';

@@ -6,8 +6,8 @@ import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
 import history from 'utils/history';
-import themeProviderReducer from 'containers/ThemeProvider/reducer';
-import languageProviderReducer from 'containers/LanguageProvider/reducer';
+import themeProviderReducer from 'providers/ThemeProvider/reducer';
+import languageProviderReducer from 'providers/LanguageProvider/reducer';
 import globalReducer from 'containers/App/reducer';
 
 

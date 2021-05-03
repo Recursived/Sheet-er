@@ -20,10 +20,10 @@ import Select from '@material-ui/core/Select';
 import Tooltip from '@material-ui/core/Tooltip';
 
 // Import actions
-import { changeLocale } from 'containers/LanguageProvider/actions';
+import { changeLocale } from 'providers/LanguageProvider/actions';
 
 // Import Selectors
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectLocale } from 'providers/LanguageProvider/selectors';
 import messages from './messages';
 
 const useStyles = makeStyles(theme => ({

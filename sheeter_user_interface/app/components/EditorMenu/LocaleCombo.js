@@ -12,7 +12,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 
 
 // Selector & actions imports
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectLocale } from 'providers/LanguageProvider/selectors';
 import { requestSetLocaleSheet } from 'containers/EditingPage/actions';
 
 // Misc imports

@@ -1,6 +1,6 @@
 import React from 'react';
 import { push } from 'connected-react-router';
-import { enqueueSnackbar } from 'containers/NotifProvider/actions';
+import { enqueueSnackbar } from 'providers/NotifProvider/actions';
 
 
 import { FormattedMessage } from 'react-intl';

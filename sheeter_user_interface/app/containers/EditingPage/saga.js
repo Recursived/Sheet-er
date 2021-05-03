@@ -9,7 +9,7 @@ import {
 } from 'redux-saga/effects';
 
 
-import { enqueueSnackbar } from 'containers/NotifProvider/actions';
+import { enqueueSnackbar } from 'providers/NotifProvider/actions';
 import {
   makeSelectUserInfo,
 } from 'containers/App/selectors';

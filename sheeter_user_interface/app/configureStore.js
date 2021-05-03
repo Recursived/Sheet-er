@@ -8,7 +8,7 @@ import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
 import { REFRESH_TOKEN } from 'containers/App/constants';
 import { FormattedMessage } from 'react-intl';
-import { enqueueSnackbar, closeSnackbar } from 'containers/NotifProvider/actions';
+import { enqueueSnackbar, closeSnackbar } from 'providers/NotifProvider/actions';
 import { isRefreshAction } from 'containers/App/actions';
 import { IS_LOGGED_IN_SUCCESS, IS_LOGGED_OUT_SUCCESS } from 'containers/App/constants';
 import messages from 'containers/App/messages';

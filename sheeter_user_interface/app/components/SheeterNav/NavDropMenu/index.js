@@ -28,8 +28,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 // Importing actions and selectors
-import { changeTheme } from 'containers/ThemeProvider/actions';
-import { makeSelectThemeProvider } from 'containers/ThemeProvider/selectors';
+import { changeTheme } from 'providers/ThemeProvider/actions';
+import { makeSelectThemeProvider } from 'providers/ThemeProvider/selectors';
 import { makeSelectUserInfo } from 'containers/App/selectors';
 import  { isRequestLogOutAction }  from 'containers/App/actions';
 import { openContactDialogAction } from 'containers/App/actions';

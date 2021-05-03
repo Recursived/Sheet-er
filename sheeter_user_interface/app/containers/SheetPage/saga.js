@@ -3,7 +3,7 @@ import routes from 'utils/routes';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import { FormattedMessage } from 'react-intl';
-import { enqueueSnackbar } from 'containers/NotifProvider/actions';
+import { enqueueSnackbar } from 'providers/NotifProvider/actions';
 import {
   makeSelectUserInfo,
 } from 'containers/App/selectors';

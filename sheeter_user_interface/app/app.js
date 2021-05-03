@@ -23,9 +23,9 @@ import 'sanitize.css/sanitize.css';
 import App from 'containers/App';
 
 // Import main providers
-import LanguageProvider from 'containers/LanguageProvider';
-import ThemeProvider from 'containers/ThemeProvider';
-import NotifProvider from 'containers/NotifProvider';
+import LanguageProvider from 'providers/LanguageProvider';
+import ThemeProvider from 'providers/ThemeProvider';
+import NotifProvider from 'providers/NotifProvider';
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
 import '!file-loader?name=[name].[ext]!./images/favicon.ico';
