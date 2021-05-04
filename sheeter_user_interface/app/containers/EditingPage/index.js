@@ -74,7 +74,7 @@ export function EditingPage(props) {
   const intl = props.intl;
   const {dispatch, editing } = props;
 
-  // useInjectReducer({ key: 'editingPage', reducer });
+  useInjectReducer({ key: 'editingPage', reducer });
   useInjectSaga({ key: 'editingPage', saga });
 
   // Si un elem est modifié est que la fiche est complète, on save automatiquement

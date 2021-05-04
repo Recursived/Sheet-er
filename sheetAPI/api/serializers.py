@@ -44,7 +44,7 @@ class SheetSerializer(serializers.ModelSerializer):
         depth = 1
         fields = ['id', 'content', 'descr' , 'title',  'subject', 'mark', 'next_sheet',
                   'tags', 'creation_date', 'plagiarism_rate', 'locale', 'author', 'score',
-                  'difficulty_level', 'visibility', 'state', 'has_exercice'
+                  'difficulty_level', 'visibility', 'state', 'has_exercice', 'nb_click'
                   ]
 
     def create(self, validated_data):

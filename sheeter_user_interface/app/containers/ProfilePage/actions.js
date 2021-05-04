@@ -9,7 +9,10 @@ import {
   REQUEST_GET_SHEETTYPE,
   SUCCESS_GET_SHEETTYPE,
   REQUEST_GET_MYSHEETS,
-  SUCCESS_GET_MYSHEETS
+  SUCCESS_GET_MYSHEETS,
+  REQUEST_SET_SHEETDATA,
+  REQUEST_CLOSE_SHEETDIALOG,
+  REQUEST_OPEN_SHEETDIALOG
 } from './constants';
 
 export function requestSetType(sheettype) {
@@ -17,6 +20,13 @@ export function requestSetType(sheettype) {
     type: REQUEST_SET_TYPE,
     sheettype: sheettype
   };
+}
+
+export function requestSetSheetData(sheet){
+  return {
+    type : REQUEST_SET_SHEETDATA,
+    sheet: sheet
+  }
 }
 
 export function requestGetSheetType() {
@@ -44,6 +54,20 @@ export function successGetMySheets(data){
     data: data
   }
 }
+
+export function requestOpenSheetDialog(){
+  return {
+    type: REQUEST_OPEN_SHEETDIALOG,
+  }
+}
+
+export function requestCloseSheetDialog(){
+  return {
+    type: REQUEST_CLOSE_SHEETDIALOG,
+  }
+}
+
+
 
 
 

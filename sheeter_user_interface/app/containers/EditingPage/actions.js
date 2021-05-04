@@ -24,6 +24,8 @@ import {
   REQUEST_OPEN_DIALOGLINK,
   REQUEST_ADD_LINKSHEET,
   SUCCESS_ADD_LINKSHEET,
+  REQUEST_EDIT_MYSHEET,
+  SUCCESS_EDIT_MYSHEET
 
 } from './constants';
 
@@ -165,6 +167,20 @@ export function requestOpenLinkSheetDialog(boolean){
   return {
     type: REQUEST_OPEN_DIALOGLINK,
     boolean: boolean
+  }
+}
+
+export function requestEditSheet(){
+  return {
+    type: REQUEST_EDIT_MYSHEET,
+  }
+}
+
+export function successEditSheet(sheet){
+
+  return {
+    type: SUCCESS_EDIT_MYSHEET,
+    sheet: sheet
   }
 }
 

@@ -27,6 +27,7 @@ export const initialState = {
   state: 'D',
   has_exercice: false,
   descr: null,
+  nb_click : 0
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -54,6 +55,8 @@ const sheetPageReducer = (state = initialState, action) =>
         draft.state = action.response.state;
         draft.has_exercice = action.response.has_exercice;
         draft.descr = action.response.descr;
+        draft.nb_click = action.response.nb_click;
+        
         break;
     }
   });

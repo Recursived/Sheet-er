@@ -10,10 +10,11 @@ import {
 
 
 import { enqueueSnackbar } from 'providers/NotifProvider/actions';
+
 import {
   makeSelectUserInfo,
 } from 'containers/App/selectors';
-
+import makeSelectProfilePage from 'containers/ProfilePage/selectors';
 import {
   makeSelectFilterTag,
   makeSelectAddTag
@@ -26,7 +27,8 @@ import {
   REQUEST_ADD_SHEETTAG,
   REQUEST_ADD_SHEET,
   REQUEST_DELETE_SHEET,
-  REQUEST_ADD_LINKSHEET
+  REQUEST_ADD_LINKSHEET,
+  REQUEST_EDIT_MYSHEET
 } from './constants';
 
 import {
@@ -35,7 +37,8 @@ import {
   successAddSheetTagAction,
   successAddSheet,
   successDeleteSheet,
-  successAddLinkSheet
+  successAddLinkSheet,
+  successEditSheet
 } from './actions';
 
 import messages from './messages';
@@ -261,7 +264,7 @@ export function* handleRequestLinkSheet() {
     if (
       sheet_info.link_sheets_data === null ||
       (sheet_info.link_sheets_data !== null &&
-      sheet_info.link_sheets_data.next !== null)
+        sheet_info.link_sheets_data.next !== null)
     ) {
       const sheets = yield client.sheet_list(
         [
@@ -278,15 +281,32 @@ export function* handleRequestLinkSheet() {
         let arr = sheet_info.link_sheets_data.results.concat(sheets.data.results);
         sheets.data.results = arr;
       }
-      
+
       sheets.data.count -= 1;
-      
+
       sheets.data.results = sheets.data.results.filter(elem => sheet_info.id_sheet !== elem.id);
       yield put(successAddLinkSheet(sheets.data))
     }
 
 
   } catch (error) {
+    yield put(enqueueSnackbar({
+      message: <FormattedMessage {...messages.errorlinksheet} />,
+      options: {
+        key: new Date().getTime() + Math.random(),
+        variant: 'error'
+      },
+    }));
+  }
+}
+
+export function* handleRequestEditSheet() {
+
+  try {
+    const profile_info = yield select(makeSelectProfilePage());
+    yield put(successEditSheet(profile_info.sheet));
+  } catch (error) {
+    console.log(error);
     yield put(enqueueSnackbar({
       message: <FormattedMessage {...messages.errorlinksheet} />,
       options: {
@@ -306,5 +326,7 @@ export default function* handlerSaga() {
   yield takeLatest(REQUEST_SHEET_TAG, handleRequestSheetTag);
   yield takeLatest(REQUEST_ADD_SHEET, handleRequestAddSheet);
   yield takeLatest(REQUEST_DELETE_SHEET, handleRequestDeleteSheet);
+  yield takeLatest(REQUEST_EDIT_MYSHEET, handleRequestEditSheet);
+
   yield takeEvery(REQUEST_ADD_LINKSHEET, handleRequestLinkSheet);
 }

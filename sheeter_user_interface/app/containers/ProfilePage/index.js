@@ -23,7 +23,8 @@ import { makeSelectUserInfo } from 'containers/App/selectors';
 import ProfileCard from 'components/ProfileCard/Loadable';
 import DashboardCard from 'components/DashboardCard/Loadable';
 import FilterSheetType from 'components/FilterSheetType/Loadable';
-import PersonalSheetDisplay from 'components/PersonalSheetDisplay';
+import PersonalSheetDisplay from 'components/PersonalSheetDisplay/Loadable';
+import SheetDashboardDialog from 'components/SheetDashboardDialog/Loadable';
 
 // Misc imports 
 import reducer from './reducer';
@@ -55,41 +56,46 @@ export function ProfilePage(props) {
     dispatch(requestGetMySheets());
   }, [])
   return (
-    <Container maxWidth="lg" className={classes.boxcontainer}>
-      <Helmet>
-        <title>{intl.formatMessage(messages.profileroute, { name: name })}</title>
-        <meta name="description" content="Description of ProfilePage" />
-      </Helmet>
-      <Grid
-        container
-        direction="row"
-        justify="center"
-        alignItems="stretch"
-        spacing={3}
-      >
-        <Grid item xs={12} md={6}>
-          <Paper className={classes.paper}>
-            <ProfileCard />
-          </Paper>
+    <React.Fragment>
 
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Paper className={classes.paper}>
-            <DashboardCard />
-          </Paper>
 
+      <Container maxWidth="lg" className={classes.boxcontainer}>
+        <Helmet>
+          <title>{intl.formatMessage(messages.profileroute, { name: name })}</title>
+          <meta name="description" content="Description of ProfilePage" />
+        </Helmet>
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="stretch"
+          spacing={3}
+        >
+          <Grid item xs={12} md={6}>
+            <Paper className={classes.paper}>
+              <ProfileCard />
+            </Paper>
+
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Paper className={classes.paper}>
+              <DashboardCard />
+            </Paper>
+
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <Typography gutterBottom variant="h4" align="center"><FormattedMessage {...messages.titlemysheetsection} /></Typography>
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <FilterSheetType />
+          </Grid>
+          <Grid item xs={12} md={12}>
+            <PersonalSheetDisplay />
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={12}>
-          <Typography gutterBottom variant="h4" align="center"><FormattedMessage {...messages.titlemysheetsection}/></Typography>
-        </Grid>
-        <Grid item xs={12} md={12}>
-          <FilterSheetType />
-        </Grid>
-        <Grid item xs={12} md={12}>
-          <PersonalSheetDisplay/>
-        </Grid>
-      </Grid>
-    </Container>
+      </Container>
+      <SheetDashboardDialog />
+    </React.Fragment>
   );
 }
 

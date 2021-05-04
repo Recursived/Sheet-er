@@ -22,7 +22,7 @@ import {
   REQUEST_SET_LINKSHEET,
   REQUEST_OPEN_DIALOGLINK,
   SUCCESS_ADD_LINKSHEET,
-  REQUEST_ADD_LINKSHEET
+  SUCCESS_EDIT_MYSHEET
 } from './constants';
 
 export const initialState = {
@@ -46,7 +46,7 @@ export const initialState = {
   sheet_loading: false,
   permanent_delete: false,
   sheet_modified: false,
-  // Link sheet variables
+  // List of linkable sheets
   link_sheets_data: null,
   // Misc state elems
   link_dialog_open: false,
@@ -127,6 +127,16 @@ const editingPageReducer = (state = initialState, action) =>
       case SUCCESS_ADD_LINKSHEET:
         draft.link_sheets_data = action.link_sheet;
         break;
+      case SUCCESS_EDIT_MYSHEET:
+        console.log(action.sheet);
+        draft.editor_content_sheet = JSON.parse(action.sheet.content);
+        draft.title_sheet = action.sheet.title;
+        draft.locale_sheet = action.sheet.locale;
+        draft.descr_sheet = action.sheet.descr;
+        draft.id_sheet = action.sheet.id;
+        draft.type_sheet = action.sheet.subject;
+        draft.tags_sheet =action.sheet.tags;        
+        draft.link_id_sheet = action.sheet.next_sheet;
     }
   });
 

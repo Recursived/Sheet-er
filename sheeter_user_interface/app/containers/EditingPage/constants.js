@@ -25,6 +25,9 @@ export const SUCCESS_ADD_SHEET = 'app/EditingPage/SUCCESS_ADD_SHEET';
 export const REQUEST_ADD_LINKSHEET = 'app/EditingPage/REQUEST_ADD_LINKSHEET';
 export const SUCCESS_ADD_LINKSHEET = 'app/EditingPage/SUCCESS_ADD_LINKSHEET';
 
+// Used to edit a previously created sheet
+export const REQUEST_EDIT_MYSHEET = 'app/EditingPage/REQUEST_EDIT_MYSHEET';
+export const SUCCESS_EDIT_MYSHEET = 'app/EditingPage/SUCCESS_EDIT_MYSHEET';
 
 // Setter constants for the editor
 export const REQUEST_SET_EDITORCONTENT = 'app/EditingPage/REQUEST_SET_EDITORCONTENT';
@@ -37,4 +40,5 @@ export const REQUEST_SET_LINKSHEET = 'app/EditingPage/REQUEST_SET_LINKSHEET';
 
 // Misc constants
 export const REQUEST_OPEN_DIALOGLINK = 'app/EditingPage/REQUEST_OPEN_DIALOGLINK';
+
 
