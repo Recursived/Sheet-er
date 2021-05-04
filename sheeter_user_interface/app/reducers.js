@@ -9,7 +9,7 @@ import history from 'utils/history';
 import themeProviderReducer from 'providers/ThemeProvider/reducer';
 import languageProviderReducer from 'providers/LanguageProvider/reducer';
 import globalReducer from 'containers/App/reducer';
-
+import editingReducer from 'containers/EditingPage/reducer';
 
 /**
  * Merges the main reducer with the router state and dynamically injected reducers
@@ -19,6 +19,7 @@ export default function createReducer(injectedReducers = {}) {
     language: languageProviderReducer,
     theme: themeProviderReducer,
     global: globalReducer,
+    editingPage: editingReducer,
     router: connectRouter(history),
     ...injectedReducers,
   });
