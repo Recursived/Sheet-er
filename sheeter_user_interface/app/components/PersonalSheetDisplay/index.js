@@ -8,7 +8,9 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
+  Card,
   Grid,
+  makeStyles,
   Typography,
   Zoom
 } from '@material-ui/core';
@@ -20,7 +22,11 @@ import InfiniteScroll from 'react-infinite-scroller';
 
 // Selectors and actions imports
 import makeSelectProfilePage from 'containers/ProfilePage/selectors';
-import { requestGetMySheets } from 'containers/ProfilePage/actions';
+import { 
+  requestGetMySheets, 
+  requestOpenSheetDialog,
+  requestSetSheetData 
+} from 'containers/ProfilePage/actions';
 
 // Components import
 import SheetPreviewCard from 'components/SheetPreviewCard/Loadable';
@@ -29,12 +35,19 @@ import SheetPreviewCard from 'components/SheetPreviewCard/Loadable';
 import messages from './messages';
 
 
+const useStyle = makeStyles((theme) => ({
+  cardinfo: {
+    backgroundColor: theme.palette.info.light,
+    color: theme.palette.getContrastText(theme.palette.info.light)
+  },
 
+}));
 
 
 
 function PersonalSheetDisplay(props) {
   const { dispatch, profilePage } = props;
+  const classes = useStyle();
 
   React.useEffect(() => {
     if (profilePage.sheet_list === null) {
@@ -78,8 +91,8 @@ function PersonalSheetDisplay(props) {
                     sheetId={data.id}
                     context={profilePage}
                     clickHandler={() => {
-                      // dispatch(requestSetLinkIDSheet(data.id));
-                      // dispatch(requestOpenLinkSheetDialog(false))
+                      dispatch(requestSetSheetData(data));
+                      dispatch(requestOpenSheetDialog())
                     }}
                   />
                 </Grid>
@@ -88,11 +101,11 @@ function PersonalSheetDisplay(props) {
           </Grid>
         </InfiniteScroll>
       ) : (
-        <Box>
-          <Typography variant="h3" align="center">
+        <Card className={classes.cardinfo}>
+          <Typography variant="h4" align="center">
             <FormattedMessage {...messages.nosheettext} />
           </Typography>
-        </Box>
+        </Card>
       )}
     </Zoom>
   );
