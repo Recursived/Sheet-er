@@ -50,9 +50,7 @@ function PersonalSheetDisplay(props) {
   const classes = useStyle();
 
   React.useEffect(() => {
-    if (profilePage.sheet_list === null) {
       dispatch(requestGetMySheets());
-    }
   }, [profilePage]);
 
 

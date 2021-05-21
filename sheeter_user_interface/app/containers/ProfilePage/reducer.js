@@ -10,7 +10,8 @@ import {
   SUCCESS_GET_MYSHEETS,
   REQUEST_SET_SHEETDATA,
   REQUEST_CLOSE_SHEETDIALOG,
-  REQUEST_OPEN_SHEETDIALOG
+  REQUEST_OPEN_SHEETDIALOG,
+  REQUEST_CLEAR_MYSHEETS
 } from './constants';
 
 export const initialState = {
@@ -34,6 +35,9 @@ const profilePageReducer = (state = initialState, action) =>
         break;
       case SUCCESS_GET_MYSHEETS:
         draft.sheet_list = action.data;
+        break;
+      case REQUEST_CLEAR_MYSHEETS:
+        draft.sheet_list = null;
         break;
       case REQUEST_SET_SHEETDATA:
         draft.sheet = action.sheet;

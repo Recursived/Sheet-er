@@ -50,6 +50,7 @@ export function* handleRequestGetMySheets() {
   const api = getApi(RETRIEVE_SHEETAPI);
   yield api.init();
   const client = yield api.getClient();
+  console.log("zfioh");
   try {
     const user_info = yield select(makeSelectUserInfo());
     const profilepage_info = yield select(makeSelectProfilePage());
@@ -57,6 +58,7 @@ export function* handleRequestGetMySheets() {
     if (profilepage_info.sheet_list === null) {
       var page = 1;
     } else {
+      page = 1;
       if (profilepage_info.sheet_list.next !== null) {
         let reg = /page=([1-9]+)/g;
         var page = reg.exec(profilepage_info.sheet_list .next)[1];

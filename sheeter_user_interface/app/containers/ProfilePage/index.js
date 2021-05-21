@@ -30,7 +30,7 @@ import SheetDashboardDialog from 'components/SheetDashboardDialog/Loadable';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { requestGetMySheets } from 'containers/ProfilePage/actions';
+import { requestGetMySheets, requestClearMySheets } from 'containers/ProfilePage/actions';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -48,13 +48,16 @@ export function ProfilePage(props) {
   useInjectReducer({ key: 'profilePage', reducer });
   useInjectSaga({ key: 'profilePage', saga });
   const classes = useStyles();
-  const { dispatch, intl, userInfo } = props;
+  const { dispatch, intl, userInfo, location } = props;
   const name = userInfo.user.first_name + " "
     + userInfo.user.last_name;
 
   React.useEffect(() => {
+    dispatch(requestClearMySheets());
     dispatch(requestGetMySheets());
-  }, [])
+  }, [location.pathname]);
+
+
   return (
     <React.Fragment>
 

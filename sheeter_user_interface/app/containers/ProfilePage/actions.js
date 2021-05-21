@@ -12,7 +12,8 @@ import {
   SUCCESS_GET_MYSHEETS,
   REQUEST_SET_SHEETDATA,
   REQUEST_CLOSE_SHEETDIALOG,
-  REQUEST_OPEN_SHEETDIALOG
+  REQUEST_OPEN_SHEETDIALOG,
+  REQUEST_CLEAR_MYSHEETS
 } from './constants';
 
 export function requestSetType(sheettype) {
@@ -45,6 +46,12 @@ export function requestSucessGetSheetType(sheettypes) {
 export function requestGetMySheets(){
   return {
     type: REQUEST_GET_MYSHEETS
+  }
+}
+
+export function requestClearMySheets(){
+  return {
+    type: REQUEST_CLEAR_MYSHEETS
   }
 }
 
