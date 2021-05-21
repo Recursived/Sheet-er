@@ -16,5 +16,10 @@ export default defineMessages({
   routeNotfoundpage: {
     id: `${scope}.routeNotfoundpage`,
     defaultMessage: 'Oops - 404',
+  },
+
+  buttonreturn: {
+    id: `${scope}.buttonreturn`,
+    defaultMessage: 'Return to homepage',
   }
 });
