@@ -8,6 +8,9 @@
 import React, { memo } from 'react';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import { FormattedMessage } from 'react-intl';
+import messages from './messages';
+import { Divider } from '@material-ui/core';
 
 
 function AboutSetting(props) {
@@ -19,9 +22,20 @@ function AboutSetting(props) {
 
   return (
     <CardContent>
-      <Typography color="textSecondary" gutterBottom>
-        About Sheeter
+      <Typography color="textPrimary" variant="h6" gutterBottom>
+        <FormattedMessage {...messages.titlehelpeditorsection} />
       </Typography>
+      <Typography variant="body1">
+        <FormattedMessage {...messages.bodyhelpeditor} />
+      </Typography>
+
+      <a href="http://asciimath.org/">
+        <Typography color="textSecondary">
+          http://asciimath.org/
+          </Typography>
+      </a>
+
+
     </CardContent>
   );
 }

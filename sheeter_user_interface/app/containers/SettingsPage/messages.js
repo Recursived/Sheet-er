@@ -13,4 +13,24 @@ export default defineMessages({
     id: `${scope}.routeSettingsPage`,
     defaultMessage: 'Settings',
   },
+
+  tablanguage: {
+    id: `${scope}.tablanguage`,
+    defaultMessage: 'Language',
+  },
+
+  tabtheme: {
+    id: `${scope}.tabtheme`,
+    defaultMessage: 'Theme',
+  },
+
+  tablogout: {
+    id: `${scope}.tablogout`,
+    defaultMessage: 'Log out',
+  },
+
+  tababout: {
+    id: `${scope}.tababout`,
+    defaultMessage: 'About / Help',
+  },
 });

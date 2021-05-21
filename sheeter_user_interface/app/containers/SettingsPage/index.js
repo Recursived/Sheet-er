@@ -39,6 +39,8 @@ import AccountSetting from 'components/SheeterSetting/AccountSetting';
 import LanguageSetting from 'components/SheeterSetting/LanguageSetting';
 
 import { requestSettingsChangePage } from './actions';
+import { FormattedMessage } from 'react-intl';
+import messages from './messages';
 
 const drawerWidth = 240;
 
@@ -68,14 +70,18 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '3%',
     minWidth: 275,
   },
+
   bullet: {
     display: 'inline-block',
     margin: '0 2px',
     transform: 'scale(0.8)',
   },
+
   pos: {
     marginBottom: 12,
   },
+
+
 }));
 
 export function SettingsPage(props) {
@@ -87,6 +93,10 @@ export function SettingsPage(props) {
   const setCurrentTab = (tab) => {
     dispatch(requestSettingsChangePage(tab));
   }
+
+  React.useEffect(() => {
+    setCurrentTab(<AboutSetting />);
+  }, []);
 
   return (
     <div>
@@ -104,27 +114,22 @@ export function SettingsPage(props) {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            <ListItem button key="Account" onClick={() => { setCurrentTab(<AccountSetting />) }}>
-              <ListItemIcon> <AccountCircleIcon /> </ListItemIcon>
-              <ListItemText primary="Account" />
-            </ListItem>
-            <Divider />
             <ListItem button key="Language" onClick={() => { setCurrentTab(<LanguageSetting />) }}>
               <ListItemIcon> <LanguageIcon /> </ListItemIcon>
-              <ListItemText primary="Language" />
+              <ListItemText primary={<FormattedMessage {...messages.tablanguage}/>} />
             </ListItem>
             <ListItem button key="Theme" onClick={() => { setCurrentTab(<ThemeSetting />) }}>
               <ListItemIcon> <Brightness6Icon /> </ListItemIcon>
-              <ListItemText primary="Theme" />
+              <ListItemText primary={<FormattedMessage {...messages.tabtheme}/>} />
             </ListItem>
             <Divider />
             <ListItem button key="Log out" onClick={() => { dispatch(isRequestLogOutAction()); }}>
               <ListItemIcon> <ExitToApp /> </ListItemIcon>
-              <ListItemText primary="Log out" />
+              <ListItemText primary={<FormattedMessage {...messages.tablogout}/>} />
             </ListItem>
             <ListItem button key="About" onClick={() => { setCurrentTab(<AboutSetting />) }}>
               <ListItemIcon> <InfoIcon /> </ListItemIcon>
-              <ListItemText primary="About" />
+              <ListItemText primary={<FormattedMessage {...messages.tababout}/>} />
             </ListItem>
           </List>
         </div>

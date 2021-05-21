@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { memo } from 'react';
 import { Box, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -73,6 +73,7 @@ export function EditingPage(props) {
   const classes = useStyles();
   const intl = props.intl;
   const {dispatch, editing } = props;
+  // console.log("props",props);
 
   useInjectReducer({ key: 'editingPage', reducer });
   useInjectSaga({ key: 'editingPage', saga });
@@ -132,5 +133,6 @@ const withConnect = connect(
 
 export default compose(
   withConnect,
-  injectIntl
+  injectIntl,
+  memo
 )(EditingPage);

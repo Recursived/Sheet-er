@@ -50,7 +50,6 @@ export function* handleRequestGetMySheets() {
   const api = getApi(RETRIEVE_SHEETAPI);
   yield api.init();
   const client = yield api.getClient();
-  console.log("zfioh");
   try {
     const user_info = yield select(makeSelectUserInfo());
     const profilepage_info = yield select(makeSelectProfilePage());
