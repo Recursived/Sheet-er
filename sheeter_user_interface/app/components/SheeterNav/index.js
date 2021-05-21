@@ -100,9 +100,6 @@ function SheeterNav(props) {
               </Grid>
             </Grid>
             <Grid item>
-              <NavSearchBar />
-            </Grid>
-            <Grid item>
               {isLogged ? (
                 <NavDropMenu />
               ) : (
