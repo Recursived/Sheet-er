@@ -13,9 +13,11 @@ class SheetViewSet(viewsets.ModelViewSet):
     """
     queryset = Sheet.objects.all()
     serializer_class = SheetSerializer
-    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend, filters.OrderingFilter]
     filterset_fields = ['subject__id', 'author']
-    search_fields = ['title']
+    search_fields = ['title', 'content', 'descr', 'subject__label', 'tags__label']
+    ordering_fields = ['nb_click']
+    ordering = ['nb_click', 'subject__label','title']
 
 
 class SheetCommentViewSet(viewsets.ModelViewSet):
