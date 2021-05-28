@@ -31,7 +31,7 @@ import {
 const useStyles = makeStyles((theme) => ({
   bullet: {
     display: 'inline-block',
-    margin: '0 3px',
+    margin: '0 10px',
     transform: 'scale(0.8)',
   },
 
@@ -67,7 +67,7 @@ function SheetPreviewCard(props) {
   }
 
   return (
-    <Card 
+    <Card
       onMouseEnter={() => setNoWrap(false)}
       onMouseLeave={() => setNoWrap(true)}
       id={sheetId}
@@ -76,10 +76,12 @@ function SheetPreviewCard(props) {
       onClick={clickHandler}
     >
       <CardContent>
-        <Typography variant="h5" component="h2">
-          {data.title}
-          <span className={classes.bullet}>•</span>
+        <Typography variant="h5" component="h2" noWrap={noWrap}>
+
           {countryToFlag(codeToLocale[data.locale])}
+          <span className={classes.bullet}>•</span>
+          {data.title}
+
         </Typography>
         <Divider variant="fullWidth" />
         <Typography color="textSecondary">

@@ -13,18 +13,37 @@ import { injectIntl, intlShape } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+
+import makeSelectHomePage from './selectors';
+import { Container, Grid, makeStyles } from '@material-ui/core';
+
+// Components import
+import MainSearchbar from 'components/MainSearchbar/Loadable';
+import MainSheetDisplay from 'components/MainSheetDisplay/Loadable';
+
+// Misc imports
 import { useInjectReducer } from 'utils/injectReducer';
 import { useInjectSaga } from 'utils/injectSaga';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
-import makeSelectHomePage from './selectors';
+
+
+const useStyle = makeStyles((theme) => ({
+  container: {
+    paddingTop: '15vh'
+  }
+
+
+}));
+
 
 export function HomePage(props) {
   useInjectReducer({ key: 'homePage', reducer });
   useInjectSaga({ key: 'homePage', saga });
 
   const { dispatch, intl } = props;
+  const classes = useStyle();
 
 
   return (
@@ -32,12 +51,36 @@ export function HomePage(props) {
       <Helmet>
         <title>{intl.formatMessage(messages.routeHomepage)}</title>
       </Helmet>
-      <h1><Link to="/sheet/1">dfefzed</Link></h1>
-      <h1><Link to="/sheet/2">dfefzed</Link></h1>
+      <Container maxWidth="lg" className={classes.container}>
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="stretch"
+          spacing={5}
+        >
+          <Grid xs={12} item>
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+              spacing={5}
+            >
+              <Grid xs={2} item></Grid>
+              <Grid xs={8} item><MainSearchbar /></Grid>
+              <Grid xs={2} item></Grid>
+              
+            </Grid>
+            
+          </Grid>
+          <Grid xs={12} item>
+            <MainSheetDisplay />
+          </Grid>
 
-      <h1><Link to="/sheet/3">dfefzed</Link></h1>
-      <h1><Link to="/sheet/4">dfefzed</Link></h1>
-      <h1><Link to="/sheet/5">dfefzed</Link></h1>
+        </Grid>
+
+      </Container>
     </div>
   );
 }

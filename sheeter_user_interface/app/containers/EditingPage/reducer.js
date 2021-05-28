@@ -128,7 +128,6 @@ const editingPageReducer = (state = initialState, action) =>
         draft.link_sheets_data = action.link_sheet;
         break;
       case SUCCESS_EDIT_MYSHEET:
-        console.log(action.sheet);
         draft.editor_content_sheet = JSON.parse(action.sheet.content);
         draft.title_sheet = action.sheet.title;
         draft.locale_sheet = action.sheet.locale;

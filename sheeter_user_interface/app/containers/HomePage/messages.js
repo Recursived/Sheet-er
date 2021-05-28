@@ -22,6 +22,10 @@ export default defineMessages({
   routeHomepage: {
     id: `${scope}.routeHomepage`,
     defaultMessage: 'Sheeter - Homepage',
-  }
+  },
 
+  errorsearchsheet: {
+    id: `${scope}.errorsearchsheet`,
+    defaultMessage: 'An error occured while trying to look for Sheets...',
+  }
 });

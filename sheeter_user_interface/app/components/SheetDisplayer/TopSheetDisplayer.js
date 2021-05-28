@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     card: {
-        maxWidth: '25vw',
+        maxWidth: '35vw',
         [theme.breakpoints.down('sm')]: {
             maxWidth: '90vw',
         },
