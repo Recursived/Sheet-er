@@ -9,10 +9,6 @@ import { defineMessages } from 'react-intl';
 export const scope = 'app.containers.SheetPage';
 
 export default defineMessages({
-  header: {
-    id: `${scope}.header`,
-    defaultMessage: 'This is the SheetPage container!',
-  },
 
   sheetroute: {
     id: `${scope}.sheetroute`,

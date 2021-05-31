@@ -33,7 +33,6 @@ export function* requestSheetInfoSaga() {
   yield userapi.init();
   yield sheetapi.init();
   const clientsheet = yield sheetapi.getClient();
-  const clientuser = yield userapi.getClient();
   try {
     const user_info = yield select(makeSelectUserInfo());
     const sheet_info = yield select(makeSelectSheetPage())

@@ -14,7 +14,7 @@ import {
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import queryString from 'query-string';
@@ -26,12 +26,12 @@ import { useInjectReducer } from 'utils/injectReducer';
 // Components imports
 import SheetDisplayer from 'components/SheetDisplayer/Loadable';
 import TopSheetDisplayer from 'components/SheetDisplayer/TopSheetDisplayer';
-import BottomSheetDisplayer from 'components/SheetDisplayer/BottomSheetDisplayer';
 
 // Misc imports
 import makeSelectMobileSheetPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { requestGetSheet } from './actions';
 import { ErrorBoundary } from 'utils/utils';
 import messages from './messages';
 
@@ -44,23 +44,37 @@ const useStyles = makeStyles(theme => ({
   },
 
   errormessage: {
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: '35vh'
+
+    },
     paddingTop: '50vh'
   }
 }));
 
 export function MobileSheetPage(props) {
   const classes = useStyles();
+  const { dispatch, intl, mobileSheetPage } = props;
   useInjectReducer({ key: 'mobileSheetPage', reducer });
   useInjectSaga({ key: 'mobileSheetPage', saga });
   const qsdata = queryString.parse(props.location.search);
+  console.log(qsdata);
+
+  React.useEffect(() => {
+    dispatch(requestGetSheet(qsdata.id_sheet, qsdata.token));
+    console.log("test");
+  }, []);
+
+
 
 
   return (
     <div>
       <Helmet>
-        <title>MobileSheetPage</title>
-        <meta name="description" content="Description of MobileSheetPage" />
+        <title>{intl.formatMessage(messages.sheetroute, {title: mobileSheetPage.sheet === null ? "" : mobileSheetPage.sheet.title})}</title>
+        <meta name="description" content="Description of SheetPage" />
       </Helmet>
+      
       <ErrorBoundary
         error={<Typography className={classes.errormessage} variant="h3" align="center"><FormattedMessage {...messages.errordisplaysheet} /></Typography>}
       >
@@ -73,10 +87,10 @@ export function MobileSheetPage(props) {
             spacing={2}
           >
             <Grid xs={12} item>
-              <TopSheetDisplayer data={qsdata.data} />
+              <TopSheetDisplayer data={mobileSheetPage.sheet} />
             </Grid>
             <Grid xs={12} item>
-              <SheetDisplayer data={qsdata.data} />
+              <SheetDisplayer data={mobileSheetPage.sheet} />
             </Grid>
           </Grid>
 
@@ -88,6 +102,8 @@ export function MobileSheetPage(props) {
 
 MobileSheetPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  intl: intlShape.isRequired,
+  mobileSheetPage: PropTypes.object.isRequired
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -108,4 +124,5 @@ const withConnect = connect(
 export default compose(
   withConnect,
   memo,
+  injectIntl
 )(MobileSheetPage);

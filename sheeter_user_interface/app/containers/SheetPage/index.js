@@ -59,7 +59,6 @@ export function SheetPage(props) {
         <title>{intl.formatMessage(messages.sheetroute, {title: sheetPage.title})}</title>
         <meta name="description" content="Description of SheetPage" />
       </Helmet>
-      <FormattedMessage {...messages.header} />
       <Container maxWidth="md" className={classes.container}>
         <Grid
           container

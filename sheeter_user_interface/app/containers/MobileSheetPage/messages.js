@@ -23,4 +23,14 @@ export default defineMessages({
     id: `${scope}.errordisplaysheet`,
     defaultMessage: 'Oops... We could not display the sheet',
   },
+
+  errormessage: {
+    id: `${scope}.errormessage`,
+    defaultMessage: 'We could not retrieve the selected sheet',
+  },
+
+  sheetroute: {
+    id: `${scope}.sheetroute`,
+    defaultMessage: 'Sheet : {title}',
+  },
 });
